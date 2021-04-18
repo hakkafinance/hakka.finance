@@ -1,0 +1,2 @@
+(self.webpackChunkhakka=self.webpackChunkhakka||[]).push([[737],{8984:function(e,n,a){"use strict";a.r(n);var t=a(7294),u=a(8597),l=a(7554);n.default=function(){return t.createElement(l.Z,null,t.createElement(u.Z,null))}}}]);
+//# sourceMappingURL=component---src-pages-products-js-f5173c8e23681a704d8e.js.map
