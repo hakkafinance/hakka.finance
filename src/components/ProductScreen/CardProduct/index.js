@@ -54,7 +54,7 @@ const CardPorduct = props => {
 }
 CardPorduct.propTypes = {
   cardData: types.object,
-  onShowInfo: types.bool,
+  onShowInfo: types.func,
   selectedCard: types.string
 }
 export default CardPorduct

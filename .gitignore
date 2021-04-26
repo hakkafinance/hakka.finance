@@ -6,8 +6,6 @@
 # Node artifact files
 node_modules/
 dist/
-yarn.lock
-package-lock.json
 
 # Compiled Java class files
 *.class
@@ -24,15 +22,6 @@ package-lock.json
 # Maven
 target/
 dist/
-
-# Build Path of Test Fixtures
-test/**/public
-.gatsby-context.js
-public/
-e2e-tests/gatsby-pnp/
-__diff_output__/
-.netlify
-.Rhistory
 
 # JetBrains IDE
 .idea/
