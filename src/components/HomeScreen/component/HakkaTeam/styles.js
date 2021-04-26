@@ -50,12 +50,11 @@ export default {
 
   hakkaTeamName: {
     // marginBottom: '8px',
-    fontSize: [4, 5, 6, 6],
+    fontSize: [4, 5, 5, 5],
     fontWeight: 600,
     lineHeight: '28px',
     color: 'black',
     '@media screen and (max-width: 576px)': {
-      paddingTop: '18px',
       textAlign: 'center'
     }
   },

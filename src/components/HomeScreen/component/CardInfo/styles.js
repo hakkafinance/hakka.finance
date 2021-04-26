@@ -9,12 +9,14 @@ export default {
       // maxWidth: '400px'
     }
   },
+  // big green card
   cardFirstContainer: {
     padding: '20px',
     border: '1px solid #6ad7a8',
     borderRadius: '8px',
     height: '100%',
-    maxHeight: '200px',
+    maxHeight: '250px',
+    minHeight: '200px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -42,8 +44,10 @@ export default {
     }
   },
 
+  // small cards
   cardContainer: {
-    maxHeight: '200px',
+    maxHeight: '250px',
+    minHeight: '200px',
     padding: '20px',
     border: '1px solid #ebf0f2',
     height: '100%',
@@ -104,6 +108,7 @@ export default {
     color: '#253e47',
     // margin: '12px 0',
     fontWeight: 'bold',
+    fontFamily: 'system-ui',
     fontSize: [3, 3, 4, 5]
   },
 
@@ -112,6 +117,7 @@ export default {
     color: '#253e47',
     // margin: '12px 0',
     fontWeight: 'bold',
+    fontFamily: 'system-ui',
     fontSize: [3, 3, 4, 5]
   },
   subText: {

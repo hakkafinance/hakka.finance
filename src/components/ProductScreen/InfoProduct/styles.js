@@ -20,7 +20,8 @@ export default {
       opacity: '1'
     },
     '@media screen and (max-width: 1180px)': {
-      display: 'flex'
+      display: 'flex',
+      alignItems: 'flex-end'
     }
 
   },
@@ -30,6 +31,7 @@ export default {
   infoTitle_name: {
     fontSize: [5, 5, 6, 7],
     fontWeight: '700',
+    fontFamily: 'system-ui',
     color: 'black'
   },
   icon_delete: {
@@ -55,7 +57,10 @@ export default {
   tag_box: {
     backgroundColor: 'active_green',
     padding: '6px 12px',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    color: 'black',
+    fontSize: [1, 1, 2, 3]
+
   },
   btn_section: {
     padding: '0 20px',

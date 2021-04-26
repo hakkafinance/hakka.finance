@@ -1,16 +1,34 @@
 /** @jsx jsx */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { jsx } from 'theme-ui'
 import { Box, Flex, Text } from 'rebass'
 import images from 'src/images'
 import styles from './styles'
+import types from 'prop-types'
+
 const CardPorduct = props => {
-  const { icon, cardName } = props
+  const { cardData, onShowInfo, selectedCard, isShowInfoProduct } = props
+  const { icon, cardName } = cardData
+  const [isShowInfo, setIsShowInfo] = useState(false)
+  // console.log('is close when click x', !!isShowInfoProduct)
+  const handleIsShowInfo = () => {
+    onShowInfo(!isShowInfo)
+    setIsShowInfo(!isShowInfo)
+  }
+
+  const handleCheckSelectedCard = () => {
+    const result = cardName === selectedCard
+    setIsShowInfo(result)
+    // console.log(result)
+  }
+  useEffect(() => {
+    handleCheckSelectedCard()
+  }, [selectedCard])
   return (
         <>
-            <Box sx={styles.card} >
-                <Flex justifyContent="space-between">
-                    <Box >
+            <Box sx={isShowInfo ? styles.card_active : styles.card} className="card-active" >
+                <Flex sx={styles.card_link} justifyContent="space-between">
+                    <Box>
                         <img sx={styles.img_icon} src={icon}/>
                     </Box>
                     <Box >
@@ -21,15 +39,22 @@ const CardPorduct = props => {
                     </Box>
                 </Flex>
 
-                <Flex sx={styles.card_content} mt="auto" >
-                    <Text sx={styles.card_text}>{cardName}</Text>
+                <Flex onClick={handleIsShowInfo} sx={styles.card_content} pt="0px" mt="auto" >
+                    <Text sx={styles.card_text} className="card-text" dangerouslySetInnerHTML={{ __html: cardName.replace(/\n/gmi, '<br/>') }}></Text>
                     <Flex justifyContent="space-between">
-                        <Box sx={styles.dropdown_text}>Learn more</Box>
-                        <img src={images.iconDown} />
+                        <Box sx={styles.dropdown_text} className="dropdown-text">Learn more</Box>
+                        <Flex alignItems="flex-end">
+                            <img className="bottom-right-icon" src={ isShowInfo ? images.iconUp : images.iconDown} />
+                        </Flex>
                     </Flex>
                 </Flex>
             </Box>
         </>
   )
+}
+CardPorduct.propTypes = {
+  cardData: types.object,
+  onShowInfo: types.bool,
+  selectedCard: types.string
 }
 export default CardPorduct

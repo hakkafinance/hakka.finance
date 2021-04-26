@@ -27,20 +27,20 @@ const HomeScreen = (props) => {
     }
   ]
 
-  const chainTokens = [
-    {
-      imageCoin: 'iconInch',
-      coinName: '1inch'
-    },
-    {
-      imageCoin: 'iconUniswap',
-      coinName: 'Uniswap'
-    },
-    {
-      imageCoin: 'iconBalancer',
-      coinName: 'Balancer'
-    }
-  ]
+  // const chainTokens = [
+  //   {
+  //     imageCoin: 'iconInch',
+  //     coinName: '1inch'
+  //   },
+  //   {
+  //     imageCoin: 'iconUniswap',
+  //     coinName: 'Uniswap'
+  //   },
+  //   {
+  //     imageCoin: 'iconBalancer',
+  //     coinName: 'Balancer'
+  //   }
+  // ]
 
   const partnersImg = [
     {
@@ -64,7 +64,7 @@ const HomeScreen = (props) => {
     return partnersImg.map((item) => {
       return (
             <Flex sx={styles.imgPartner_wrapper} key={item.img} >
-              <img sx={styles.imgPartner} mr="28px" src={images[item.img]} alt="" />
+              <img sx={styles.imgPartner} src={images[item.img]} alt="" />
             </Flex>
       )
     })
@@ -119,6 +119,10 @@ const HomeScreen = (props) => {
             <Box sx={styles.blur_img_blue}></Box>
           </Box>
 
+          <Box sx={styles.blur_img_green_section_mobile}>
+            <Box sx={styles.blur_img_green_mobile}></Box>
+          </Box>
+
           <Box sx={styles.utilityHakka}>
             <UtilityHakka />
           </Box>
@@ -131,6 +135,10 @@ const HomeScreen = (props) => {
 
           <Box sx={styles.blur_img_green_section}>
             <Box sx={styles.blur_img_green}></Box>
+          </Box>
+
+          <Box sx={styles.blur_img_blue_section_mobile}>
+            <Box sx={styles.blur_img_blue_mobile}></Box>
           </Box>
           <Box ><HakkaTeam /></Box>
         </Box>

@@ -25,6 +25,15 @@ package-lock.json
 target/
 dist/
 
+# Build Path of Test Fixtures
+test/**/public
+.gatsby-context.js
+public/
+e2e-tests/gatsby-pnp/
+__diff_output__/
+.netlify
+.Rhistory
+
 # JetBrains IDE
 .idea/
 ./.cache/

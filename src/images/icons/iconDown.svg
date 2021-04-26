@@ -3,8 +3,14 @@
         <g>
             <g>
                 <g>
-                    <path d="M0 0H24V24H0z" transform="translate(-850 -336) translate(626 204) translate(224 132)"/>
-                    <path fill="#253E47" fill-opacity=".5" fill-rule="nonzero" d="M7.988 5.309c.266-.266.682-.29.976-.073l.084.073 6.964 6.964c.267.267.29.683.073.977l-.073.084-6.964 6.964c-.293.293-.768.293-1.06 0-.267-.266-.29-.683-.073-.976l.073-.084 6.433-6.435L7.988 6.37c-.267-.267-.29-.683-.073-.977l.073-.084z" transform="translate(-850 -336) translate(626 204) translate(224 132) rotate(90 12 12.804)"/>
+                    <g>
+                        <g>
+                            <g>
+                                <path d="M0 0H24V24H0z" transform="translate(-598 -1158) translate(30 134) translate(211 832) translate(89) translate(60 60) translate(208 132)"/>
+                                <path fill="#2DA287" fill-rule="nonzero" d="M7.988 5.309c.266-.266.682-.29.976-.073l.084.073 6.964 6.964c.267.267.29.683.073.977l-.073.084-6.964 6.964c-.293.293-.768.293-1.06 0-.267-.266-.29-.683-.073-.976l.073-.084 6.433-6.435L7.988 6.37c-.267-.267-.29-.683-.073-.977l.073-.084z" transform="translate(-598 -1158) translate(30 134) translate(211 832) translate(89) translate(60 60) translate(208 132) rotate(90 12 12.804)"/>
+                            </g>
+                        </g>
+                    </g>
                 </g>
             </g>
         </g>

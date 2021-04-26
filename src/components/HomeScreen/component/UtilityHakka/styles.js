@@ -61,7 +61,8 @@ export default {
     // margin: '20px 0',
     fontSize: [3, 3, 4, 5],
     color: '#253e47',
-    fontWeight: '600'
+    fontWeight: '700',
+    fontFamily: 'system-ui'
   },
 
   detailsInfo: {

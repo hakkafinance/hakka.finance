@@ -22,17 +22,9 @@ export default {
     // heading: 'system-ui, sans-serif',
     // monospace: 'Menlo, monospace'
     // body: 'Open Sans, sans-serif',
-    body: 'Open Sans, sans-serif',
+    body: 'Open Sans, system-ui',
     heading: 'Georgia, serif',
     monospace: 'Menlo, monospace'
-    // body: {
-    //   '@font-face': {
-    //     fontFamily: 'Open Sans',
-    //     src: 'url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700)'
-    //   }
-    // }
-
-    // body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
   },
   fontWeights: {
     semi: 600,
