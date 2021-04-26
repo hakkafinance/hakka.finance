@@ -29,9 +29,11 @@ const images = {
 
   // action icons
   iconDown: require('../images/icons/iconDown.svg').default,
+  iconUp: require('../images/icons/iconUp.svg').default,
   iconRight: require('../images/icons/iconRight.svg').default,
   iconRightGrey: require('../images/icons/iconRightGrey.svg').default,
   iconDelete: require('../images/icons/iconDelete.svg').default,
+  iconDeleteRound: require('../images/icons/iconDeleteRound.svg').default,
 
   /// home icon
   iconLight: require('../images/icons/iconLight.svg').default,
@@ -51,6 +53,7 @@ const images = {
   iconUser: require('../images/icons/iconUser.png').default,
   iconLinkSmallGreen: require('../images/icons/iconLinkSmallGreen.svg').default,
   iconMenu: require('../images/icons/iconMenu.svg').default,
+  iconSnapshot: require('../images/icons/iconSnapshot.svg').default,
 
   /// icon token
   iconCoingecko: require('../images/icons/iconCoingecko.png').default,

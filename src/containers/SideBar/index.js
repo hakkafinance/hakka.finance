@@ -8,6 +8,7 @@ import images from 'src/images'
 import SideBarItem from './SideBarItem'
 import MyButton from 'src/components/Common/MyButton'
 import { navigate } from 'gatsby'
+import { get } from 'lodash'
 
 const topSideBarItems = [
   {
@@ -27,7 +28,8 @@ const botSideBarItems = [
   {
     name: 'governance',
     icon: images.iconGovernance,
-    path: 'governance'
+    path: 'governance',
+    subIcon: images.iconSnapshot
 
   },
   {
@@ -51,6 +53,7 @@ const botSideBarItems = [
 ]
 
 function SideBar (props) {
+  const { onCloseSideBar } = props
   const [selectedNav, setSelectedNav] = useState('')
 
   const onSelectNavItem = (path) => () => {
@@ -59,11 +62,13 @@ function SideBar (props) {
 
     // console.log(path);
   }
-
+  const handleCloseSideBar = () => {
+    onCloseSideBar(false)
+  }
   const renderTopSideBar = () => {
     return topSideBarItems.map((it, idx) => {
       return (
-        <Box key={it.name} onClick={onSelectNavItem(it.path)} >
+        <Box key={it.name} onClick={onSelectNavItem(it.path)}>
               <SideBarItem
                 selectedNav={selectedNav}
                 icon={it.icon}
@@ -84,56 +89,64 @@ function SideBar (props) {
             icon={it.icon}
             text={it.name}
             path={it.path}
+            subIcon={get(it, 'subIcon')}
           />
         </Box>
       )
     })
   }
   return (
-      <Box>
-        <Box sx={styles.sidebar}>
-          <Box sx={styles.custom_padding}>
-            <Box mt="2"><img src={images.hakkaLogo} /></Box>
-            <Box mt="3">{renderTopSideBar()}</Box>
+      <Box sx={styles.sidebar_responsive}>
+        <Flex flexDirection="column" justifyContent="space-between" sx={styles.sidebar}>
+          <Box>
+            <Box sx={styles.custom_padding}>
+              <Box sx={styles.sidebar_header} mt="2">
+                <img src={images.hakkaLogo} />
+                <img onClick={handleCloseSideBar} sx={styles.sidebar_closeBtn} src={images.iconDeleteRound}/>
+              </Box>
+              <Box mt="3">{renderTopSideBar()}</Box>
+            </Box>
+
+            <Box sx={styles.hl} ml="25px" mt="2" pr="0"></Box>
+
+            <Box sx={styles.custom_padding}>
+              <Box sx={styles.sidebar_subText} pl="3">DAO</Box>
+              <Box mt="2">{renderBotSideBar()}</Box>
+            </Box>
+
+            <Box sx={styles.hl} ml="25px" mt="2" pr="0"></Box>
+
+            <Box sx={styles.custom_padding}>
+              <Box sx={styles.sidebar_subText} pl="3">News</Box>
+
+                <Box sx={styles.medium_content} mt="2">
+                  <Flex alignItems="center">
+                    <img sx={styles.left_icon} src={images.iconMedium} alt />
+                    <Box sx={styles.bold_text} ml="2">Medium</Box>
+                  </Flex>
+                  <Flex mr="2">
+                    <img src={images.iconLinkSmall} />
+                  </Flex>
+                </Box>
+            </Box>
+
+            <Box sx={styles.hl} mt="2" pr="0"></Box>
           </Box>
 
-          <Box sx={styles.hl} ml="25px" mt="2" pr="0"></Box>
-
-          <Box sx={styles.custom_padding}>
-            <Box sx={styles.sidebar_subText} pl="3">DAO</Box>
-            <Box mt="2">{renderBotSideBar()}</Box>
-          </Box>
-
-          <Box sx={styles.hl} ml="25px" mt="2" pr="0"></Box>
-
-          <Box sx={styles.custom_padding}>
-            <Box sx={styles.sidebar_subText} pl="3">News</Box>
-
-            <Box sx={styles.medium_content} mt="2">
-              <Flex alignItems="center">
-                <img sx={styles.left_icon} src={images.iconMedium} alt />
-                <Box sx={styles.bold_text} ml="2">Medium</Box>
-              </Flex>
-              <Flex mr="2">
-                <img src={images.iconLinkSmall} />
-              </Flex>
+          <Box>
+            <Box p="12px">
+              <MyButton>
+                <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>
+              </MyButton>
+            </Box>
+            <Box sx={styles.bold_text_link} mb="12px" p="2" textAlign="center">
+              or{' '}
+              <Link sx={styles.bold_text_link} href="">
+                contact us
+              </Link>
             </Box>
           </Box>
-
-          <Box sx={styles.hl} mt="2" pr="0"></Box>
-
-          <Box p="12px">
-            <MyButton>
-              Learn More
-            </MyButton>
-          </Box>
-          <Box sx={styles.bold_text_link} p="2" textAlign="center">
-            or{' '}
-            <Link sx={styles.bold_text_link} href="">
-              contact us
-            </Link>
-          </Box>
-        </Box>
+        </Flex>
       </Box>
   )
 };

@@ -11,7 +11,7 @@ export default {
     display: 'flex',
     position: 'relative',
     padding: '20px 0',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     '@media screen and (max-width: 576px)': {
       position: 'unset',
       display: 'none'
@@ -26,6 +26,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'flex',
+      paddingTop: '12px',
       paddingBottom: '20px'
     }
   },
@@ -50,7 +51,7 @@ export default {
     display: 'none',
     cursor: 'pointer',
     '@media screen and (max-width: 768px)': {
-      display: 'flex',
+      display: 'none',
       paddingLeft: '50px'
     },
     '@media screen and (max-width: 576px)': {

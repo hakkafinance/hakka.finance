@@ -64,21 +64,21 @@ export default {
     borderRadius: '8px',
 
     '@media screen and (max-width: 576px)': {
-      paddingBottom: '12px'
+      // paddingBottom: '12px'
     }
   },
   imgChain_gray: {
     width: '40px',
     height: '40px',
     padding: '8px',
-    backgroundColor: '#f7fbfc',
+    // backgroundColor: '#f7fbfc',
     borderRadius: '8px',
     transition: 'all 0.25s ease-out',
-    filter: 'grayscale(100%)',
+    // filter: 'grayscale(100%)',
     opacity: '.5',
 
     '@media screen and (max-width: 576px)': {
-      paddingBottom: '12px'
+      // paddingBottom: '12px'
     }
   },
   width_big: {
@@ -155,7 +155,8 @@ export default {
   tokenMetricsSubHead: {
     fontSize: [2, 2, 3, 4],
     color: '#253e47',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: 'system-ui'
     // marginBottom: '20px'
   },
 

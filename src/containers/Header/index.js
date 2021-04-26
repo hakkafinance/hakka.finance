@@ -24,7 +24,11 @@ const Header = (props) => {
       url: 'iconGithub'
     }
   ]
+  const { toggleSidebar } = props
 
+  const handleToggleSidebar = () => {
+    toggleSidebar()
+  }
   const renderListIcon = () => {
     return listIcon.map((item, i) => {
       return (
@@ -38,7 +42,7 @@ const Header = (props) => {
   return (
     <>
       <Box sx={styles.headerContainer} width="100%" >
-        <Flex ><img sx={styles.iconMenuLeft} src={images.iconMenu} alt="" /></Flex>
+        {/* <Flex ><img sx={styles.iconMenuLeft} src={images.iconMenu} alt="" /></Flex> */}
         <Box>
           <img sx={styles.headerBg} src={images.headerLogo} />
         </Box>
@@ -47,7 +51,7 @@ const Header = (props) => {
 
       <Box sx={styles.mobile_header} justifyContent="space-between">
         <img sx={styles.logoRespon} src={images.hakkaLogo} alt="" />
-        <img sx={styles.iconMenu} src={images.iconMenu} alt="" />
+        <img onClick={handleToggleSidebar} sx={styles.iconMenu} src={images.iconMenu} alt="" />
       </Box>
       {/* </Box> */}
     </>

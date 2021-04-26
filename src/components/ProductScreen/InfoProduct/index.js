@@ -5,15 +5,22 @@ import { Box, Flex, Text } from 'rebass'
 import images from 'src/images'
 import styles from './styles'
 import MyButton from 'src/components/Common/MyButton'
+import types from 'prop-types'
 const InfoProduct = props => {
-  const { icon, cardName } = props
+  const { dataInfo, onClose } = props
+
+  const onCloseInfo = () => {
+    onClose(false)
+  }
   return (
         <>
           <Flex sx={styles.info_section}>
             <Box sx={styles.infoTitle}>
-                <Flex sx={styles.infoTitle_name} justifyContent="space-between" mt="32px">
-                    <Box>BlackholeSwap</Box>
-                    <img sx={styles.icon_delete_title} src={images.iconDelete}/>
+                <Flex sx={styles.infoTitle_name} mt="32px" justifyContent="space-between">
+                    <Box>{dataInfo}</Box>
+                    <Box sx={styles.icon_delete_title} onClick={onCloseInfo}>
+                        <img src={images.iconDeleteRound} />
+                    </Box>
                 </Flex>
                 <Flex mt="20px">
                     <Box sx={styles.tag_box}>#DEX</Box>
@@ -29,7 +36,7 @@ const InfoProduct = props => {
                                 BlackHoleSwap can therefore process transactions far exceeding its existing liquidity. Compared to other AMMs,
                                 BlackHoleSwap provides nearly infinite liquidity with the lowest price slippage, maximizing capital utilization.
                             </p>
-                            <img sx={styles.icon_delete} src={images.iconDelete}/>
+                            <img onClick={onCloseInfo} sx={styles.icon_delete} src={images.iconDeleteRound}/>
                         </Flex>
                     </Box>
                 <Box mt="56px">
@@ -43,5 +50,9 @@ const InfoProduct = props => {
           </Flex>
         </>
   )
+}
+InfoProduct.propTypes = {
+  dataInfo: types.string,
+  onClose: types.func
 }
 export default InfoProduct

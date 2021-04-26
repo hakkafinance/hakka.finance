@@ -36,14 +36,10 @@ function Footer () {
   return (
     <Box sx={styles.footerContainer}>
       <Flex
-        justifyContent= 'space-between'
-        alignItems= 'center'
         sx={styles.footerContent}
       >
         <Box><img sx={styles.logoFooter} src={images.logoGray} alt="" /></Box>
-        <Box>
-          <Flex mr="28px">{renderListIcon()}</Flex>
-        </Box>
+        <Flex sx={styles.footer_icons}>{renderListIcon()}</Flex>
       </Flex>
 
       <Text sx={styles.textCopy}>© Copyright 2021 HAKKA FINANCE</Text>

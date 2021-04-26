@@ -10,6 +10,8 @@ export default {
     borderTop: '1px solid #dae1e3',
     paddingTop: '27px',
     paddingBottom: '72px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     '@media screen and (max-width: 576px)': {
       justifyContent: 'center'
     }
@@ -33,7 +35,12 @@ export default {
       textAlign: 'center'
     }
   },
-
+  footer_icons: {
+    paddingRight: '28px',
+    '@media screen and (max-width: 576px)': {
+      paddingRight: '0px'
+    }
+  },
   imgIcon: {
     cursor: 'pointer',
     transition: '.3s all',

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import React from 'react'
-import { Box, Card, Flex, Heading } from 'rebass'
+import { Box, Card, Flex } from 'rebass'
 import styles from './styles'
 import images from 'src/images'
 
@@ -35,18 +35,18 @@ function CardInfo (props) {
             <img sx={styles.cardImg} src={images[item.imageTop]} alt="" />
           </Flex>
           <Box>
-            <Box sx={styles.cardHeading} mt="3" dangerouslySetInnerHTML={{ __html: item.title }}></Box>
+            <Box sx={styles.cardHeading} mt="3" mb="3" dangerouslySetInnerHTML={{ __html: item.title }}></Box>
 
             <Flex
               sx={styles.subContent}
               className="sub-content"
-              mt="3"
+              pt="0"
               justifyContent="space-between"
               alignItems="center"
             >
-              <span className="text" sx={styles.subTextGreen}>
+              <div className="text" sx={styles.subTextGreen}>
                 {item.subContent}
-              </span>
+              </div>
               <img sx={styles.forwardImg} src={images[item.imageBot]} alt="" />
             </Flex>
           </Box>
@@ -62,10 +62,10 @@ function CardInfo (props) {
             <Flex justifyContent="flex-end">
               <img sx={styles.cardFirstImg} src={images.iconLight} alt="" />
             </Flex>
-            <Box sx={styles.cardFirstHeading} mt="3">Roam Around <br/> Hakka Ecosystem</Box>
+            <Box sx={styles.cardFirstHeading} mt="3" mb="3">Roam Around <br/> Hakka Ecosystem</Box>
             <Flex
               sx={styles.subContent}
-              mt="3"
+              pt="0"
               className="sub-content"
               justifyContent="space-between"
               alignItems="center"

@@ -12,7 +12,8 @@ export default {
   homescreenSubTitle: {
     color: '#2da287',
     fontSize: [1, 1, 2, 3],
-    fontWeight: '600'
+    fontWeight: '600',
+    cursor: 'pointer'
   },
 
   spanLink: {
@@ -98,20 +99,25 @@ export default {
     ':first-child': {
       '@media screen and (max-width: 576px)': {
         width: '114px',
-        height: '48px'
+        height: '48px',
+        order: '2'
       }
     },
     ':nth-child(2)': {
       '@media screen and (max-width: 576px)': {
         width: '114px',
-        height: '48px'
+        height: '48px',
+        order: '1',
+        paddingRight: '28px'
       }
     },
 
     ':last-child': {
       '@media screen and (max-width: 576px)': {
         width: '284px',
-        height: '50px'
+        height: '58px',
+        // paddingTop: '12px',
+        order: '3'
       }
     }
   },
@@ -143,6 +149,7 @@ export default {
       display: 'none'
     }
   },
+
   blur_img_green_section: {
     position: 'relative'
   },
@@ -158,6 +165,44 @@ export default {
     zIndex: '-1',
     '@media screen and (max-width: 768px)': {
       display: 'none'
+    }
+  },
+
+  blur_img_green_section_mobile: {
+    position: 'relative'
+  },
+  blur_img_green_mobile: {
+    display: 'none',
+    '@media screen and (max-width: 768px)': {
+      display: 'block',
+      borderRadius: '50%',
+      width: '40vw',
+      height: '35vh',
+      filter: 'blur(25px)',
+      backgroundColor: 'rgba(217, 251, 227, 0.3)',
+      position: 'absolute',
+      top: '40px',
+      right: '-15%',
+      zIndex: '-1'
+    }
+  },
+
+  blur_img_blue_section_mobile: {
+    position: 'relative'
+  },
+  blur_img_blue_mobile: {
+    display: 'none',
+    '@media screen and (max-width: 768px)': {
+      display: 'block',
+      borderRadius: '50%',
+      width: '40vw',
+      height: '35vh',
+      filter: 'blur(20px)',
+      backgroundColor: 'rgba(181, 232, 248, 0.3)',
+      position: 'absolute',
+      top: '-160px',
+      left: '-15%',
+      zIndex: '-1'
     }
   }
 }
