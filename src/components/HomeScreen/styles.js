@@ -13,7 +13,8 @@ export default {
     color: '#2da287',
     fontSize: [1, 1, 2, 3],
     fontWeight: '600',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    paddingTop: '12px'
   },
 
   spanLink: {

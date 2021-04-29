@@ -7,14 +7,14 @@ import styles from './styles'
 import MyButton from 'src/components/Common/MyButton'
 import types from 'prop-types'
 const InfoProduct = props => {
-  const { dataInfo, onClose } = props
+  const { dataInfo, onClose, isShowInfoProduct } = props
 
   const onCloseInfo = () => {
     onClose(false)
   }
   return (
         <>
-          <Flex sx={styles.info_section}>
+          <Flex sx={isShowInfoProduct ? styles.info_section_show : styles.info_section }>
             <Box sx={styles.infoTitle}>
                 <Flex sx={styles.infoTitle_name} mt="32px" justifyContent="space-between">
                     <Box>{dataInfo}</Box>
@@ -39,7 +39,7 @@ const InfoProduct = props => {
                             <img onClick={onCloseInfo} sx={styles.icon_delete} src={images.iconDeleteRound}/>
                         </Flex>
                     </Box>
-                <Box mt="56px">
+                <Box mt="32px">
                     <Flex sx={styles.btn_section} >
                         <MyButton>Whitepaper</MyButton>
                         <Box ml="28px" mt="12px"></Box>
@@ -53,6 +53,7 @@ const InfoProduct = props => {
 }
 InfoProduct.propTypes = {
   dataInfo: types.string,
-  onClose: types.func
+  onClose: types.func,
+  isShowInfoProduct: types.bool
 }
 export default InfoProduct

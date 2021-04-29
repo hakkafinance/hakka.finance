@@ -73,7 +73,6 @@ const HomeScreen = (props) => {
   return (
     <>
       <Box>
-
         <Box sx={styles.homescreenContainer}>
           <Flex alignItems="center" sx={styles.homescreenSubTitle}>
             <img src={images.iconFlower} alt="" />

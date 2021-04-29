@@ -62,7 +62,7 @@ function CardInfo (props) {
             <Flex justifyContent="flex-end">
               <img sx={styles.cardFirstImg} src={images.iconLight} alt="" />
             </Flex>
-            <Box sx={styles.cardFirstHeading} mt="3" mb="3">Roam Around <br/> Hakka Ecosystem</Box>
+            <Box sx={styles.cardFirstHeading} mt="22px" mb="3">Roam Around <br/> Hakka Ecosystem</Box>
             <Flex
               sx={styles.subContent}
               pt="0"

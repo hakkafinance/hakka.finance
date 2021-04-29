@@ -45,6 +45,7 @@ const images = {
   iconMutual: require('../images/icons/iconMutual.png').default,
   iconHarvester: require('../images/icons/iconHarvester.svg').default,
   imageTokenGrey: require('../images/icons/imageTokenGrey.svg').default,
+  imageAlienGrey: require('../images/icons/imageAlienGrey.svg').default,
   iconEtherscan: require('../images/icons/iconEtherscan.png').default,
   iconBSCScan: require('../images/icons/iconBSCScan.png').default,
   iconForwardGreen: require('../images/icons/iconForwardGreen.svg').default,

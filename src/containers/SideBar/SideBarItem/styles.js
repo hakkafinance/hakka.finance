@@ -4,6 +4,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     padding: '12px 16px',
+    paddingRight: '0px',
     opacity: '.5',
     cursor: 'pointer',
     transition: 'all 0.25s ease-out ',
