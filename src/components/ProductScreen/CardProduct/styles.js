@@ -1,5 +1,6 @@
 export default {
   card: {
+    height: '100%',
     backgroundColor: '#fff',
     border: 'solid 1px #ebf0f2',
     borderRadius: '8px',
@@ -30,6 +31,7 @@ export default {
     }
   },
   card_active: {
+    height: '100%',
     transform: 'scale(.98)',
     backgroundColor: '#f7fbfc',
     borderRadius: '8px',
@@ -82,6 +84,9 @@ export default {
     ':hover': {
       '& .bottom-right-icon': {
         filter: 'grayscale(0%)'
+      },
+      '& .card-text': {
+        color: 'black'
       }
     },
     '@media screen and (max-width: 576px)': {

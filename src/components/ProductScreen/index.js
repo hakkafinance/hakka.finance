@@ -53,7 +53,9 @@ const ProductScreen = (props) => {
   const [isShowInfoProduct, setIsShowInfoProduct] = useState(true)
   // const [dataInfo, setDataInfo] = useState('BlackHoleSwap')
   const [selectedCard, setSelectedCard] = useState('BlackHoleSwap')
+  const [selectedCardId, setSelectedCardId] = useState(1)
   const [closeInfo, setCloseInfo] = useState(true)
+
   const handleResize = () => {
     const width = window.outerWidth
     setScreenWidth(width)
@@ -63,13 +65,15 @@ const ProductScreen = (props) => {
   const handleCloseInfo = (value) => {
     setIsShowInfoProduct(value)
     setCloseInfo(value)
+    setSelectedCard('')
+  }
+  // active selected Card
+  const handleGetSelectedCard = (value, id) => () => {
+    setSelectedCard(value)
+    setSelectedCardId(id)
   }
   const handleShowInfo = (value) => {
     setIsShowInfoProduct(value)
-  }
-  // active selected Card
-  const handleGetSelectedCard = (value) => () => {
-    setSelectedCard(value)
   }
 
   // render
@@ -77,7 +81,7 @@ const ProductScreen = (props) => {
     if (screenWidth < 1195) {
       return topArr.slice(0, 2).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
             <CardPorduct
               isShowInfoProduct = {closeInfo}
               selectedCard={selectedCard}
@@ -90,7 +94,7 @@ const ProductScreen = (props) => {
     } else {
       return topArr.slice(0, 3).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
             <CardPorduct
               isShowInfoProduct = {closeInfo}
               selectedCard={selectedCard}
@@ -106,7 +110,7 @@ const ProductScreen = (props) => {
     if (screenWidth < 1195) {
       return topArr.slice(2, 6).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -118,7 +122,7 @@ const ProductScreen = (props) => {
     } else {
       return topArr.slice(3, 6).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -132,7 +136,7 @@ const ProductScreen = (props) => {
   const renderComingProduct = () => {
     return botArr.map((item) => {
       return (
-        <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName)}>
+        <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -160,10 +164,29 @@ const ProductScreen = (props) => {
           {renderCardProduct()}
         </Box>
 
-        <Box>{isShowInfoProduct ? <InfoProduct onClose={handleCloseInfo} dataInfo={selectedCard}/> : ''}</Box>
+        <Box>
+          {selectedCardId < 3
+            ? <InfoProduct
+                onClose={handleCloseInfo}
+                dataInfo={selectedCard}
+                isShowInfoProduct={isShowInfoProduct}
+              />
+            : ''}
+        </Box>
 
         <Box sx={styles.responsive_cards} mt="48px">
           {renderCardProductResponsive()}
+        </Box>
+
+        <Box>
+          {selectedCardId > 2
+            ? <InfoProduct
+              onClose={handleCloseInfo}
+              dataInfo={selectedCard}
+              isShowInfoProduct={isShowInfoProduct}
+            />
+            : ''
+          }
         </Box>
 
         <Text sx={styles.sub_heading} mt="60px">

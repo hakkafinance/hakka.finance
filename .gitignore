@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+yarn.lock
+package-lock.json
 
 # Compiled Java class files
 *.class
@@ -49,3 +51,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+
+.vercel

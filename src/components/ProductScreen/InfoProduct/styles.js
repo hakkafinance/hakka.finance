@@ -2,6 +2,19 @@ export default {
   info_section: {
     paddingBottom: '20px',
     borderBottom: '1px solid #dae1e3',
+    opacity: '0',
+    height: '0',
+    transition: 'all ease-out 0.25s',
+    '@media screen and (max-width: 1180px)': {
+      flexDirection: 'column'
+    }
+  },
+  info_section_show: {
+    paddingBottom: '20px',
+    borderBottom: '1px solid #dae1e3',
+    opacity: '1',
+    height: '100%',
+    transition: 'all ease-out 0.25s',
     '@media screen and (max-width: 1180px)': {
       flexDirection: 'column'
     }

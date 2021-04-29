@@ -10,7 +10,7 @@ export default {
   headerContainer: {
     display: 'flex',
     position: 'relative',
-    padding: '20px 0',
+    padding: '16px 0',
     justifyContent: 'flex-end',
     '@media screen and (max-width: 576px)': {
       position: 'unset',
@@ -26,7 +26,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'flex',
-      paddingTop: '12px',
+      paddingTop: '0px',
       paddingBottom: '20px'
     }
   },

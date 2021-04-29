@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://hakka/./src/pages/about.js"],"names":["About"],"mappings":"8JAEe,SAASA,IACpB,OACI","file":"component---src-pages-about-js.js","sourcesContent":["import React from 'react' \r\n\r\nexport default function About (){\r\n    return(\r\n        <>\r\n            About\r\n        </>\r\n    )\r\n}"],"sourceRoot":""}

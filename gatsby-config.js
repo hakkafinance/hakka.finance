@@ -1,10 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Hakka Finance',
-    siteUrl: 'https://hakka.coin98.app/'
+    siteUrl: 'https://www.gatsbyjs.com'
   },
   plugins: [
-    'gatsby-plugin-remove-fingerprints',
     'gatsby-plugin-root-import',
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-image',
@@ -30,7 +29,7 @@ module.exports = {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Open Sans', 'Droid Serif']
+          families: ['Open Sans', 'Open+Sans:wght@400;600;700', 'Droid Serif']
         }
       }
     }

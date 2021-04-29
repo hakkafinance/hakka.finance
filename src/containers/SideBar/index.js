@@ -53,7 +53,7 @@ const botSideBarItems = [
 ]
 
 function SideBar (props) {
-  const { onCloseSideBar } = props
+  const { onCloseSideBar, isShowSideBar } = props
   const [selectedNav, setSelectedNav] = useState('')
 
   const onSelectNavItem = (path) => () => {
@@ -96,11 +96,11 @@ function SideBar (props) {
     })
   }
   return (
-      <Box sx={styles.sidebar_responsive}>
+      <Box sx={ isShowSideBar ? styles.sidebar_responsive_show : styles.sidebar_responsive} >
         <Flex flexDirection="column" justifyContent="space-between" sx={styles.sidebar}>
           <Box>
-            <Box sx={styles.custom_padding}>
-              <Box sx={styles.sidebar_header} mt="2">
+            <Box sx={styles.custom_header_padding}>
+              <Box sx={styles.sidebar_header}>
                 <img src={images.hakkaLogo} />
                 <img onClick={handleCloseSideBar} sx={styles.sidebar_closeBtn} src={images.iconDeleteRound}/>
               </Box>
@@ -119,21 +119,20 @@ function SideBar (props) {
             <Box sx={styles.custom_padding}>
               <Box sx={styles.sidebar_subText} pl="3">News</Box>
 
-                <Box sx={styles.medium_content} mt="2">
+                <Box sx={styles.medium_content}>
                   <Flex alignItems="center">
                     <img sx={styles.left_icon} src={images.iconMedium} alt />
                     <Box sx={styles.bold_text} ml="2">Medium</Box>
                   </Flex>
-                  <Flex mr="2">
+                  <Flex>
                     <img src={images.iconLinkSmall} />
                   </Flex>
                 </Box>
             </Box>
-
-            <Box sx={styles.hl} mt="2" pr="0"></Box>
           </Box>
 
           <Box>
+            <Box sx={styles.hl} mt="2" pr="0"></Box>
             <Box p="12px">
               <MyButton>
                 <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>

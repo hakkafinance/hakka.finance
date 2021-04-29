@@ -7,7 +7,7 @@ import styles from './styles'
 import types from 'prop-types'
 
 const CardPorduct = props => {
-  const { cardData, onShowInfo, selectedCard, isShowInfoProduct } = props
+  const { cardData, onShowInfo, selectedCard } = props
   const { icon, cardName } = cardData
   const [isShowInfo, setIsShowInfo] = useState(false)
   // console.log('is close when click x', !!isShowInfoProduct)

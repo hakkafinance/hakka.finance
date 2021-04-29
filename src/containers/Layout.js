@@ -8,11 +8,16 @@ import SideBar from './SideBar'
 import Header from './Header'
 import Footer from './Footer'
 import styles from './styles'
+import { useSpring, animated as a } from 'react-spring'
 const Layout = ({ children, title }) => {
   const [isShowSideBar, setIsShowSideBar] = useState(true)
   const width = typeof window !== 'undefined' ? window.outerWidth : ''
   const [screenWidth, setScreenWidth] = useState(width)
   // const [isShowSideBar, setIsShowSideBar] = useState(screenWidth > 590)
+  const contentProps = useSpring({
+    display: isShowSideBar ? 'block' : 'none',
+    marginRight: isShowSideBar ? 0 : -1000
+  })
 
   const toggleSideBar = () => {
     setIsShowSideBar(!isShowSideBar)
@@ -45,7 +50,8 @@ const Layout = ({ children, title }) => {
         <title>{title || 'Hakka'}</title>
       </Helmet>
       <Flex>
-        { isShowSideBar ? <SideBar onCloseSideBar={handleClose}/> : ''}
+        <SideBar isShowSideBar={isShowSideBar} onCloseSideBar={handleClose}/>
+
         <Box
           width="100%"
           sx={styles.custom_scroll_bar}

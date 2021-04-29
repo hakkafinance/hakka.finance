@@ -32,9 +32,7 @@ const Header = (props) => {
   const renderListIcon = () => {
     return listIcon.map((item, i) => {
       return (
-        <Box mr="0" key={i}>
-          <img sx={styles.imgIcon} src={images[item.url]} />
-        </Box>
+          <img key={i} sx={styles.imgIcon} src={images[item.url]} />
       )
     })
   }

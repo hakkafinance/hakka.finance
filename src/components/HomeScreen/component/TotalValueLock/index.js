@@ -51,7 +51,7 @@ function TotalValueLock () {
         </Box>
       </Box>
 
-      <Box><img sx={styles.totalValueImg} src={images.imageTokenGrey} alt="" /></Box>
+      <Box><img sx={styles.totalValueImg} src={images.imageAlienGrey} alt="" /></Box>
     </Flex>
   )
 }
