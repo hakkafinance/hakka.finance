@@ -9,15 +9,14 @@ function UtilityHakka () {
   const detailsInfo = [
     {
       image: 'iconParliament',
-      title: 'Governance Power',
-      text: `Voting Power in Governance <br/>
-      Depends on the amount of wHAKKA Mintage`
+      title: 'Voting Power',
+      text: 'The mintage amount of sHAKKA determines Voting Power. It\'s immutable and non-transferrable.'
     },
     {
       image: 'iconMoneyBox',
       title: 'Beneficiary Right',
       text:
-        'wHAKKA is Tradable in Secondary Market & Beneficial in Reward Contract'
+        'sHAKKA is tradable in secondary market & beneficial in reward contract.'
     }
   ]
 
@@ -44,14 +43,14 @@ function UtilityHakka () {
         sx={styles.utilityTextLink}
       >
         <Flex sx={styles.utilityText}>
-          <p>Stake HAKKA to get wHAKKA and bestowed below rights</p>
+          <p>Stake HAKKA to get sHAKKA and bestowed below rights.</p>
         </Flex>
         <Flex
           sx={styles.utilityLink}
           alignItems="center"
         >
-          <Box>Stake Here</Box>
-          <Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex>
+          <a target="_blank" href='https://staking.hakka.finance/' rel="noreferrer"><Box>Stake Here</Box></a>
+          <a target="_blank" href='https://staking.hakka.finance/' rel="noreferrer"><Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex></a>
         </Flex>
       </Flex>
       <Flex sx={styles.detailsInfo} mt="4">{renderDetailsInfo()}</Flex>

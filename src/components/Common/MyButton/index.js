@@ -4,12 +4,12 @@ import styles from './styles'
 import types from 'prop-types'
 
 const MyButton = (props) => {
-  const { type } = props
+  const { type, click } = props
 
   return (
-  <Box sx={type === 'green' ? styles.mybutton_green : styles.mybutton}>
+  <Button onClick={() => { if (props.click) props.click() }} sx={type === 'green' ? styles.mybutton_green : styles.mybutton}>
     <Box>{props.children}</Box>
-  </Box>
+  </Button>
   )
 }
 

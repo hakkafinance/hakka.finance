@@ -9,19 +9,24 @@ import SideBar from '../SideBar'
 const Header = (props) => {
   const listIcon = [
     {
-      url: 'iconTelegram'
+      url: 'iconTelegram',
+      href: 'https://t.me/hakkafinance'
     },
     {
-      url: 'iconTwitter'
+      url: 'iconTwitter',
+      href: 'https://twitter.com/hakkafinance'
     },
     {
-      url: 'iconDiscord'
+      url: 'iconDiscord',
+      href: 'https://discord.com/invite/zYfqpUQ'
     },
     {
-      url: 'iconMedium'
+      url: 'iconMedium',
+      href: 'https://medium.com/hakkafinance'
     },
     {
-      url: 'iconGithub'
+      url: 'iconGithub',
+      href: 'https://github.com/hakkafinance'
     }
   ]
   const { toggleSidebar } = props
@@ -32,7 +37,9 @@ const Header = (props) => {
   const renderListIcon = () => {
     return listIcon.map((item, i) => {
       return (
-          <img key={i} sx={styles.imgIcon} src={images[item.url]} />
+        <a key={i} target="_blank" href={item.href} rel="noreferrer">
+          <img sx={styles.imgIcon} src={images[item.url]} />
+        </a>
       )
     })
   }

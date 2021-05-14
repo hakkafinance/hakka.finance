@@ -29,24 +29,28 @@ const botSideBarItems = [
     name: 'governance',
     icon: images.iconGovernance,
     path: 'governance',
+    href: 'https://gov.hakka.finance/',
     subIcon: images.iconSnapshot
 
   },
   {
     name: 'rewards',
     icon: images.iconReward,
+    href: 'https://rewards.hakka.finance/',
     path: 'rewards'
 
   },
   {
     name: 'vesting',
     icon: images.iconVesting,
+    href: 'https://vesting.hakka.finance/',
     path: 'vesting'
 
   },
   {
-    name: 'vault',
+    name: 'Guild Bank',
     icon: images.iconVault,
+    href: 'https://burner.hakka.finance/',
     path: 'vault'
 
   }
@@ -60,7 +64,7 @@ function SideBar (props) {
     navigate(`/${path}`)
     setSelectedNav(path)
 
-    // console.log(path);
+    console.log(path)
   }
   const handleCloseSideBar = () => {
     onCloseSideBar(false)
@@ -69,13 +73,13 @@ function SideBar (props) {
     return topSideBarItems.map((it, idx) => {
       return (
         <Box key={it.name} onClick={onSelectNavItem(it.path)}>
-              <SideBarItem
-                selectedNav={selectedNav}
-                icon={it.icon}
-                text={it.name}
-                path={it.path}
-              />
-            </Box>
+          <SideBarItem
+            selectedNav={selectedNav}
+            icon={it.icon}
+            text={it.name}
+            path={it.path}
+          />
+        </Box>
       )
     })
   }
@@ -89,6 +93,7 @@ function SideBar (props) {
             icon={it.icon}
             text={it.name}
             path={it.path}
+            href={it.href}
             subIcon={get(it, 'subIcon')}
           />
         </Box>
@@ -120,12 +125,12 @@ function SideBar (props) {
               <Box sx={styles.sidebar_subText} pl="3">News</Box>
 
                 <Box sx={styles.medium_content}>
-                  <Flex alignItems="center">
+                  <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }} alignItems="center">
                     <img sx={styles.left_icon} src={images.iconMedium} alt />
                     <Box sx={styles.bold_text} ml="2">Medium</Box>
                   </Flex>
-                  <Flex>
-                    <img src={images.iconLinkSmall} />
+                  <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }}>
+                  <img src={images.iconLinkSmall} />
                   </Flex>
                 </Box>
             </Box>
@@ -134,13 +139,13 @@ function SideBar (props) {
           <Box>
             <Box sx={styles.hl} mt="2" pr="0"></Box>
             <Box p="12px">
-              <MyButton>
+              <MyButton click={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }}>
                 <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>
               </MyButton>
             </Box>
             <Box sx={styles.bold_text_link} mb="12px" p="2" textAlign="center">
               or{' '}
-              <Link sx={styles.bold_text_link} href="">
+              <Link sx={styles.bold_text_link} href="mailto:admin@hakka.finance">
                 contact us
               </Link>
             </Box>

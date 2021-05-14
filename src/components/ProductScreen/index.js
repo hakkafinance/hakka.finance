@@ -13,26 +13,40 @@ const ProductScreen = (props) => {
     {
       icon: images.iconBlackhole,
       cardName: 'BlackHoleSwap',
+      info: 'By integrating lending protocols to leverage the excess supply while borrowing on the inadequate side, BlackHoleSwap can therefore process transactions far exceeding its existing liquidity. Compared to other AMMs, BlackHoleSwap provides nearly infinite liquidity with the lowest price slippage, maximizing capital utilization.',
+      whitepaper: 'https://blackholeswap.com/documents/en.pdf',
+      vist: 'https://blackholeswap.com/',
       id: 1
     },
     {
       icon: images.icon3FMutual,
       cardName: '3F Mutual',
+      info: '3F Mutual employs a rainy day fund like mechanism that allows for one to hedge against MakerDAO collapse risk. It exists as neither an option nor a short position of ETH/DAI/MKR. The 3F Mutual rainy day fund-like design means it acts more like collective insurance.',
+      whitepaper: 'https://3fmutual.com/whitepaper.pdf',
+      vist: 'https://3fmutual.com/',
       id: 2
     },
     {
       icon: images.iconIgain,
       cardName: 'iGain',
+      info: 'iGain is a decentralized financial instrument protocol that provides the options for investors to hedge/profit/speculate on certain targeting underlying assets with a synthetic, tokenized position.',
+      whitepaper: 'https://hakkafinance.gitbook.io/igain/',
+      vist: 'http://igain.hakka.finance/',
       id: 3
     },
     {
       icon: images.iconHakkaIntel,
       cardName: 'Hakka Intelligence',
+      info: 'Hakka Intelligence is a prediction market platform with different mechanisms from general options. There will be no call and put options in this platform but requires the submission of predictions. The payoff is based on the accuracy of the prediction.',
+      whitepaper: 'https://medium.com/hakkafinance/hakka-intelligence-handbook-d77a80f44ac6',
+      vist: 'https://intelligence.hakka.finance/',
       id: 4
     },
     {
       icon: images.iconDefiHandbook,
       cardName: 'DeFi Handbook',
+      info: 'DeFi Handbook make easier for you to dive into DeFi protocols',
+      vist: 'https://defihandbook.cc/',
       id: 5
     }
   ]
@@ -51,7 +65,7 @@ const ProductScreen = (props) => {
   const width = typeof window !== 'undefined' ? window.outerWidth : ''
   const [screenWidth, setScreenWidth] = useState(width)
   const [isShowInfoProduct, setIsShowInfoProduct] = useState(true)
-  // const [dataInfo, setDataInfo] = useState('BlackHoleSwap')
+  const [dataInfo, setDataInfo] = useState({})
   const [selectedCard, setSelectedCard] = useState('BlackHoleSwap')
   const [selectedCardId, setSelectedCardId] = useState(1)
   const [closeInfo, setCloseInfo] = useState(true)
@@ -68,9 +82,10 @@ const ProductScreen = (props) => {
     setSelectedCard('')
   }
   // active selected Card
-  const handleGetSelectedCard = (value, id) => () => {
-    setSelectedCard(value)
-    setSelectedCardId(id)
+  const handleGetSelectedCard = (item) => () => {
+    setSelectedCard(item.cardName)
+    setSelectedCardId(item.id)
+    setDataInfo(item)
   }
   const handleShowInfo = (value) => {
     setIsShowInfoProduct(value)
@@ -81,7 +96,7 @@ const ProductScreen = (props) => {
     if (screenWidth < 1195) {
       return topArr.slice(0, 2).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               isShowInfoProduct = {closeInfo}
               selectedCard={selectedCard}
@@ -94,7 +109,7 @@ const ProductScreen = (props) => {
     } else {
       return topArr.slice(0, 3).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               isShowInfoProduct = {closeInfo}
               selectedCard={selectedCard}
@@ -110,7 +125,7 @@ const ProductScreen = (props) => {
     if (screenWidth < 1195) {
       return topArr.slice(2, 6).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -122,7 +137,7 @@ const ProductScreen = (props) => {
     } else {
       return topArr.slice(3, 6).map((item) => {
         return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -136,7 +151,7 @@ const ProductScreen = (props) => {
   const renderComingProduct = () => {
     return botArr.map((item) => {
       return (
-        <Box key={item.cardName} onClick={handleGetSelectedCard(item.cardName, item.id)}>
+        <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
@@ -168,7 +183,7 @@ const ProductScreen = (props) => {
           {selectedCardId < 3
             ? <InfoProduct
                 onClose={handleCloseInfo}
-                dataInfo={selectedCard}
+                dataInfo={dataInfo}
                 isShowInfoProduct={isShowInfoProduct}
               />
             : ''}
@@ -182,7 +197,7 @@ const ProductScreen = (props) => {
           {selectedCardId > 2
             ? <InfoProduct
               onClose={handleCloseInfo}
-              dataInfo={selectedCard}
+              dataInfo={dataInfo}
               isShowInfoProduct={isShowInfoProduct}
             />
             : ''

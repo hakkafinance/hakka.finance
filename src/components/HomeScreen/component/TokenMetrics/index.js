@@ -68,7 +68,7 @@ const TokenMetricContent = (props) => {
           <Box>
             <CoinComponent
               whatHakka={true}
-              item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://pancakeswap.finance/' }}
+              item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC' }}
             />
           </Box>
         </Flex>
@@ -98,7 +98,7 @@ function TokenMetrics (props) {
       id: 'eth',
       shortName: 'Ethereum',
       name: 'Hakka Finance (HAKKA)',
-      type: 'ERC-20 (Ethereum-based token)',
+      type: 'ERC-20',
       address: '0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
       addressLink: 'https://etherscan.io/address/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
       addressIcon: images.iconEtherscan

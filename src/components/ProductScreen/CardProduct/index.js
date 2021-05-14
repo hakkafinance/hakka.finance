@@ -8,7 +8,7 @@ import types from 'prop-types'
 
 const CardPorduct = props => {
   const { cardData, onShowInfo, selectedCard } = props
-  const { icon, cardName } = cardData
+  const { icon, cardName, vist } = cardData
   const [isShowInfo, setIsShowInfo] = useState(false)
   // console.log('is close when click x', !!isShowInfoProduct)
   const handleIsShowInfo = () => {
@@ -27,7 +27,7 @@ const CardPorduct = props => {
   return (
         <>
             <Box sx={isShowInfo ? styles.card_active : styles.card} className="card-active" >
-                <Flex sx={styles.card_link} justifyContent="space-between">
+                <Flex onClick={() => { if (vist)window.open(vist, '_blank').focus() }} sx={styles.card_link} justifyContent="space-between">
                     <Box>
                         <img sx={styles.img_icon} src={icon}/>
                     </Box>

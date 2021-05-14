@@ -11,6 +11,7 @@ function CardInfo (props) {
       imageTop: '',
       title: 'Learn More <br/> About HAKKA',
       subContent: 'View wiki',
+      click: () => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus() },
       imageBot: 'iconLinkNormal'
     },
 
@@ -18,6 +19,7 @@ function CardInfo (props) {
       imageTop: 'iconToken',
       title: 'What’s <br/> HAKKA Token',
       subContent: 'Scroll down',
+      click: () => {},
       imageBot: 'iconScrollDown'
     }
   ]
@@ -43,6 +45,7 @@ function CardInfo (props) {
               pt="0"
               justifyContent="space-between"
               alignItems="center"
+              onClick={() => { item.click() }}
             >
               <div className="text" sx={styles.subTextGreen}>
                 {item.subContent}
@@ -57,7 +60,7 @@ function CardInfo (props) {
   return (
     <Box>
       <Box sx={styles.card_responsive}>
-        <Box>
+        <Box onClick={() => { location.href = 'products' }}>
           <Card sx={styles.cardFirstContainer}>
             <Flex justifyContent="flex-end">
               <img sx={styles.cardFirstImg} src={images.iconLight} alt="" />

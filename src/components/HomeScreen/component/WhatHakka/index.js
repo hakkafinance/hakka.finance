@@ -9,8 +9,7 @@ function WhatHakka (props) {
     <>
       <Box sx={styles.whatHakkaHeading}>What is HAKKA Token</Box>
       <Box sx={styles.whatHakkaText} mt="4">
-       <p> Colorful Hakka ecosystem is administered and governed by a homonymous
-        protocol token, which goes by the ticker of HAKKA.</p>
+       <p> HAKKA is the protocol token that empowers the community governance of Hakka Finance.</p>
       </Box>
       <Flex sx={styles.listCoinHakka} mt="20px" alignItems="center">
         {props.renderCoin()}

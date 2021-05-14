@@ -8,19 +8,24 @@ import styles from './styles'
 function Footer () {
   const listIcon = [
     {
-      url: 'iconTelegram'
+      url: 'iconTelegram',
+      href: 'https://t.me/hakkafinance'
     },
     {
-      url: 'iconTwitter'
+      url: 'iconTwitter',
+      href: 'https://twitter.com/hakkafinance'
     },
     {
-      url: 'iconDiscord'
+      url: 'iconDiscord',
+      href: 'https://discord.com/invite/zYfqpUQ'
     },
     {
-      url: 'iconMedium'
+      url: 'iconMedium',
+      href: 'https://medium.com/hakkafinance'
     },
     {
-      url: 'iconGithub'
+      url: 'iconGithub',
+      href: 'https://github.com/hakkafinance'
     }
   ]
 
@@ -28,7 +33,9 @@ function Footer () {
     return listIcon.map((item, i) => {
       return (
         <Box key={i}>
-          <img sx={styles.imgIcon} src={images[item.url]} />
+          <a target="_blank" href={item.href} rel="noreferrer">
+            <img sx={styles.imgIcon} src={images[item.url]} />
+          </a>
         </Box>
       )
     })

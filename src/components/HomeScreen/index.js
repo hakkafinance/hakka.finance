@@ -74,9 +74,9 @@ const HomeScreen = (props) => {
     <>
       <Box>
         <Box sx={styles.homescreenContainer}>
-          <Flex alignItems="center" sx={styles.homescreenSubTitle}>
+          <Flex alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://pelith.teamdoor.io/', '_blank').focus() }}>
             <img src={images.iconFlower} alt="" />
-            Hakka Finance is <span sx={styles.spanLink}>hiring</span>. Come join
+            Hakka Finance is hiring. Come join
             us!
           </Flex>
 
@@ -85,7 +85,7 @@ const HomeScreen = (props) => {
           </Box>
 
           <Box sx={styles.homeDescription} >
-            <p>Hakka Finance is a set of Decentralized Derivatives & Original Financial Instruments,
+            <p>Hakka Finance is a set of decentralized derivatives & original financial instruments,
             forming an all-inclusive ecosystem of tools that allow users to pursue financial sovereignty.</p>
           </Box>
 
@@ -139,7 +139,7 @@ const HomeScreen = (props) => {
           <Box sx={styles.blur_img_blue_section_mobile}>
             <Box sx={styles.blur_img_blue_mobile}></Box>
           </Box>
-          <Box ><HakkaTeam /></Box>
+          {/* <Box ><HakkaTeam /></Box> */}
         </Box>
       </Box>
     </>
