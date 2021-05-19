@@ -1,32 +1,45 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import React from 'react'
+import React ,{ useState }from 'react'
 import { Box, Flex, Heading, Text } from 'rebass'
 import styles from './styles'
 import FlagshipProduct from '../FlagshipProduct'
 import images from 'src/images'
+import fetch from 'cross-fetch';
 
-function TotalValueLock () {
+function TotalValueLock() {
   const products = [
     {
       title: '3F Mutual',
-      image: 'iconMutual'
+      image: 'iconMutual',
+      link: 'https://3fmutual.com/',
     },
     {
       title: 'Harvester',
-      image: 'iconHarvester'
+      image: 'iconHarvester',
+      link: 'https://harvesters.hakka.finance/pools',
     },
     {
       title: 'Hakka Intelligence',
-      image: 'iconIntelligence'
+      image: 'iconIntelligence',
+      link: 'https://intelligence.hakka.finance/',
     }
   ]
 
   const renderFlagshipProducts = () => {
     return products.map((item, i) => {
-      return <FlagshipProduct key={item.title} item={item} i={i} />
+      return <FlagshipProduct key={item.title} item={item} i={i} link={item.link} />
     })
   }
+
+  const [lockedValue, setLockedValue]= useState(0);
+  fetch('https://tvl.hakka.finance/').then((res) => {
+    return res.text()
+  }).then((res) => {
+    const value = parseInt(res).toLocaleString()
+    setLockedValue(`$${value}`)
+  })
+
   return (
     <Flex
       justifyContent="space-between"
@@ -38,7 +51,8 @@ function TotalValueLock () {
           <Box sx={styles.totalValueHead}>TOTAL VALUE LOCKED</Box>
 
           <Flex sx={styles.totalValueMoney} alignItems="baseline" mt="12px" >
-            <Box>$165,651,253.10</Box>
+            {/* <Box id='supply'>$165,651,253.10</Box> */}
+            <Box id='supply'>{lockedValue}</Box>
             <Box ml="8px" fontSize={[1, 5, 5, 5]}>USD</Box>
           </Flex>
         </Box>

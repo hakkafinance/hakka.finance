@@ -59,7 +59,7 @@ const TokenMetricContent = (props) => {
             <Box className="right-bot-token">
               <CoinComponent
                 whatHakka={true}
-                item={{ imageCoin: 'iconBalancer', coinName: 'Balancer', link: 'https://balancer.exchange/#/swap' }}
+                item={{ imageCoin: 'iconBalancer', coinName: 'Balancer', link: 'https://app.balancer.fi/#/trade/ether/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd' }}
               />
             </Box>
           </Flex>
@@ -100,7 +100,7 @@ function TokenMetrics (props) {
       name: 'Hakka Finance (HAKKA)',
       type: 'ERC-20',
       address: '0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
-      addressLink: 'https://etherscan.io/address/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
+      addressLink: 'https://etherscan.io/token/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
       addressIcon: images.iconEtherscan
     },
     {
@@ -109,7 +109,7 @@ function TokenMetrics (props) {
       name: ' Hakka Finance on xDai on BSC (HAKKA)',
       type: 'BEP-20',
       address: '0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
-      addressLink: 'https://bscscan.com/address/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
+      addressLink: 'https://bscscan.com/token/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
       addressIcon: images.iconBSCScan
     }
   ]

@@ -26,7 +26,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'flex',
-      paddingTop: '0px',
+      paddingTop: '12px',
       paddingBottom: '20px'
     }
   },

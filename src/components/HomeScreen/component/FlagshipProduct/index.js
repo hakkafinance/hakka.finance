@@ -7,9 +7,9 @@ import styles from './styles'
 import types from 'prop-types'
 
 function FlagshipProduct (props) {
-  const { item, i } = props
+  const { item, i, link } = props
   return (
-    <Flex alignItems="center" key={i} sx={styles.product} mt="2">
+    <Flex onClick={() => { window.open(link, '_blank').focus() }} alignItems="center" key={i} sx={styles.product} mt="2">
       <img sx={styles.imageProduct} src={images[item.image]} alt="" />
       <Box sx={styles.productHeading} ml="3">{item.title}</Box>
     </Flex>
@@ -18,7 +18,8 @@ function FlagshipProduct (props) {
 
 FlagshipProduct.propTypes = {
   item: types.object,
-  i: types.number
+  i: types.number,
+  link: types.string,
 }
 
 export default FlagshipProduct

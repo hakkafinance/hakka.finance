@@ -36,7 +36,7 @@ export default {
   },
 
   listProducts: {
-    '@media screen and (max-width: 768px)': {
+    '@media screen and (max-width: 950px)': {
       flexDirection: 'column',
       display: 'block',
       justifyContent: 'flex-start'

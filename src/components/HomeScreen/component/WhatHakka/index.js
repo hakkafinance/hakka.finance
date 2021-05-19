@@ -7,7 +7,7 @@ import { Box, Flex, Heading } from 'rebass'
 function WhatHakka (props) {
   return (
     <>
-      <Box sx={styles.whatHakkaHeading}>What is HAKKA Token</Box>
+      <Box id='whatHakka' sx={styles.whatHakkaHeading}>What is HAKKA Token</Box>
       <Box sx={styles.whatHakkaText} mt="4">
        <p> HAKKA is the protocol token that empowers the community governance of Hakka Finance.</p>
       </Box>

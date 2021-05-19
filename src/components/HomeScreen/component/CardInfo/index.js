@@ -5,7 +5,7 @@ import { Box, Card, Flex } from 'rebass'
 import styles from './styles'
 import images from 'src/images'
 
-function CardInfo (props) {
+function CardInfo(props) {
   const cardHeadContent = [
     {
       imageTop: '',
@@ -18,8 +18,8 @@ function CardInfo (props) {
     {
       imageTop: 'iconToken',
       title: 'What’s <br/> HAKKA Token',
-      subContent: 'Scroll down',
-      click: () => {},
+      subContent: 'Check it out',
+      click: () => { location.href = "#whatHakka" },
       imageBot: 'iconScrollDown'
     }
   ]
@@ -27,33 +27,36 @@ function CardInfo (props) {
   const renderCard = () => {
     return cardHeadContent.map((item, i) => {
       return (
-        <Box
-          key={item.title}
-          flexDirection="column"
-          justifyContent="space-between"
-          sx={styles.cardContainer}
-        >
-          <Flex justifyContent="flex-end">
-            <img sx={styles.cardImg} src={images[item.imageTop]} alt="" />
-          </Flex>
-          <Box>
-            <Box sx={styles.cardHeading} mt="3" mb="3" dangerouslySetInnerHTML={{ __html: item.title }}></Box>
-
-            <Flex
-              sx={styles.subContent}
-              className="sub-content"
-              pt="0"
-              justifyContent="space-between"
-              alignItems="center"
-              onClick={() => { item.click() }}
-            >
-              <div className="text" sx={styles.subTextGreen}>
-                {item.subContent}
-              </div>
-              <img sx={styles.forwardImg} src={images[item.imageBot]} alt="" />
+        <a sx={styles.anchor}>
+          <Box
+            key={item.title}
+            flexDirection="column"
+            justifyContent="space-between"
+            sx={styles.cardContainer}
+            onClick={() => { item.click() }}
+          >
+            <Flex justifyContent="flex-end">
+              <img sx={styles.cardImg} src={images[item.imageTop]} alt="" />
             </Flex>
+            <Box>
+              <Box sx={styles.cardHeading} mt="3" mb="3" dangerouslySetInnerHTML={{ __html: item.title }}></Box>
+              <Flex
+                sx={styles.subContent}
+                className="sub-content"
+                pt="0"
+                justifyContent="space-between"
+                alignItems="center"
+                onClick={() => { item.click() }}
+              >
+
+                <div className="text" sx={styles.subTextGreen}>
+                  {item.subContent}
+                </div>
+                <img sx={styles.forwardImg} src={images[item.imageBot]} alt="" />
+              </Flex>
+            </Box>
           </Box>
-        </Box>
+        </a>
       )
     })
   }
@@ -65,7 +68,7 @@ function CardInfo (props) {
             <Flex justifyContent="flex-end">
               <img sx={styles.cardFirstImg} src={images.iconLight} alt="" />
             </Flex>
-            <Box sx={styles.cardFirstHeading} mt="22px" mb="3">Roam Around <br/> Hakka Ecosystem</Box>
+            <Box sx={styles.cardFirstHeading} mt="22px" mb="3">Roam Around <br /> Hakka Ecosystem</Box>
             <Flex
               sx={styles.subContent}
               pt="0"

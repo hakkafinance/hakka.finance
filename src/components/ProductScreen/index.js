@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { jsx } from 'theme-ui'
 import { Box, Text } from 'rebass'
 import Layout from 'src/containers/Layout'
@@ -16,7 +16,8 @@ const ProductScreen = (props) => {
       info: 'By integrating lending protocols to leverage the excess supply while borrowing on the inadequate side, BlackHoleSwap can therefore process transactions far exceeding its existing liquidity. Compared to other AMMs, BlackHoleSwap provides nearly infinite liquidity with the lowest price slippage, maximizing capital utilization.',
       whitepaper: 'https://blackholeswap.com/documents/en.pdf',
       vist: 'https://blackholeswap.com/',
-      id: 1
+      id: 1,
+      infoTag: ['DEX', 'Stablecoin']
     },
     {
       icon: images.icon3FMutual,
@@ -24,7 +25,9 @@ const ProductScreen = (props) => {
       info: '3F Mutual employs a rainy day fund like mechanism that allows for one to hedge against MakerDAO collapse risk. It exists as neither an option nor a short position of ETH/DAI/MKR. The 3F Mutual rainy day fund-like design means it acts more like collective insurance.',
       whitepaper: 'https://3fmutual.com/whitepaper.pdf',
       vist: 'https://3fmutual.com/',
-      id: 2
+      id: 2,
+      infoTag: ['Insurance','MutualFund']
+      
     },
     {
       icon: images.iconIgain,
@@ -32,7 +35,8 @@ const ProductScreen = (props) => {
       info: 'iGain is a decentralized financial instrument protocol that provides the options for investors to hedge/profit/speculate on certain targeting underlying assets with a synthetic, tokenized position.',
       whitepaper: 'https://hakkafinance.gitbook.io/igain/',
       vist: 'http://igain.hakka.finance/',
-      id: 3
+      id: 3,
+      infoTag: ['Options', 'PredictionMarket']
     },
     {
       icon: images.iconHakkaIntel,
@@ -40,38 +44,48 @@ const ProductScreen = (props) => {
       info: 'Hakka Intelligence is a prediction market platform with different mechanisms from general options. There will be no call and put options in this platform but requires the submission of predictions. The payoff is based on the accuracy of the prediction.',
       whitepaper: 'https://medium.com/hakkafinance/hakka-intelligence-handbook-d77a80f44ac6',
       vist: 'https://intelligence.hakka.finance/',
-      id: 4
+      id: 4,
+      infoTag: ['PredictionMarket', 'PricePrediction']
     },
     {
       icon: images.iconDefiHandbook,
       cardName: 'DeFi Handbook',
-      info: 'DeFi Handbook make easier for you to dive into DeFi protocols',
+      info: 'DeFi Handbook make easier for you to dive into DeFi protocols.',
       vist: 'https://defihandbook.cc/',
-      id: 5
+      id: 5,
+      infoTag: ['Dev', 'Tool']
     }
   ]
 
   const botArr = [
     {
       icon: images.iconCryptoStructure,
-      cardName: `Crypto
-      Structured Fund`
+      cardName: 'Crypto Structured Fund',
+      info: 'Crypto Structured Fund (CSF) is a decentralized financial instrument providing a "moderate risk with higher return" way to let conservative investors get involved in the growth of cryptocurrencies.',
+      vist: 'https://csf-v2.netlify.app/',
+      comingProductId: 1,
+      infoTag: ['Futures', 'Fund'],
     },
     {
       icon: images.iconTcdp,
-      cardName: 'tCDP'
+      cardName: 'tCDP',
+      info: 'tCDP is tokenized CDP (Collateral Debt Position) that is fungible and tradable on exchanges.',
+      comingProductId: 2,
+      infoTag: ['Collateral', 'Tool'],
     }
   ]
-  const width = typeof window !== 'undefined' ? window.outerWidth : ''
-  const [screenWidth, setScreenWidth] = useState(width)
-  const [isShowInfoProduct, setIsShowInfoProduct] = useState(true)
-  const [dataInfo, setDataInfo] = useState({})
-  const [selectedCard, setSelectedCard] = useState('BlackHoleSwap')
-  const [selectedCardId, setSelectedCardId] = useState(1)
+
+  const [screenWidth, setScreenWidth] = useState()
+  const [isShowInfoProduct, setIsShowInfoProduct] = useState(false)
+  const [dataInfo, setDataInfo] = useState()
+  const [selectedInfoTag, setSelectedInfoTag] = useState([])
+  const [selectedCard, setSelectedCard] = useState('')
+  const [selectedCardId, setSelectedCardId] = useState()
+  const [selectedComingProductCardId, setSelectedComingProductCardId] = useState()
   const [closeInfo, setCloseInfo] = useState(true)
 
   const handleResize = () => {
-    const width = window.outerWidth
+    const width = window.innerWidth
     setScreenWidth(width)
     console.log('window is resized', width)
   }
@@ -83,13 +97,18 @@ const ProductScreen = (props) => {
   }
   // active selected Card
   const handleGetSelectedCard = (item) => () => {
+    console.log('item.infoTag', item.infoTag)
     setSelectedCard(item.cardName)
     setSelectedCardId(item.id)
+    setSelectedComingProductCardId(item.comingProductId)
     setDataInfo(item)
+    setSelectedInfoTag(item.infoTag)
   }
   const handleShowInfo = (value) => {
     setIsShowInfoProduct(value)
   }
+
+  console.log('isShowInfoProduct', isShowInfoProduct)
 
   // render
   const renderCardProduct = () => {
@@ -98,7 +117,7 @@ const ProductScreen = (props) => {
         return (
           <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
-              isShowInfoProduct = {closeInfo}
+              isShowInfoProduct={closeInfo}
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
               cardData={item}
@@ -111,7 +130,7 @@ const ProductScreen = (props) => {
         return (
           <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
-              isShowInfoProduct = {closeInfo}
+              isShowInfoProduct={closeInfo}
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
               cardData={item}
@@ -123,7 +142,7 @@ const ProductScreen = (props) => {
   }
   const renderCardProductResponsive = () => {
     if (screenWidth < 1195) {
-      return topArr.slice(2, 6).map((item) => {
+      return topArr.slice(2, 4).map((item) => {
         return (
           <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
@@ -148,23 +167,48 @@ const ProductScreen = (props) => {
       })
     }
   }
-  const renderComingProduct = () => {
-    return botArr.map((item) => {
-      return (
-        <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+
+  const renderCardProductResponsive2 = () => {
+    if (screenWidth < 1195) {
+      return topArr.slice(4, 5).map((item) => {
+        return (
+          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
               selectedCard={selectedCard}
               onShowInfo={handleShowInfo}
               cardData={item}
             />
           </Box>
+        )
+      })
+    } 
+  }
+
+  const renderComingProduct = () => {
+    return botArr.map((item) => {
+      return (
+        <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+          <CardPorduct
+            selectedCard={selectedCard}
+            onShowInfo={handleShowInfo}
+            cardData={item}
+          />
+        </Box>
       )
     })
   }
 
+
+  // problem 1
+  const width = typeof window !== 'undefined' ? window.innerWidth : ''
   useEffect(() => {
+    setScreenWidth(width)
+  }, [])
+
+  useEffect(() => {
+    console.log('use effect is working')
     window.addEventListener('resize', handleResize)
-    console.log('screenwidth', screenWidth)
+    // console.log('screenwidth', screenWidth)
   }, [screenWidth])
 
   return (
@@ -180,12 +224,13 @@ const ProductScreen = (props) => {
         </Box>
 
         <Box>
-          {selectedCardId < 3
+          {selectedCardId <= (screenWidth < 1195 ? 2 : 3)
             ? <InfoProduct
-                onClose={handleCloseInfo}
-                dataInfo={dataInfo}
-                isShowInfoProduct={isShowInfoProduct}
-              />
+              onClose={handleCloseInfo}
+              dataInfo={dataInfo}
+              isShowInfoProduct={isShowInfoProduct}
+              infoTag={selectedInfoTag}
+            />
             : ''}
         </Box>
 
@@ -194,11 +239,28 @@ const ProductScreen = (props) => {
         </Box>
 
         <Box>
-          {selectedCardId > 2
+          {selectedCardId > (screenWidth < 1195 ? 2 : 3) && selectedCardId < (screenWidth < 1195 ? 5 : 6)
             ? <InfoProduct
               onClose={handleCloseInfo}
               dataInfo={dataInfo}
               isShowInfoProduct={isShowInfoProduct}
+              infoTag={selectedInfoTag}
+            />
+            : ''
+          }
+        </Box>
+
+        <Box sx={styles.responsive_cards} mt="48px">
+          {renderCardProductResponsive2()}
+        </Box>
+
+        <Box>
+          {selectedCardId === (screenWidth < 1195 && 5 )
+            ? <InfoProduct
+              onClose={handleCloseInfo}
+              dataInfo={dataInfo}
+              isShowInfoProduct={isShowInfoProduct}
+              infoTag={selectedInfoTag}
             />
             : ''
           }
@@ -210,6 +272,17 @@ const ProductScreen = (props) => {
 
         <Box sx={styles.responsive_coming_cards} mt="36px">
           {renderComingProduct()}
+        </Box>
+        <Box sx={styles.coming_InfoProduct}>
+          {selectedComingProductCardId <= 3
+            ? <InfoProduct
+              onClose={handleCloseInfo}
+              dataInfo={dataInfo}
+              isShowInfoProduct={isShowInfoProduct}
+              infoTag={selectedInfoTag}
+            />
+            : ''
+          }
         </Box>
       </Box>
     </div>

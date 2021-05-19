@@ -16,7 +16,7 @@ function UtilityHakka () {
       image: 'iconMoneyBox',
       title: 'Beneficiary Right',
       text:
-        'sHAKKA is tradable in secondary market & beneficial in reward contract.'
+        'sHAKKA is tradable in secondary market & beneficial in reward contracts.'
     }
   ]
 
@@ -45,13 +45,15 @@ function UtilityHakka () {
         <Flex sx={styles.utilityText}>
           <p>Stake HAKKA to get sHAKKA and bestowed below rights.</p>
         </Flex>
-        <Flex
-          sx={styles.utilityLink}
-          alignItems="center"
-        >
-          <a target="_blank" href='https://staking.hakka.finance/' rel="noreferrer"><Box>Stake Here</Box></a>
-          <a target="_blank" href='https://staking.hakka.finance/' rel="noreferrer"><Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex></a>
-        </Flex>
+        <a sx={{textDecoration: 'none'}} target="_blank" href='https://staking.hakka.finance/' rel="noreferrer">
+          <Flex
+            sx={styles.utilityLink}
+            alignItems="center"
+          >
+            <Box>Stake Portal</Box>
+            <Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex>
+          </Flex>
+        </a>
       </Flex>
       <Flex sx={styles.detailsInfo} mt="4">{renderDetailsInfo()}</Flex>
     </>

@@ -3,7 +3,7 @@ export default {
     width: '100%'
   },
   content: {
-    // marginLeft: '5%'
+    // marginLeft: '5%',
   },
   custom_scroll_bar: {
     height: '100vh',

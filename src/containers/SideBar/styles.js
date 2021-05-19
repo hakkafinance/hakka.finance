@@ -7,7 +7,7 @@ export default {
     transition: 'all ease-out 0.5s',
     '@media screen and (max-width:576px)': {
       position: 'absolute',
-      left: '100%',
+      right: '-100%',
       bottom: '0',
       top: '0'
     }
@@ -17,7 +17,7 @@ export default {
     transition: 'all ease-out 0.5s',
     '@media screen and (max-width:576px)': {
       position: 'absolute',
-      left: '0',
+      right: '0',
       bottom: '0',
       top: '0'
     }
@@ -36,14 +36,9 @@ export default {
     mr: 0,
     transition: 'all 0.25s ease-out',
     borderRight: '1px solid #dae1e3',
+    boxShadow: '-8px 0 16px -8px rgba(123, 135, 148, 0.25)',
     '@media screen and (max-width: 576px)': {
-      width: '80vw'
-    }
-  },
-  custom_header_padding: {
-    padding: '12px',
-    '@media screen and (max-width: 576px)': {
-      paddingTop: '0px'
+      width: '96vw'
     }
   },
   custom_padding: {

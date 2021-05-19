@@ -55,19 +55,11 @@ export default {
     }
   },
   card_link: {
-    padding: ['12px', '20px', '20px', '20px'],
+    padding: ['2px', '10px', '10px', '10px'],
     paddingBottom: ['12px', '28px', '28px', '28px'],
     '& .top-left-icon': {
       filter: 'grayscale(100%)',
       transition: 'all 0.25s ease-out'
-    },
-    ':hover': {
-      '& .text-visit': {
-        opacity: 1
-      },
-      '& .top-left-icon': {
-        filter: 'grayscale(0%)'
-      }
     }
   },
   card_content: {
@@ -120,9 +112,21 @@ export default {
       height: '48px'
     }
   },
+
+  link: {
+    padding: '10px',
+    ':hover': {
+      '& .text-visit': {
+        color: 'green'
+      },
+      '& .top-left-icon': {
+        filter: 'grayscale(0%)'
+      },
+    },
+  },
+
   text_visit: {
-    opacity: 0,
-    color: 'green',
+    color: 'gray',
     fontSize: [1, 1, 2, 3],
     fontWeight: 'bold',
     transition: 'all 0.25s ease-out',

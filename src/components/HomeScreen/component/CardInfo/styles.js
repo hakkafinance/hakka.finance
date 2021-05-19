@@ -133,6 +133,8 @@ export default {
     color: 'text_grey',
     fontWeight: '600',
     fontSize: [1, 1, 2, 3]
-  }
-
+  },
+  anchor:{
+    textDecoration:'none'
+  },
 }

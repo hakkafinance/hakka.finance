@@ -8,6 +8,8 @@ const images = {
   iconVesting: require('../images/icons/iconVesting.svg').default,
   iconVault: require('../images/icons/iconVault.svg').default,
   iconLinkSmall: require('../images/icons/iconLinkSmall.svg').default,
+  iconForum: require('../images/icons/iconForum.svg').default,
+  iconOgImage: require('../images/logos/ogImage.png').default,
 
   // web applications icon
 
@@ -68,6 +70,12 @@ const images = {
   imageChainlink: require('../images/icons/imageChainlink.png').default,
   image1inch: require('../images/icons/image1inch.png').default,
   imageSynthetix: require('../images/icons/imageSynthetix.png').default,
+  imageCompound: require('../images/icons/compound.png').default,
+  imageDelta: require('../images/icons/delta.png').default,
+  imageImtoken: require('../images/icons/imtoken.png').default,
+  imageKyberNetwork: require('../images/icons/kyberNetwork.png').default,
+  imageMaker: require('../images/icons/maker.png').default,
+  imageTrustWallet: require('../images/icons/trustWallet.png').default,
 
   // icon chain
   iconEthereum: require('../images/icons/iconEthereum.png').default,
@@ -79,6 +87,8 @@ const images = {
 
   // header backgroud
   headerLogo: require('../images/logos/headerBg.jpg').default,
+  headerLogo3x: require('../images/logos/headerBg-3x.jpg').default,
+  blurBall: require('../images/icons/decorativeBlurBall.png').default,
 
   // avatars
   pingChen: require('../images/avatars/pingChen.png').default,

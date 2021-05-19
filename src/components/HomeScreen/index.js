@@ -51,7 +51,25 @@ const HomeScreen = (props) => {
     },
     {
       img: 'imageSynthetix'
-    }
+    },
+    {
+      img: 'imageCompound'
+    },
+    {
+      img: 'imageMaker'
+    },
+    {
+      img: 'imageKyberNetwork'
+    },
+    {
+      img: 'imageImtoken'
+    },
+    {
+      img: 'imageTrustWallet'
+    },
+    {
+      img: 'imageDelta'
+    },
   ]
 
   const renderCoin = () => {
@@ -63,9 +81,12 @@ const HomeScreen = (props) => {
   const renderPartnersImg = () => {
     return partnersImg.map((item) => {
       return (
-            <Flex sx={styles.imgPartner_wrapper} key={item.img} >
-              <img sx={styles.imgPartner} src={images[item.img]} alt="" />
-            </Flex>
+        <Flex sx={styles.imgPartner_wrapper} key={item.img} >
+          {item.img === 'imageDelta'
+            ? <img sx={styles.imgPartnerBiggerIcon} src={images[item.img]} alt="" />
+            : <img sx={styles.imgPartner} src={images[item.img]} alt="" />
+          }
+        </Flex>
       )
     })
   }
@@ -76,12 +97,12 @@ const HomeScreen = (props) => {
         <Box sx={styles.homescreenContainer}>
           <Flex alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://pelith.teamdoor.io/', '_blank').focus() }}>
             <img src={images.iconFlower} alt="" />
-            Hakka Finance is hiring. Come join
-            us!
+            <span>Hakka Finance is <span sx={{ textDecoration: 'underline' }}>hiring</span>. Come join
+            us!</span>
           </Flex>
 
           <Box sx={styles.homeHeading} >
-            The Most Diversified Decentralized <br/> Finance Ecosystem
+            The Most Diversified Decentralized <br /> Finance Ecosystem
           </Box>
 
           <Box sx={styles.homeDescription} >
@@ -110,7 +131,7 @@ const HomeScreen = (props) => {
 
           <Box sx={styles.tokenMetrics} >
             <TokenMetrics
-              // renderChainToken={renderChainToken}
+            // renderChainToken={renderChainToken}
             />
           </Box>
 
@@ -119,7 +140,7 @@ const HomeScreen = (props) => {
           </Box>
 
           <Box sx={styles.blur_img_green_section_mobile}>
-            <Box sx={styles.blur_img_green_mobile}></Box>
+            <img sx={styles.blur_img_green_mobile} src={images.blurBall} alt="" />
           </Box>
 
           <Box sx={styles.utilityHakka}>
@@ -129,11 +150,11 @@ const HomeScreen = (props) => {
           <Box sx={styles.partners} >
             <Box sx={styles.partnersHead}>Partners &amp; Integrators</Box>
 
-            <Flex sx={styles.img_partners_responsive}flexWrap="wrap">{renderPartnersImg()}</Flex>
+            <Flex sx={styles.img_partners_responsive} flexWrap="wrap">{renderPartnersImg()}</Flex>
           </Box>
 
           <Box sx={styles.blur_img_green_section}>
-            <Box sx={styles.blur_img_green}></Box>
+            <img sx={styles.blur_img_green} src={images.blurBall} alt="" />
           </Box>
 
           <Box sx={styles.blur_img_blue_section_mobile}>

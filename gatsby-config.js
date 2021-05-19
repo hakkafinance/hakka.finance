@@ -12,7 +12,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: 'src/images/logos/hakkaTitleLogo.svg'
+        icon: 'src/images/logos/favicon.png'
       }
     },
     'gatsby-plugin-sharp',

@@ -55,6 +55,7 @@ const Header = (props) => {
       </Box>
 
       <Box sx={styles.mobile_header} justifyContent="space-between">
+        <img sx={styles.headerBg} src={images.headerLogo3x} />
         <img sx={styles.logoRespon} src={images.hakkaLogo} alt="" />
         <img onClick={handleToggleSidebar} sx={styles.iconMenu} src={images.iconMenu} alt="" />
       </Box>

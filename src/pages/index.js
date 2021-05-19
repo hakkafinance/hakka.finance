@@ -8,7 +8,7 @@ import ProductScreen from 'src/components/ProductScreen'
 // markup
 const IndexPage = () => {
   return (
-    <Layout >
+    <Layout>
       <HomeScreen/>
     </Layout>
   )

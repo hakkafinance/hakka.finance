@@ -4,10 +4,10 @@ import styles from './styles'
 import types from 'prop-types'
 
 const MyButton = (props) => {
-  const { type, click } = props
+  const { type, click, disabled } = props
 
   return (
-  <Button onClick={() => { if (props.click) props.click() }} sx={type === 'green' ? styles.mybutton_green : styles.mybutton}>
+  <Button disabled={disabled} onClick={() => { if (props.click) props.click() }} sx={type === 'green' ? styles.mybutton_green : styles.mybutton}>
     <Box>{props.children}</Box>
   </Button>
   )
@@ -15,7 +15,8 @@ const MyButton = (props) => {
 
 MyButton.propTypes = {
   children: types.any,
-  title: types.string
+  title: types.string,
+  disabled:  types.bool,
 }
 
 export default MyButton

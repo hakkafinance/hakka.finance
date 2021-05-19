@@ -9,8 +9,9 @@ import Header from './Header'
 import Footer from './Footer'
 import styles from './styles'
 import { useSpring, animated as a } from 'react-spring'
+import images from 'src/images'
 const Layout = ({ children, title }) => {
-  const [isShowSideBar, setIsShowSideBar] = useState(true)
+  const [isShowSideBar, setIsShowSideBar] = useState(false)
   const width = typeof window !== 'undefined' ? window.outerWidth : ''
   const [screenWidth, setScreenWidth] = useState(width)
   // const [isShowSideBar, setIsShowSideBar] = useState(screenWidth > 590)
@@ -31,13 +32,13 @@ const Layout = ({ children, title }) => {
     console.log('window is resized', width)
   }
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    if (screenWidth < 590) {
-      setIsShowSideBar(!isShowSideBar)
-    }
-    console.log('screenwidth', screenWidth)
-  }, [screenWidth])
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize)
+  //   if (screenWidth < 590) {
+  //     setIsShowSideBar(!isShowSideBar)
+  //   }
+  //   console.log('screenwidth', screenWidth)
+  // }, [screenWidth])
 
   useEffect(() => {
     console.log('showSidebar', isShowSideBar)
@@ -47,7 +48,8 @@ const Layout = ({ children, title }) => {
     <div onresize={handleResize}>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{title || 'Hakka'}</title>
+        <title>{title || 'Hakka Finance'}</title>
+        <meta property='og:image' content={ images.iconOgImage } />
       </Helmet>
       <Flex>
         <SideBar isShowSideBar={isShowSideBar} onCloseSideBar={handleClose}/>

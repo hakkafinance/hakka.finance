@@ -19,6 +19,13 @@ export default {
     ':active': {
       transform: 'scale(0.98)',
       outline: 'none'
+    },
+    ':disabled': {
+      color: '#9D9D9D',
+      cursor: 'not-allowed',
+      ':hover' :{
+        borderColor: '#dae1e3'
+      }
     }
   },
   mybutton_green: {
@@ -42,6 +49,13 @@ export default {
     ':active': {
       transform: 'scale(0.98)',
       outline: 'none'
+    },
+
+    ':disabled': {
+      color: '#9D9D9D',
+      cursor: 'not-allowed',
+      backgroundColor: '#ebf0f2',
+      border: 'none',
     }
   }
 }

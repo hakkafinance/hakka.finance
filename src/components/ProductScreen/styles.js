@@ -34,10 +34,12 @@ export default {
   responsive_coming_cards: {
     display: 'grid',
     gridGap: '28px',
-    paddingBottom: ['100px', '160px', '160px', '160px'],
     gridTemplateColumns: '1fr 1fr 1fr',
     '@media screen and (max-width: 1180px)': {
       gridTemplateColumns: '1fr 1fr'
     }
-  }
+  },
+  coming_InfoProduct:{
+    paddingBottom: ['100px', '160px', '160px', '160px'],
+  },
 }

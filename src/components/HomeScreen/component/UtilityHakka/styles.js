@@ -8,6 +8,7 @@ export default {
   utilityTextLink: {
     // marginBottom: '60px',
     maxWidth: '1200px',
+    alignItems: "center",
 
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
@@ -18,7 +19,7 @@ export default {
   utilityText: {
     fontSize: [2, 2, 3, 4],
     color: '#253e47',
-    alignItems: 'center'
+    
   },
 
   utilityLink: {
@@ -30,16 +31,26 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       // marginTop: '20px'
-    }
+    },
+    ':hover': {
+      '*': {
+        color: '#3ebd93'
+      },
+      'img': {
+        opacity: '0.7',
+      },
+    },
   },
 
+
+
   imgForward: {
-    width: '24px'
+    width: '24px',
   },
 
   utilityInfoContainer: {
     width: '40%',
-    marginRight: '20px',
+    maxWidth: '360px',
     flex: '1',
 
     '@media screen and (max-width: 576px)': {
@@ -47,8 +58,10 @@ export default {
     },
 
     ':last-child': {
+      marginLeft: '7.7%',
       '@media screen and (max-width: 576px)': {
-        paddingTop: '20px'
+        paddingTop: '20px',
+        marginLeft: '0',
       }
     }
   },
@@ -70,5 +83,5 @@ export default {
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column'
     }
-  }
+  },
 }

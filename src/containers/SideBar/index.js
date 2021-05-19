@@ -29,9 +29,16 @@ const botSideBarItems = [
     name: 'governance',
     icon: images.iconGovernance,
     path: 'governance',
-    href: 'https://gov.hakka.finance/',
-    subIcon: images.iconSnapshot
+    href: 'https://snapshot.org/#/hakka.eth',
+    // subIcon: images.iconSnapshot
 
+  },
+  {
+    name: 'forum',
+    icon: images.iconForum,
+    href: 'https://forum.hakka.finance/',
+    path: 'forum',
+    // subIcon: images.iconLinkSmall,
   },
   {
     name: 'rewards',
@@ -47,20 +54,27 @@ const botSideBarItems = [
     path: 'vesting'
 
   },
-  {
-    name: 'Guild Bank',
-    icon: images.iconVault,
-    href: 'https://burner.hakka.finance/',
-    path: 'vault'
+  // {
+  //   name: 'Guild Bank',
+  //   icon: images.iconVault,
+  //   href: 'https://burner.hakka.finance/',
+  //   path: 'vault'
 
-  }
+  // },
 ]
 
 function SideBar (props) {
   const { onCloseSideBar, isShowSideBar } = props
   const [selectedNav, setSelectedNav] = useState('')
 
-  const onSelectNavItem = (path) => () => {
+  // const href = typeof window !== 'undefined' ? window.location.pathname.replace(/\//g, "") : ''
+  // useEffect(() => {
+  //   console.log('useEffect is working')
+  //   console.log('href', href)
+  //   setSelectedNav(href)
+  // }, [])
+
+  const onSelectNavItem = (path) => () => {  
     navigate(`/${path}`)
     setSelectedNav(path)
 
@@ -104,7 +118,7 @@ function SideBar (props) {
       <Box sx={ isShowSideBar ? styles.sidebar_responsive_show : styles.sidebar_responsive} >
         <Flex flexDirection="column" justifyContent="space-between" sx={styles.sidebar}>
           <Box>
-            <Box sx={styles.custom_header_padding}>
+            <Box sx={styles.custom_padding}>
               <Box sx={styles.sidebar_header}>
                 <img src={images.hakkaLogo} />
                 <img onClick={handleCloseSideBar} sx={styles.sidebar_closeBtn} src={images.iconDeleteRound}/>
@@ -139,7 +153,7 @@ function SideBar (props) {
           <Box>
             <Box sx={styles.hl} mt="2" pr="0"></Box>
             <Box p="12px">
-              <MyButton click={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }}>
+              <MyButton click={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus() }}>
                 <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>
               </MyButton>
             </Box>

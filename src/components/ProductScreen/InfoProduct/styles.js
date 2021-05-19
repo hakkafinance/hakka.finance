@@ -1,5 +1,7 @@
 export default {
   info_section: {
+    position: 'relative',
+    zIndex: '-1',
     paddingBottom: '20px',
     borderBottom: '1px solid #dae1e3',
     opacity: '0',
@@ -42,7 +44,7 @@ export default {
     flex: '2'
   },
   infoTitle_name: {
-    fontSize: [5, 5, 6, 7],
+    fontSize: [5, 5, 6],
     fontWeight: '700',
     fontFamily: 'system-ui',
     color: 'black'
@@ -73,7 +75,6 @@ export default {
     borderRadius: '8px',
     color: 'black',
     fontSize: [1, 1, 2, 3]
-
   },
   btn_section: {
     padding: '0 20px',
