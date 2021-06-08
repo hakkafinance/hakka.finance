@@ -20,7 +20,7 @@ const BlankScreen = (props) => {
     <Box sx={{textAlign:'center'}}>
       <img src={images.iconUnderConstruction} sx={styles.underConstructionIcon} alt="under construction icon" />
       <h2 sx={styles.title}>This page is processing</h2>
-      <p sx={styles.contentText}>please visit to Hakka {productInfo['name']} for temporary</p>
+      <p sx={styles.contentText}>Please visit Hakka {productInfo['name']} for temporary</p>
       <div sx={styles.buttonSection}>
         <MyButton click={() => { window.open(productInfo['href'], '_blank').focus() }} type={'green'}>{productInfo['name']}</MyButton>
       </div>

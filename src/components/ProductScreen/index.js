@@ -17,7 +17,7 @@ const ProductScreen = (props) => {
       whitepaper: 'https://blackholeswap.com/documents/en.pdf',
       vist: 'https://blackholeswap.com/',
       id: 1,
-      infoTag: ['DEX', 'Stablecoin']
+      infoTag: ['DEX', 'Stablecoin'],
     },
     {
       icon: images.icon3FMutual,
@@ -36,7 +36,8 @@ const ProductScreen = (props) => {
       whitepaper: 'https://hakkafinance.gitbook.io/igain/',
       vist: 'http://igain.hakka.finance/',
       id: 3,
-      infoTag: ['Options', 'PredictionMarket']
+      infoTag: ['Options', 'PredictionMarket'],
+      visitButtonContent: 'Visit Sheety DApp',
     },
     {
       icon: images.iconHakkaIntel,
@@ -54,7 +55,16 @@ const ProductScreen = (props) => {
       vist: 'https://defihandbook.cc/',
       id: 5,
       infoTag: ['Dev', 'Tool']
-    }
+    },
+    {
+      icon: images.iconHarvester,
+      cardName: 'Hakka Harvester',
+      info: 'Hakka Harvester is a yield farming portal for those who are chasing farms with high-APY and show more willingness to hold $HAKKA instead of other tokens.',
+      whitepaper: 'https://medium.com/hakkafinance/hakka-harvester-born-for-chad-hakka-farmers-83c37f0170b9',
+      vist: 'https://harvesters.hakka.finance/pools',
+      id: 6,
+      infoTag: ['Aggregator', 'YieldFarming']
+    },
   ]
 
   const botArr = [
@@ -65,6 +75,7 @@ const ProductScreen = (props) => {
       vist: 'https://csf-v2.netlify.app/',
       comingProductId: 1,
       infoTag: ['Futures', 'Fund'],
+      visitButtonContent: 'Visit Alpha CSF',
     },
     {
       icon: images.iconTcdp,
@@ -170,7 +181,7 @@ const ProductScreen = (props) => {
 
   const renderCardProductResponsive2 = () => {
     if (screenWidth < 1195) {
-      return topArr.slice(4, 5).map((item) => {
+      return topArr.slice(4, 6).map((item) => {
         return (
           <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
             <CardPorduct
@@ -239,7 +250,7 @@ const ProductScreen = (props) => {
         </Box>
 
         <Box>
-          {selectedCardId > (screenWidth < 1195 ? 2 : 3) && selectedCardId < (screenWidth < 1195 ? 5 : 6)
+          {selectedCardId > (screenWidth < 1195 ? 2 : 3) && selectedCardId < (screenWidth < 1195 ? 5 : 7)
             ? <InfoProduct
               onClose={handleCloseInfo}
               dataInfo={dataInfo}
@@ -255,7 +266,7 @@ const ProductScreen = (props) => {
         </Box>
 
         <Box>
-          {selectedCardId === (screenWidth < 1195 && 5 )
+          {(screenWidth < 1195 && selectedCardId >= 5 && selectedCardId <= 6) 
             ? <InfoProduct
               onClose={handleCloseInfo}
               dataInfo={dataInfo}

@@ -43,7 +43,7 @@ const InfoProduct = props => {
             <Flex sx={styles.btn_section} >
               <MyButton disabled={!dataInfo.whitepaper} click={() => { window.open(dataInfo.whitepaper, '_blank').focus() }}>Whitepaper</MyButton>
               <Box ml="28px" mt="12px"></Box>
-              <MyButton disabled={!dataInfo.vist} click={() => { window.open(dataInfo.vist, '_blank').focus() }} type="green">{dataInfo.cardName==='Crypto Structured Fund'?'Visit Alpha CSF':'Visit'}</MyButton>
+              <MyButton disabled={!dataInfo.vist} click={() => { window.open(dataInfo.vist, '_blank').focus() }} type="green">{dataInfo.visitButtonContent || 'Visit'}</MyButton>
             </Flex>
           </Box>
         </Box>

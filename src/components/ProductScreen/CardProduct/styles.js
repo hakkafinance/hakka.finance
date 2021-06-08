@@ -107,6 +107,8 @@ export default {
     // color: 'black_grey'
   },
   img_icon: {
+    width: '60px',
+    height: '60px',
     '@media screen and (max-width: 960px)': {
       width: '48px',
       height: '48px'
