@@ -7,7 +7,7 @@ import styles from './styles'
 import { upperCaseFirstLetter } from 'src/common/functions'
 
 const SideBarItem = (props, { location, data }) => {
-  const { icon, text, path, subIcon, href } = props
+  const { icon, text, path, subIcon } = props
   const [selectedNavPath, setSelectedNavPath] = useState();
   const isBrowser = typeof window !== 'undefined'
   const currentPath = isBrowser ? window.location.pathname.replace(/\//g, "") : ''
@@ -18,7 +18,7 @@ const SideBarItem = (props, { location, data }) => {
   }, [])
 
   return (
-    <Box onClick={() => { if (props.href) window.open(props.href, '_blank').focus() }} sx={selectedNavPath === path ? styles.sidebar_item_active : styles.sidebar_item}>
+    <Box sx={selectedNavPath === path ? styles.sidebar_item_active : styles.sidebar_item}>
       <Flex sx={{ width: '100%' }} justifyContent="space-between">
         <Flex>
           <img src={icon} alt />

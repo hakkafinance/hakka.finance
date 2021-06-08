@@ -84,6 +84,7 @@ const images = {
 
   // icon content
   iconFlower: require('../images/icons/iconFlower.svg').default,
+  iconUnderConstruction: require('../images/icons/underConstruction.svg').default,
 
   // header backgroud
   headerLogo: require('../images/logos/headerBg.jpg').default,

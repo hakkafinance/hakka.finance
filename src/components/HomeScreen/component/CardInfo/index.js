@@ -27,7 +27,7 @@ function CardInfo(props) {
   const renderCard = () => {
     return cardHeadContent.map((item, i) => {
       return (
-        <a sx={styles.anchor}>
+        <a sx={styles.anchor} key={item.title}>
           <Box
             key={item.title}
             flexDirection="column"

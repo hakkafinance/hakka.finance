@@ -24,12 +24,14 @@ const topSideBarItems = [
   }
 ]
 
-const botSideBarItems = [
+export const botSideBarItems = [
   {
     name: 'governance',
     icon: images.iconGovernance,
     path: 'governance',
     href: 'https://snapshot.org/#/hakka.eth',
+    connectOutsideWebsite: true,
+    underConstruction: false,
     // subIcon: images.iconSnapshot
 
   },
@@ -38,27 +40,34 @@ const botSideBarItems = [
     icon: images.iconForum,
     href: 'https://forum.hakka.finance/',
     path: 'forum',
+    connectOutsideWebsite: true,
+    underConstruction: false,
     // subIcon: images.iconLinkSmall,
   },
   {
     name: 'rewards',
     icon: images.iconReward,
     href: 'https://rewards.hakka.finance/',
-    path: 'rewards'
+    path: 'rewards',
+    connectOutsideWebsite: false,
+    underConstruction: true,
 
   },
   {
-    name: 'vesting',
+    name: 'staking',
     icon: images.iconVesting,
-    href: 'https://vesting.hakka.finance/',
-    path: 'vesting'
-
+    href: 'https://staking.hakka.finance/',
+    path: 'staking',
+    connectOutsideWebsite: false,
+    underConstruction: true,
   },
   // {
   //   name: 'Guild Bank',
   //   icon: images.iconVault,
   //   href: 'https://burner.hakka.finance/',
-  //   path: 'vault'
+  //   path: 'vault',
+  //   connectOutsideWebsite: false,
+  //   underConstruction: true,
 
   // },
 ]
@@ -101,13 +110,12 @@ function SideBar (props) {
   const renderBotSideBar = () => {
     return botSideBarItems.map((it, idx) => {
       return (
-        <Box key={it.name} >
+        <Box key={it.name} onClick={it.connectOutsideWebsite? () => window.open(it.href, '_blank').focus() : onSelectNavItem(it.path)}>
           <SideBarItem
             selectedNav={selectedNav}
             icon={it.icon}
             text={it.name}
             path={it.path}
-            href={it.href}
             subIcon={get(it, 'subIcon')}
           />
         </Box>

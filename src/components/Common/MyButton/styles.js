@@ -1,6 +1,6 @@
 export default {
   mybutton: {
-    padding: '12px 16px',
+    padding: '14px 16px',
     backgroundColor: '#fff',
     color: '#2da287',
     border: 'solid 1px #dae1e3',
@@ -29,7 +29,7 @@ export default {
     }
   },
   mybutton_green: {
-    padding: '12px 16px',
+    padding: '14px 16px',
     backgroundColor: '#3ebd93',
     color: '#fff',
     border: 'solid 1px #3ebd93',
