@@ -6,7 +6,7 @@ const GuildBankPage = () => {
   return (
     <Layout>
       <BlankScreen
-        path = {'vault'}
+        path = {'guildbank'}
       />
     </Layout>
   )

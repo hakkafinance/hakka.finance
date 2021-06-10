@@ -11,7 +11,7 @@ const BlankScreen = (props) => {
   let productInfo = {};
   botSideBarItems.forEach((item) => {
     if (item.path === props.path) {
-      productInfo['name'] = item.name.charAt(0).toUpperCase() + item.name.slice(1)+ ' V1';
+      productInfo['name'] = props.path === 'guildbank'? 'Token Burner V1' : item.name.charAt(0).toUpperCase() + item.name.slice(1)+ ' V1';
       productInfo['href'] = item.href;
     }
   })

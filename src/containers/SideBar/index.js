@@ -61,15 +61,14 @@ export const botSideBarItems = [
     connectOutsideWebsite: false,
     underConstruction: true,
   },
-  // {
-  //   name: 'Guild Bank',
-  //   icon: images.iconVault,
-  //   href: 'https://burner.hakka.finance/',
-  //   path: 'vault',
-  //   connectOutsideWebsite: false,
-  //   underConstruction: true,
-
-  // },
+  {
+    name: 'Guild Bank',
+    icon: images.iconVault,
+    href: 'https://vault.hakka.finance/',
+    path: 'guildbank',
+    connectOutsideWebsite: false,
+    underConstruction: true,
+  },
 ]
 
 function SideBar (props) {
