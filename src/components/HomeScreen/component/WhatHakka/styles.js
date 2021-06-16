@@ -14,6 +14,16 @@ export default {
     // marginBottom: '28px'
   },
 
+  circulatingSupplyText: {
+    color: '#253e47',
+    fontWeight: 'bold',
+
+    '@media screen and (max-width: 374px)': {
+      display: 'flex',
+      flexDirection: 'column',
+    }
+  },
+
   listCoinHakka: {
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column'
