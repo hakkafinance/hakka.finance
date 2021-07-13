@@ -10,6 +10,7 @@ const images = {
   iconLinkSmall: require('../images/icons/iconLinkSmall.svg').default,
   iconForum: require('../images/icons/iconForum.svg').default,
   iconOgImage: require('../images/logos/ogImage.png').default,
+  iconAccount: require('../images/icons/iconAccount.svg').default,
 
   // web applications icon
 
@@ -79,6 +80,7 @@ const images = {
 
   // icon chain
   iconEthereum: require('../images/icons/iconEthereum.png').default,
+  iconEthereumDark: require('../images/icons/icon-logo-ethereum-dark.png').default,
   iconBinanceGray: require('../images/icons/iconBinanceGray.png').default,
   iconBinanceGold: require('../images/icons/iconBinanceGold.png').default,
 
