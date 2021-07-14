@@ -11,6 +11,9 @@ const images = {
   iconForum: require('../images/icons/iconForum.svg').default,
   iconOgImage: require('../images/logos/ogImage.png').default,
   iconAccount: require('../images/icons/iconAccount.svg').default,
+  iconTrash: require('../images/icons/iconTrash.svg').default,
+  iconChekBoxChecked: require('../images/icons/checkboxChecked.svg').default,
+  iconChekBoxUnchecked: require('../images/icons/checkboxUnchecked.svg').default,
 
   // web applications icon
 
@@ -37,6 +40,7 @@ const images = {
   iconRightGrey: require('../images/icons/iconRightGrey.svg').default,
   iconDelete: require('../images/icons/iconDelete.svg').default,
   iconDeleteRound: require('../images/icons/iconDeleteRound.svg').default,
+  iconAdd: require('../images/icons/iconAdd.svg').default,
 
   /// home icon
   iconLight: require('../images/icons/iconLight.svg').default,

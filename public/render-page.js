@@ -21361,6 +21361,130 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/VaultPage/RewardListItem/index.js":
+/*!**********************************************************!*\
+  !*** ./src/components/VaultPage/RewardListItem/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/VaultPage/RewardListItem/styles.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/** @jsx jsx */
+
+
+
+ // import { useState } from 'react'
+// import { ReactComponent as IconChekBoxChecked } from '../../../images/icons/checkboxChecked.svg';
+// import { ReactComponent as IconChekBoxUnchecked } from '../../../images/icons/checkboxUnchecked.svg';
+
+const RewardItem = props => {
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.rewardItemWrapper
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.itemInfo
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.checkBoxLabel
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.checkBox,
+    type: "checkbox" // id={label}
+    // name={label}
+    // checked={checked}
+    ,
+    onChange: props.onChange
+  }), props.checked ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconChekBoxChecked
+  }) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconChekBoxUnchecked
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.tokenName
+  }, props.tokenName)), props.isDefaultToken || (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.iconTrash,
+    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconTrash,
+    alt: "delete this reward"
+  })), props.checked ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.receiveAmount
+  }, props.receiveAmount), "/", (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.bankBalance
+  }, props.bankBalance)) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.unselectedReward
+  }, "Unselected Reward"));
+};
+
+RewardItem.propTypes = {
+  tokenName: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  receiveAmount: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  bankBalance: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  isDefaultToken: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+  checked: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RewardItem);
+
+/***/ }),
+
+/***/ "./src/components/VaultPage/RewardListItem/styles.js":
+/*!***********************************************************!*\
+  !*** ./src/components/VaultPage/RewardListItem/styles.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  rewardItemWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    minHeight: '24px',
+    marginBottom: '20px',
+    lineHeight: '1.5'
+  },
+  itemInfo: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  iconTrash: {
+    marginLeft: '4px',
+    cursor: 'pointer'
+  },
+  receiveAmount: {
+    fontWeight: 'bold',
+    paddingRight: '4px'
+  },
+  bankBalance: {
+    paddingLeft: '4px'
+  },
+  unselectedReward: {
+    fontSize: '14px',
+    lineHeight: '1.71',
+    fontWeight: '600',
+    color: 'rgba(37, 62, 71, 0.5)'
+  },
+  checkBox: {
+    display: 'none'
+  },
+  tokenName: {
+    marginLeft: '12px'
+  },
+  checkBoxLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer'
+  }
+});
+
+/***/ }),
+
 /***/ "./src/components/VaultPage/index.js":
 /*!*******************************************!*\
   !*** ./src/components/VaultPage/index.js ***!
@@ -21372,11 +21496,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
 /* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
 /* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/VaultPage/styles.js");
 /* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
+/* harmony import */ var _RewardListItem_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RewardListItem/index */ "./src/components/VaultPage/RewardListItem/index.js");
 /** @jsx jsx */
 
 
@@ -21384,20 +21509,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const BlankScreen = props => {
-  {
-    /* <img src={images.iconUnderConstruction} sx={styles.underConstructionIcon} alt="under construction icon" />
-       <div sx={styles.buttonSection}>
-         <MyButton click={() => { window.open(productInfo['href'], '_blank').focus() }} type={'green'}>{productInfo['name']}</MyButton>
-       </div> */
-  }
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_0__.Box, {
+
+const VaultPage = props => {
+  const estimateAmount = 500;
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_0__.Box, {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.container
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.header
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.title
-  }, "Guild Bank"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, "Guild Bank"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: {
       display: 'flex',
       alignItems: 'center',
@@ -21412,7 +21533,7 @@ const BlankScreen = props => {
         justifyContent: 'space-between'
       }
     }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: {
       display: 'flex',
       paddingRight: '12px',
@@ -21420,17 +21541,17 @@ const BlankScreen = props => {
         paddingRight: '0'
       }
     }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
     src: src_images__WEBPACK_IMPORTED_MODULE_1__.default.iconEthereumDark,
     alt: "Ethereum Icon"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
     sx: {
       whiteSpace: 'nowrap',
       color: '#253e47',
       fontWeight: 'bold',
       marginLeft: '4px'
     }
-  }, "Ethereum")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, "Ethereum")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: {
       width: '153px',
       '@media screen and (max-width: 576px)': {
@@ -21438,9 +21559,9 @@ const BlankScreen = props => {
         order: '-1'
       }
     }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__.default, {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__.default, {
     click: () => {}
-  }, "0x1234\u20261234")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+  }, "0x1234\u20261234")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
     sx: {
       padding: '12px',
       marginLeft: '12px',
@@ -21452,21 +21573,21 @@ const BlankScreen = props => {
     },
     src: src_images__WEBPACK_IMPORTED_MODULE_1__.default.iconAccount,
     alt: "Account Icon"
-  }))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.body
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.infomationArea
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subTitle
-  }, "Burn to get value"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, "Burn to get value"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.contract
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, "Contract"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Contract"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.contractAddress
-  }, "0x0E29e5Ab\u202647dE3bcd")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", null, "Description Description Description Description Description Description"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }, "0x0E29e5Ab\u202647dE3bcd")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", null, "Description Description Description Description Description Description"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaBalance
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, "Burn"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, "HAKKA Balance: 5699.3228")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Burn"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "HAKKA Balance: 5699.3228")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {
     sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hr
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
     style: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -21474,29 +21595,90 @@ const BlankScreen = props => {
       paddingTop: '11px',
       fontWeight: '600'
     }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
     style: {
       color: 'rgba(37, 62, 71, 0.5)'
     }
-  }, " Know more"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center'
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-    style: {
-      color: '#2da287'
-    },
-    click: () => {
+  }, " Know more"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    style: _styles__WEBPACK_IMPORTED_MODULE_2__.default.wikiLinkArea,
+    onClick: () => {
       window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus();
     }
-  }, "Visit Wiki"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    style: {
+      color: '#2da287'
+    }
+  }, "Visit Wiki"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
     src: src_images__WEBPACK_IMPORTED_MODULE_1__.default.iconForwardGreen,
     alt: "link"
-  })))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", null)));
+  })))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.formContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.formTitleArea
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.formTitle
+  }, "You wish to receive"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.addTokenButton
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    sx: {
+      paddingBottom: '2px'
+    }
+  }, "Add token"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+    style: _styles__WEBPACK_IMPORTED_MODULE_2__.default.addTokenButtonAddIcon,
+    src: src_images__WEBPACK_IMPORTED_MODULE_1__.default.iconAdd,
+    alt: "add new token"
+  }), "  ")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__.default, null, "Add")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.rewardListContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_RewardListItem_index__WEBPACK_IMPORTED_MODULE_4__.default, {
+    tokenName: 'HAKKA',
+    receiveAmount: '100',
+    bankBalance: '20000',
+    isDefaultToken: true,
+    checked: false,
+    onChange: () => {
+      alert('123');
+    }
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_RewardListItem_index__WEBPACK_IMPORTED_MODULE_4__.default, {
+    tokenName: 'DAI',
+    receiveAmount: '0.200',
+    bankBalance: '200.999',
+    isDefaultToken: true,
+    checked: true,
+    onChange: () => {
+      alert('321');
+    }
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_RewardListItem_index__WEBPACK_IMPORTED_MODULE_4__.default, {
+    tokenName: 'DAI',
+    receiveAmount: '0.200',
+    bankBalance: '200.999',
+    isDefaultToken: false,
+    checked: false,
+    onChange: () => {
+      alert('32111');
+    }
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_RewardListItem_index__WEBPACK_IMPORTED_MODULE_4__.default, {
+    tokenName: 'DAI',
+    receiveAmount: '0.200',
+    bankBalance: '200.999',
+    isDefaultToken: false,
+    checked: true,
+    onChange: () => {
+      alert('321222');
+    }
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hr2
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueWrapper
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Total Value"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueAmount
+  }, estimateAmount, " USD")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.burnBtn
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__.default, {
+    type: 'green'
+  }, "Burn")))));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlankScreen);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VaultPage);
 
 /***/ }),
 
@@ -21512,14 +21694,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  homescreenContainer: {
-    paddingLeft: '12.8%',
-    paddingRight: '14.4%',
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '16px',
-      paddingRight: '16px'
-    }
-  },
   container: {
     padding: '0 90px 0 150px',
     color: '#253e47',
@@ -21536,11 +21710,19 @@ __webpack_require__.r(__webpack_exports__);
     fontSize: [5, 6, 6, 6]
   },
   body: {
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'flex-start',
+    marginBottom: '100px',
+    '@media screen and (max-width: 576px)': {
+      display: 'block'
+    }
   },
   infomationArea: {
     width: '300px',
-    fontSize: [1, 1, 1, 1]
+    fontSize: [1, 1, 1, 1],
+    '@media screen and (max-width: 576px)': {
+      width: '100%'
+    }
   },
   subTitle: {
     fontWeight: 'bold',
@@ -21567,6 +21749,66 @@ __webpack_require__.r(__webpack_exports__);
     border: 'none',
     height: '1px',
     margin: '0'
+  },
+  wikiLinkArea: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer'
+  },
+  formContainer: {
+    width: '460px',
+    padding: '28px 20px 20px 20px',
+    marginTop: '28px',
+    marginLeft: '100px',
+    fontSize: '16px',
+    border: '1px solid #dae1e3',
+    borderRadius: '8px',
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      marginLeft: '0'
+    }
+  },
+  formTitleArea: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    whiteSpace: 'nowrap',
+    padding: '0 8px 0 8px'
+  },
+  formTitle: {
+    fontSize: '18px',
+    fontWeight: '600'
+  },
+  addTokenButton: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '14px',
+    color: 'rgba(37, 62, 71, 0.5)',
+    fontWeight: '600'
+  },
+  addTokenButtonAddIcon: {
+    paddingLeft: '4px'
+  },
+  rewardListContainer: {
+    marginTop: '36px',
+    marginBottom: '8px',
+    overflow: 'hidden'
+  },
+  hr2: {
+    backgroundColor: '#dae1e3',
+    border: 'none',
+    height: '1px',
+    margin: '0'
+  },
+  totalValueWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '20px 0 36px 0'
+  },
+  totalValueAmount: {
+    fontWeight: 'bold'
+  },
+  burnBtn: {
+    height: '60px'
   }
 });
 
@@ -22600,6 +22842,9 @@ const images = {
   iconForum: __webpack_require__(/*! ../images/icons/iconForum.svg */ "./src/images/icons/iconForum.svg").default,
   iconOgImage: __webpack_require__(/*! ../images/logos/ogImage.png */ "./src/images/logos/ogImage.png").default,
   iconAccount: __webpack_require__(/*! ../images/icons/iconAccount.svg */ "./src/images/icons/iconAccount.svg").default,
+  iconTrash: __webpack_require__(/*! ../images/icons/iconTrash.svg */ "./src/images/icons/iconTrash.svg").default,
+  iconChekBoxChecked: __webpack_require__(/*! ../images/icons/checkboxChecked.svg */ "./src/images/icons/checkboxChecked.svg").default,
+  iconChekBoxUnchecked: __webpack_require__(/*! ../images/icons/checkboxUnchecked.svg */ "./src/images/icons/checkboxUnchecked.svg").default,
   // web applications icon
   iconMedium: __webpack_require__(/*! ../images/icons/iconMedium.svg */ "./src/images/icons/iconMedium.svg").default,
   iconTelegram: __webpack_require__(/*! ../images/icons/iconTelegram.svg */ "./src/images/icons/iconTelegram.svg").default,
@@ -22621,6 +22866,7 @@ const images = {
   iconRightGrey: __webpack_require__(/*! ../images/icons/iconRightGrey.svg */ "./src/images/icons/iconRightGrey.svg").default,
   iconDelete: __webpack_require__(/*! ../images/icons/iconDelete.svg */ "./src/images/icons/iconDelete.svg").default,
   iconDeleteRound: __webpack_require__(/*! ../images/icons/iconDeleteRound.svg */ "./src/images/icons/iconDeleteRound.svg").default,
+  iconAdd: __webpack_require__(/*! ../images/icons/iconAdd.svg */ "./src/images/icons/iconAdd.svg").default,
   /// home icon
   iconLight: __webpack_require__(/*! ../images/icons/iconLight.svg */ "./src/images/icons/iconLight.svg").default,
   iconForward: __webpack_require__(/*! ../images/icons/iconForward.svg */ "./src/images/icons/iconForward.svg").default,
@@ -64229,6 +64475,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/images/icons/checkboxChecked.svg":
+/*!**********************************************!*\
+  !*** ./src/images/icons/checkboxChecked.svg ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTc1OC4wMDAwMDAsIC0zMDguMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiLz4KICAgICAgICAgICAgICAgICAgICA8cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHg9IjQiIHk9IjQiIGZpbGw9IiMyREEyODciIGZpbGwtcnVsZT0ibm9uemVybyIgcng9IjIiLz4KICAgICAgICAgICAgICAgICAgICA8Zz4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTAgMEgxNlYxNkgweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNC4wMDAwMDAsIDQuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMi4xOSAzLjY5Yy41ODUtLjU4NiAxLjUzNS0uNTg2IDIuMTIgMCAuNTUuNTQ5LjU4NCAxLjQxOC4xMDQgMi4wMDdsLS4xMDMuMTE0LTcgN2MtLjU1LjU0OS0xLjQxOS41ODMtMi4wMDguMTAzbC0uMTE0LS4xMDMtMy0zYy0uNTg1LS41ODYtLjU4NS0xLjUzNiAwLTIuMTIyLjU1LS41NDkgMS40MTktLjU4MyAyLjAwOC0uMTAzbC4xMTQuMTAzTDYuMjUgOS42M2w1Ljk0LTUuOTR6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K");
+
+/***/ }),
+
+/***/ "./src/images/icons/checkboxUnchecked.svg":
+/*!************************************************!*\
+  !*** ./src/images/icons/checkboxUnchecked.svg ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTc1OC4wMDAwMDAsIC00NDAuMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkgdHJhbnNsYXRlKDAuMDAwMDAwLCAxMzIuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiLz4KICAgICAgICAgICAgICAgICAgICAgICAgPHJlY3Qgd2lkdGg9IjE0LjUiIGhlaWdodD0iMTQuNSIgeD0iNC43NSIgeT0iNC43NSIgZmlsbD0iI0Y3RkJGQyIgc3Ryb2tlPSIjREFFMUUzIiBzdHJva2Utd2lkdGg9IjEuNSIgcng9IjIiLz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=");
+
+/***/ }),
+
 /***/ "./src/images/icons/compound.png":
 /*!***************************************!*\
   !*** ./src/images/icons/compound.png ***!
@@ -64316,6 +64592,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMTU0LjAwMDAwMCwgLTg4LjAwMDAwMCkgdHJhbnNsYXRlKDgwNi4wMDAwMDAsIDc2LjAwMDAwMCkgdHJhbnNsYXRlKDMzNi4wMDAwMDAsIDAuMDAwMDAwKSB0cmFuc2xhdGUoMTIuMDAwMDAwLCAxMi4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMzRUJEOTMiIGQ9Ik0xNC4yMDUgMi4zMjZsLjUzMi4zNjEuMjI2LjE1OS42NDYuNDY2IDEuNzI2IDEuMjggMS4zOS4yNy4zNi4wNzcuMzE5LjA3LjI1OS4wNjMuMzQyLjA5LjIwNS4wNTguMTguMDU4Yy44MDIuMjY0IDEuMjEyLjU3NyAxLjI0NCAxLjAyN3YuMDkzbC0uMDEyLjA5Mi0uMTY1LjE1Yy0uNjg2LjU2Ni0yLjA2OCAxLjE3Mi0zLjg5NyAxLjY2bC0uMDEtLjE5OGMuMTc0IDIuNDk2LTEuMzQ1IDQuNzE4LTMuNTc5IDUuNTQ0IDQuMzYuNTMgNy41MjkgMi44MDkgNy41MjkgNS42NzV2LjY3NWwtLjAwMy4xMTljLS4wNjYgMS4zNDItMS4yMzUgMi40MTItMi42NjkgMi40MTJINS4xNzJsLS4xMjYtLjAwM0MzLjYzIDIyLjQ2MiAyLjUgMjEuMzU0IDIuNSAxOS45OTZ2LS42NzVsLjAwMi0uMTM5Yy4xMDEtMi44MjEgMy4yODQtNS4wNDcgNy42MjMtNS41NDktMS44ODQtLjcwOS0zLjI5OC0yLjQzLTMuNTMtNC41NDUtMS45NDUtLjIyNS0zLjQ0OS0uNjQzLTQuMjItMS4xMjEtLjA1NC0uMDk5LS4wODYtLjIwMi0uMDk0LS4zMDktLjAzNS0uNDk4LjM1Mi0uOTI4IDEuMjMtMS4zNDgtLjE1NS0uMTQzLS4yMzItLjI3OS0uNDE0LS4zODIuMjUtLjMzNC43MzYtLjYyOSAxLjA3OC0uNzAyLjY4LS4xNjMgMS4xMTcuMDEzIDEuNTg0LjAxOC0uMzctLjEzLTEuMTA5LS43Ni0xLjM3NC0xLjA1Mi0uMzM2LS42NC0uMTY5LTEuMjIzLS4wMTQtMS41NWwuMDMzLS4wNjYuMDU3LS4xMDIuMDY5LS4xMDguMDQ2LS4wMS4xOTUtLjAxOGMuMjk0LS4wMTguNzc2LS4wMTIuOTYzLjE3LjMxMS4zODYuNDc0Ljc5LjU4NCAxLjE1NGwuMDk3LjM0NmMuMDcxLjI3NC4xMjguNTAzLjIyNi42NTRsLjAzNy0uMjA2LjA1My0uMzk4Yy4wMzYtLjI2NS4wODgtLjU0LjI0LS44NjguMjY0LS41NzYgMS4yNjYtMS40MDkgMi4wMjQtMS4zMWwuMDMuMTIuMTAzLjI5M2MuMDI3LjA5NS4wMzguMTk4LjAxLjM0MSAxLjA0LS45MSAxLjgtMS4zODggMi40MTYtMS40My42MjctLjA0NCAxLjQ2Mi4zMzYgMi42NTEgMS4xMjJ6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTE1NC4wMDAwMDAsIC04OC4wMDAwMDApIHRyYW5zbGF0ZSg4MDYuMDAwMDAwLCA3Ni4wMDAwMDApIHRyYW5zbGF0ZSgzMzYuMDAwMDAwLCAwLjAwMDAwMCkgdHJhbnNsYXRlKDEyLjAwMDAwMCwgMTIuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==");
+
+/***/ }),
+
+/***/ "./src/images/icons/iconAdd.svg":
+/*!**************************************!*\
+  !*** ./src/images/icons/iconAdd.svg ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMDcuMDAwMDAwLCAtNDUyLjAwMDAwMCkgdHJhbnNsYXRlKDE2LjAwMDAwMCwgNDI0LjAwMDAwMCkgdHJhbnNsYXRlKDIxNy4wMDAwMDAsIDI4LjAwMDAwMCkgdHJhbnNsYXRlKDc0LjAwMDAwMCwgMC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMyNTNFNDciIGZpbGwtb3BhY2l0eT0iLjUiIGZpbGwtcnVsZT0ibm9uemVybyIgZD0iTTEyIDJjNS41MjMgMCAxMCA0LjQ3NyAxMCAxMHMtNC40NzcgMTAtMTAgMTBTMiAxNy41MjMgMiAxMiA2LjQ3NyAyIDEyIDJ6bTAgMS41Yy00LjY5NCAwLTguNSAzLjgwNi04LjUgOC41czMuODA2IDguNSA4LjUgOC41IDguNS0zLjgwNiA4LjUtOC41LTMuODA2LTguNS04LjUtOC41ek0xMiA3Yy4zOCAwIC42OTMuMjgyLjc0My42NDhsLjAwNy4xMDJ2My41aDMuNWMuNDE0IDAgLjc1LjMzNi43NS43NSAwIC4zOC0uMjgyLjY5My0uNjQ4Ljc0M2wtLjEwMi4wMDdoLTMuNXYzLjVjMCAuNDE0LS4zMzYuNzUtLjc1Ljc1LS4zOCAwLS42OTMtLjI4Mi0uNzQzLS42NDhsLS4wMDctLjEwMnYtMy41aC0zLjVjLS40MTQgMC0uNzUtLjMzNi0uNzUtLjc1IDAtLjM4LjI4Mi0uNjkzLjY0OC0uNzQzbC4xMDItLjAwN2gzLjV2LTMuNWMwLS40MTQuMzM2LS43NS43NS0uNzV6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzA3LjAwMDAwMCwgLTQ1Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDQyNC4wMDAwMDApIHRyYW5zbGF0ZSgyMTcuMDAwMDAwLCAyOC4wMDAwMDApIHRyYW5zbGF0ZSg3NC4wMDAwMDAsIDAuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==");
 
 /***/ }),
 
@@ -65006,6 +65297,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8ZyBmaWxsPSIjMjUzRTQ3IiBmaWxsLXJ1bGU9Im5vbnplcm8iPg0KICAgICAgICAgICAgPGc+DQogICAgICAgICAgICAgICAgPGc+DQogICAgICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTEyIDBjNi42MjcgMCAxMiA1LjM3MyAxMiAxMnMtNS4zNzMgMTItMTIgMTJTMCAxOC42MjcgMCAxMiA1LjM3MyAwIDEyIDB6bTAgMS40NjdDNi4xODMgMS40NjcgMS40NjcgNi4xODMgMS40NjcgMTJjMCA1LjgxNyA0LjcxNiAxMC41MzMgMTAuNTMzIDEwLjUzMyA1LjgxNyAwIDEwLjUzMy00LjcxNiAxMC41MzMtMTAuNTMzIDAtNS44MTctNC43MTYtMTAuNTMzLTEwLjUzMy0xMC41MzN6bTguMjA0IDcuOTczYy0uMDEuMDM2LS4wMjQuMDctLjA0Mi4xMDUtLjAyMi4xMDQtLjA4OS4yODItLjE4OC41MDlsLS4xMzQuMjk0LS4xNi4zMzItLjE4LjM2LS4xOTYuMzc4LS4yMDcuMzg3LS4yMTIuMzg3LS4yMTMuMzc2LS4yMDguMzU3LS4xOTguMzI3LS4xODMuMjktLjA4NS4xMjYtLjE1MS4yMTNjLS4wNDYuMDYxLS4wODguMTEyLS4xMjQuMTVsLS4wNS4wNS0uNjk3LjU5MiAzLjQxNSAxLjcxYy0xLjY1MiAyLjkwNC00Ljc3NiA0Ljg2MS04LjM1NyA0Ljg2MS0zLjYzIDAtNi43OS0yLjAxMi04LjQyNS00Ljk4bDMuMzQ1LTEuNTk1LS43MTctLjU4OGMtLjA1OS0uMDUxLS4xMzctLjE0OS0uMjMtLjI4MmwtLjE0Ny0uMjI1LS4yNTItLjQyLS4xODItLjMyMS0uMTg5LS4zNDctLjE5LS4zNjItLjE5LS4zNy0uMTgzLS4zNy0uMTc0LS4zNi0uMTYtLjM0My0uMTQxLS4zMTgtLjEyLS4yODQtLjA5My0uMjQxYy0uMDI2LS4wNzMtLjA0Ny0uMTM3LS4wNjMtLjE5Mi0uMDI0LS4wMzMtLjA0NS0uMDY3LS4wNjItLjEwMy42MTIuNDE0IDEuODI1LjgyIDMuNDEzIDEuMTA1bC40ODcuMDgyYy4yNS4wNC41MDcuMDc1Ljc3MS4xMDhsLjUzOC4wNmMuNTQ3LjA1NyAxLjEyLjA5OCAxLjcxNS4xMjJsLjMyOS4wMTEuMzMyLjAwOC41MTYuMDA1LjUxNi0uMDA1LjU4Mi0uMDE2YzMuMTg2LS4xMiA1Ljc5Mi0uNzQ1IDYuODg4LTEuNDA2bC4xMDctLjA2OS4xNDktLjEwOHpNNy41MiAxMS42OGwuMjA3Ljc1M2MuMTM5LjQ0Mi4yOTYuODYzLjQ4NCAxLjI5bC4xNDcuMzIyLjM0Mi42NzNjLjA0LjA4LjA5NC4xNS4xNjIuMjE1bC4wNzIuMDYxLjI4OS4yMTRjLjQ5My4zMzIgMS4wNC41NjkgMS42ODYuNzQ0bC4yNDguMDYzLjY4Mi4xMzQuMTI5LjAxMmguMWwuMTMtLjAxMi43MDEtLjEzOGMuNjU0LS4xNTcgMS4yMTktLjM3MyAxLjc0LS42OTJsLjE5NC0uMTI0LjI3NS0uMjA1Yy4wNzEtLjA1NC4xMzItLjExOC4xODItLjE5M2wuMDQ2LS4wNzcuMzUtLjY5MWMuMTk4LS40Mi4zNjctLjgzNS41MTgtMS4yNzhsLjExLS4zMzcuMTk0LS43MDJjLS40Mi43OTctMS4yNSAxLjM2Mi0yLjI1NSAxLjQ1OWwtLjEzOC4wMS0uMTQ3LS4wMTZjLS43NDYtLjEwNC0xLjQwMy0uNTAyLTEuODE5LTEuMDgzbC0uMDgtLjExOC0uMDQzLS4wNzMtLjA4NC4xM2MtLjQwNy41ODUtMS4wNTQuOTkzLTEuODE4IDEuMTI1bC0uMTU0LjAyMi0uMTQuMDE0LS4xMzQtLjAxMWMtLjk2OC0uMTA0LTEuNzgxLS42ODQtMi4xNzYtMS40OXptNC40OTQtOC4yMTNjLjUzNCAwIDEuMjE5LjM2OCAyLjE4IDEuMDk2bC40My4zMzQuMTgxLjE0Ni41Mi40MjkgMS4zODcgMS4xNzMgMS4xNjEuMzA5LjMwMS4wODQuMjY2LjA3OS4yMTYuMDY2LjI4NS4wOTYuMTcuMDYxLjE1LjA1OWMuNjYzLjI2OC45OTIuNTU0Ljk5Mi45MzRsLS4wMDUuMDc4LS4wMTYuMDc2LS4xNDkuMTE1Yy0uNzM1LjUyLTIuMzE5IDEuMDMtNC4zNzMgMS4zMjVsLS42My4wODItLjY1NS4wNjhjLS40NDUuMDQtLjkwNi4wNy0xLjM4LjA5bC0uNTY0LjAxNS0uNTE3LjAwNS0uNTE4LS4wMDUtLjMzMy0uMDA4Yy0zLjQzLS4xMDUtNi4yMy0uODMtNy4yNzctMS41NzctLjA0LS4wODYtLjA2Mi0uMTc0LS4wNjItLjI2NCAwLS40Mi4zNTMtLjc1OCAxLjEyMi0xLjA1OC0uMTIzLS4xMy0uMTgtLjI0Ny0uMzI4LS4zNDQuMjMyLS4yNjYuNjYtLjQ4NC45NTYtLjUyNi41ODUtLjA5Ny45NDUuMDc3IDEuMzQuMTA5LS4zMDUtLjEzMS0uODk0LS43MDMtMS4xMDItLjk2My0uMjQ3LS41NTYtLjA3LTEuMDM0LjA4LTEuM2wuMDMyLS4wNTMuMDU0LS4wODIuMDY1LS4wODcuMDQtLjAwNS4xNjYtLjAwNGMuMjUuMDAyLjY1OS4wMzUuODA2LjIuMjQxLjM0LjM1NS42OS40MjcgMWwuMDYxLjI5NmMuMDQ0LjIzMy4wNzkuNDMuMTUzLjU2bC4wNDQtLjE2OS4wNjgtLjMzYy4wNDYtLjIyMS4xMDctLjQ0OC4yNTQtLjcxNC4yNTktLjQ2NyAxLjE1Ny0xLjEwNiAxLjc5NC0uOThsLjAxOC4xMDMuMDcuMjUxYy4wMTcuMDgyLjAyLjE2OS0uMDEyLjI4Ny45MzYtLjcwMSAxLjYwOC0xLjA1NyAyLjEzMi0xLjA1N3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yOCAtMjQ5KSB0cmFuc2xhdGUoMTIgMjM3KSB0cmFuc2xhdGUoMTYgMTIpIi8+DQogICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICA8L2c+DQogICAgICAgIDwvZz4NCiAgICA8L2c+DQo8L3N2Zz4NCg==");
+
+/***/ }),
+
+/***/ "./src/images/icons/iconTrash.svg":
+/*!****************************************!*\
+  !*** ./src/images/icons/iconTrash.svg ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTAgMEgyNFYyNEgweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg0MS4wMDAwMDAsIC00ODQuMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkgdHJhbnNsYXRlKDAuMDAwMDAwLCAxNzYuMDAwMDAwKSB0cmFuc2xhdGUoODMuMDAwMDAwLCAwLjAwMDAwMCkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZmlsbC1vcGFjaXR5PSIuNSIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMTcuMDA4IDEwbC0uNzE3IDYuNjk1Yy0uMDk1Ljg4OC0uODA3IDEuNTY3LTEuNjgzIDEuNjMzbC0uMTQuMDA1SDkuNTMxYy0uODkzIDAtMS42NDUtLjYzNS0xLjgwMy0xLjVsLS4wMi0uMTM4TDYuOTkgMTBoMTAuMDE4em0tMy44NDItNC42NjdjLjI3NiAwIC41LjIyNC41LjUgMCAuMDU5LS4wMS4xMTUtLjAyOC4xNjdoMS40ODFjLjYxNSAwIDEuMTg1LjMwNSAxLjUyNi44MTZMMTcuNDMzIDhoLjA2NmMuMjc2IDAgLjUuMjI0LjUuNSAwIC4yNi0uMTk4LjQ3My0uNDUyLjQ5OEwxNy41IDloLTExYy0uMjc2IDAtLjUtLjIyNC0uNS0uNSAwLS4yNi4xOTktLjQ3My40NTItLjQ5OEw2LjU2NSA4bC43ODktMS4xODRDNy42OTQgNi4zMDYgOC4yNjUgNiA4Ljg4IDZoMS40ODFjLS4wMTgtLjA1Mi0uMDI4LS4xMDgtLjAyOC0uMTY3IDAtLjI2LjE5OC0uNDczLjQ1Mi0uNDk3bC4wNDgtLjAwM2gyLjMzM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04NDEuMDAwMDAwLCAtNDg0LjAwMDAwMCkgdHJhbnNsYXRlKDczMC4wMDAwMDAsIDE2MC4wMDAwMDApIHRyYW5zbGF0ZSgyOC4wMDAwMDAsIDE0OC4wMDAwMDApIHRyYW5zbGF0ZSgwLjAwMDAwMCwgMTc2LjAwMDAwMCkgdHJhbnNsYXRlKDgzLjAwMDAwMCwgMC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=");
 
 /***/ }),
 

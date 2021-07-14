@@ -4,8 +4,11 @@ import { Box } from 'rebass'
 import images from 'src/images'
 import styles from './styles'
 import MyButton from 'src/components/Common/MyButton'
+import RewardListItem from './RewardListItem/index'
 
-const BlankScreen = (props) => {
+const VaultPage = (props) => {
+
+  const estimateAmount = 500 ;
 
   return (
     <Box sx={styles.container}>
@@ -61,20 +64,75 @@ const BlankScreen = (props) => {
             <span>HAKKA Balance: 5699.3228</span>
           </div>
           <hr sx={styles.hr} />
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '11px',fontWeight:'600'}}>
-            <span style={{color: 'rgba(37, 62, 71, 0.5)'}}> Know more</span>
-            <div style={styles.wikiLinkArea} onClick={()=>{window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus()}}>
-              <span style={{color: '#2da287'}}>Visit Wiki</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '11px', fontWeight: '600' }}>
+            <span style={{ color: 'rgba(37, 62, 71, 0.5)' }}> Know more</span>
+            <div style={styles.wikiLinkArea} onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus() }}>
+              <span style={{ color: '#2da287' }}>Visit Wiki</span>
               <img src={images.iconForwardGreen} alt='link' />
             </div>
           </div>
         </div>
-        <div>
-         {/* 表單區 */}
+        <div sx={styles.formContainer}>
+          <div sx={styles.formTitleArea}>
+            <span sx={styles.formTitle}>You wish to receive</span>
+            <div sx={styles.addTokenButton}>
+              <span sx={{paddingBottom: '2px'}}>Add token</span>
+              <img style={styles.addTokenButtonAddIcon} src={images.iconAdd} alt='add new token' />  {/* + */}
+              {/* <img src={images.iconDeleteRound} alt='Close the address input window' /> */}
+            </div>
+          </div>
+          {/* add new token input area */}
+          <div>
+            {/* input */}
+            <MyButton>Add</MyButton>
+          </div>
+          <div sx={styles.rewardListContainer}>
+            <RewardListItem 
+              tokenName={'HAKKA'}
+              receiveAmount={'100'}
+              bankBalance={'20000'} 
+              isDefaultToken={true} 
+              checked = {false}
+              onChange={()=>{alert('123')}}
+            />
+            <RewardListItem 
+              tokenName={'DAI'}
+              receiveAmount={'0.200'}
+              bankBalance={'200.999'} 
+              isDefaultToken={true} 
+              checked = {true}
+              onChange={()=>{alert('321')}}
+            />
+            <RewardListItem 
+              tokenName={'DAI'}
+              receiveAmount={'0.200'}
+              bankBalance={'200.999'} 
+              isDefaultToken={false} 
+              checked = {false}
+              onChange={()=>{alert('32111')}}
+            />
+            <RewardListItem 
+              tokenName={'DAI'}
+              receiveAmount={'0.200'}
+              bankBalance={'200.999'} 
+              isDefaultToken={false} 
+              checked = {true}
+              onChange={()=>{alert('321222')}}
+            />
+          </div>
+          <hr sx={styles.hr2}/>
+          {/* total value */}
+          <div sx={styles.totalValueWrapper}>
+            <span>Total Value</span>
+            <span sx={styles.totalValueAmount}>{estimateAmount} USD</span>
+          </div>
+          <div sx={styles.burnBtn}>
+            <MyButton type={'green'}>Burn</MyButton>
+          </div>
         </div>
       </div>
     </Box >
   )
 }
 
-export default BlankScreen
+export default VaultPage

@@ -16,7 +16,7 @@ const MyButton = (props) => {
 MyButton.propTypes = {
   children: types.any,
   title: types.string,
-  disabled:  types.bool,
+  disabled: types.bool,
 }
 
 export default MyButton
