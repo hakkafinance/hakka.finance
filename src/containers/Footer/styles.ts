@@ -45,12 +45,12 @@ export default {
     cursor: 'pointer',
     transition: '.3s all',
     opacity: '.5',
-    '-webkit-touch-callout': 'none', /* iOS Safari */
-    '-webkit-user-select': 'none', /* Safari */
-    '-khtml-user-select': 'none', /* Konqueror HTML */
-    '-moz-user-select': 'none', /* Old versions of Firefox */
-    '-ms-user-select': 'none', /* Internet Explorer/Edge */
-    'user-select': 'none',
+    'WebkitTouchCallout': 'none', /* iOS Safari */
+    'WebkitUserSelect': 'none', /* Safari */
+    'KhtmlUserSelect': 'none', /* Konqueror HTML */
+    'mozUserSelect': 'none', /* Old versions of Firefox */
+    'msUserSelect': 'none', /* Internet Explorer/Edge */
+    'userSelect': 'none',
 
     ':hover': {
       opacity: 1

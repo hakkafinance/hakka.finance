@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Box, Button, Flex, Link, Text } from 'rebass'
+import React, { useState } from 'react'
+import { Box, Flex, Link, Text } from 'rebass'
 import styles from './styles'
-import images from 'src/images'
+import images from '../../images'
 import SideBarItem from './SideBarItem'
-import MyButton from 'src/components/Common/MyButton'
+import MyButton from '../../components/Common/MyButton'
 import { navigate } from 'gatsby'
 import { get } from 'lodash'
 
@@ -147,7 +146,7 @@ function SideBar (props) {
 
                 <Box sx={styles.medium_content}>
                   <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }} alignItems="center">
-                    <img sx={styles.left_icon} src={images.iconMedium} alt />
+                    <img src={images.iconMedium} />
                     <Box sx={styles.bold_text} ml="2">Medium</Box>
                   </Flex>
                   <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus() }}>

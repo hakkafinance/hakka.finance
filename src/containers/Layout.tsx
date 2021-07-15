@@ -45,7 +45,7 @@ const Layout = ({ children, title }) => {
   }, [isShowSideBar])
 
   return (
-    <div onresize={handleResize}>
+    <div onReset={handleResize}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>{title || 'Hakka Finance'}</title>
