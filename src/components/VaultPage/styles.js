@@ -1,11 +1,31 @@
 export default {
-  container: {
-    padding: '0 90px 0 150px',
+  container:{
+    display: 'flex',
+    justifyContent: 'center',
+    marginLeft: '34px',
+
+    '@media screen and (max-width: 1200px)': {
+      marginLeft: '40px',
+    },
+    
+    '@media screen and (max-width: 576px)': {
+      marginLeft: '0',
+    },
+  },
+
+  vaultPageWrapper: {
+    maxWidth: '860px',
     color: '#253e47',
 
-    '@media screen and (max-width: 576px)': {
+    '@media screen and (max-width: 1200px)': {
+      width:'85%',
+      maxWidth: 'none',
       padding: '0 16px 0 16px',
-    }
+    },
+
+    '@media screen and (max-width: 576px)': {
+      width:'100%',
+    },
   },
 
   header: {
@@ -21,18 +41,17 @@ export default {
   body: {
     display: 'flex',
     alignItems: 'flex-start',
-    marginBottom: '100px',
 
-    '@media screen and (max-width: 576px)': {
+    '@media screen and (max-width: 1200px)': {
       display: 'block',
     }
   },
 
-  infomationArea: {
+  infomationContainer: {
     width: '300px',
     fontSize: [1, 1, 1, 1],
 
-    '@media screen and (max-width: 576px)': {
+    '@media screen and (max-width: 1200px)': {
       width: '100%',
     }
   },
@@ -65,13 +84,8 @@ export default {
     backgroundColor: '#dae1e3',
     border: 'none',
     height: '1px',
-    margin: '0',
-  },
-
-  wikiLinkArea: {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
+    marginBottom: '11px',
+    marginTop: '0',
   },
 
   formContainer: {
@@ -83,9 +97,13 @@ export default {
     border: '1px solid #dae1e3',
     borderRadius: '8px',
 
+    '@media screen and (max-width: 1200px)': {
+      marginLeft: '0',
+      margin: 'auto'
+    },
+
     '@media screen and (max-width: 576px)': {
       width: '100%',
-      marginLeft: '0',
     }
   },
 
@@ -136,6 +154,41 @@ export default {
     fontWeight: 'bold',
   },
 
-  burnBtn: {
-  }
+  knowMoreWrapper: {
+    maxWidth: '300px',
+    position: 'relative',
+    top: '-47px',
+
+    '@media screen and (max-width: 1200px)': {
+      maxWidth: 'none',
+      position: 'static',
+      marginTop: '28px',
+    },
+  },
+
+  knowMoreRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '64px',
+    fontWeight: '600',
+    '@media screen and (max-width: 576px)': {
+      marginBottom: '100px'
+    },
+  },
+
+  knowMoreTitle: {
+    color: 'rgba(37, 62, 71, 0.5)'
+  },
+
+  wikiLinkArea: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+
+  visitWikiLink: {
+    color: '#2da287',
+  },
+
 }
