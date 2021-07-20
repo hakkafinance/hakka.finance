@@ -2,7 +2,7 @@
 import React from 'react'
 import { jsx } from 'theme-ui'
 import { Box, Flex, Text } from 'rebass'
-import images from 'src/images'
+import images from '../../images/index'
 import styles from './styles'
 
 function Footer () {

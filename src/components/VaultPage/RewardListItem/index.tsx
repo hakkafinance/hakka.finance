@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import images from 'src/images'
+import images from '../../../images/index'
 import styles from './styles'
 import types from 'prop-types'
 // import { useState } from 'react'

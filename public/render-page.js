@@ -14,9 +14,7 @@
 
 exports.ssrComponents = {
   "component---cache-dev-404-page-js": preferDefault(__webpack_require__(/*! ./.cache/dev-404-page.js */ "./.cache/dev-404-page.js")),
-  "component---src-pages-404-js": preferDefault(__webpack_require__(/*! ./src/pages/404.js */ "./src/pages/404.js")),
-  "component---src-pages-guildbank-js": preferDefault(__webpack_require__(/*! ./src/pages/guildbank.js */ "./src/pages/guildbank.js")),
-  "component---src-pages-index-js": preferDefault(__webpack_require__(/*! ./src/pages/index.js */ "./src/pages/index.js"))
+  "component---src-pages-index-tsx": preferDefault(__webpack_require__(/*! ./src/pages/index.tsx */ "./src/pages/index.tsx"))
   }
 
 
@@ -15924,6 +15922,3085 @@ function useScrollRestoration(identifier) {
 
 /***/ }),
 
+/***/ "./src/common/functions.tsx":
+/*!**********************************!*\
+  !*** ./src/common/functions.tsx ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "standardNameFileUpload": () => (/* binding */ standardNameFileUpload),
+/* harmony export */   "lowerCase": () => (/* binding */ lowerCase),
+/* harmony export */   "upperCase": () => (/* binding */ upperCase),
+/* harmony export */   "generateId": () => (/* binding */ generateId),
+/* harmony export */   "formatArrayKey": () => (/* binding */ formatArrayKey),
+/* harmony export */   "convertHtmlContent": () => (/* binding */ convertHtmlContent),
+/* harmony export */   "replaceComma": () => (/* binding */ replaceComma),
+/* harmony export */   "upperCaseFirstLetter": () => (/* binding */ upperCaseFirstLetter),
+/* harmony export */   "roundingNumber": () => (/* binding */ roundingNumber),
+/* harmony export */   "getLength": () => (/* binding */ getLength),
+/* harmony export */   "setItemStorage": () => (/* binding */ setItemStorage),
+/* harmony export */   "getItemStorage": () => (/* binding */ getItemStorage),
+/* harmony export */   "removeItemStorage": () => (/* binding */ removeItemStorage),
+/* harmony export */   "genObjectLang": () => (/* binding */ genObjectLang),
+/* harmony export */   "bytesToSize": () => (/* binding */ bytesToSize),
+/* harmony export */   "calculateLevel": () => (/* binding */ calculateLevel),
+/* harmony export */   "formatArratoObjectLV": () => (/* binding */ formatArratoObjectLV)
+/* harmony export */ });
+// import moment from 'moment'
+// import axios from 'axios'
+// import { isNull, isUndefined } from 'util'
+// import numeral from 'numbro'
+// import { chainType } from './constant'
+// export const showNotification = (
+//   title = 'Success',
+//   description = '',
+//   type = 'open'
+// ) => {
+//   notification[type]({
+//     message: title,
+//     description: description || '',
+//     placement: 'bottomRight'
+//   })
+// }
+const standardNameFileUpload = name => name.split(' ').join('').replace('.png', '');
+const lowerCase = value => {
+  return value ? value.toLowerCase() : value;
+};
+const upperCase = value => {
+  return value ? value.toUpperCase() : value;
+};
+const generateId = () => {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < 16; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+};
+const formatArrayKey = array => {
+  const finalArr = array;
+
+  for (const index in finalArr) {
+    finalArr[index].key = index;
+  }
+
+  return finalArr;
+};
+const convertHtmlContent = html => {
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  return temp;
+};
+const replaceComma = str => {
+  const newString = typeof str !== 'string' ? str.toString() : str;
+  return newString.replace(/,/g, '');
+};
+const upperCaseFirstLetter = lower => {
+  if (!lower) return lower;
+  const upper = lower.replace(/^\w/, chr => chr.toUpperCase());
+  return upper;
+};
+const roundingNumber = (number, rounding = 7) => {
+  const powNumber = Math.pow(10, parseInt(rounding));
+  return Math.floor(number * powNumber) / powNumber;
+};
+const getLength = value => value ? value.length : 0;
+const setItemStorage = async (key, value) => {
+  await localStorage.setItem(key, value);
+};
+const getItemStorage = key => localStorage.getItem(key);
+const removeItemStorage = key => {
+  localStorage.removeItem(key);
+};
+const genObjectLang = (en, vi, ja, cn) => ({
+  en,
+  vi,
+  ja,
+  cn
+}); // const blobToBase64 = (blob) => {
+//   const reader = new FileReader()
+//   reader.readAsDataURL(blob)
+//   return new Promise((resolve) => {
+//     reader.onloadend = () => {
+//       resolve(reader.result)
+//     }
+//   })
+// }
+
+const bytesToSize = bytes => {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return 'n/a';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  if (i === 0) return `${bytes} ${sizes[i]}`;
+  return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
+};
+const calculateLevel = user => {
+  if (!user) return 0; // Check level upgrade by volume first
+
+  if (getLength(user.refLevel) > 0) {
+    // Level 1 1K/MONTH
+    // Level 2 2MIL/MONTH
+    // Level 3 5MIL/MONTH
+    // Level 4 10MIL/MONTH
+    // Level 5 15MIL/MONTH
+    // Level 6 2 ref trực tiếp level 4
+    return Math.max.apply(null, user.refLevel.map(itm => itm.level));
+  } else {
+    return 0;
+  }
+};
+const formatArratoObjectLV = array => {
+  const finalObj = {};
+
+  for (let i = 0; i < getLength(array); i++) {
+    finalObj[`lv${i + 1}`] = array[i];
+  }
+
+  return finalObj;
+};
+
+/***/ }),
+
+/***/ "./src/components/Common/CoinComponent/index.tsx":
+/*!*******************************************************!*\
+  !*** ./src/components/Common/CoinComponent/index.tsx ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/Common/CoinComponent/styles.ts");
+/** @jsx jsx */
+
+
+
+
+
+
+function CoinComponent(props) {
+  const {
+    item,
+    i,
+    whatHakka
+  } = props;
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.custom_link,
+    href: item.link,
+    target: "_blank"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    key: item.coinName,
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinContainer,
+    mr: "3",
+    mb: "12px",
+    alignItems: "center"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinImg,
+    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.imageCoin],
+    alt: ""
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    ml: "2"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinName
+  }, item.coinName))));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CoinComponent);
+
+/***/ }),
+
+/***/ "./src/components/Common/CoinComponent/styles.ts":
+/*!*******************************************************!*\
+  !*** ./src/components/Common/CoinComponent/styles.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  coinContainer: {
+    padding: '8px 16px',
+    borderRadius: '8px',
+    backgroundColor: '#f7fbfc',
+    border: '1px solid transparent',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease-out',
+    display: 'flex',
+    justifyContent: 'center',
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      // margin: '12px 0 0 0',
+      justifyContent: 'center'
+    },
+    ':hover': {
+      border: '1px solid #dae1e3'
+    }
+  },
+  coinHakka: {
+    padding: '8px 16px',
+    borderRadius: '8px',
+    backgroundColor: '#f7fbfc',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease-out',
+    border: '1px solid transparent',
+    ':hover': {
+      border: '1px solid #dae1e3'
+    }
+  },
+  coinImg: {
+    width: '24px'
+  },
+  coinName: {
+    fontSize: [1, 1, 2, 3],
+    color: '#253e47',
+    fontWeight: '600'
+  },
+  custom_link: {
+    textDecoration: 'none',
+    '@media screen and (max-width: 576px)': {
+      width: '100%'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/Common/MyButton/index.tsx":
+/*!**************************************************!*\
+  !*** ./src/components/Common/MyButton/index.tsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/Common/MyButton/styles.ts");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+const MyButton = props => {
+  const {
+    type,
+    click,
+    disabled
+  } = props;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(rebass__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    disabled: disabled,
+    onClick: () => {
+      if (props.click) props.click();
+    },
+    sx: type === 'green' ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.mybutton_green : _styles__WEBPACK_IMPORTED_MODULE_2__.default.mybutton
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, props.children));
+};
+
+MyButton.propTypes = {
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().any),
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyButton);
+
+/***/ }),
+
+/***/ "./src/components/Common/MyButton/styles.ts":
+/*!**************************************************!*\
+  !*** ./src/components/Common/MyButton/styles.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mybutton: {
+    padding: '14px 16px',
+    backgroundColor: '#fff',
+    color: '#2da287',
+    border: 'solid 1px #dae1e3',
+    width: '100%',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    transition: 'all 0.25s ease-out',
+    textAlign: 'center',
+    // textShadow: '0.5px 0px 0px #253e47',
+    ':hover': {
+      borderColor: '#2da287'
+    },
+    ':active': {
+      transform: 'scale(0.98)',
+      outline: 'none'
+    },
+    ':disabled': {
+      color: '#9D9D9D',
+      cursor: 'not-allowed',
+      ':hover': {
+        borderColor: '#dae1e3'
+      }
+    }
+  },
+  mybutton_green: {
+    padding: '14px 16px',
+    backgroundColor: '#3ebd93',
+    color: '#fff',
+    border: 'solid 1px #3ebd93',
+    width: '100%',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    transition: 'all 0.25s ease-out',
+    textAlign: 'center',
+    // textShadow: '0.5px 0px 0px #253e47',
+    ':hover': {
+      borderColor: '#2da287',
+      backgroundColor: '#6ad7a8'
+    },
+    ':active': {
+      transform: 'scale(0.98)',
+      outline: 'none'
+    },
+    ':disabled': {
+      color: '#9D9D9D',
+      cursor: 'not-allowed',
+      backgroundColor: '#ebf0f2',
+      border: 'none'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/CardInfo/index.tsx":
+/*!****************************************************************!*\
+  !*** ./src/components/HomeScreen/component/CardInfo/index.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/CardInfo/styles.ts");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+function CardInfo(props) {
+  const cardHeadContent = [{
+    imageTop: '',
+    title: 'Learn More <br/> About HAKKA',
+    subContent: 'View wiki',
+    click: () => {
+      window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus();
+    },
+    imageBot: 'iconLinkNormal'
+  }, {
+    imageTop: 'iconToken',
+    title: 'What’s <br/> HAKKA Token',
+    subContent: 'Check it out',
+    click: () => {
+      location.href = "#whatHakka";
+    },
+    imageBot: 'iconScrollDown'
+  }];
+
+  const renderCard = () => {
+    return cardHeadContent.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.anchor,
+        key: item.title
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        key: item.title,
+        flexDirection: "column",
+        justifyContent: "space-between",
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardContainer,
+        onClick: () => {
+          item.click();
+        }
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        justifyContent: "flex-end"
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardImg,
+        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.imageTop],
+        alt: ""
+      })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardHeading,
+        mt: "3",
+        mb: "3",
+        dangerouslySetInnerHTML: {
+          __html: item.title
+        }
+      }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subContent,
+        className: "sub-content",
+        pt: "0",
+        justifyContent: "space-between",
+        alignItems: "center",
+        onClick: () => {
+          item.click();
+        }
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "text",
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subTextGreen
+      }, item.subContent), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.forwardImg,
+        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.imageBot],
+        alt: ""
+      })))));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.card_responsive
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    onClick: () => {
+      location.href = 'products';
+    }
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Card, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    justifyContent: "flex-end"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstImg,
+    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconLight,
+    alt: ""
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstHeading,
+    mt: "22px",
+    mb: "3"
+  }, "Roam Around ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", null), " Hakka Ecosystem"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subContent,
+    pt: "0",
+    className: "sub-content",
+    justifyContent: "space-between",
+    alignItems: "center"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subText,
+    className: "text"
+  }, "Check out unique HAKKA products"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.forwardImg,
+    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconForward,
+    alt: ""
+  })))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: {
+      display: 'grid',
+      gridGap: 3,
+      gridTemplateColumns: '1fr 1fr'
+    }
+  }, renderCard())));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardInfo);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/CardInfo/styles.ts":
+/*!****************************************************************!*\
+  !*** ./src/components/HomeScreen/component/CardInfo/styles.ts ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  card_responsive: {
+    display: 'grid',
+    gridGap: 3,
+    gridTemplateColumns: '1fr 1fr',
+    maxWidth: '1200px',
+    '@media screen and (max-width: 1180px)': {
+      gridTemplateColumns: '1fr' // maxWidth: '400px'
+
+    }
+  },
+  // big green card
+  cardFirstContainer: {
+    padding: '20px',
+    border: '1px solid #6ad7a8',
+    borderRadius: '8px',
+    height: '100%',
+    maxHeight: '250px',
+    minHeight: '200px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
+    cursor: 'pointer',
+    boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
+    transition: 'all 0.25s ease-out ',
+    '& .sub-content': {
+      opacity: '.5',
+      transition: 'all 0.25s ease-out'
+    },
+    ':hover': {
+      '& .sub-content': {
+        opacity: 1
+      },
+      ':active': {
+        transform: 'scale(.98)'
+      },
+      borderColor: '#3ebd93'
+    }
+  },
+  // small cards
+  cardContainer: {
+    maxHeight: '250px',
+    minHeight: '200px',
+    padding: '20px',
+    border: '1px solid #ebf0f2',
+    height: '100%',
+    borderRadius: '8px',
+    // marginTop: '36px',
+    backgroundColor: '#ffffff',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease-out ',
+    boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
+    ':last-child': {
+      marginRight: 0
+    },
+    '& .sub-content': {
+      // opacity: '.5',
+      filter: 'grayscale(100%)',
+      transition: 'all 0.25s ease-out',
+      '& .text': {
+        color: 'rgba(37, 62, 71, 0.5)'
+      }
+    },
+    ':hover': {
+      transition: 'all 0.25s ease-out ',
+      borderColor: '#3ebd93',
+      '& .sub-content': {
+        opacity: 1,
+        filter: 'grayscale(0)',
+        '& .text': {
+          color: '#2da287'
+        }
+      }
+    },
+    ':active': {
+      transform: 'scale(.98)'
+    }
+  },
+  cardImg: {},
+  cardFirstImg: {
+    padding: '10px',
+    borderRadius: '8px',
+    backgroundImage: 'linear-gradient(45deg, #d9fbe3, #ffffff 100%)'
+  },
+  cardHeading: {
+    // maxWidth: '90%',
+    color: '#253e47',
+    // margin: '12px 0',
+    fontWeight: 'bold',
+    fontFamily: 'system-ui',
+    fontSize: [3, 3, 4, 5]
+  },
+  cardFirstHeading: {
+    width: '55%',
+    color: '#253e47',
+    // margin: '12px 0',
+    fontWeight: 'bold',
+    fontFamily: 'system-ui',
+    fontSize: [3, 3, 4, 5]
+  },
+  subText: {
+    fontSize: [1, 1, 2, 3],
+    fontWeight: '600',
+    color: '#253e47'
+  },
+  forwardImg: {
+    cursor: 'pointer'
+  },
+  subTextGreen: {
+    color: 'text_grey',
+    fontWeight: '600',
+    fontSize: [1, 1, 2, 3]
+  },
+  anchor: {
+    textDecoration: 'none'
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/FlagshipProduct/index.tsx":
+/*!***********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/FlagshipProduct/index.tsx ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/FlagshipProduct/styles.ts");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/** @jsx jsx */
+
+
+
+
+
+
+
+function FlagshipProduct(props) {
+  const {
+    item,
+    i,
+    link
+  } = props;
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    onClick: () => {
+      window.open(link, '_blank').focus();
+    },
+    alignItems: "center",
+    key: i,
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.product,
+    mt: "2"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imageProduct,
+    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.image],
+    alt: ""
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.productHeading,
+    ml: "3"
+  }, item.title));
+}
+
+FlagshipProduct.propTypes = {
+  item: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),
+  i: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
+  link: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlagshipProduct);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/FlagshipProduct/styles.ts":
+/*!***********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/FlagshipProduct/styles.ts ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  product: {
+    // marginRight: '40px',
+    cursor: 'pointer',
+    padding: '16px 20px',
+    borderRadius: '8px',
+    transition: 'all 0.25s ease-out',
+    ':hover': {
+      backgroundColor: '#f7fbfc',
+      '& *': {
+        color: '#253e47'
+      }
+    },
+    '@media screen and (max-width: 576px)': {
+      // marginTop: '32px',
+      // marginRight: 0,
+      ':first-child': {// marginTop: '20px'
+      }
+    }
+  },
+  imageProduct: {
+    // marginRight: '10px',
+    width: '40px'
+  },
+  productHeading: {
+    fontSize: [3, 3, 4, 5],
+    fontWeight: 'bold',
+    color: '#52666d',
+    whiteSpace: 'nowrap'
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/TokenMetrics/index.tsx":
+/*!********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/TokenMetrics/index.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/TokenMetrics/styles.ts");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/* harmony import */ var src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/components/Common/CoinComponent */ "./src/components/Common/CoinComponent/index.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+
+const TokenMetricContent = props => {
+  const {
+    tokenMetrics
+  } = props;
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoChain,
+    ml: "2"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsSubHead
+  }, "Token Metrics"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoContainer,
+    mt: "20px"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo
+  }, "NAME: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info
+  }, tokenMetrics.name)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo,
+    mt: "2"
+  }, "TYPE: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info
+  }, tokenMetrics.type)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo,
+    mt: "2"
+  }, "CONTRACT ADDRESS: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", null), ' ', (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoAddress,
+    alignItems: "center"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    variant: "nav",
+    href: tokenMetrics.addressLink,
+    target: "_blank",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info_link
+  }, tokenMetrics.address, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.iconScan,
+    className: "icon-scan",
+    src: tokenMetrics.addressIcon,
+    alt: ""
+  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsChainList,
+    mt: "20px"
+  }, "Get HAKKA Token on ", tokenMetrics.shortName, ":"), tokenMetrics.id === 'eth' ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.token_metric_responsive,
+    mt: "2"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
+    whatHakka: true,
+    item: {
+      imageCoin: 'iconInch',
+      coinName: '1inch',
+      link: 'https://1inch.exchange/#/HAKKA/ETH?network=1'
+    }
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    className: "left-bot-token"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
+    whatHakka: true,
+    item: {
+      imageCoin: 'iconUniswap',
+      coinName: 'Uniswap',
+      link: 'https://app.uniswap.org/#/swap?outputCurrency=0x0e29e5abbb5fd88e28b2d355774e73bd47de3bcd'
+    }
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    className: "right-bot-token"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
+    whatHakka: true,
+    item: {
+      imageCoin: 'iconBalancer',
+      coinName: 'Balancer',
+      link: 'https://app.balancer.fi/#/trade/ether/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd'
+    }
+  })))) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.token_metric_responsive,
+    mt: "2"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
+    whatHakka: true,
+    item: {
+      imageCoin: 'iconPancakeSwap',
+      coinName: 'PancakeSwap',
+      link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC'
+    }
+  }))));
+};
+
+function TokenMetrics(props) {
+  const chains = [{
+    id: 'eth',
+    imgChain: 'iconEthereum',
+    chainName: 'Ethereum Mainnet',
+    imgBg: '#f2f2f2'
+  }, {
+    id: 'bsc',
+    imgChain: 'iconBinanceGold',
+    chainName: 'Binance Smart Chain',
+    imgBg: '#fcf7de'
+  }];
+  const tokenMetrics = [{
+    id: 'eth',
+    shortName: 'Ethereum',
+    name: 'Hakka Finance (HAKKA)',
+    type: 'ERC-20',
+    address: '0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
+    addressLink: 'https://etherscan.io/token/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
+    addressIcon: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconEtherscan
+  }, {
+    id: 'bsc',
+    shortName: 'BSC',
+    name: ' Hakka Finance on xDai on BSC (HAKKA)',
+    type: 'BEP-20',
+    address: '0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
+    addressLink: 'https://bscscan.com/token/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
+    addressIcon: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconBSCScan
+  }];
+  const {
+    0: selectedCoin,
+    1: setSelectedCoin
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('eth');
+  const {
+    0: selectedTokenMetric,
+    1: setSelectedTokenMetric
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tokenMetrics[0]); // functions
+
+  const handleSelectCoin = value => () => {
+    setSelectedCoin(value);
+    const obj = tokenMetrics.find(it => it.id === value);
+    setSelectedTokenMetric(obj);
+  }; // render
+
+
+  const renderChain = () => {
+    return chains.map((chain, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainContent_active : _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainContent,
+        className: "border-top-active",
+        alignItems: "center",
+        justifyContent: "space-between",
+        key: chain.id // mb="4"
+        ,
+        onClick: handleSelectCoin(chain.id)
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        className: "chain-left-content",
+        alignItems: "center"
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        sx: {
+          backgroundColor: chain.imgBg,
+          width: '40px',
+          height: '40px',
+          borderRadius: '8px'
+        }
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgChain : _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgChain_gray,
+        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[chain.imgChain],
+        alt: ""
+      })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainName_active : _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainName,
+        className: "chain-text"
+      }, chain.chainName)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        className: "icon-right",
+        ml: "3"
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.iconRight,
+        src: selectedCoin === chain.id ? src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconRight : src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconRightGrey,
+        alt: ""
+      }), ' '));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetrics_responsive
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsChain
+  }, renderChain()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(TokenMetricContent, {
+    tokenMetrics: selectedTokenMetric
+  })));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TokenMetrics);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/TokenMetrics/styles.ts":
+/*!********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/TokenMetrics/styles.ts ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // render Chain css
+  tokenMetrics: {
+    paddingBottom: ['48px', '160px', '160px', '160px'],
+    width: '100%',
+    '@media screen and (max-width: 960px)': {
+      flexDirection: 'column',
+      paddingLeft: '0px'
+    }
+  },
+  chainContent_active: {
+    maxWidth: '325px',
+    cursor: 'pointer',
+    paddingBottom: ['28px', '32px', '32px', '32px'],
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      padding: '16px',
+      alignItems: 'center',
+      borderTop: '1px solid #2da287',
+      '& .chain-left-content': {
+        flexDirection: 'column'
+      },
+      '& .chain-text': {
+        paddingLeft: '0px',
+        paddingTop: '12px'
+      },
+      '& .icon-right': {
+        opacity: '0',
+        transition: 'all 0.25s ease-out'
+      }
+    }
+  },
+  chainContent: {
+    maxWidth: '325px',
+    cursor: 'pointer',
+    paddingBottom: ['28px', '32px', '32px', '32px'],
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      padding: '16px',
+      alignItems: 'center',
+      borderTop: '1px solid #ebf0f2',
+      '& .chain-left-content': {
+        flexDirection: 'column'
+      },
+      '& .chain-text': {
+        paddingLeft: '0px',
+        paddingTop: '12px'
+      },
+      '& .icon-right': {
+        opacity: '0',
+        transition: 'all 0.25s ease-out'
+      }
+    }
+  },
+  imgChain: {
+    width: '40px',
+    height: '40px',
+    padding: '8px',
+    borderRadius: '8px',
+    '@media screen and (max-width: 576px)': {// paddingBottom: '12px'
+    }
+  },
+  imgChain_gray: {
+    width: '40px',
+    height: '40px',
+    padding: '8px',
+    // backgroundColor: '#f7fbfc',
+    borderRadius: '8px',
+    transition: 'all 0.25s ease-out',
+    // filter: 'grayscale(100%)',
+    opacity: '.5',
+    '@media screen and (max-width: 576px)': {// paddingBottom: '12px'
+    }
+  },
+  width_big: {
+    width: '500px'
+  },
+  chainName_active: {
+    fontSize: [1, 3, 4, 5],
+    color: '#253e47',
+    fontWeight: 600,
+    paddingLeft: '12px'
+  },
+  chainName: {
+    fontSize: [1, 3, 4, 5],
+    color: 'text_grey',
+    fontWeight: 600,
+    paddingLeft: '12px'
+  },
+  iconRight: {
+    display: 'flex',
+    alignItems: 'center',
+    '@media screen and (max-width: 576px)': {
+      display: 'none'
+    }
+  },
+  // token metrics
+  tokenMetrics_responsive: {
+    display: 'grid',
+    gridGap: '0px',
+    gridTemplateColumns: '1fr 1fr',
+    maxWidth: '1200px',
+    '@media screen and (max-width: 960px)': {
+      gridTemplateColumns: '1fr'
+    }
+  },
+  tokenMetricsChain: {
+    // width: '30%',
+    padding: '16px 12px',
+    paddingLeft: 0,
+    fontSize: [3, 3, 4, 5],
+    flex: '0.8',
+    '@media screen and (max-width: 576px)': {
+      padding: '0px',
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between'
+    }
+  },
+  tokenMetricsInfoChain: {
+    // width: "30%",
+    // marginLeft: '105px',
+    borderTop: '1px solid #2da287',
+    paddingTop: '28px',
+    flex: '1',
+    '@media screen and (max-width: 576px)': {
+      marginLeft: 0,
+      borderTop: 'unset'
+    }
+  },
+  tokenMetricsInfoContainer: {
+    marginBottom: '20px'
+  },
+  tokenMetricsSubHead: {
+    fontSize: [2, 2, 3, 4],
+    color: '#253e47',
+    fontWeight: 'bold',
+    fontFamily: 'system-ui' // marginBottom: '20px'
+
+  },
+  iconScan: {
+    width: '24px',
+    verticalAlign: 'middle'
+  },
+  tokenMetricsInfo: {
+    fontSize: [1, 1, 2, 3],
+    fontWeight: 600,
+    color: '#253e47'
+  },
+  tokenMetricsInfoAddress: {
+    cursor: 'pointer',
+    '& .icon-scan': {
+      opacity: '.5'
+    },
+    ':hover': {
+      '& .icon-scan': {
+        opacity: '1',
+        transition: 'all 0.25s ease-out'
+      }
+    }
+  },
+  info: {
+    fontWeight: 'normal'
+  },
+  info_link: {
+    color: 'black',
+    fontWeight: 'normal',
+    wordBreak: 'break-all'
+  },
+  tokenMetricsChainList: {
+    fontSize: [1, 1, 2, 3],
+    fontWeight: 600,
+    color: '#253e47',
+    paddingBottom: [1, 3, 3, 3]
+  },
+  token_metric_responsive: {
+    '@media screen and (max-width: 1180px)': {
+      flexDirection: 'column',
+      '& .left-bot-token': {
+        width: '50%',
+        '@media screen and (max-width: 576px)': {
+          paddingRight: '12px'
+        }
+      },
+      '& .right-bot-token': {
+        width: '50%'
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/TotalValueLock/index.tsx":
+/*!**********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/TotalValueLock/index.tsx ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/TotalValueLock/styles.ts");
+/* harmony import */ var _FlagshipProduct__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FlagshipProduct */ "./src/components/HomeScreen/component/FlagshipProduct/index.tsx");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cross-fetch */ "./node_modules/cross-fetch/dist/node-ponyfill.js");
+/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cross_fetch__WEBPACK_IMPORTED_MODULE_5__);
+/** @jsx jsx */
+
+
+
+
+
+
+
+
+function TotalValueLock() {
+  const products = [{
+    title: '3F Mutual',
+    image: 'iconMutual',
+    link: 'https://3fmutual.com/'
+  }, {
+    title: 'Harvester',
+    image: 'iconHarvester',
+    link: 'https://harvesters.hakka.finance/pools'
+  }, {
+    title: 'Hakka Intelligence',
+    image: 'iconIntelligence',
+    link: 'https://intelligence.hakka.finance/'
+  }];
+
+  const renderFlagshipProducts = () => {
+    return products.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FlagshipProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
+        key: item.title,
+        item: item,
+        i: i,
+        link: item.link
+      });
+    });
+  };
+
+  const {
+    0: lockedValue,
+    1: setLockedValue
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  cross_fetch__WEBPACK_IMPORTED_MODULE_5___default()('https://tvl.hakka.finance/').then(res => {
+    return res.text();
+  }).then(res => {
+    const value = parseInt(res).toLocaleString();
+    setLockedValue(`$${value}`);
+  });
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    justifyContent: "space-between",
+    alignItems: "center",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueHeadNum
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueHead
+  }, "TOTAL VALUE LOCKED"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueMoney,
+    alignItems: "baseline",
+    mt: "12px"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    id: "supply"
+  }, lockedValue), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    ml: "8px",
+    fontSize: [1, 5, 5, 5]
+  }, "USD"))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueSubText,
+    mt: "4"
+  }, "Our Flagship Products"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.listProducts,
+    ml: "-20px"
+  }, renderFlagshipProducts()))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueImg,
+    src: src_images__WEBPACK_IMPORTED_MODULE_4__.default.imageAlienGrey,
+    alt: ""
+  })));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TotalValueLock);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/TotalValueLock/styles.ts":
+/*!**********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/TotalValueLock/styles.ts ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  totalValueContainer: {
+    paddingLeft: '20px',
+    position: 'relative'
+  },
+  totalValueHeadNum: {},
+  totalValueHead: {
+    fontSize: [3, 3, 4, 5],
+    color: '#253e47',
+    // marginBottom: '12px',
+    fontWeight: 'bold',
+    '@media screen and (max-width: 768px)': {
+      whiteSpace: 'nowrap'
+    }
+  },
+  totalValueMoney: {
+    fontSize: [6, 6, 7, 7],
+    color: '#3ebd93',
+    fontWeight: '600',
+    '@media screen and (max-width: 768px)': {
+      whiteSpace: 'nowrap'
+    }
+  },
+  totalValueSubText: {
+    fontSize: [1, 1, 2, 3],
+    color: 'text_grey',
+    // marginBottom: '20px',
+    fontWeight: '600'
+  },
+  listProducts: {
+    '@media screen and (max-width: 950px)': {
+      flexDirection: 'column',
+      display: 'block',
+      justifyContent: 'flex-start'
+    }
+  },
+  totalValueImg: {
+    position: 'absolute',
+    right: '0px',
+    top: '-90px',
+    zIndex: '-1',
+    width: '25vw',
+    backgroundImage: 'radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 62%)',
+    '@media screen and (max-width: 768px)': {
+      width: '200px',
+      height: '151px',
+      // position: 'absolute',
+      top: '-80px'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/UtilityHakka/index.tsx":
+/*!********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/UtilityHakka/index.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/UtilityHakka/styles.ts");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+function UtilityHakka() {
+  const detailsInfo = [{
+    image: 'iconParliament',
+    title: 'Voting Power',
+    text: 'The mintage amount of sHAKKA determines Voting Power. It\'s immutable and non-transferrable.'
+  }, {
+    image: 'iconMoneyBox',
+    title: 'Beneficiary Right',
+    text: 'sHAKKA is tradable in secondary market & beneficial in reward contracts.'
+  }];
+
+  const renderDetailsInfo = () => {
+    return detailsInfo.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityInfoContainer,
+        flexDirection: "column",
+        key: i
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityImgInfo,
+        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.image],
+        alt: ""
+      }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityTitle,
+        mt: "20px",
+        mb: "4px"
+      }, item.title), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityText,
+        dangerouslySetInnerHTML: {
+          __html: item.text
+        }
+      }));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityHead,
+    mb: "20px"
+  }, "Utility of HAKKA"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    justifyContent: "space-between",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityTextLink
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityText
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", null, "Stake HAKKA to get sHAKKA and bestowed below rights.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+    sx: {
+      textDecoration: 'none'
+    },
+    target: "_blank",
+    href: "https://staking.hakka.finance/",
+    rel: "noreferrer"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityLink,
+    alignItems: "center"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, "Stake Portal"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    ml: "1",
+    mt: "1px"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgForward,
+    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconForwardGreen,
+    alt: ""
+  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.detailsInfo,
+    mt: "4"
+  }, renderDetailsInfo()));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UtilityHakka);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/UtilityHakka/styles.ts":
+/*!********************************************************************!*\
+  !*** ./src/components/HomeScreen/component/UtilityHakka/styles.ts ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  utilityHead: {
+    fontSize: [5, 6, 7, 7],
+    color: '#253e47',
+    fontWeight: 'normal'
+  },
+  utilityTextLink: {
+    // marginBottom: '60px',
+    maxWidth: '1200px',
+    alignItems: "center",
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      justifyContent: 'flex-start'
+    }
+  },
+  utilityText: {
+    fontSize: [2, 2, 3, 4],
+    color: '#253e47'
+  },
+  utilityLink: {
+    fontSize: [1, 1, 2, 3],
+    fontWeight: '600',
+    color: '#2da287',
+    cursor: 'pointer',
+    marginRight: '5px',
+    '@media screen and (max-width: 576px)': {// marginTop: '20px'
+    },
+    ':hover': {
+      '*': {
+        color: '#3ebd93'
+      },
+      'img': {
+        opacity: '0.7'
+      }
+    }
+  },
+  imgForward: {
+    width: '24px'
+  },
+  utilityInfoContainer: {
+    width: '40%',
+    maxWidth: '360px',
+    flex: '1',
+    '@media screen and (max-width: 576px)': {
+      width: '100%'
+    },
+    ':last-child': {
+      marginLeft: '7.7%',
+      '@media screen and (max-width: 576px)': {
+        paddingTop: '20px',
+        marginLeft: '0'
+      }
+    }
+  },
+  utilityImgInfo: {
+    width: '48px'
+  },
+  utilityTitle: {
+    // margin: '20px 0',
+    fontSize: [3, 3, 4, 5],
+    color: '#253e47',
+    fontWeight: '700',
+    fontFamily: 'system-ui'
+  },
+  detailsInfo: {
+    maxWidth: '1200px',
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/WhatHakka/index.tsx":
+/*!*****************************************************************!*\
+  !*** ./src/components/HomeScreen/component/WhatHakka/index.tsx ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/WhatHakka/styles.ts");
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cross-fetch */ "./node_modules/cross-fetch/dist/node-ponyfill.js");
+/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(cross_fetch__WEBPACK_IMPORTED_MODULE_3__);
+/** @jsx jsx */
+
+
+
+
+
+
+function WhatHakka(props) {
+  const {
+    0: circulatingSupplyValue,
+    1: setCirculatingSupplyValue
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  cross_fetch__WEBPACK_IMPORTED_MODULE_3___default()('https://api.hakka.finance/').then(res => {
+    return res.text();
+  }).then(res => {
+    const value = Math.floor(res * 10000) / 10000;
+    setCirculatingSupplyValue(`${value} HAKKA`);
+  });
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    id: "whatHakka",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.whatHakkaHeading
+  }, "What is HAKKA Token"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.whatHakkaText,
+    mt: "4"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", null, " HAKKA is the protocol token that empowers the community governance of Hakka Finance.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.circulatingSupplyText
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, "Circulating Supply: "), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, circulatingSupplyValue)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.listCoinHakka,
+    mt: "20px",
+    alignItems: "center"
+  }, props.renderCoin()));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WhatHakka);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/component/WhatHakka/styles.ts":
+/*!*****************************************************************!*\
+  !*** ./src/components/HomeScreen/component/WhatHakka/styles.ts ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // what hakka
+  whatHakkaHeading: {
+    fontSize: [5, 6, 7, 7],
+    color: '#253e47',
+    // marginBottom: '36px',
+    fontWeight: 'normal'
+  },
+  whatHakkaText: {
+    fontSize: [2, 2, 3, 4],
+    color: '#253e47',
+    maxWidth: '1200px' // marginBottom: '28px'
+
+  },
+  circulatingSupplyText: {
+    color: '#253e47',
+    fontWeight: 'bold',
+    '@media screen and (max-width: 374px)': {
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  },
+  listCoinHakka: {
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/index.tsx":
+/*!*********************************************!*\
+  !*** ./src/components/HomeScreen/index.tsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/styles.ts");
+/* harmony import */ var _component_CardInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component/CardInfo */ "./src/components/HomeScreen/component/CardInfo/index.tsx");
+/* harmony import */ var _component_TotalValueLock__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./component/TotalValueLock */ "./src/components/HomeScreen/component/TotalValueLock/index.tsx");
+/* harmony import */ var _Common_CoinComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Common/CoinComponent */ "./src/components/Common/CoinComponent/index.tsx");
+/* harmony import */ var _component_WhatHakka__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./component/WhatHakka */ "./src/components/HomeScreen/component/WhatHakka/index.tsx");
+/* harmony import */ var _component_TokenMetrics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./component/TokenMetrics */ "./src/components/HomeScreen/component/TokenMetrics/index.tsx");
+/* harmony import */ var _component_UtilityHakka__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./component/UtilityHakka */ "./src/components/HomeScreen/component/UtilityHakka/index.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+
+
+
+
+
+
+const HomeScreen = props => {
+  const coins = [{
+    imageCoin: 'iconCoingecko',
+    coinName: 'Coingecko',
+    link: 'https://www.coingecko.com/en/coins/hakka-finance'
+  }, {
+    imageCoin: 'iconCoinmarketcap',
+    coinName: 'CoinMarketCap',
+    link: 'https://coinmarketcap.com/en/currencies/hakka-finance/'
+  }]; // const chainTokens = [
+  //   {
+  //     imageCoin: 'iconInch',
+  //     coinName: '1inch'
+  //   },
+  //   {
+  //     imageCoin: 'iconUniswap',
+  //     coinName: 'Uniswap'
+  //   },
+  //   {
+  //     imageCoin: 'iconBalancer',
+  //     coinName: 'Balancer'
+  //   }
+  // ]
+
+  const partnersImg = [{
+    img: 'imageChainlink'
+  }, {
+    img: 'image1inch'
+  }, {
+    img: 'imageSynthetix'
+  }, {
+    img: 'imageCompound'
+  }, {
+    img: 'imageMaker'
+  }, {
+    img: 'imageKyberNetwork'
+  }, {
+    img: 'imageImtoken'
+  }, {
+    img: 'imageTrustWallet'
+  }, {
+    img: 'imageDelta'
+  }];
+
+  const renderCoin = () => {
+    return coins.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_6__.default, {
+        key: item.coinName,
+        item: item,
+        i: i
+      });
+    });
+  };
+
+  const renderPartnersImg = () => {
+    return partnersImg.map(item => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgPartner_wrapper,
+        key: item.img
+      }, item.img === 'imageDelta' ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgPartnerBiggerIcon,
+        src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.img],
+        alt: ""
+      }) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgPartner,
+        src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.img],
+        alt: ""
+      }));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homescreenContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    alignItems: "center",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homescreenSubTitle,
+    onClick: () => {
+      window.open('https://pelith.teamdoor.io/', '_blank').focus();
+    }
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconFlower,
+    alt: ""
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", null, "Hakka Finance is ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+    sx: {
+      textDecoration: 'underline'
+    }
+  }, "hiring"), ". Come join us!")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homeHeading
+  }, "The Most Diversified Decentralized ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("br", null), " Finance Ecosystem"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homeDescription
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", null, "Hakka Finance is a set of decentralized derivatives & original financial instruments, forming an all-inclusive ecosystem of tools that allow users to pursue financial sovereignty.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box // justifyContent="flex-start"
+  // flexWrap="wrap"
+  , {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homeCardTop,
+    mt: "4"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_component_CardInfo__WEBPACK_IMPORTED_MODULE_4__.default, null))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homeTotalValue
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_component_TotalValueLock__WEBPACK_IMPORTED_MODULE_5__.default, null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.homescreenContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.whatHakka
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_component_WhatHakka__WEBPACK_IMPORTED_MODULE_7__.default, {
+    renderCoin: renderCoin
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.tokenMetrics
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_component_TokenMetrics__WEBPACK_IMPORTED_MODULE_8__.default // renderChainToken={renderChainToken}
+  , null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_blue_section
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_blue
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_green_section_mobile
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_green_mobile,
+    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.blurBall,
+    alt: ""
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.utilityHakka
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_component_UtilityHakka__WEBPACK_IMPORTED_MODULE_9__.default, null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.partners
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.partnersHead
+  }, "Partners & Integrators"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.img_partners_responsive,
+    flexWrap: "wrap"
+  }, renderPartnersImg())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_green_section
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_green,
+    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.blurBall,
+    alt: ""
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_blue_section_mobile
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.blur_img_blue_mobile
+  })))));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HomeScreen);
+
+/***/ }),
+
+/***/ "./src/components/HomeScreen/styles.ts":
+/*!*********************************************!*\
+  !*** ./src/components/HomeScreen/styles.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  homescreenContainer: {
+    paddingLeft: '12.8%',
+    paddingRight: '14.4%',
+    '@media screen and (max-width: 576px)': {
+      paddingLeft: '16px',
+      paddingRight: '16px'
+    }
+  },
+  homescreenSubTitle: {
+    color: '#2da287',
+    fontSize: [1, 1, 2, 3],
+    fontWeight: '600',
+    cursor: 'pointer',
+    paddingTop: '12px'
+  },
+  spanLink: {
+    textDecoration: 'underline',
+    paddingLeft: '3px',
+    fontSize: [1, 1, 2, 3]
+  },
+  homeHeading: {
+    fontSize: [6, 7, 8, 8],
+    color: '#0b555a',
+    width: '100%',
+    fontWeight: '300',
+    paddingTop: '36px',
+    paddingBottom: ['36px', '64px', '64px', '64px']
+  },
+  homeDescription: {
+    fontSize: [2, 2, 3, 4],
+    color: 'black',
+    maxWidth: '1200px'
+  },
+  // Card top
+  homeCardTop: {
+    paddingBottom: ['100px', '160px', '160px', '160px']
+  },
+  homeTotalValue: {
+    padding: '0 0 0 12.8%',
+    paddingBottom: ['100px', '176px', '176px', '176px'],
+    '@media screen and (max-width: 576px)': {
+      paddingLeft: '16px' // paddingRight: '5%'
+
+    }
+  },
+  // what hakka
+  whatHakka: {
+    paddingBottom: ['48px', '80px', '80px', '80px'] // '@media screen and (max-width: 576px)': {
+    //   paddingBottom: '160px',
+    // }
+
+  },
+  // token metrics
+  tokenMetrics: {
+    paddingBottom: ['100px', '160px', '160px', '160px']
+  },
+  // utility hakka
+  utilityHakka: {
+    paddingBottom: ['100px', '160px', '160px', '160px']
+  },
+  // partners and intergrator
+  partners: {
+    paddingBottom: ['100px', '160px', '160px', '160px'],
+    width: '85%',
+    maxWidth: '680px'
+  },
+  partnersHead: {
+    fontSize: [5, 6, 7, 7],
+    color: '#253e47',
+    fontWeight: 'normal',
+    paddingBottom: ['48px', '36px', '36px', '36px'],
+    '@media screen and (max-width: 576px)': {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  },
+  img_partners_responsive: {
+    '@media screen and (max-width: 1280px)': {
+      justifyContent: 'center'
+    }
+  },
+  imgPartner_wrapper: {
+    alignItems: 'center',
+    paddingTop: '32px',
+    paddingRight: '20px',
+    '@media screen and (max-width: 576px)': {
+      paddingTop: '20px',
+      paddingRight: '0'
+    },
+    '.biggerIcon': {
+      '@media screen and (max-width: 576px)': {
+        height: '64px'
+      }
+    }
+  },
+  imgPartner: {
+    '@media screen and (max-width: 576px)': {
+      height: '48px'
+    }
+  },
+  imgPartnerBiggerIcon: {
+    '@media screen and (max-width: 576px)': {
+      height: '64px'
+    }
+  },
+  // blur img
+  blur_img_blue_section: {
+    position: 'relative'
+  },
+  blur_img_blue: {
+    borderRadius: '50%',
+    width: '28vw',
+    height: '28vw',
+    filter: 'blur(40px)',
+    backgroundColor: 'rgba(181, 232, 248, 0.3)',
+    position: 'absolute',
+    top: '-300px',
+    left: '-40%',
+    zIndex: '-1',
+    '@media screen and (max-width: 768px)': {
+      display: 'none'
+    }
+  },
+  blur_img_green_section: {
+    position: 'relative'
+  },
+  blur_img_green: {
+    position: 'absolute',
+    top: '-200px',
+    right: '-19.8%',
+    zIndex: '-1',
+    '@media screen and (max-width: 768px)': {
+      display: 'none'
+    }
+  },
+  blur_img_green_section_mobile: {
+    position: 'relative'
+  },
+  blur_img_green_mobile: {
+    display: 'none',
+    '@media screen and (max-width: 768px)': {
+      width: '60vw',
+      display: 'block',
+      position: 'absolute',
+      top: '-20px',
+      right: '-4.5%',
+      zIndex: '-1'
+    }
+  },
+  blur_img_blue_section_mobile: {
+    position: 'relative'
+  },
+  blur_img_blue_mobile: {
+    display: 'none',
+    '@media screen and (max-width: 768px)': {
+      display: 'block',
+      borderRadius: '50%',
+      width: '40vw',
+      height: '35vh',
+      filter: 'blur(20px)',
+      backgroundColor: 'rgba(181, 232, 248, 0.3)',
+      position: 'absolute',
+      top: '-160px',
+      left: '-15%',
+      zIndex: '-1'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/containers/Footer/index.tsx":
+/*!*****************************************!*\
+  !*** ./src/containers/Footer/index.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _images_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/index */ "./src/images/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/Footer/styles.ts");
+/** @jsx jsx */
+
+
+
+
+
+
+function Footer() {
+  const listIcon = [{
+    url: 'iconTelegram',
+    href: 'https://t.me/hakkafinance'
+  }, {
+    url: 'iconTwitter',
+    href: 'https://twitter.com/hakkafinance'
+  }, {
+    url: 'iconDiscord',
+    href: 'https://discord.com/invite/zYfqpUQ'
+  }, {
+    url: 'iconMedium',
+    href: 'https://medium.com/hakkafinance'
+  }, {
+    url: 'iconGithub',
+    href: 'https://github.com/hakkafinance'
+  }];
+
+  const renderListIcon = () => {
+    return listIcon.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+        key: i
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+        target: "_blank",
+        href: item.href,
+        rel: "noreferrer"
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgIcon,
+        src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default[item.url]
+      })));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footerContainer
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footerContent
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.logoFooter,
+    src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default.logoGray,
+    alt: ""
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footer_icons
+  }, renderListIcon())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.textCopy
+  }, "\xA9 Copyright 2021 HAKKA FINANCE"));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
+
+/***/ }),
+
+/***/ "./src/containers/Footer/styles.ts":
+/*!*****************************************!*\
+  !*** ./src/containers/Footer/styles.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  footerContainer: {
+    paddingLeft: '12.8%',
+    '@media screen and (max-width: 576px)': {
+      padding: '0 16px'
+    }
+  },
+  footerContent: {
+    borderTop: '1px solid #dae1e3',
+    paddingTop: '27px',
+    paddingBottom: '72px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '@media screen and (max-width: 576px)': {
+      justifyContent: 'center'
+    } // marginBottom: '72px'
+
+  },
+  logoFooter: {
+    '@media screen and (max-width: 576px)': {
+      display: 'none'
+    }
+  },
+  textCopy: {
+    fontSize: [0, 1, 2],
+    color: 'rgba(37, 62, 71, 0.5)',
+    fontWeight: 600,
+    paddingBottom: '28px',
+    '@media screen and (max-width: 576px)': {
+      margin: '0 auto',
+      textAlign: 'center'
+    }
+  },
+  footer_icons: {
+    paddingRight: '28px',
+    '@media screen and (max-width: 576px)': {
+      paddingRight: '0px'
+    }
+  },
+  imgIcon: {
+    cursor: 'pointer',
+    transition: '.3s all',
+    opacity: '.5',
+    'WebkitTouchCallout': 'none',
+
+    /* iOS Safari */
+    'WebkitUserSelect': 'none',
+
+    /* Safari */
+    'KhtmlUserSelect': 'none',
+
+    /* Konqueror HTML */
+    'mozUserSelect': 'none',
+
+    /* Old versions of Firefox */
+    'msUserSelect': 'none',
+
+    /* Internet Explorer/Edge */
+    'userSelect': 'none',
+    ':hover': {
+      opacity: 1
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/containers/Header/index.tsx":
+/*!*****************************************!*\
+  !*** ./src/containers/Header/index.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _images_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/index */ "./src/images/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/Header/styles.ts");
+/** @jsx jsx */
+
+
+
+
+
+
+const Header = props => {
+  const listIcon = [{
+    url: 'iconTelegram',
+    href: 'https://t.me/hakkafinance'
+  }, {
+    url: 'iconTwitter',
+    href: 'https://twitter.com/hakkafinance'
+  }, {
+    url: 'iconDiscord',
+    href: 'https://discord.com/invite/zYfqpUQ'
+  }, {
+    url: 'iconMedium',
+    href: 'https://medium.com/hakkafinance'
+  }, {
+    url: 'iconGithub',
+    href: 'https://github.com/hakkafinance'
+  }];
+  const {
+    toggleSidebar
+  } = props;
+
+  const handleToggleSidebar = () => {
+    toggleSidebar();
+  };
+
+  const renderListIcon = () => {
+    return listIcon.map((item, i) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+        key: i,
+        target: "_blank",
+        href: item.href,
+        rel: "noreferrer"
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgIcon,
+        src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default[item.url]
+      }));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerContainer,
+    width: "100%"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerBg,
+    src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default.headerLogo
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    mr: "28px"
+  }, renderListIcon())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.mobile_header,
+    justifyContent: "space-between"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerBg,
+    src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default.headerLogo3x
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.logoRespon,
+    src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default.hakkaLogo,
+    alt: ""
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    onClick: handleToggleSidebar,
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.iconMenu,
+    src: _images_index__WEBPACK_IMPORTED_MODULE_2__.default.iconMenu,
+    alt: ""
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+
+/***/ }),
+
+/***/ "./src/containers/Header/styles.ts":
+/*!*****************************************!*\
+  !*** ./src/containers/Header/styles.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  headerBg: {
+    position: 'absolute',
+    width: '100%',
+    top: '0px',
+    right: '0px',
+    zIndex: '-1'
+  },
+  headerContainer: {
+    display: 'flex',
+    position: 'relative',
+    padding: '16px 0',
+    justifyContent: 'flex-end',
+    '@media screen and (max-width: 576px)': {
+      position: 'unset',
+      display: 'none'
+    } // position: "relative",
+    // top: "-253px",
+    // right: 0,
+
+  },
+  mobile_header: {
+    display: 'none',
+    '@media screen and (max-width: 576px)': {
+      display: 'flex',
+      paddingTop: '12px',
+      paddingBottom: '20px'
+    }
+  },
+  logoRespon: {
+    display: 'none',
+    '@media screen and (max-width: 576px)': {
+      display: 'block'
+    }
+  },
+  iconMenu: {
+    opacity: '0',
+    '@media screen and (max-width: 576px)': {
+      opacity: '1',
+      cursor: 'pointer',
+      paddingRight: '5%'
+    }
+  },
+  iconMenuLeft: {
+    display: 'none',
+    cursor: 'pointer',
+    '@media screen and (max-width: 768px)': {
+      display: 'none',
+      paddingLeft: '50px'
+    },
+    '@media screen and (max-width: 576px)': {
+      display: 'none'
+    }
+  },
+  imgIcon: {
+    cursor: 'pointer',
+    transition: '.3s all',
+    opacity: '.5',
+    '@media screen and (max-width: 576px)': {
+      display: 'none'
+    },
+    ':hover': {
+      opacity: 1
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/containers/Layout.tsx":
+/*!***********************************!*\
+  !*** ./src/containers/Layout.tsx ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-helmet */ "./node_modules/react-helmet/es/Helmet.js");
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _SideBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBar */ "./src/containers/SideBar/index.tsx");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./src/containers/Header/index.tsx");
+/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Footer */ "./src/containers/Footer/index.tsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles */ "./src/containers/styles.ts");
+/* harmony import */ var react_spring__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-spring */ "./node_modules/react-spring/web.js");
+/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/images */ "./src/images/index.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+
+
+
+
+
+const Layout = ({
+  children,
+  title
+}) => {
+  const {
+    0: isShowSideBar,
+    1: setIsShowSideBar
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const width = typeof window !== 'undefined' ? window.outerWidth : '';
+  const {
+    0: screenWidth,
+    1: setScreenWidth
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(width); // const [isShowSideBar, setIsShowSideBar] = useState(screenWidth > 590)
+
+  const contentProps = (0,react_spring__WEBPACK_IMPORTED_MODULE_7__.useSpring)({
+    display: isShowSideBar ? 'block' : 'none',
+    marginRight: isShowSideBar ? 0 : -1000
+  });
+
+  const toggleSideBar = () => {
+    setIsShowSideBar(!isShowSideBar);
+  };
+
+  const handleClose = value => {
+    setIsShowSideBar(value);
+  };
+
+  const handleResize = () => {
+    const width = window.outerWidth;
+    setScreenWidth(width);
+    console.log('window is resized', width);
+  }; // useEffect(() => {
+  //   window.addEventListener('resize', handleResize)
+  //   if (screenWidth < 590) {
+  //     setIsShowSideBar(!isShowSideBar)
+  //   }
+  //   console.log('screenwidth', screenWidth)
+  // }, [screenWidth])
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    console.log('showSidebar', isShowSideBar);
+  }, [isShowSideBar]);
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    onReset: handleResize
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_helmet__WEBPACK_IMPORTED_MODULE_1__.Helmet, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("meta", {
+    charSet: "utf-8"
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("title", null, title || 'Hakka Finance'), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("meta", {
+    property: "og:image",
+    content: src_images__WEBPACK_IMPORTED_MODULE_8__.default.iconOgImage
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(_SideBar__WEBPACK_IMPORTED_MODULE_3__.default, {
+    isShowSideBar: isShowSideBar,
+    onCloseSideBar: handleClose
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    width: "100%",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_6__.default.custom_scroll_bar
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_4__.default, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_6__.default.content_wrapper,
+    toggleSidebar: toggleSideBar
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_6__.default.content
+  }, children), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_5__.default, null))));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(Layout));
+
+/***/ }),
+
+/***/ "./src/containers/SideBar/SideBarItem/index.tsx":
+/*!******************************************************!*\
+  !*** ./src/containers/SideBar/SideBarItem/index.tsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/containers/SideBar/SideBarItem/styles.ts");
+/* harmony import */ var src_common_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/common/functions */ "./src/common/functions.tsx");
+/** @jsx jsx */
+
+
+
+
+
+
+const SideBarItem = (props, {
+  location,
+  data
+}) => {
+  const {
+    icon,
+    text,
+    path,
+    subIcon
+  } = props;
+  const {
+    0: selectedNavPath,
+    1: setSelectedNavPath
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
+  const isBrowser = typeof window !== 'undefined';
+  const currentPath = isBrowser ? window.location.pathname.replace(/\//g, "") : '';
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setSelectedNavPath(currentPath);
+  }, []);
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    sx: selectedNavPath === path ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.sidebar_item_active : _styles__WEBPACK_IMPORTED_MODULE_2__.default.sidebar_item
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    sx: {
+      width: '100%'
+    },
+    justifyContent: "space-between"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    src: icon
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.sidebar_text,
+    className: "sidebar-text",
+    ml: "12px"
+  }, (0,src_common_functions__WEBPACK_IMPORTED_MODULE_3__.upperCaseFirstLetter)(text))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    src: subIcon
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SideBarItem);
+
+/***/ }),
+
+/***/ "./src/containers/SideBar/SideBarItem/styles.ts":
+/*!******************************************************!*\
+  !*** ./src/containers/SideBar/SideBarItem/styles.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  sidebar_item: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '12px 16px',
+    paddingRight: '0px',
+    opacity: '.5',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease-out ',
+    '&:hover': {
+      opacity: '1'
+    },
+    '&:active': {
+      backgroundColor: '#ebf0f2',
+      borderRadius: '8px'
+    },
+    '&:focus': {
+      backgroundColor: '#ebf0f2',
+      borderRadius: '8px'
+    }
+  },
+  sidebar_item_active: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '12px 16px',
+    backgroundColor: '#ebf0f2',
+    cursor: 'pointer',
+    borderRadius: '8px',
+    '& .sidebar-text': {
+      color: 'black'
+    }
+  },
+  sidebar_text: {
+    cursor: 'pointer',
+    color: 'black',
+    fontWeight: '600',
+    lineHeight: '24px' // textShadow: '0.5px 0px 0px #253e47'
+
+  }
+});
+
+/***/ }),
+
+/***/ "./src/containers/SideBar/index.tsx":
+/*!******************************************!*\
+  !*** ./src/containers/SideBar/index.tsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "botSideBarItems": () => (/* binding */ botSideBarItems),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/SideBar/styles.ts");
+/* harmony import */ var _images__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../images */ "./src/images/index.tsx");
+/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SideBarItem */ "./src/containers/SideBar/SideBarItem/index.tsx");
+/* harmony import */ var _components_Common_MyButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Common/MyButton */ "./src/components/Common/MyButton/index.tsx");
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! gatsby */ "./.cache/gatsby-browser-entry.js");
+
+
+/** @jsx jsx */
+
+
+
+
+
+
+
+
+const topSideBarItems = [{
+  name: 'home',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconHome,
+  path: ''
+}, {
+  name: 'products',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconProduct,
+  path: 'products'
+}];
+const botSideBarItems = [{
+  name: 'governance',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconGovernance,
+  path: 'governance',
+  href: 'https://snapshot.org/#/hakka.eth',
+  connectOutsideWebsite: true,
+  underConstruction: false // subIcon: images.iconSnapshot
+
+}, {
+  name: 'forum',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconForum,
+  href: 'https://forum.hakka.finance/',
+  path: 'forum',
+  connectOutsideWebsite: true,
+  underConstruction: false // subIcon: images.iconLinkSmall,
+
+}, {
+  name: 'rewards',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconReward,
+  href: 'https://rewards.hakka.finance/',
+  path: 'rewards',
+  connectOutsideWebsite: false,
+  underConstruction: true
+}, {
+  name: 'staking',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconVesting,
+  href: 'https://staking.hakka.finance/',
+  path: 'staking',
+  connectOutsideWebsite: false,
+  underConstruction: true
+}, {
+  name: 'Guild Bank',
+  icon: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconVault,
+  href: 'https://vault.hakka.finance/',
+  path: 'guildbank',
+  connectOutsideWebsite: false,
+  underConstruction: true
+}];
+
+function SideBar(props) {
+  const {
+    onCloseSideBar,
+    isShowSideBar
+  } = props;
+  const {
+    0: selectedNav,
+    1: setSelectedNav
+  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''); // const href = typeof window !== 'undefined' ? window.location.pathname.replace(/\//g, "") : ''
+  // useEffect(() => {
+  //   console.log('useEffect is working')
+  //   console.log('href', href)
+  //   setSelectedNav(href)
+  // }, [])
+
+  const onSelectNavItem = path => () => {
+    (0,gatsby__WEBPACK_IMPORTED_MODULE_7__.navigate)(`/${path}`);
+    setSelectedNav(path);
+    console.log(path);
+  };
+
+  const handleCloseSideBar = () => {
+    onCloseSideBar(false);
+  };
+
+  const renderTopSideBar = () => {
+    return topSideBarItems.map((it, idx) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+        key: it.name,
+        onClick: onSelectNavItem(it.path)
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SideBarItem__WEBPACK_IMPORTED_MODULE_5__.default, {
+        selectedNav: selectedNav,
+        icon: it.icon,
+        text: it.name,
+        path: it.path
+      }));
+    });
+  };
+
+  const renderBotSideBar = () => {
+    return botSideBarItems.map((it, idx) => {
+      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+        key: it.name,
+        onClick: it.connectOutsideWebsite ? () => window.open(it.href, '_blank').focus() : onSelectNavItem(it.path)
+      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(_SideBarItem__WEBPACK_IMPORTED_MODULE_5__.default, {
+        selectedNav: selectedNav,
+        icon: it.icon,
+        text: it.name,
+        path: it.path,
+        subIcon: lodash_get__WEBPACK_IMPORTED_MODULE_0___default()(it, 'subIcon')
+      }));
+    });
+  };
+
+  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: isShowSideBar ? _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_responsive_show : _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_responsive
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.custom_padding
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_header
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+    src: _images__WEBPACK_IMPORTED_MODULE_4__.default.hakkaLogo
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+    onClick: handleCloseSideBar,
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_closeBtn,
+    src: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconDeleteRound
+  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    mt: "3"
+  }, renderTopSideBar())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.hl,
+    ml: "25px",
+    mt: "2",
+    pr: "0"
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.custom_padding
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_subText,
+    pl: "3"
+  }, "DAO"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    mt: "2"
+  }, renderBotSideBar())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.hl,
+    ml: "25px",
+    mt: "2",
+    pr: "0"
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.custom_padding
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_subText,
+    pl: "3"
+  }, "News"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.medium_content
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    onClick: () => {
+      window.open('https://medium.com/hakkafinance', '_blank').focus();
+    },
+    alignItems: "center"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+    src: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconMedium
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.bold_text,
+    ml: "2"
+  }, "Medium")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    onClick: () => {
+      window.open('https://medium.com/hakkafinance', '_blank').focus();
+    }
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+    src: _images__WEBPACK_IMPORTED_MODULE_4__.default.iconLinkSmall
+  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.hl,
+    mt: "2",
+    pr: "0"
+  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    p: "12px"
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_6__.default, {
+    click: () => {
+      window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus();
+    }
+  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: {
+      fontFamily: 'system-ui',
+      fontWeight: '700'
+    }
+  }, "Learn More"))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.bold_text_link,
+    mb: "12px",
+    p: "2",
+    textAlign: "center"
+  }, "or", ' ', (0,theme_ui__WEBPACK_IMPORTED_MODULE_8__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.bold_text_link,
+    href: "mailto:admin@hakka.finance"
+  }, "contact us")))));
+}
+
+;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().memo(SideBar));
+
+/***/ }),
+
+/***/ "./src/containers/SideBar/styles.ts":
+/*!******************************************!*\
+  !*** ./src/containers/SideBar/styles.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  //   displayFlex: {
+  //     display: "flex",
+  //   },
+  sidebar_responsive: {
+    zIndex: '1',
+    transition: 'all ease-out 0.5s',
+    '@media screen and (max-width:576px)': {
+      position: 'absolute',
+      right: '-100%',
+      bottom: '0',
+      top: '0'
+    }
+  },
+  sidebar_responsive_show: {
+    zIndex: '1',
+    transition: 'all ease-out 0.5s',
+    '@media screen and (max-width:576px)': {
+      position: 'absolute',
+      right: '0',
+      bottom: '0',
+      top: '0'
+    }
+  },
+  sidebar: {
+    overflow: 'auto',
+    maxHeight: '100vh',
+    minHeight: '100%',
+    '::-webkit-scrollbar': {
+      display: 'none'
+    },
+    color: 'black',
+    fontSize: '16px',
+    backgroundColor: 'white_green',
+    width: '250px',
+    mr: 0,
+    transition: 'all 0.25s ease-out',
+    borderRight: '1px solid #dae1e3',
+    boxShadow: '-8px 0 16px -8px rgba(123, 135, 148, 0.25)',
+    '@media screen and (max-width: 576px)': {
+      width: '96vw'
+    }
+  },
+  custom_padding: {
+    padding: '12px'
+  },
+  sidebar_header: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  sidebar_closeBtn: {
+    display: 'none',
+    cursor: 'pointer',
+    '@media screen and (max-width: 576px)': {
+      display: 'block',
+      padding: '0px 12px'
+    }
+  },
+  sidebar_subText: {
+    fontSize: '14px'
+  },
+  // hl : horizontal line
+  hl: {
+    borderTop: '0.5px solid #dae1e3'
+  },
+  bold_text: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: '16px'
+  },
+  bold_text_link: {
+    color: 'text_grey',
+    fontWeight: '600',
+    fontSize: '14px'
+  },
+  sidebar_btn: {
+    width: '1'
+  },
+  medium_content: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '12px 16px',
+    paddingRight: '0px',
+    cursor: 'pointer',
+    opacity: '.5',
+    transition: 'all 0.25s ease-out ',
+    ':hover': {
+      opacity: '1'
+    }
+  } // left_icon: {
+  //   opacity: '.5'
+  // }
+
+});
+
+/***/ }),
+
+/***/ "./src/containers/styles.ts":
+/*!**********************************!*\
+  !*** ./src/containers/styles.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  content_wrapper: {
+    width: '100%'
+  },
+  content: {// marginLeft: '5%',
+  },
+  custom_scroll_bar: {
+    height: '100vh',
+    overflow: 'auto',
+    '@media screen and (max-width: 576px)': {
+      position: 'relative'
+    },
+    '::-webkit-scrollbar': {
+      display: 'none'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./src/gatsby-plugin-theme-ui/index.tsx":
+/*!**********************************************!*\
+  !*** ./src/gatsby-plugin-theme-ui/index.tsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  breakpoints: ['576px', '1560px', '1680px', '1900px'],
+  colors: {
+    background: '#fff',
+    white_green: '#f7fbfc',
+    primary: '#639',
+    secondary: '#ff6347',
+    main_green: '#3ebd93',
+    dark_green: '#0b555a',
+    black: '#253e47',
+    black_grey: '#52666d',
+    green: '#2da287',
+    light_green: '#dae1e3',
+    text_grey: '#929EA3',
+    active_green: '#ebf0f2'
+  },
+  background_linears: {
+    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)'
+  },
+  fonts: {
+    // body: 'system-ui, sans-serif',
+    // heading: 'system-ui, sans-serif',
+    // monospace: 'Menlo, monospace'
+    // body: 'Open Sans, sans-serif',
+    body: 'Open Sans, system-ui',
+    heading: 'Georgia, serif',
+    monospace: 'Menlo, monospace'
+  },
+  fontWeights: {
+    semi: 600,
+    heading: 700,
+    bold: 700
+  },
+  // lineHeights: {
+  //   body: 1.5,
+  //   heading: 1.125
+  // },
+  lineHeights: [1.5, '24px', '32px', '60px'],
+  fontSizes: [12, 14, 16, 18, 20, 24, 32, 48, 64, 72],
+  space: [0, 4, 8, 16, 32, 80, 164, 256, 512],
+  styles: {
+    root: {
+      overflow: 'hidden',
+      fontFamily: 'body',
+      fontWeights: {
+        semi: 'body',
+        bold: 'bold'
+      },
+      p: {
+        lineHeight: [1, 1, 2, 2]
+      }
+    }
+  }
+});
+/* description :
+  fontSize 14px ---> responsive [0,1,2,3]
+  fontSize 16px ---> responsive [1,2,3,5]
+  fontSize 18px ---> responsive [2,3,4,5]
+  fontSize 20px ---> responsive [3,4,5,6]
+  fontSize 24px ---> responsive [4,5,6,6]
+  fontSize 32px ---> responsive [5,6,7,7]
+  fontSize 48px ---> responsive [6,7,8,8]
+*/
+
+/***/ }),
+
+/***/ "./src/images/index.tsx":
+/*!******************************!*\
+  !*** ./src/images/index.tsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const images = {
+  hakkaLogo: __webpack_require__(/*! ../images/logos/hakkaLogo.svg */ "./src/images/logos/hakkaLogo.svg").default,
+  logoGray: __webpack_require__(/*! ../images/logos/logoGray.svg */ "./src/images/logos/logoGray.svg").default,
+  iconHome: __webpack_require__(/*! ../images/icons/iconHome.svg */ "./src/images/icons/iconHome.svg").default,
+  iconProduct: __webpack_require__(/*! ../images/icons/iconProduct.svg */ "./src/images/icons/iconProduct.svg").default,
+  iconGovernance: __webpack_require__(/*! ../images/icons/iconGovernance.svg */ "./src/images/icons/iconGovernance.svg").default,
+  iconReward: __webpack_require__(/*! ../images/icons/iconReward.svg */ "./src/images/icons/iconReward.svg").default,
+  iconVesting: __webpack_require__(/*! ../images/icons/iconVesting.svg */ "./src/images/icons/iconVesting.svg").default,
+  iconVault: __webpack_require__(/*! ../images/icons/iconVault.svg */ "./src/images/icons/iconVault.svg").default,
+  iconLinkSmall: __webpack_require__(/*! ../images/icons/iconLinkSmall.svg */ "./src/images/icons/iconLinkSmall.svg").default,
+  iconForum: __webpack_require__(/*! ../images/icons/iconForum.svg */ "./src/images/icons/iconForum.svg").default,
+  iconOgImage: __webpack_require__(/*! ../images/logos/ogImage.png */ "./src/images/logos/ogImage.png").default,
+  iconAccount: __webpack_require__(/*! ../images/icons/iconAccount.svg */ "./src/images/icons/iconAccount.svg").default,
+  iconTrash: __webpack_require__(/*! ../images/icons/iconTrash.svg */ "./src/images/icons/iconTrash.svg").default,
+  iconChekBoxChecked: __webpack_require__(/*! ../images/icons/checkboxChecked.svg */ "./src/images/icons/checkboxChecked.svg").default,
+  iconChekBoxUnchecked: __webpack_require__(/*! ../images/icons/checkboxUnchecked.svg */ "./src/images/icons/checkboxUnchecked.svg").default,
+  // web applications icon
+  iconMedium: __webpack_require__(/*! ../images/icons/iconMedium.svg */ "./src/images/icons/iconMedium.svg").default,
+  iconTelegram: __webpack_require__(/*! ../images/icons/iconTelegram.svg */ "./src/images/icons/iconTelegram.svg").default,
+  iconTwitter: __webpack_require__(/*! ../images/icons/iconTwitter.svg */ "./src/images/icons/iconTwitter.svg").default,
+  iconDiscord: __webpack_require__(/*! ../images/icons/iconDiscord.svg */ "./src/images/icons/iconDiscord.svg").default,
+  iconGithub: __webpack_require__(/*! ../images/icons/iconGithub.svg */ "./src/images/icons/iconGithub.svg").default,
+  // Product icons
+  iconBlackhole: __webpack_require__(/*! ../images/icons/iconBlackhole.svg */ "./src/images/icons/iconBlackhole.svg").default,
+  icon3FMutual: __webpack_require__(/*! ../images/icons/icon3FMutual.jpg */ "./src/images/icons/icon3FMutual.jpg").default,
+  iconIgain: __webpack_require__(/*! ../images/icons/iconIgain.svg */ "./src/images/icons/iconIgain.svg").default,
+  iconHakkaIntel: __webpack_require__(/*! ../images/icons/iconHakkaIntel.svg */ "./src/images/icons/iconHakkaIntel.svg").default,
+  iconDefiHandbook: __webpack_require__(/*! ../images/icons/iconDefiHandbook.jpg */ "./src/images/icons/iconDefiHandbook.jpg").default,
+  iconCryptoStructure: __webpack_require__(/*! ../images/icons/iconCryptoStructure.png */ "./src/images/icons/iconCryptoStructure.png").default,
+  iconTcdp: __webpack_require__(/*! ../images/icons/iconTcdp.svg */ "./src/images/icons/iconTcdp.svg").default,
+  // action icons
+  iconDown: __webpack_require__(/*! ../images/icons/iconDown.svg */ "./src/images/icons/iconDown.svg").default,
+  iconUp: __webpack_require__(/*! ../images/icons/iconUp.svg */ "./src/images/icons/iconUp.svg").default,
+  iconRight: __webpack_require__(/*! ../images/icons/iconRight.svg */ "./src/images/icons/iconRight.svg").default,
+  iconRightGrey: __webpack_require__(/*! ../images/icons/iconRightGrey.svg */ "./src/images/icons/iconRightGrey.svg").default,
+  iconDelete: __webpack_require__(/*! ../images/icons/iconDelete.svg */ "./src/images/icons/iconDelete.svg").default,
+  iconDeleteRound: __webpack_require__(/*! ../images/icons/iconDeleteRound.svg */ "./src/images/icons/iconDeleteRound.svg").default,
+  iconAdd: __webpack_require__(/*! ../images/icons/iconAdd.svg */ "./src/images/icons/iconAdd.svg").default,
+  /// home icon
+  iconLight: __webpack_require__(/*! ../images/icons/iconLight.svg */ "./src/images/icons/iconLight.svg").default,
+  iconForward: __webpack_require__(/*! ../images/icons/iconForward.svg */ "./src/images/icons/iconForward.svg").default,
+  iconLinkNormal: __webpack_require__(/*! ../images/icons/iconLinkNormal.svg */ "./src/images/icons/iconLinkNormal.svg").default,
+  iconToken: __webpack_require__(/*! ../images/icons/iconToken.svg */ "./src/images/icons/iconToken.svg").default,
+  iconScrollDown: __webpack_require__(/*! ../images/icons/iconScrollDown.svg */ "./src/images/icons/iconScrollDown.svg").default,
+  iconIntelligence: __webpack_require__(/*! ../images/icons/iconIntelligence.svg */ "./src/images/icons/iconIntelligence.svg").default,
+  iconMutual: __webpack_require__(/*! ../images/icons/iconMutual.png */ "./src/images/icons/iconMutual.png").default,
+  iconHarvester: __webpack_require__(/*! ../images/icons/iconHarvester.svg */ "./src/images/icons/iconHarvester.svg").default,
+  imageTokenGrey: __webpack_require__(/*! ../images/icons/imageTokenGrey.svg */ "./src/images/icons/imageTokenGrey.svg").default,
+  imageAlienGrey: __webpack_require__(/*! ../images/icons/imageAlienGrey.svg */ "./src/images/icons/imageAlienGrey.svg").default,
+  iconEtherscan: __webpack_require__(/*! ../images/icons/iconEtherscan.png */ "./src/images/icons/iconEtherscan.png").default,
+  iconBSCScan: __webpack_require__(/*! ../images/icons/iconBSCScan.png */ "./src/images/icons/iconBSCScan.png").default,
+  iconForwardGreen: __webpack_require__(/*! ../images/icons/iconForwardGreen.svg */ "./src/images/icons/iconForwardGreen.svg").default,
+  iconParliament: __webpack_require__(/*! ../images/icons/iconParliament.svg */ "./src/images/icons/iconParliament.svg").default,
+  iconMoneyBox: __webpack_require__(/*! ../images/icons/iconMoneyBox.svg */ "./src/images/icons/iconMoneyBox.svg").default,
+  iconUser: __webpack_require__(/*! ../images/icons/iconUser.png */ "./src/images/icons/iconUser.png").default,
+  iconLinkSmallGreen: __webpack_require__(/*! ../images/icons/iconLinkSmallGreen.svg */ "./src/images/icons/iconLinkSmallGreen.svg").default,
+  iconMenu: __webpack_require__(/*! ../images/icons/iconMenu.svg */ "./src/images/icons/iconMenu.svg").default,
+  iconSnapshot: __webpack_require__(/*! ../images/icons/iconSnapshot.svg */ "./src/images/icons/iconSnapshot.svg").default,
+  /// icon token
+  iconCoingecko: __webpack_require__(/*! ../images/icons/iconCoingecko.png */ "./src/images/icons/iconCoingecko.png").default,
+  iconCoinmarketcap: __webpack_require__(/*! ../images/icons/iconCoinmarketcap.png */ "./src/images/icons/iconCoinmarketcap.png").default,
+  iconInch: __webpack_require__(/*! ../images/icons/iconInch.png */ "./src/images/icons/iconInch.png").default,
+  iconBalancer: __webpack_require__(/*! ../images/icons/iconBalancer.png */ "./src/images/icons/iconBalancer.png").default,
+  iconUniswap: __webpack_require__(/*! ../images/icons/iconUniswap.png */ "./src/images/icons/iconUniswap.png").default,
+  iconPancakeSwap: __webpack_require__(/*! ../images/icons/iconPancakeSwap.png */ "./src/images/icons/iconPancakeSwap.png").default,
+  /// partners & intergartors
+  imageChainlink: __webpack_require__(/*! ../images/icons/imageChainlink.png */ "./src/images/icons/imageChainlink.png").default,
+  image1inch: __webpack_require__(/*! ../images/icons/image1inch.png */ "./src/images/icons/image1inch.png").default,
+  imageSynthetix: __webpack_require__(/*! ../images/icons/imageSynthetix.png */ "./src/images/icons/imageSynthetix.png").default,
+  imageCompound: __webpack_require__(/*! ../images/icons/compound.png */ "./src/images/icons/compound.png").default,
+  imageDelta: __webpack_require__(/*! ../images/icons/delta.png */ "./src/images/icons/delta.png").default,
+  imageImtoken: __webpack_require__(/*! ../images/icons/imtoken.png */ "./src/images/icons/imtoken.png").default,
+  imageKyberNetwork: __webpack_require__(/*! ../images/icons/kyberNetwork.png */ "./src/images/icons/kyberNetwork.png").default,
+  imageMaker: __webpack_require__(/*! ../images/icons/maker.png */ "./src/images/icons/maker.png").default,
+  imageTrustWallet: __webpack_require__(/*! ../images/icons/trustWallet.png */ "./src/images/icons/trustWallet.png").default,
+  // icon chain
+  iconEthereum: __webpack_require__(/*! ../images/icons/iconEthereum.png */ "./src/images/icons/iconEthereum.png").default,
+  iconEthereumDark: __webpack_require__(/*! ../images/icons/icon-logo-ethereum-dark.png */ "./src/images/icons/icon-logo-ethereum-dark.png").default,
+  iconBinanceGray: __webpack_require__(/*! ../images/icons/iconBinanceGray.png */ "./src/images/icons/iconBinanceGray.png").default,
+  iconBinanceGold: __webpack_require__(/*! ../images/icons/iconBinanceGold.png */ "./src/images/icons/iconBinanceGold.png").default,
+  // icon content
+  iconFlower: __webpack_require__(/*! ../images/icons/iconFlower.svg */ "./src/images/icons/iconFlower.svg").default,
+  iconUnderConstruction: __webpack_require__(/*! ../images/icons/underConstruction.svg */ "./src/images/icons/underConstruction.svg").default,
+  // header backgroud
+  headerLogo: __webpack_require__(/*! ../images/logos/headerBg.jpg */ "./src/images/logos/headerBg.jpg").default,
+  headerLogo3x: __webpack_require__(/*! ../images/logos/headerBg-3x.jpg */ "./src/images/logos/headerBg-3x.jpg").default,
+  blurBall: __webpack_require__(/*! ../images/icons/decorativeBlurBall.png */ "./src/images/icons/decorativeBlurBall.png").default,
+  // avatars
+  pingChen: __webpack_require__(/*! ../images/avatars/pingChen.png */ "./src/images/avatars/pingChen.png").default,
+  jackLai: __webpack_require__(/*! ../images/avatars/jackLai.png */ "./src/images/avatars/jackLai.png").default,
+  wegoChen: __webpack_require__(/*! ../images/avatars/wegoChen.png */ "./src/images/avatars/wegoChen.png").default,
+  ianHsu: __webpack_require__(/*! ../images/avatars/ianHsu.png */ "./src/images/avatars/ianHsu.png").default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (images);
+
+/***/ }),
+
+/***/ "./src/pages/index.tsx":
+/*!*****************************!*\
+  !*** ./src/pages/index.tsx ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var src_containers_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/containers/Layout */ "./src/containers/Layout.tsx");
+/* harmony import */ var src_components_HomeScreen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/components/HomeScreen */ "./src/components/HomeScreen/index.tsx");
+
+
+
+
+// markup
+const IndexPage = () => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(src_containers_Layout__WEBPACK_IMPORTED_MODULE_1__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(src_components_HomeScreen__WEBPACK_IMPORTED_MODULE_2__.default, null));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IndexPage);
+
+/***/ }),
+
 /***/ "./.cache/api-runner-ssr.js":
 /*!**********************************!*\
   !*** ./.cache/api-runner-ssr.js ***!
@@ -18185,7 +21262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/@theme-ui/theme-provider/dist/index.esm.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/gatsby-plugin-theme-ui/index.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/gatsby-plugin-theme-ui/index.tsx");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components */ "./node_modules/gatsby-plugin-theme-ui/src/components.js");
 /* harmony import */ var _hooks_configOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hooks/configOptions */ "./node_modules/gatsby-plugin-theme-ui/src/hooks/configOptions.js");
 
@@ -18220,4928 +21297,6 @@ const wrapRootElement = ({
 }) => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Root, null, element);
 };
-
-/***/ }),
-
-/***/ "./src/common/functions.js":
-/*!*********************************!*\
-  !*** ./src/common/functions.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "standardNameFileUpload": () => (/* binding */ standardNameFileUpload),
-/* harmony export */   "lowerCase": () => (/* binding */ lowerCase),
-/* harmony export */   "upperCase": () => (/* binding */ upperCase),
-/* harmony export */   "generateId": () => (/* binding */ generateId),
-/* harmony export */   "formatArrayKey": () => (/* binding */ formatArrayKey),
-/* harmony export */   "convertHtmlContent": () => (/* binding */ convertHtmlContent),
-/* harmony export */   "replaceComma": () => (/* binding */ replaceComma),
-/* harmony export */   "upperCaseFirstLetter": () => (/* binding */ upperCaseFirstLetter),
-/* harmony export */   "roundingNumber": () => (/* binding */ roundingNumber),
-/* harmony export */   "getLength": () => (/* binding */ getLength),
-/* harmony export */   "setItemStorage": () => (/* binding */ setItemStorage),
-/* harmony export */   "getItemStorage": () => (/* binding */ getItemStorage),
-/* harmony export */   "removeItemStorage": () => (/* binding */ removeItemStorage),
-/* harmony export */   "genObjectLang": () => (/* binding */ genObjectLang),
-/* harmony export */   "bytesToSize": () => (/* binding */ bytesToSize),
-/* harmony export */   "calculateLevel": () => (/* binding */ calculateLevel),
-/* harmony export */   "formatArratoObjectLV": () => (/* binding */ formatArratoObjectLV)
-/* harmony export */ });
-// import moment from 'moment'
-// import axios from 'axios'
-// import { isNull, isUndefined } from 'util'
-// import numeral from 'numbro'
-// import { chainType } from './constant'
-// export const showNotification = (
-//   title = 'Success',
-//   description = '',
-//   type = 'open'
-// ) => {
-//   notification[type]({
-//     message: title,
-//     description: description || '',
-//     placement: 'bottomRight'
-//   })
-// }
-const standardNameFileUpload = name => name.split(' ').join('').replace('.png', '');
-const lowerCase = value => {
-  return value ? value.toLowerCase() : value;
-};
-const upperCase = value => {
-  return value ? value.toUpperCase() : value;
-};
-const generateId = () => {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (let i = 0; i < 16; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-
-  return text;
-};
-const formatArrayKey = array => {
-  const finalArr = array;
-
-  for (const index in finalArr) {
-    finalArr[index].key = index;
-  }
-
-  return finalArr;
-};
-const convertHtmlContent = html => {
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-  return temp;
-};
-const replaceComma = str => {
-  const newString = typeof str !== 'string' ? str.toString() : str;
-  return newString.replace(/,/g, '');
-};
-const upperCaseFirstLetter = lower => {
-  if (!lower) return lower;
-  const upper = lower.replace(/^\w/, chr => chr.toUpperCase());
-  return upper;
-};
-const roundingNumber = (number, rounding = 7) => {
-  const powNumber = Math.pow(10, parseInt(rounding));
-  return Math.floor(number * powNumber) / powNumber;
-};
-const getLength = value => value ? value.length : 0;
-const setItemStorage = async (key, value) => {
-  await localStorage.setItem(key, value);
-};
-const getItemStorage = key => localStorage.getItem(key);
-const removeItemStorage = key => {
-  localStorage.removeItem(key);
-};
-const genObjectLang = (en, vi, ja, cn) => ({
-  en,
-  vi,
-  ja,
-  cn
-}); // const blobToBase64 = (blob) => {
-//   const reader = new FileReader()
-//   reader.readAsDataURL(blob)
-//   return new Promise((resolve) => {
-//     reader.onloadend = () => {
-//       resolve(reader.result)
-//     }
-//   })
-// }
-
-const bytesToSize = bytes => {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  if (bytes === 0) return 'n/a';
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  if (i === 0) return `${bytes} ${sizes[i]}`;
-  return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
-};
-const calculateLevel = user => {
-  if (!user) return 0; // Check level upgrade by volume first
-
-  if (getLength(user.refLevel) > 0) {
-    // Level 1 1K/MONTH
-    // Level 2 2MIL/MONTH
-    // Level 3 5MIL/MONTH
-    // Level 4 10MIL/MONTH
-    // Level 5 15MIL/MONTH
-    // Level 6 2 ref trực tiếp level 4
-    return Math.max.apply(null, user.refLevel.map(itm => itm.level));
-  } else {
-    return 0;
-  }
-};
-const formatArratoObjectLV = array => {
-  const finalObj = {};
-
-  for (let i = 0; i < getLength(array); i++) {
-    finalObj[`lv${i + 1}`] = array[i];
-  }
-
-  return finalObj;
-};
-
-/***/ }),
-
-/***/ "./src/components/BlankScreen/index.js":
-/*!*********************************************!*\
-  !*** ./src/components/BlankScreen/index.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/BlankScreen/styles.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/* harmony import */ var _containers_SideBar_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../containers/SideBar/index */ "./src/containers/SideBar/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-const BlankScreen = props => {
-  let productInfo = {};
-  _containers_SideBar_index__WEBPACK_IMPORTED_MODULE_4__.botSideBarItems.forEach(item => {
-    if (item.path === props.path) {
-      productInfo['name'] = props.path === 'guildbank' ? 'Token Burner V1' : item.name.charAt(0).toUpperCase() + item.name.slice(1) + ' V1';
-      productInfo['href'] = item.href;
-    }
-  });
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_0__.Box, {
-    sx: {
-      textAlign: 'center'
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_1__.default.iconUnderConstruction,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.underConstructionIcon,
-    alt: "under construction icon"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.title
-  }, "This page is processing"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.contentText
-  }, "Please visit Hakka ", productInfo['name'], " for temporary"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.buttonSection
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_3__.default, {
-    click: () => {
-      window.open(productInfo['href'], '_blank').focus();
-    },
-    type: 'green'
-  }, productInfo['name'])));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlankScreen);
-
-/***/ }),
-
-/***/ "./src/components/BlankScreen/styles.js":
-/*!**********************************************!*\
-  !*** ./src/components/BlankScreen/styles.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  underConstructionIcon: {
-    display: 'block',
-    margin: '120px auto 0 auto',
-    '@media screen and (max-width: 576px)': {
-      margin: '20px auto 0 auto'
-    }
-  },
-  title: {
-    color: '#253e47',
-    margin: '20px 0 8px 0'
-  },
-  contentText: {
-    color: 'rgba(37, 62, 71, 0.5)',
-    fontWeight: '600',
-    margin: '0 16px 28px 16px',
-    lienHeight: '1.5'
-  },
-  buttonSection: {
-    width: '200px',
-    margin: '0 auto 120px auto',
-    '@media screen and (max-width: 576px)': {
-      margin: '0 auto 100px auto'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/Common/CoinComponent/index.js":
-/*!******************************************************!*\
-  !*** ./src/components/Common/CoinComponent/index.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/Common/CoinComponent/styles.js");
-/** @jsx jsx */
-
-
-
-
-
-
-function CoinComponent(props) {
-  const {
-    item,
-    i,
-    whatHakka
-  } = props;
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.custom_link,
-    href: item.link,
-    target: "_blank"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    key: item.coinName,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinContainer,
-    mr: "3",
-    mb: "12px",
-    alignItems: "center"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinImg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.imageCoin],
-    alt: ""
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    ml: "2"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.coinName
-  }, item.coinName))));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CoinComponent);
-
-/***/ }),
-
-/***/ "./src/components/Common/CoinComponent/styles.js":
-/*!*******************************************************!*\
-  !*** ./src/components/Common/CoinComponent/styles.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  coinContainer: {
-    padding: '8px 16px',
-    borderRadius: '8px',
-    backgroundColor: '#f7fbfc',
-    border: '1px solid transparent',
-    cursor: 'pointer',
-    transition: 'all 0.25s ease-out',
-    display: 'flex',
-    justifyContent: 'center',
-    '@media screen and (max-width: 576px)': {
-      width: '100%',
-      // margin: '12px 0 0 0',
-      justifyContent: 'center'
-    },
-    ':hover': {
-      border: '1px solid #dae1e3'
-    }
-  },
-  coinHakka: {
-    padding: '8px 16px',
-    borderRadius: '8px',
-    backgroundColor: '#f7fbfc',
-    cursor: 'pointer',
-    transition: 'all 0.25s ease-out',
-    border: '1px solid transparent',
-    ':hover': {
-      border: '1px solid #dae1e3'
-    }
-  },
-  coinImg: {
-    width: '24px'
-  },
-  coinName: {
-    fontSize: [1, 1, 2, 3],
-    color: '#253e47',
-    fontWeight: '600'
-  },
-  custom_link: {
-    textDecoration: 'none',
-    '@media screen and (max-width: 576px)': {
-      width: '100%'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/Common/MyButton/index.js":
-/*!*************************************************!*\
-  !*** ./src/components/Common/MyButton/index.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/Common/MyButton/styles.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-const MyButton = props => {
-  const {
-    type,
-    click,
-    disabled
-  } = props;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(rebass__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    disabled: disabled,
-    onClick: () => {
-      if (props.click) props.click();
-    },
-    sx: type === 'green' ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.mybutton_green : _styles__WEBPACK_IMPORTED_MODULE_2__.default.mybutton
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, props.children));
-};
-
-MyButton.propTypes = {
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().any),
-  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyButton);
-
-/***/ }),
-
-/***/ "./src/components/Common/MyButton/styles.js":
-/*!**************************************************!*\
-  !*** ./src/components/Common/MyButton/styles.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mybutton: {
-    padding: '14px 16px',
-    backgroundColor: '#fff',
-    color: '#2da287',
-    border: 'solid 1px #dae1e3',
-    width: '100%',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontWeight: '600',
-    transition: 'all 0.25s ease-out',
-    textAlign: 'center',
-    // textShadow: '0.5px 0px 0px #253e47',
-    ':hover': {
-      borderColor: '#2da287'
-    },
-    ':active': {
-      transform: 'scale(0.98)',
-      outline: 'none'
-    },
-    ':disabled': {
-      color: '#9D9D9D',
-      cursor: 'not-allowed',
-      ':hover': {
-        borderColor: '#dae1e3'
-      }
-    }
-  },
-  mybutton_green: {
-    padding: '14px 16px',
-    backgroundColor: '#3ebd93',
-    color: '#fff',
-    border: 'solid 1px #3ebd93',
-    width: '100%',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontWeight: '600',
-    transition: 'all 0.25s ease-out',
-    textAlign: 'center',
-    // textShadow: '0.5px 0px 0px #253e47',
-    ':hover': {
-      borderColor: '#2da287',
-      backgroundColor: '#6ad7a8'
-    },
-    ':active': {
-      transform: 'scale(0.98)',
-      outline: 'none'
-    },
-    ':disabled': {
-      color: '#9D9D9D',
-      cursor: 'not-allowed',
-      backgroundColor: '#ebf0f2',
-      border: 'none'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/CardInfo/index.js":
-/*!***************************************************************!*\
-  !*** ./src/components/HomeScreen/component/CardInfo/index.js ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/CardInfo/styles.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-function CardInfo(props) {
-  const cardHeadContent = [{
-    imageTop: '',
-    title: 'Learn More <br/> About HAKKA',
-    subContent: 'View wiki',
-    click: () => {
-      window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus();
-    },
-    imageBot: 'iconLinkNormal'
-  }, {
-    imageTop: 'iconToken',
-    title: 'What’s <br/> HAKKA Token',
-    subContent: 'Check it out',
-    click: () => {
-      location.href = "#whatHakka";
-    },
-    imageBot: 'iconScrollDown'
-  }];
-
-  const renderCard = () => {
-    return cardHeadContent.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.anchor,
-        key: item.title
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        key: item.title,
-        flexDirection: "column",
-        justifyContent: "space-between",
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardContainer,
-        onClick: () => {
-          item.click();
-        }
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        justifyContent: "flex-end"
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardImg,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.imageTop],
-        alt: ""
-      })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardHeading,
-        mt: "3",
-        mb: "3",
-        dangerouslySetInnerHTML: {
-          __html: item.title
-        }
-      }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subContent,
-        className: "sub-content",
-        pt: "0",
-        justifyContent: "space-between",
-        alignItems: "center",
-        onClick: () => {
-          item.click();
-        }
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "text",
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subTextGreen
-      }, item.subContent), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.forwardImg,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.imageBot],
-        alt: ""
-      })))));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.card_responsive
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    onClick: () => {
-      location.href = 'products';
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Card, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    justifyContent: "flex-end"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstImg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconLight,
-    alt: ""
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.cardFirstHeading,
-    mt: "22px",
-    mb: "3"
-  }, "Roam Around ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", null), " Hakka Ecosystem"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subContent,
-    pt: "0",
-    className: "sub-content",
-    justifyContent: "space-between",
-    alignItems: "center"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.subText,
-    className: "text"
-  }, "Check out unique HAKKA products"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.forwardImg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconForward,
-    alt: ""
-  })))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: {
-      display: 'grid',
-      gridGap: 3,
-      gridTemplateColumns: '1fr 1fr'
-    }
-  }, renderCard())));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardInfo);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/CardInfo/styles.js":
-/*!****************************************************************!*\
-  !*** ./src/components/HomeScreen/component/CardInfo/styles.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  card_responsive: {
-    display: 'grid',
-    gridGap: 3,
-    gridTemplateColumns: '1fr 1fr',
-    maxWidth: '1200px',
-    '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr' // maxWidth: '400px'
-
-    }
-  },
-  // big green card
-  cardFirstContainer: {
-    padding: '20px',
-    border: '1px solid #6ad7a8',
-    borderRadius: '8px',
-    height: '100%',
-    maxHeight: '250px',
-    minHeight: '200px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
-    cursor: 'pointer',
-    boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
-    transition: 'all 0.25s ease-out ',
-    '& .sub-content': {
-      opacity: '.5',
-      transition: 'all 0.25s ease-out'
-    },
-    ':hover': {
-      '& .sub-content': {
-        opacity: 1
-      },
-      ':active': {
-        transform: 'scale(.98)'
-      },
-      borderColor: '#3ebd93'
-    }
-  },
-  // small cards
-  cardContainer: {
-    maxHeight: '250px',
-    minHeight: '200px',
-    padding: '20px',
-    border: '1px solid #ebf0f2',
-    height: '100%',
-    borderRadius: '8px',
-    // marginTop: '36px',
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    cursor: 'pointer',
-    transition: 'all 0.25s ease-out ',
-    boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
-    ':last-child': {
-      marginRight: 0
-    },
-    '& .sub-content': {
-      // opacity: '.5',
-      filter: 'grayscale(100%)',
-      transition: 'all 0.25s ease-out',
-      '& .text': {
-        color: 'rgba(37, 62, 71, 0.5)'
-      }
-    },
-    ':hover': {
-      transition: 'all 0.25s ease-out ',
-      borderColor: '#3ebd93',
-      '& .sub-content': {
-        opacity: 1,
-        filter: 'grayscale(0)',
-        '& .text': {
-          color: '#2da287'
-        }
-      }
-    },
-    ':active': {
-      transform: 'scale(.98)'
-    }
-  },
-  cardImg: {},
-  cardFirstImg: {
-    padding: '10px',
-    borderRadius: '8px',
-    backgroundImage: 'linear-gradient(45deg, #d9fbe3, #ffffff 100%)'
-  },
-  cardHeading: {
-    // maxWidth: '90%',
-    color: '#253e47',
-    // margin: '12px 0',
-    fontWeight: 'bold',
-    fontFamily: 'system-ui',
-    fontSize: [3, 3, 4, 5]
-  },
-  cardFirstHeading: {
-    width: '55%',
-    color: '#253e47',
-    // margin: '12px 0',
-    fontWeight: 'bold',
-    fontFamily: 'system-ui',
-    fontSize: [3, 3, 4, 5]
-  },
-  subText: {
-    fontSize: [1, 1, 2, 3],
-    fontWeight: '600',
-    color: '#253e47'
-  },
-  forwardImg: {
-    cursor: 'pointer'
-  },
-  subTextGreen: {
-    color: 'text_grey',
-    fontWeight: '600',
-    fontSize: [1, 1, 2, 3]
-  },
-  anchor: {
-    textDecoration: 'none'
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/FlagshipProduct/index.js":
-/*!**********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/FlagshipProduct/index.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/FlagshipProduct/styles.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
-/** @jsx jsx */
-
-
-
-
-
-
-
-function FlagshipProduct(props) {
-  const {
-    item,
-    i,
-    link
-  } = props;
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    onClick: () => {
-      window.open(link, '_blank').focus();
-    },
-    alignItems: "center",
-    key: i,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.product,
-    mt: "2"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imageProduct,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.image],
-    alt: ""
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.productHeading,
-    ml: "3"
-  }, item.title));
-}
-
-FlagshipProduct.propTypes = {
-  item: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),
-  i: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
-  link: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlagshipProduct);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/FlagshipProduct/styles.js":
-/*!***********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/FlagshipProduct/styles.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  product: {
-    // marginRight: '40px',
-    cursor: 'pointer',
-    padding: '16px 20px',
-    borderRadius: '8px',
-    transition: 'all 0.25s ease-out',
-    ':hover': {
-      backgroundColor: '#f7fbfc',
-      '& *': {
-        color: '#253e47'
-      }
-    },
-    '@media screen and (max-width: 576px)': {
-      // marginTop: '32px',
-      // marginRight: 0,
-      ':first-child': {// marginTop: '20px'
-      }
-    }
-  },
-  imageProduct: {
-    // marginRight: '10px',
-    width: '40px'
-  },
-  productHeading: {
-    fontSize: [3, 3, 4, 5],
-    fontWeight: 'bold',
-    color: '#52666d',
-    whiteSpace: 'nowrap'
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/HakkaTeam/index.js":
-/*!****************************************************************!*\
-  !*** ./src/components/HomeScreen/component/HakkaTeam/index.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/HakkaTeam/styles.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-function HakkaTeam() {
-  const listMenbers = [{
-    avatar: src_images__WEBPACK_IMPORTED_MODULE_3__.default.jackLai,
-    name: 'Jack Lai',
-    job: 'researcher'
-  }, {
-    avatar: src_images__WEBPACK_IMPORTED_MODULE_3__.default.wegoChen,
-    name: 'Wego Chen',
-    job: 'ADVISOR'
-  }, {
-    avatar: src_images__WEBPACK_IMPORTED_MODULE_3__.default.ianHsu,
-    name: 'Ian Hsu',
-    job: 'ADVISOR'
-  }];
-
-  const renderListMembers = () => {
-    return listMenbers.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamInfoUser,
-        flexDirection: "column",
-        key: i
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.team_img_responsive
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamImgUserList,
-        src: item.avatar,
-        alt: ""
-      })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamName,
-        mt: "24px"
-      }, item.name), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamJob,
-        mt: "2"
-      }, item.job));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeam
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamHead
-  }, "Hakka Team"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamUser
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamImgUser,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.pingChen,
-    alt: ""
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamInfo
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamName,
-    mt: ['24px', '0px', '0px', '0px']
-  }, "Ping Chen"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamJob,
-    mt: "2"
-  }, "FOUNDER"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamComment
-  }, "Ping is the founder of the HAKKA ecosystem and has been involved in the Ethereum community for over 5 years as a dApp developer."))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamListMember,
-    mt: "4",
-    flexWrap: "wrap"
-  }, renderListMembers()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamFootContent,
-    mt: "48px",
-    justifyContent: "space-between",
-    alignItems: "center",
-    mb: "6"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamFootText
-  }, "Know more about Hakka Team"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.hakkaTeamFootTextLink,
-    alignItems: "center"
-  }, "Visit Wiki", (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconLinkSmallGreen,
-    alt: ""
-  }))));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HakkaTeam);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/HakkaTeam/styles.js":
-/*!*****************************************************************!*\
-  !*** ./src/components/HomeScreen/component/HakkaTeam/styles.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // hakka team
-  hakkaTeam: {// marginBottom: '160px'
-  },
-  hakkaTeamHead: {
-    fontSize: [5, 6, 7, 7],
-    color: '#253e47',
-    fontWeight: 'normal',
-    paddingBottom: ['48px', '60px', '60px', '60px'],
-    '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    } // marginBottom: '60px'
-
-  },
-  hakkaTeamUser: {
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
-  },
-  team_img_responsive: {
-    '@media screen and (max-width: 576px)': {
-      justifyContent: 'center'
-    }
-  },
-  hakkaTeamImgUser: {
-    width: '100px',
-    height: '100px',
-    borderRadius: '8px',
-    // marginRight: '48px',
-    '@media screen and (max-width: 576px)': {// marginRight: 0
-    }
-  },
-  hakkaTeamInfo: {
-    // width: '70%',
-    // marginBottom: '48px',
-    paddingLeft: '48px',
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '0px'
-    }
-  },
-  hakkaTeamName: {
-    // marginBottom: '8px',
-    fontSize: [4, 5, 5, 5],
-    fontWeight: 600,
-    lineHeight: '28px',
-    color: 'black',
-    '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    }
-  },
-  hakkaTeamJob: {
-    fontSize: [2, 2, 3, 4],
-    textTransform: 'uppercase',
-    color: 'dark_green',
-    lineHeight: '24px',
-    fontWeight: '600',
-    '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    }
-  },
-  hakkaTeamComment: {
-    // margin: '12px 0 0',
-    fontSize: [2, 2, 3, 4],
-    color: '#253e47',
-    maxWidth: '1050px',
-    '@media screen and (max-width: 576px)': {
-      padding: '0 32px'
-    }
-  },
-  hakkaTeamListMember: {
-    // marginBottom: '48px'
-    display: 'grid',
-    gridGap: '40px',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    maxWidth: '1200px',
-    '@media screen and (max-width: 960px)': {
-      gridTemplateColumns: '1fr 1fr'
-    },
-    '@media screen and (max-width: 576px)': {
-      gridGap: '24px',
-      gridTemplateColumns: '1fr 1fr'
-    }
-  },
-  hakkaTeamImgUserList: {
-    width: '100px',
-    height: '100px',
-    borderRadius: '8px' // marginRight: '48px',
-    // marginBottom: '23px'
-
-  },
-  dividerLine: {
-    // maxWidth: '900px',
-    border: '.5px solid #dae1e3' // marginBottom: '11px'
-
-  },
-  hakkaTeamFootContent: {
-    maxWidth: '1200px',
-    paddingTop: '12px',
-    borderTop: '1px solid #dae1e3'
-  },
-  hakkaTeamFootText: {
-    fontSize: [1, 1, 2, 3],
-    fontWeight: '600',
-    color: 'rgba(37, 62, 71, 0.5)'
-  },
-  hakkaTeamFootTextLink: {
-    fontWeight: '600',
-    // textShadow: '0.5px 0px 0px #253e47',
-    fontSize: [1, 1, 2, 3],
-    color: '#2da287',
-    cursor: 'pointer'
-  },
-  hakkaTeamInfoUser: {
-    // '@media screen and (max-width: 576px)': {
-    //   // marginRight: '80px'
-    // },
-    // ':nth-child(2)': {
-    //   '@media screen and (max-width: 576px)': {
-    //     // marginRight: 0
-    //   }
-    // },
-    ':last-child': {
-      '@media screen and (max-width: 768px)': {
-        paddingTop: '36px'
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/TokenMetrics/index.js":
-/*!*******************************************************************!*\
-  !*** ./src/components/HomeScreen/component/TokenMetrics/index.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/TokenMetrics/styles.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/components/Common/CoinComponent */ "./src/components/Common/CoinComponent/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-const TokenMetricContent = props => {
-  const {
-    tokenMetrics
-  } = props;
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoChain,
-    ml: "2"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsSubHead
-  }, "Token Metrics"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoContainer,
-    mt: "20px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo
-  }, "NAME: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info
-  }, tokenMetrics.name)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo,
-    mt: "2"
-  }, "TYPE: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info
-  }, tokenMetrics.type)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfo,
-    mt: "2"
-  }, "CONTRACT ADDRESS: ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", null), ' ', (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsInfoAddress,
-    alignItems: "center"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    variant: "nav",
-    href: tokenMetrics.addressLink,
-    target: "_blank",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.info_link
-  }, tokenMetrics.address, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.iconScan,
-    className: "icon-scan",
-    src: tokenMetrics.addressIcon,
-    alt: ""
-  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsChainList,
-    mt: "20px"
-  }, "Get HAKKA Token on ", tokenMetrics.shortName, ":"), tokenMetrics.id === 'eth' ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.token_metric_responsive,
-    mt: "2"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
-    whatHakka: true,
-    item: {
-      imageCoin: 'iconInch',
-      coinName: '1inch',
-      link: 'https://1inch.exchange/#/HAKKA/ETH?network=1'
-    }
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    className: "left-bot-token"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
-    whatHakka: true,
-    item: {
-      imageCoin: 'iconUniswap',
-      coinName: 'Uniswap',
-      link: 'https://app.uniswap.org/#/swap?outputCurrency=0x0e29e5abbb5fd88e28b2d355774e73bd47de3bcd'
-    }
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    className: "right-bot-token"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
-    whatHakka: true,
-    item: {
-      imageCoin: 'iconBalancer',
-      coinName: 'Balancer',
-      link: 'https://app.balancer.fi/#/trade/ether/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd'
-    }
-  })))) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.token_metric_responsive,
-    mt: "2"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_4__.default, {
-    whatHakka: true,
-    item: {
-      imageCoin: 'iconPancakeSwap',
-      coinName: 'PancakeSwap',
-      link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC'
-    }
-  }))));
-};
-
-function TokenMetrics(props) {
-  const chains = [{
-    id: 'eth',
-    imgChain: 'iconEthereum',
-    chainName: 'Ethereum Mainnet',
-    imgBg: '#f2f2f2'
-  }, {
-    id: 'bsc',
-    imgChain: 'iconBinanceGold',
-    chainName: 'Binance Smart Chain',
-    imgBg: '#fcf7de'
-  }];
-  const tokenMetrics = [{
-    id: 'eth',
-    shortName: 'Ethereum',
-    name: 'Hakka Finance (HAKKA)',
-    type: 'ERC-20',
-    address: '0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
-    addressLink: 'https://etherscan.io/token/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
-    addressIcon: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconEtherscan
-  }, {
-    id: 'bsc',
-    shortName: 'BSC',
-    name: ' Hakka Finance on xDai on BSC (HAKKA)',
-    type: 'BEP-20',
-    address: '0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
-    addressLink: 'https://bscscan.com/token/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
-    addressIcon: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconBSCScan
-  }];
-  const {
-    0: selectedCoin,
-    1: setSelectedCoin
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('eth');
-  const {
-    0: selectedTokenMetric,
-    1: setSelectedTokenMetric
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tokenMetrics[0]); // functions
-
-  const handleSelectCoin = value => () => {
-    setSelectedCoin(value);
-    const obj = tokenMetrics.find(it => it.id === value);
-    setSelectedTokenMetric(obj);
-  }; // render
-
-
-  const renderChain = () => {
-    return chains.map((chain, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainContent_active : _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainContent,
-        className: "border-top-active",
-        alignItems: "center",
-        justifyContent: "space-between",
-        key: chain.id // mb="4"
-        ,
-        onClick: handleSelectCoin(chain.id)
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        className: "chain-left-content",
-        alignItems: "center"
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: {
-          backgroundColor: chain.imgBg,
-          width: '40px',
-          height: '40px',
-          borderRadius: '8px'
-        }
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgChain : _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgChain_gray,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[chain.imgChain],
-        alt: ""
-      })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: selectedCoin === chain.id ? _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainName_active : _styles__WEBPACK_IMPORTED_MODULE_2__.default.chainName,
-        className: "chain-text"
-      }, chain.chainName)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        className: "icon-right",
-        ml: "3"
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.iconRight,
-        src: selectedCoin === chain.id ? src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconRight : src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconRightGrey,
-        alt: ""
-      }), ' '));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetrics_responsive
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.tokenMetricsChain
-  }, renderChain()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(TokenMetricContent, {
-    tokenMetrics: selectedTokenMetric
-  })));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TokenMetrics);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/TokenMetrics/styles.js":
-/*!********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/TokenMetrics/styles.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // render Chain css
-  tokenMetrics: {
-    paddingBottom: ['48px', '160px', '160px', '160px'],
-    width: '100%',
-    '@media screen and (max-width: 960px)': {
-      flexDirection: 'column',
-      paddingLeft: '0px'
-    }
-  },
-  chainContent_active: {
-    maxWidth: '325px',
-    cursor: 'pointer',
-    paddingBottom: ['28px', '32px', '32px', '32px'],
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column',
-      padding: '16px',
-      alignItems: 'center',
-      borderTop: '1px solid #2da287',
-      '& .chain-left-content': {
-        flexDirection: 'column'
-      },
-      '& .chain-text': {
-        paddingLeft: '0px',
-        paddingTop: '12px'
-      },
-      '& .icon-right': {
-        opacity: '0',
-        transition: 'all 0.25s ease-out'
-      }
-    }
-  },
-  chainContent: {
-    maxWidth: '325px',
-    cursor: 'pointer',
-    paddingBottom: ['28px', '32px', '32px', '32px'],
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column',
-      padding: '16px',
-      alignItems: 'center',
-      borderTop: '1px solid #ebf0f2',
-      '& .chain-left-content': {
-        flexDirection: 'column'
-      },
-      '& .chain-text': {
-        paddingLeft: '0px',
-        paddingTop: '12px'
-      },
-      '& .icon-right': {
-        opacity: '0',
-        transition: 'all 0.25s ease-out'
-      }
-    }
-  },
-  imgChain: {
-    width: '40px',
-    height: '40px',
-    padding: '8px',
-    borderRadius: '8px',
-    '@media screen and (max-width: 576px)': {// paddingBottom: '12px'
-    }
-  },
-  imgChain_gray: {
-    width: '40px',
-    height: '40px',
-    padding: '8px',
-    // backgroundColor: '#f7fbfc',
-    borderRadius: '8px',
-    transition: 'all 0.25s ease-out',
-    // filter: 'grayscale(100%)',
-    opacity: '.5',
-    '@media screen and (max-width: 576px)': {// paddingBottom: '12px'
-    }
-  },
-  width_big: {
-    width: '500px'
-  },
-  chainName_active: {
-    fontSize: [1, 3, 4, 5],
-    color: '#253e47',
-    fontWeight: 600,
-    paddingLeft: '12px'
-  },
-  chainName: {
-    fontSize: [1, 3, 4, 5],
-    color: 'text_grey',
-    fontWeight: 600,
-    paddingLeft: '12px'
-  },
-  iconRight: {
-    display: 'flex',
-    alignItems: 'center',
-    '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
-  },
-  // token metrics
-  tokenMetrics_responsive: {
-    display: 'grid',
-    gridGap: '0px',
-    gridTemplateColumns: '1fr 1fr',
-    maxWidth: '1200px',
-    '@media screen and (max-width: 960px)': {
-      gridTemplateColumns: '1fr'
-    }
-  },
-  tokenMetricsChain: {
-    // width: '30%',
-    padding: '16px 12px',
-    paddingLeft: 0,
-    fontSize: [3, 3, 4, 5],
-    flex: '0.8',
-    '@media screen and (max-width: 576px)': {
-      padding: '0px',
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-between'
-    }
-  },
-  tokenMetricsInfoChain: {
-    // width: "30%",
-    // marginLeft: '105px',
-    borderTop: '1px solid #2da287',
-    paddingTop: '28px',
-    flex: '1',
-    '@media screen and (max-width: 576px)': {
-      marginLeft: 0,
-      borderTop: 'unset'
-    }
-  },
-  tokenMetricsInfoContainer: {
-    marginBottom: '20px'
-  },
-  tokenMetricsSubHead: {
-    fontSize: [2, 2, 3, 4],
-    color: '#253e47',
-    fontWeight: 'bold',
-    fontFamily: 'system-ui' // marginBottom: '20px'
-
-  },
-  iconScan: {
-    width: '24px',
-    verticalAlign: 'middle'
-  },
-  tokenMetricsInfo: {
-    fontSize: [1, 1, 2, 3],
-    fontWeight: 600,
-    color: '#253e47'
-  },
-  tokenMetricsInfoAddress: {
-    cursor: 'pointer',
-    '& .icon-scan': {
-      opacity: '.5'
-    },
-    ':hover': {
-      '& .icon-scan': {
-        opacity: '1',
-        transition: 'all 0.25s ease-out'
-      }
-    }
-  },
-  info: {
-    fontWeight: 'normal'
-  },
-  info_link: {
-    color: 'black',
-    fontWeight: 'normal',
-    wordBreak: 'break-all'
-  },
-  tokenMetricsChainList: {
-    fontSize: [1, 1, 2, 3],
-    fontWeight: 600,
-    color: '#253e47',
-    paddingBottom: [1, 3, 3, 3]
-  },
-  token_metric_responsive: {
-    '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column',
-      '& .left-bot-token': {
-        width: '50%',
-        '@media screen and (max-width: 576px)': {
-          paddingRight: '12px'
-        }
-      },
-      '& .right-bot-token': {
-        width: '50%'
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/TotalValueLock/index.js":
-/*!*********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/TotalValueLock/index.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/TotalValueLock/styles.js");
-/* harmony import */ var _FlagshipProduct__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FlagshipProduct */ "./src/components/HomeScreen/component/FlagshipProduct/index.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cross-fetch */ "./node_modules/cross-fetch/dist/node-ponyfill.js");
-/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cross_fetch__WEBPACK_IMPORTED_MODULE_5__);
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-function TotalValueLock() {
-  const products = [{
-    title: '3F Mutual',
-    image: 'iconMutual',
-    link: 'https://3fmutual.com/'
-  }, {
-    title: 'Harvester',
-    image: 'iconHarvester',
-    link: 'https://harvesters.hakka.finance/pools'
-  }, {
-    title: 'Hakka Intelligence',
-    image: 'iconIntelligence',
-    link: 'https://intelligence.hakka.finance/'
-  }];
-
-  const renderFlagshipProducts = () => {
-    return products.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FlagshipProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-        key: item.title,
-        item: item,
-        i: i,
-        link: item.link
-      });
-    });
-  };
-
-  const {
-    0: lockedValue,
-    1: setLockedValue
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  cross_fetch__WEBPACK_IMPORTED_MODULE_5___default()('https://tvl.hakka.finance/').then(res => {
-    return res.text();
-  }).then(res => {
-    const value = parseInt(res).toLocaleString();
-    setLockedValue(`$${value}`);
-  });
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    justifyContent: "space-between",
-    alignItems: "center",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueHeadNum
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueHead
-  }, "TOTAL VALUE LOCKED"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueMoney,
-    alignItems: "baseline",
-    mt: "12px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    id: "supply"
-  }, lockedValue), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    ml: "8px",
-    fontSize: [1, 5, 5, 5]
-  }, "USD"))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueSubText,
-    mt: "4"
-  }, "Our Flagship Products"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.listProducts,
-    ml: "-20px"
-  }, renderFlagshipProducts()))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.totalValueImg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_4__.default.imageAlienGrey,
-    alt: ""
-  })));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TotalValueLock);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/TotalValueLock/styles.js":
-/*!**********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/TotalValueLock/styles.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  totalValueContainer: {
-    paddingLeft: '20px',
-    position: 'relative'
-  },
-  totalValueHeadNum: {},
-  totalValueHead: {
-    fontSize: [3, 3, 4, 5],
-    color: '#253e47',
-    // marginBottom: '12px',
-    fontWeight: 'bold',
-    '@media screen and (max-width: 768px)': {
-      whiteSpace: 'nowrap'
-    }
-  },
-  totalValueMoney: {
-    fontSize: [6, 6, 7, 7],
-    color: '#3ebd93',
-    fontWeight: '600',
-    '@media screen and (max-width: 768px)': {
-      whiteSpace: 'nowrap'
-    }
-  },
-  totalValueSubText: {
-    fontSize: [1, 1, 2, 3],
-    color: 'text_grey',
-    // marginBottom: '20px',
-    fontWeight: '600'
-  },
-  listProducts: {
-    '@media screen and (max-width: 950px)': {
-      flexDirection: 'column',
-      display: 'block',
-      justifyContent: 'flex-start'
-    }
-  },
-  totalValueImg: {
-    position: 'absolute',
-    right: '0px',
-    top: '-90px',
-    zIndex: '-1',
-    width: '25vw',
-    backgroundImage: 'radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 62%)',
-    '@media screen and (max-width: 768px)': {
-      width: '200px',
-      height: '151px',
-      // position: 'absolute',
-      top: '-80px'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/UtilityHakka/index.js":
-/*!*******************************************************************!*\
-  !*** ./src/components/HomeScreen/component/UtilityHakka/index.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/UtilityHakka/styles.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-function UtilityHakka() {
-  const detailsInfo = [{
-    image: 'iconParliament',
-    title: 'Voting Power',
-    text: 'The mintage amount of sHAKKA determines Voting Power. It\'s immutable and non-transferrable.'
-  }, {
-    image: 'iconMoneyBox',
-    title: 'Beneficiary Right',
-    text: 'sHAKKA is tradable in secondary market & beneficial in reward contracts.'
-  }];
-
-  const renderDetailsInfo = () => {
-    return detailsInfo.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityInfoContainer,
-        flexDirection: "column",
-        key: i
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityImgInfo,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.image],
-        alt: ""
-      }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityTitle,
-        mt: "20px",
-        mb: "4px"
-      }, item.title), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityText,
-        dangerouslySetInnerHTML: {
-          __html: item.text
-        }
-      }));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityHead,
-    mb: "20px"
-  }, "Utility of HAKKA"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    justifyContent: "space-between",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityTextLink
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityText
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", null, "Stake HAKKA to get sHAKKA and bestowed below rights.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-    sx: {
-      textDecoration: 'none'
-    },
-    target: "_blank",
-    href: "https://staking.hakka.finance/",
-    rel: "noreferrer"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.utilityLink,
-    alignItems: "center"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, "Stake Portal"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    ml: "1",
-    mt: "1px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.imgForward,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconForwardGreen,
-    alt: ""
-  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_2__.default.detailsInfo,
-    mt: "4"
-  }, renderDetailsInfo()));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UtilityHakka);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/UtilityHakka/styles.js":
-/*!********************************************************************!*\
-  !*** ./src/components/HomeScreen/component/UtilityHakka/styles.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  utilityHead: {
-    fontSize: [5, 6, 7, 7],
-    color: '#253e47',
-    fontWeight: 'normal'
-  },
-  utilityTextLink: {
-    // marginBottom: '60px',
-    maxWidth: '1200px',
-    alignItems: "center",
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column',
-      justifyContent: 'flex-start'
-    }
-  },
-  utilityText: {
-    fontSize: [2, 2, 3, 4],
-    color: '#253e47'
-  },
-  utilityLink: {
-    fontSize: [1, 1, 2, 3],
-    fontWeight: '600',
-    color: '#2da287',
-    cursor: 'pointer',
-    marginRight: '5px',
-    '@media screen and (max-width: 576px)': {// marginTop: '20px'
-    },
-    ':hover': {
-      '*': {
-        color: '#3ebd93'
-      },
-      'img': {
-        opacity: '0.7'
-      }
-    }
-  },
-  imgForward: {
-    width: '24px'
-  },
-  utilityInfoContainer: {
-    width: '40%',
-    maxWidth: '360px',
-    flex: '1',
-    '@media screen and (max-width: 576px)': {
-      width: '100%'
-    },
-    ':last-child': {
-      marginLeft: '7.7%',
-      '@media screen and (max-width: 576px)': {
-        paddingTop: '20px',
-        marginLeft: '0'
-      }
-    }
-  },
-  utilityImgInfo: {
-    width: '48px'
-  },
-  utilityTitle: {
-    // margin: '20px 0',
-    fontSize: [3, 3, 4, 5],
-    color: '#253e47',
-    fontWeight: '700',
-    fontFamily: 'system-ui'
-  },
-  detailsInfo: {
-    maxWidth: '1200px',
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/WhatHakka/index.js":
-/*!****************************************************************!*\
-  !*** ./src/components/HomeScreen/component/WhatHakka/index.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/component/WhatHakka/styles.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cross-fetch */ "./node_modules/cross-fetch/dist/node-ponyfill.js");
-/* harmony import */ var cross_fetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(cross_fetch__WEBPACK_IMPORTED_MODULE_3__);
-/** @jsx jsx */
-
-
-
-
-
-
-function WhatHakka(props) {
-  const {
-    0: circulatingSupplyValue,
-    1: setCirculatingSupplyValue
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  cross_fetch__WEBPACK_IMPORTED_MODULE_3___default()('https://api.hakka.finance/').then(res => {
-    return res.text();
-  }).then(res => {
-    const value = Math.floor(res * 10000) / 10000;
-    setCirculatingSupplyValue(`${value} HAKKA`);
-  });
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    id: "whatHakka",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.whatHakkaHeading
-  }, "What is HAKKA Token"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.whatHakkaText,
-    mt: "4"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", null, " HAKKA is the protocol token that empowers the community governance of Hakka Finance.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.circulatingSupplyText
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, "Circulating Supply: "), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", null, circulatingSupplyValue)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.listCoinHakka,
-    mt: "20px",
-    alignItems: "center"
-  }, props.renderCoin()));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WhatHakka);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/component/WhatHakka/styles.js":
-/*!*****************************************************************!*\
-  !*** ./src/components/HomeScreen/component/WhatHakka/styles.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // what hakka
-  whatHakkaHeading: {
-    fontSize: [5, 6, 7, 7],
-    color: '#253e47',
-    // marginBottom: '36px',
-    fontWeight: 'normal'
-  },
-  whatHakkaText: {
-    fontSize: [2, 2, 3, 4],
-    color: '#253e47',
-    maxWidth: '1200px' // marginBottom: '28px'
-
-  },
-  circulatingSupplyText: {
-    color: '#253e47',
-    fontWeight: 'bold',
-    '@media screen and (max-width: 374px)': {
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  },
-  listCoinHakka: {
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/index.js":
-/*!********************************************!*\
-  !*** ./src/components/HomeScreen/index.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_containers_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/containers/Layout */ "./src/containers/Layout.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./src/components/HomeScreen/styles.js");
-/* harmony import */ var _component_CardInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./component/CardInfo */ "./src/components/HomeScreen/component/CardInfo/index.js");
-/* harmony import */ var _component_TotalValueLock__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./component/TotalValueLock */ "./src/components/HomeScreen/component/TotalValueLock/index.js");
-/* harmony import */ var _Common_CoinComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Common/CoinComponent */ "./src/components/Common/CoinComponent/index.js");
-/* harmony import */ var _component_WhatHakka__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./component/WhatHakka */ "./src/components/HomeScreen/component/WhatHakka/index.js");
-/* harmony import */ var _component_TokenMetrics__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./component/TokenMetrics */ "./src/components/HomeScreen/component/TokenMetrics/index.js");
-/* harmony import */ var _component_UtilityHakka__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./component/UtilityHakka */ "./src/components/HomeScreen/component/UtilityHakka/index.js");
-/* harmony import */ var _component_HakkaTeam__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./component/HakkaTeam */ "./src/components/HomeScreen/component/HakkaTeam/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const HomeScreen = props => {
-  const coins = [{
-    imageCoin: 'iconCoingecko',
-    coinName: 'Coingecko',
-    link: 'https://www.coingecko.com/en/coins/hakka-finance'
-  }, {
-    imageCoin: 'iconCoinmarketcap',
-    coinName: 'CoinMarketCap',
-    link: 'https://coinmarketcap.com/en/currencies/hakka-finance/'
-  }]; // const chainTokens = [
-  //   {
-  //     imageCoin: 'iconInch',
-  //     coinName: '1inch'
-  //   },
-  //   {
-  //     imageCoin: 'iconUniswap',
-  //     coinName: 'Uniswap'
-  //   },
-  //   {
-  //     imageCoin: 'iconBalancer',
-  //     coinName: 'Balancer'
-  //   }
-  // ]
-
-  const partnersImg = [{
-    img: 'imageChainlink'
-  }, {
-    img: 'image1inch'
-  }, {
-    img: 'imageSynthetix'
-  }, {
-    img: 'imageCompound'
-  }, {
-    img: 'imageMaker'
-  }, {
-    img: 'imageKyberNetwork'
-  }, {
-    img: 'imageImtoken'
-  }, {
-    img: 'imageTrustWallet'
-  }, {
-    img: 'imageDelta'
-  }];
-
-  const renderCoin = () => {
-    return coins.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Common_CoinComponent__WEBPACK_IMPORTED_MODULE_7__.default, {
-        key: item.coinName,
-        item: item,
-        i: i
-      });
-    });
-  };
-
-  const renderPartnersImg = () => {
-    return partnersImg.map(item => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.imgPartner_wrapper,
-        key: item.img
-      }, item.img === 'imageDelta' ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.imgPartnerBiggerIcon,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.img],
-        alt: ""
-      }) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.imgPartner,
-        src: src_images__WEBPACK_IMPORTED_MODULE_3__.default[item.img],
-        alt: ""
-      }));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homescreenContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    alignItems: "center",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homescreenSubTitle,
-    onClick: () => {
-      window.open('https://pelith.teamdoor.io/', '_blank').focus();
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.iconFlower,
-    alt: ""
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", null, "Hakka Finance is ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-    sx: {
-      textDecoration: 'underline'
-    }
-  }, "hiring"), ". Come join us!")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homeHeading
-  }, "The Most Diversified Decentralized ", (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("br", null), " Finance Ecosystem"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homeDescription
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", null, "Hakka Finance is a set of decentralized derivatives & original financial instruments, forming an all-inclusive ecosystem of tools that allow users to pursue financial sovereignty.")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box // justifyContent="flex-start"
-  // flexWrap="wrap"
-  , {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homeCardTop,
-    mt: "4"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_component_CardInfo__WEBPACK_IMPORTED_MODULE_5__.default, null))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homeTotalValue
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_component_TotalValueLock__WEBPACK_IMPORTED_MODULE_6__.default, null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.homescreenContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.whatHakka
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_component_WhatHakka__WEBPACK_IMPORTED_MODULE_8__.default, {
-    renderCoin: renderCoin
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.tokenMetrics
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_component_TokenMetrics__WEBPACK_IMPORTED_MODULE_9__.default // renderChainToken={renderChainToken}
-  , null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_blue_section
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_blue
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_green_section_mobile
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_green_mobile,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.blurBall,
-    alt: ""
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.utilityHakka
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(_component_UtilityHakka__WEBPACK_IMPORTED_MODULE_10__.default, null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.partners
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.partnersHead
-  }, "Partners & Integrators"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.img_partners_responsive,
-    flexWrap: "wrap"
-  }, renderPartnersImg())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_green_section
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_green,
-    src: src_images__WEBPACK_IMPORTED_MODULE_3__.default.blurBall,
-    alt: ""
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_blue_section_mobile
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_12__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.blur_img_blue_mobile
-  })))));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HomeScreen);
-
-/***/ }),
-
-/***/ "./src/components/HomeScreen/styles.js":
-/*!*********************************************!*\
-  !*** ./src/components/HomeScreen/styles.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  homescreenContainer: {
-    paddingLeft: '12.8%',
-    paddingRight: '14.4%',
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '16px',
-      paddingRight: '16px'
-    }
-  },
-  homescreenSubTitle: {
-    color: '#2da287',
-    fontSize: [1, 1, 2, 3],
-    fontWeight: '600',
-    cursor: 'pointer',
-    paddingTop: '12px'
-  },
-  spanLink: {
-    textDecoration: 'underline',
-    paddingLeft: '3px',
-    fontSize: [1, 1, 2, 3]
-  },
-  homeHeading: {
-    fontSize: [6, 7, 8, 8],
-    color: '#0b555a',
-    width: '100%',
-    fontWeight: '300',
-    paddingTop: '36px',
-    paddingBottom: ['36px', '64px', '64px', '64px']
-  },
-  homeDescription: {
-    fontSize: [2, 2, 3, 4],
-    color: 'black',
-    maxWidth: '1200px'
-  },
-  // Card top
-  homeCardTop: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
-  },
-  homeTotalValue: {
-    padding: '0 0 0 12.8%',
-    paddingBottom: ['100px', '176px', '176px', '176px'],
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '16px' // paddingRight: '5%'
-
-    }
-  },
-  // what hakka
-  whatHakka: {
-    paddingBottom: ['48px', '80px', '80px', '80px'] // '@media screen and (max-width: 576px)': {
-    //   paddingBottom: '160px',
-    // }
-
-  },
-  // token metrics
-  tokenMetrics: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
-  },
-  // utility hakka
-  utilityHakka: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
-  },
-  // partners and intergrator
-  partners: {
-    paddingBottom: ['100px', '160px', '160px', '160px'],
-    width: '85%',
-    maxWidth: '680px'
-  },
-  partnersHead: {
-    fontSize: [5, 6, 7, 7],
-    color: '#253e47',
-    fontWeight: 'normal',
-    paddingBottom: ['48px', '36px', '36px', '36px'],
-    '@media screen and (max-width: 576px)': {
-      display: 'flex',
-      justifyContent: 'center'
-    }
-  },
-  img_partners_responsive: {
-    '@media screen and (max-width: 1280px)': {
-      justifyContent: 'center'
-    }
-  },
-  imgPartner_wrapper: {
-    alignItems: 'center',
-    paddingTop: '32px',
-    paddingRight: '20px',
-    '@media screen and (max-width: 576px)': {
-      paddingTop: '20px',
-      paddingRight: '0'
-    },
-    '.biggerIcon': {
-      '@media screen and (max-width: 576px)': {
-        height: '64px'
-      }
-    }
-  },
-  imgPartner: {
-    '@media screen and (max-width: 576px)': {
-      height: '48px'
-    }
-  },
-  imgPartnerBiggerIcon: {
-    '@media screen and (max-width: 576px)': {
-      height: '64px'
-    }
-  },
-  // blur img
-  blur_img_blue_section: {
-    position: 'relative'
-  },
-  blur_img_blue: {
-    borderRadius: '50%',
-    width: '28vw',
-    height: '28vw',
-    filter: 'blur(40px)',
-    backgroundColor: 'rgba(181, 232, 248, 0.3)',
-    position: 'absolute',
-    top: '-300px',
-    left: '-40%',
-    zIndex: '-1',
-    '@media screen and (max-width: 768px)': {
-      display: 'none'
-    }
-  },
-  blur_img_green_section: {
-    position: 'relative'
-  },
-  blur_img_green: {
-    position: 'absolute',
-    top: '-200px',
-    right: '-19.8%',
-    zIndex: '-1',
-    '@media screen and (max-width: 768px)': {
-      display: 'none'
-    }
-  },
-  blur_img_green_section_mobile: {
-    position: 'relative'
-  },
-  blur_img_green_mobile: {
-    display: 'none',
-    '@media screen and (max-width: 768px)': {
-      width: '60vw',
-      display: 'block',
-      position: 'absolute',
-      top: '-20px',
-      right: '-4.5%',
-      zIndex: '-1'
-    }
-  },
-  blur_img_blue_section_mobile: {
-    position: 'relative'
-  },
-  blur_img_blue_mobile: {
-    display: 'none',
-    '@media screen and (max-width: 768px)': {
-      display: 'block',
-      borderRadius: '50%',
-      width: '40vw',
-      height: '35vh',
-      filter: 'blur(20px)',
-      backgroundColor: 'rgba(181, 232, 248, 0.3)',
-      position: 'absolute',
-      top: '-160px',
-      left: '-15%',
-      zIndex: '-1'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/CardProduct/index.js":
-/*!***********************************************************!*\
-  !*** ./src/components/ProductScreen/CardProduct/index.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/ProductScreen/CardProduct/styles.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
-/** @jsx jsx */
-
-
-
-
-
-
-
-const CardPorduct = props => {
-  const {
-    cardData,
-    onShowInfo,
-    selectedCard
-  } = props;
-  const {
-    icon,
-    cardName,
-    vist
-  } = cardData;
-  const {
-    0: isShowInfo,
-    1: setIsShowInfo
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // console.log('is close when click x', !!isShowInfoProduct)
-
-  const handleIsShowInfo = () => {
-    onShowInfo(!isShowInfo);
-    setIsShowInfo(!isShowInfo);
-  };
-
-  const handleCheckSelectedCard = () => {
-    const result = cardName === selectedCard;
-    setIsShowInfo(result); // console.log(result)
-  };
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    handleCheckSelectedCard();
-  }, [selectedCard]);
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    onClick: () => {
-      handleIsShowInfo();
-    },
-    sx: isShowInfo ? _styles__WEBPACK_IMPORTED_MODULE_3__.default.card_active : _styles__WEBPACK_IMPORTED_MODULE_3__.default.card,
-    className: "card-active"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.card_link,
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: {
-      padding: '10px'
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.img_icon,
-    src: icon
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    onClick: () => {
-      vist ? window.open(vist, '_blank').focus() : handleIsShowInfo();
-    },
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.link,
-    alignItems: "center"
-  }, vist && (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.text_visit,
-    className: "text-visit",
-    mr: "1"
-  }, " Visit"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    className: "top-left-icon",
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconLinkNormal
-  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.card_content,
-    pt: "0px",
-    mt: "auto"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.card_text,
-    className: "card-text",
-    dangerouslySetInnerHTML: {
-      __html: cardName.replace(/\n/gmi, '<br/>')
-    }
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.dropdown_text,
-    className: "dropdown-text"
-  }, "Learn more"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    alignItems: "flex-end"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    className: "bottom-right-icon",
-    src: isShowInfo ? src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconUp : src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconDown
-  }))))));
-};
-
-CardPorduct.propTypes = {
-  cardData: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),
-  onShowInfo: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
-  selectedCard: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardPorduct);
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/CardProduct/styles.js":
-/*!************************************************************!*\
-  !*** ./src/components/ProductScreen/CardProduct/styles.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  card: {
-    height: '100%',
-    backgroundColor: '#fff',
-    border: 'solid 1px #ebf0f2',
-    borderRadius: '8px',
-    boxShadow: '0 5px 16px -8px rgba(123, 135, 148, 0.25)',
-    // padding: '20px',
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'column',
-    transition: 'all 0.25s ease-out',
-    '& .card-text': {
-      color: 'black_grey'
-    },
-    '& .dropdown-text': {
-      opacity: '.5'
-    },
-    ':hover': {
-      border: 'solid 1px #3ebd93'
-    },
-    ':active': {
-      transform: 'scale(.98)',
-      backgroundColor: '#f7fbfc'
-    },
-    '@media screen and (max-width: 576px)': {
-      // padding: '12px',
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  },
-  card_active: {
-    height: '100%',
-    transform: 'scale(.98)',
-    backgroundColor: '#f7fbfc',
-    borderRadius: '8px',
-    border: 'solid 1px #3ebd93',
-    boxShadow: '0 5px 16px -8px rgba(123, 135, 148, 0.25)',
-    // padding: '20px',
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'column',
-    transition: 'all 0.25s ease-out',
-    '& .card-text': {
-      color: 'black'
-    },
-    '& .dropdown-text': {
-      opacity: '1'
-    },
-    '@media screen and (max-width: 576px)': {
-      // padding: '12px',
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  },
-  card_link: {
-    padding: ['2px', '10px', '10px', '10px'],
-    paddingBottom: ['12px', '28px', '28px', '28px'],
-    '& .top-left-icon': {
-      filter: 'grayscale(100%)',
-      transition: 'all 0.25s ease-out'
-    }
-  },
-  card_content: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    minHeight: '48px',
-    alignItems: 'flex-end',
-    padding: ['12px', '20px', '20px', '20px'],
-    paddingTop: ['0px', '0px', '0px', '0px'],
-    '& .bottom-right-icon': {
-      filter: 'grayscale(100%)',
-      transition: 'all 0.25s ease-out'
-    },
-    ':hover': {
-      '& .bottom-right-icon': {
-        filter: 'grayscale(0%)'
-      },
-      '& .card-text': {
-        color: 'black'
-      }
-    },
-    '@media screen and (max-width: 576px)': {
-      flexDirection: 'column',
-      alignItems: 'unset'
-    }
-  },
-  dropdown_text: {
-    display: 'none',
-    fontSize: [1, 1, 1, 1],
-    color: 'black',
-    fontWeight: '600',
-    '@media screen and (max-width: 576px)': {
-      display: 'flex'
-    }
-  },
-  card_text: {
-    fontSize: [3, 3, 4, 5],
-    fontFamily: 'system-ui',
-    paddingBottom: ['16px', '0px', '0px', '0px'],
-    fontWeight: 'bold',
-    minHeight: '48px',
-    display: 'flex',
-    alignItems: 'flex-end' // color: 'black_grey'
-
-  },
-  img_icon: {
-    width: '60px',
-    height: '60px',
-    '@media screen and (max-width: 960px)': {
-      width: '48px',
-      height: '48px'
-    }
-  },
-  link: {
-    padding: '10px',
-    ':hover': {
-      '& .text-visit': {
-        color: 'green'
-      },
-      '& .top-left-icon': {
-        filter: 'grayscale(0%)'
-      }
-    }
-  },
-  text_visit: {
-    color: 'gray',
-    fontSize: [1, 1, 2, 3],
-    fontWeight: 'bold',
-    transition: 'all 0.25s ease-out',
-    '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/InfoProduct/index.js":
-/*!***********************************************************!*\
-  !*** ./src/components/ProductScreen/InfoProduct/index.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/components/ProductScreen/InfoProduct/styles.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-const InfoProduct = props => {
-  var _dataInfo$cardName, _dataInfo$info;
-
-  const {
-    dataInfo,
-    infoTag,
-    onClose,
-    isShowInfoProduct
-  } = props; // console.log('dataInfo', dataInfo)
-
-  const onCloseInfo = () => {
-    onClose(false);
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: isShowInfoProduct ? _styles__WEBPACK_IMPORTED_MODULE_3__.default.info_section_show : _styles__WEBPACK_IMPORTED_MODULE_3__.default.info_section
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.infoTitle
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.infoTitle_name,
-    mt: "32px",
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (_dataInfo$cardName = dataInfo.cardName) !== null && _dataInfo$cardName !== void 0 ? _dataInfo$cardName : 'BlackHoleSwap'), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.icon_delete_title,
-    onClick: onCloseInfo
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconDeleteRound
-  }))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    flexWrap: "wrap",
-    mt: "20px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.tag_box,
-    mr: "8px",
-    mt: "8px"
-  }, "#", infoTag[0]), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.tag_box,
-    mt: "8px"
-  }, "#", infoTag[1]))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.infoContent,
-    mt: "16px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    alignItems: "flex-start",
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.infoContent_text
-  }, (_dataInfo$info = dataInfo.info) !== null && _dataInfo$info !== void 0 ? _dataInfo$info : 'By integrating lending protocols to leverage the excess supply while borrowing on the inadequate side, BlackHoleSwap can therefore process transactions far exceeding its existing liquidity. Compared to other AMMs, BlackHoleSwap provides nearly infinite liquidity with the lowest price slippage, maximizing capital utilization.'), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-    onClick: onCloseInfo,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.icon_delete,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconDeleteRound
-  }))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    mt: "32px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.btn_section
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_4__.default, {
-    disabled: !dataInfo.whitepaper,
-    click: () => {
-      window.open(dataInfo.whitepaper, '_blank').focus();
-    }
-  }, "Whitepaper"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    ml: "28px",
-    mt: "12px"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_6__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_4__.default, {
-    disabled: !dataInfo.vist,
-    click: () => {
-      window.open(dataInfo.vist, '_blank').focus();
-    },
-    type: "green"
-  }, dataInfo.visitButtonContent || 'Visit'))))));
-};
-
-InfoProduct.propTypes = {
-  dataInfo: {},
-  // infoTag:{},
-  onClose: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
-  isShowInfoProduct: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InfoProduct);
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/InfoProduct/styles.js":
-/*!************************************************************!*\
-  !*** ./src/components/ProductScreen/InfoProduct/styles.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  info_section: {
-    position: 'relative',
-    zIndex: '-1',
-    paddingBottom: '20px',
-    borderBottom: '1px solid #dae1e3',
-    opacity: '0',
-    height: '0',
-    transition: 'all ease-out 0.25s',
-    '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
-  },
-  info_section_show: {
-    paddingBottom: '20px',
-    borderBottom: '1px solid #dae1e3',
-    opacity: '1',
-    height: '100%',
-    transition: 'all ease-out 0.25s',
-    '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
-  },
-  infoTitle: {
-    flex: '1',
-    paddingLeft: '20px'
-  },
-  icon_delete_title: {
-    cursor: 'pointer',
-    display: 'none',
-    paddingRight: '20px',
-    transition: 'all 0.25s ease-out',
-    opacity: '.5',
-    ':hover': {
-      opacity: '1'
-    },
-    '@media screen and (max-width: 1180px)': {
-      display: 'flex',
-      alignItems: 'flex-end'
-    }
-  },
-  infoContent: {
-    flex: '2'
-  },
-  infoTitle_name: {
-    fontSize: [5, 5, 6],
-    fontWeight: '700',
-    fontFamily: 'system-ui',
-    color: 'black'
-  },
-  icon_delete: {
-    cursor: 'pointer',
-    padding: '0 20px',
-    paddingTop: '16px',
-    transition: 'all 0.25s ease-out',
-    opacity: '.5',
-    ':hover': {
-      opacity: '1'
-    },
-    '@media screen and (max-width: 1180px)': {
-      display: 'none'
-    }
-  },
-  infoContent_text: {
-    fontSize: [1, 1, 2, 3],
-    color: 'black',
-    paddingLeft: '20px',
-    paddingRight: '20px' // padding: '0 34px'
-
-  },
-  tag_box: {
-    backgroundColor: 'active_green',
-    padding: '6px 12px',
-    borderRadius: '8px',
-    color: 'black',
-    fontSize: [1, 1, 2, 3]
-  },
-  btn_section: {
-    padding: '0 20px',
-    '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/index.js":
-/*!***********************************************!*\
-  !*** ./src/components/ProductScreen/index.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_containers_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/containers/Layout */ "./src/containers/Layout.js");
-/* harmony import */ var _CardProduct__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardProduct */ "./src/components/ProductScreen/CardProduct/index.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles */ "./src/components/ProductScreen/styles.js");
-/* harmony import */ var _InfoProduct__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InfoProduct */ "./src/components/ProductScreen/InfoProduct/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-
-const ProductScreen = props => {
-  const topArr = [{
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconBlackhole,
-    cardName: 'BlackHoleSwap',
-    info: 'By integrating lending protocols to leverage the excess supply while borrowing on the inadequate side, BlackHoleSwap can therefore process transactions far exceeding its existing liquidity. Compared to other AMMs, BlackHoleSwap provides nearly infinite liquidity with the lowest price slippage, maximizing capital utilization.',
-    whitepaper: 'https://blackholeswap.com/documents/en.pdf',
-    vist: 'https://blackholeswap.com/',
-    id: 1,
-    infoTag: ['DEX', 'Stablecoin']
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.icon3FMutual,
-    cardName: '3F Mutual',
-    info: '3F Mutual employs a rainy day fund like mechanism that allows for one to hedge against MakerDAO collapse risk. It exists as neither an option nor a short position of ETH/DAI/MKR. The 3F Mutual rainy day fund-like design means it acts more like collective insurance.',
-    whitepaper: 'https://3fmutual.com/whitepaper.pdf',
-    vist: 'https://3fmutual.com/',
-    id: 2,
-    infoTag: ['Insurance', 'MutualFund']
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconIgain,
-    cardName: 'iGain',
-    info: 'iGain is a decentralized financial instrument protocol that provides the options for investors to hedge/profit/speculate on certain targeting underlying assets with a synthetic, tokenized position.',
-    whitepaper: 'https://hakkafinance.gitbook.io/igain/',
-    vist: 'http://igain.hakka.finance/',
-    id: 3,
-    infoTag: ['Options', 'PredictionMarket'],
-    visitButtonContent: 'Visit Sheety DApp'
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconHakkaIntel,
-    cardName: 'Hakka Intelligence',
-    info: 'Hakka Intelligence is a prediction market platform with different mechanisms from general options. There will be no call and put options in this platform but requires the submission of predictions. The payoff is based on the accuracy of the prediction.',
-    whitepaper: 'https://medium.com/hakkafinance/hakka-intelligence-handbook-d77a80f44ac6',
-    vist: 'https://intelligence.hakka.finance/',
-    id: 4,
-    infoTag: ['PredictionMarket', 'PricePrediction']
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconDefiHandbook,
-    cardName: 'DeFi Handbook',
-    info: 'DeFi Handbook make easier for you to dive into DeFi protocols.',
-    vist: 'https://defihandbook.cc/',
-    id: 5,
-    infoTag: ['Dev', 'Tool']
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconHarvester,
-    cardName: 'Hakka Harvester',
-    info: 'Hakka Harvester is a yield farming portal for those who are chasing farms with high-APY and show more willingness to hold $HAKKA instead of other tokens.',
-    whitepaper: 'https://medium.com/hakkafinance/hakka-harvester-born-for-chad-hakka-farmers-83c37f0170b9',
-    vist: 'https://harvesters.hakka.finance/pools',
-    id: 6,
-    infoTag: ['Aggregator', 'YieldFarming']
-  }];
-  const botArr = [{
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconCryptoStructure,
-    cardName: 'Crypto Structured Fund',
-    info: 'Crypto Structured Fund (CSF) is a decentralized financial instrument providing a "moderate risk with higher return" way to let conservative investors get involved in the growth of cryptocurrencies.',
-    vist: 'https://csf-v2.netlify.app/',
-    comingProductId: 1,
-    infoTag: ['Futures', 'Fund'],
-    visitButtonContent: 'Visit Alpha CSF'
-  }, {
-    icon: src_images__WEBPACK_IMPORTED_MODULE_4__.default.iconTcdp,
-    cardName: 'tCDP',
-    info: 'tCDP is tokenized CDP (Collateral Debt Position) that is fungible and tradable on exchanges.',
-    comingProductId: 2,
-    infoTag: ['Collateral', 'Tool']
-  }];
-  const {
-    0: screenWidth,
-    1: setScreenWidth
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const {
-    0: isShowInfoProduct,
-    1: setIsShowInfoProduct
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const {
-    0: dataInfo,
-    1: setDataInfo
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const {
-    0: selectedInfoTag,
-    1: setSelectedInfoTag
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const {
-    0: selectedCard,
-    1: setSelectedCard
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  const {
-    0: selectedCardId,
-    1: setSelectedCardId
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const {
-    0: selectedComingProductCardId,
-    1: setSelectedComingProductCardId
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const {
-    0: closeInfo,
-    1: setCloseInfo
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-
-  const handleResize = () => {
-    const width = window.innerWidth;
-    setScreenWidth(width);
-    console.log('window is resized', width);
-  }; // toggle Info
-
-
-  const handleCloseInfo = value => {
-    setIsShowInfoProduct(value);
-    setCloseInfo(value);
-    setSelectedCard('');
-  }; // active selected Card
-
-
-  const handleGetSelectedCard = item => () => {
-    console.log('item.infoTag', item.infoTag);
-    setSelectedCard(item.cardName);
-    setSelectedCardId(item.id);
-    setSelectedComingProductCardId(item.comingProductId);
-    setDataInfo(item);
-    setSelectedInfoTag(item.infoTag);
-  };
-
-  const handleShowInfo = value => {
-    setIsShowInfoProduct(value);
-  };
-
-  console.log('isShowInfoProduct', isShowInfoProduct); // render
-
-  const renderCardProduct = () => {
-    if (screenWidth < 1195) {
-      return topArr.slice(0, 2).map(item => {
-        return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-          key: item.cardName,
-          onClick: handleGetSelectedCard(item)
-        }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-          isShowInfoProduct: closeInfo,
-          selectedCard: selectedCard,
-          onShowInfo: handleShowInfo,
-          cardData: item
-        }));
-      });
-    } else {
-      return topArr.slice(0, 3).map(item => {
-        return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-          key: item.cardName,
-          onClick: handleGetSelectedCard(item)
-        }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-          isShowInfoProduct: closeInfo,
-          selectedCard: selectedCard,
-          onShowInfo: handleShowInfo,
-          cardData: item
-        }));
-      });
-    }
-  };
-
-  const renderCardProductResponsive = () => {
-    if (screenWidth < 1195) {
-      return topArr.slice(2, 4).map(item => {
-        return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-          key: item.cardName,
-          onClick: handleGetSelectedCard(item)
-        }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-          selectedCard: selectedCard,
-          onShowInfo: handleShowInfo,
-          cardData: item
-        }));
-      });
-    } else {
-      return topArr.slice(3, 6).map(item => {
-        return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-          key: item.cardName,
-          onClick: handleGetSelectedCard(item)
-        }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-          selectedCard: selectedCard,
-          onShowInfo: handleShowInfo,
-          cardData: item
-        }));
-      });
-    }
-  };
-
-  const renderCardProductResponsive2 = () => {
-    if (screenWidth < 1195) {
-      return topArr.slice(4, 6).map(item => {
-        return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-          key: item.cardName,
-          onClick: handleGetSelectedCard(item)
-        }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-          selectedCard: selectedCard,
-          onShowInfo: handleShowInfo,
-          cardData: item
-        }));
-      });
-    }
-  };
-
-  const renderComingProduct = () => {
-    return botArr.map(item => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        key: item.cardName,
-        onClick: handleGetSelectedCard(item)
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CardProduct__WEBPACK_IMPORTED_MODULE_3__.default, {
-        selectedCard: selectedCard,
-        onShowInfo: handleShowInfo,
-        cardData: item
-      }));
-    });
-  }; // problem 1
-
-
-  const width = typeof window !== 'undefined' ? window.innerWidth : '';
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setScreenWidth(width);
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    console.log('use effect is working');
-    window.addEventListener('resize', handleResize); // console.log('screenwidth', screenWidth)
-  }, [screenWidth]);
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-    onresize: handleResize
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.productScreenContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.heading
-  }, "Products"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.normal_text,
-    mt: "3"
-  }, "Diversified DeFi Derivatives and Instruments Powered by HAKKA"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.responsive_cards,
-    mt: "48px"
-  }, renderCardProduct()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, selectedCardId <= (screenWidth < 1195 ? 2 : 3) ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_InfoProduct__WEBPACK_IMPORTED_MODULE_6__.default, {
-    onClose: handleCloseInfo,
-    dataInfo: dataInfo,
-    isShowInfoProduct: isShowInfoProduct,
-    infoTag: selectedInfoTag
-  }) : ''), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.responsive_cards,
-    mt: "48px"
-  }, renderCardProductResponsive()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, selectedCardId > (screenWidth < 1195 ? 2 : 3) && selectedCardId < (screenWidth < 1195 ? 5 : 7) ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_InfoProduct__WEBPACK_IMPORTED_MODULE_6__.default, {
-    onClose: handleCloseInfo,
-    dataInfo: dataInfo,
-    isShowInfoProduct: isShowInfoProduct,
-    infoTag: selectedInfoTag
-  }) : ''), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.responsive_cards,
-    mt: "48px"
-  }, renderCardProductResponsive2()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, screenWidth < 1195 && selectedCardId >= 5 && selectedCardId <= 6 ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_InfoProduct__WEBPACK_IMPORTED_MODULE_6__.default, {
-    onClose: handleCloseInfo,
-    dataInfo: dataInfo,
-    isShowInfoProduct: isShowInfoProduct,
-    infoTag: selectedInfoTag
-  }) : ''), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.sub_heading,
-    mt: "60px"
-  }, "Coming Soon"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.responsive_coming_cards,
-    mt: "36px"
-  }, renderComingProduct()), (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_5__.default.coming_InfoProduct
-  }, selectedComingProductCardId <= 3 ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_7__.jsx)(_InfoProduct__WEBPACK_IMPORTED_MODULE_6__.default, {
-    onClose: handleCloseInfo,
-    dataInfo: dataInfo,
-    isShowInfoProduct: isShowInfoProduct,
-    infoTag: selectedInfoTag
-  }) : '')));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductScreen);
-
-/***/ }),
-
-/***/ "./src/components/ProductScreen/styles.js":
-/*!************************************************!*\
-  !*** ./src/components/ProductScreen/styles.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  productScreenContainer: {
-    paddingLeft: '12.8%',
-    paddingRight: '14.4%',
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '16px',
-      paddingRight: '16px'
-    }
-  },
-  heading: {
-    fontSize: [5, 6, 7, 7],
-    fontWeight: '600',
-    color: 'black'
-  },
-  sub_heading: {
-    fontSize: [4, 5, 6, 6],
-    fontWeight: '600',
-    color: 'black'
-  },
-  normal_text: {
-    color: 'black',
-    fontSize: [1, 2, 3, 4]
-  },
-  responsive_cards: {
-    display: 'grid',
-    gridGap: '28px',
-    gridTemplateColumns: '1fr 1fr 1fr',
-    '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr 1fr'
-    }
-  },
-  responsive_coming_cards: {
-    display: 'grid',
-    gridGap: '28px',
-    gridTemplateColumns: '1fr 1fr 1fr',
-    '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr 1fr'
-    }
-  },
-  coming_InfoProduct: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/VaultPage/RewardListItem/index.js":
-/*!**********************************************************!*\
-  !*** ./src/components/VaultPage/RewardListItem/index.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/VaultPage/RewardListItem/styles.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/** @jsx jsx */
-
-
-
- // import { useState } from 'react'
-// import { ReactComponent as IconChekBoxChecked } from '../../../images/icons/checkboxChecked.svg';
-// import { ReactComponent as IconChekBoxUnchecked } from '../../../images/icons/checkboxUnchecked.svg';
-
-const RewardItem = props => {
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.rewardItemWrapper
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.itemInfo
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.checkBoxLabel
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.checkBox,
-    type: "checkbox" // id={label}
-    // name={label}
-    // checked={checked}
-    ,
-    onChange: props.onChange
-  }), props.checked ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconChekBoxChecked
-  }) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconChekBoxUnchecked
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.tokenName
-  }, props.tokenName)), props.isDefaultToken || (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.iconTrash,
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconTrash,
-    alt: "delete this reward"
-  })), props.checked ? (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.receiveAmount
-  }, props.receiveAmount), "/", (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.bankBalance
-  }, props.bankBalance)) : (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.unselectedReward
-  }, "Unselected Reward"));
-};
-
-RewardItem.propTypes = {
-  tokenName: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  receiveAmount: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  bankBalance: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  isDefaultToken: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  checked: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RewardItem);
-
-/***/ }),
-
-/***/ "./src/components/VaultPage/RewardListItem/styles.js":
-/*!***********************************************************!*\
-  !*** ./src/components/VaultPage/RewardListItem/styles.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  rewardItemWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    minHeight: '24px',
-    marginBottom: '20px',
-    lineHeight: '1.5'
-  },
-  itemInfo: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  iconTrash: {
-    marginLeft: '4px',
-    cursor: 'pointer'
-  },
-  receiveAmount: {
-    fontWeight: 'bold',
-    paddingRight: '4px'
-  },
-  bankBalance: {
-    paddingLeft: '4px'
-  },
-  unselectedReward: {
-    fontSize: '14px',
-    lineHeight: '1.71',
-    fontWeight: '600',
-    color: 'rgba(37, 62, 71, 0.5)'
-  },
-  checkBox: {
-    display: 'none'
-  },
-  tokenName: {
-    marginLeft: '12px'
-  },
-  checkBoxLabel: {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer'
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/VaultPage/index.js":
-/*!*******************************************!*\
-  !*** ./src/components/VaultPage/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/VaultPage/styles.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/* harmony import */ var _RewardListItem_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RewardListItem/index */ "./src/components/VaultPage/RewardListItem/index.js");
-/* harmony import */ var _Web3Status_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Web3Status/index */ "./src/components/Web3Status/index.js");
-/** @jsx jsx */
- // import { Box } from 'rebass'
-
-
-
-
-
-
-
-const VaultPage = props => {
-  const estimateAmount = 500;
-  const hakkaBalance = 500.123;
-  const HAKKAADDRESS = '0x0E29e5Ab…47dE3bcd';
-  const tokenList = {
-    '1': {
-      tokenName: 'HAKKA',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: true,
-      checked: false
-    },
-    '2': {
-      tokenName: 'DAI',
-      receiveAmount: '0.201',
-      bankBalance: '200.99',
-      isDefaultToken: true,
-      checked: true
-    },
-    '3': {
-      tokenName: 'BHS',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: false,
-      checked: false
-    },
-    '4': {
-      tokenName: 'YUANANTOKEN',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: false,
-      checked: true
-    }
-  }; // const rewardList
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.aaa123
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.container
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.header
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.title
-  }, "Guild Bank"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Web3Status_index__WEBPACK_IMPORTED_MODULE_4__.default, null)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.body
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.infomationContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.subTitle
-  }, "Burn to get value"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.contract
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Contract"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.contractAddress
-  }, HAKKAADDRESS)), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", null, "Description Description Description Description Description Description"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.hakkaBalance
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Burn"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "HAKKA Balance: ", hakkaBalance))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.formContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.formTitleArea
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.formTitle
-  }, "You wish to receive"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.addTokenButton
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: {
-      paddingBottom: '2px'
-    }
-  }, "Add token"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    style: _styles__WEBPACK_IMPORTED_MODULE_1__.default.addTokenButtonAddIcon,
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconAdd,
-    alt: "add new token"
-  }), "  ")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__.default, null, "Add")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.rewardListContainer
-  }, Object.keys(tokenList).map(tokenAddress => {
-    return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(_RewardListItem_index__WEBPACK_IMPORTED_MODULE_3__.default, {
-      key: tokenAddress,
-      tokenName: tokenList[tokenAddress].tokenName,
-      receiveAmount: tokenList[tokenAddress].receiveAmount,
-      bankBalance: tokenList[tokenAddress].bankBalance,
-      isDefaultToken: tokenList[tokenAddress].isDefaultToken,
-      checked: tokenList[tokenAddress].checked,
-      onChange: () => {
-        alert('123');
-      }
-    });
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.hr2
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.totalValueWrapper
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", null, "Total Value"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.totalValueAmount
-  }, estimateAmount, " USD")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.burnBtn
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__.default, {
-    type: 'green'
-  }, "Burn")))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.knowMoreWrapper
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.hr
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.knowMoreRow
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.knowMoreTitle
-  }, "Know more"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.wikiLinkArea,
-    onClick: () => {
-      window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus();
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.visitWikiLink
-  }, "Visit Wiki"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconForwardGreen,
-    alt: "link"
-  }))))));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VaultPage);
-
-/***/ }),
-
-/***/ "./src/components/VaultPage/styles.js":
-/*!********************************************!*\
-  !*** ./src/components/VaultPage/styles.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  aaa123: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginLeft: '34px',
-    '@media screen and (max-width: 1200px)': {
-      marginLeft: '40px'
-    },
-    '@media screen and (max-width: 576px)': {
-      marginLeft: '0'
-    }
-  },
-  container: {
-    maxWidth: '860px',
-    color: '#253e47',
-    '@media screen and (max-width: 1200px)': {
-      maxWidth: 'none',
-      padding: '0 16px 0 16px'
-    }
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: [5, 6, 6, 6]
-  },
-  body: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    '@media screen and (max-width: 1200px)': {
-      display: 'block'
-    }
-  },
-  infomationContainer: {
-    width: '300px',
-    fontSize: [1, 1, 1, 1],
-    '@media screen and (max-width: 1200px)': {
-      width: '100%'
-    }
-  },
-  subTitle: {
-    fontWeight: 'bold',
-    fontSize: [3, 5, 5, 5]
-  },
-  contract: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  contractAddress: {
-    fontWeight: 'bold',
-    textDecoration: 'underline'
-  },
-  hakkaBalance: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingTop: '22px',
-    marginBottom: '12px',
-    color: 'rgba(37, 62, 71, 0.5)',
-    fontWeight: 'bold'
-  },
-  hr: {
-    backgroundColor: '#dae1e3',
-    border: 'none',
-    height: '1px',
-    marginBottom: '11px',
-    marginTop: '0'
-  },
-  formContainer: {
-    width: '460px',
-    padding: '28px 20px 20px 20px',
-    marginTop: '28px',
-    marginLeft: '100px',
-    fontSize: '16px',
-    border: '1px solid #dae1e3',
-    borderRadius: '8px',
-    '@media screen and (max-width: 1200px)': {
-      marginLeft: '0'
-    },
-    '@media screen and (max-width: 576px)': {
-      width: '100%'
-    }
-  },
-  formTitleArea: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    whiteSpace: 'nowrap',
-    padding: '0 8px 0 8px'
-  },
-  formTitle: {
-    fontSize: '18px',
-    fontWeight: '600'
-  },
-  addTokenButton: {
-    display: 'flex',
-    alignItems: 'center',
-    fontSize: '14px',
-    color: 'rgba(37, 62, 71, 0.5)',
-    fontWeight: '600'
-  },
-  addTokenButtonAddIcon: {
-    paddingLeft: '4px'
-  },
-  rewardListContainer: {
-    marginTop: '36px',
-    marginBottom: '8px',
-    overflow: 'hidden'
-  },
-  hr2: {
-    backgroundColor: '#dae1e3',
-    border: 'none',
-    height: '1px',
-    margin: '0'
-  },
-  totalValueWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '20px 0 36px 0'
-  },
-  totalValueAmount: {
-    fontWeight: 'bold'
-  },
-  burnBtn: {},
-  knowMoreWrapper: {
-    maxWidth: '300px',
-    position: 'relative',
-    top: '-47px',
-    '@media screen and (max-width: 1200px)': {
-      maxWidth: 'none',
-      position: 'static',
-      marginTop: '28px'
-    },
-    '@media screen and (max-width: 576px)': {// maxWidth: 'none',
-      // position: 'static',
-      // marginTop: '28px',
-    }
-  },
-  knowMoreRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '64px',
-    fontWeight: '600',
-    '@media screen and (max-width: 576px)': {
-      marginBottom: '100px'
-    }
-  },
-  knowMoreTitle: {
-    color: 'rgba(37, 62, 71, 0.5)'
-  },
-  wikiLinkArea: {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer'
-  },
-  visitWikiLink: {
-    color: '#2da287'
-  }
-});
-
-/***/ }),
-
-/***/ "./src/components/Web3Status/index.js":
-/*!********************************************!*\
-  !*** ./src/components/Web3Status/index.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/components/Web3Status/styles.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/** @jsx jsx */
-
-
- // import types from 'prop-types'
-
-
-
-const Web3Status = props => {
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.container
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.chainWrapper
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconEthereumDark,
-    alt: "Chain Icon"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.chainNameWrapper
-  }, "Ethereum")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.loginButtonWrapper
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__.default, {
-    click: () => {}
-  }, "0x1234\u20261234")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_1__.default.accountIconWrapper,
-    src: src_images__WEBPACK_IMPORTED_MODULE_0__.default.iconAccount,
-    alt: "Account Icon"
-  }));
-}; // Web3Status.propTypes = {
-//   tokenName: types.string,
-// }
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Web3Status);
-
-/***/ }),
-
-/***/ "./src/components/Web3Status/styles.js":
-/*!*********************************************!*\
-  !*** ./src/components/Web3Status/styles.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    '@media screen and (max-width: 576px)': {
-      position: 'fixed',
-      bottom: '0',
-      padding: '12px 16px 12px 16px',
-      marginLeft: '-16px',
-      width: '100vw',
-      backgroundColor: '#f7fbfc',
-      boxShadow: '0 -4px 16px 0 rgba(123, 135, 148, 0.25)',
-      justifyContent: 'space-between'
-    }
-  },
-  chainWrapper: {
-    display: 'flex',
-    paddingRight: '12px',
-    '@media screen and (max-width: 576px)': {
-      paddingRight: '0'
-    }
-  },
-  chainNameWrapper: {
-    whiteSpace: 'nowrap',
-    color: '#253e47',
-    fontWeight: 'bold',
-    marginLeft: '4px'
-  },
-  loginButtonWrapper: {
-    width: '153px',
-    '@media screen and (max-width: 576px)': {
-      width: '176px',
-      order: '-1'
-    }
-  },
-  accountIconWrapper: {
-    padding: '12px',
-    marginLeft: '12px',
-    borderRadius: '8px',
-    backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    '@media screen and (max-width: 576px)': {
-      marginLeft: '0'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/containers/Footer/index.js":
-/*!****************************************!*\
-  !*** ./src/containers/Footer/index.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/Footer/styles.js");
-/** @jsx jsx */
-
-
-
-
-
-
-function Footer() {
-  const listIcon = [{
-    url: 'iconTelegram',
-    href: 'https://t.me/hakkafinance'
-  }, {
-    url: 'iconTwitter',
-    href: 'https://twitter.com/hakkafinance'
-  }, {
-    url: 'iconDiscord',
-    href: 'https://discord.com/invite/zYfqpUQ'
-  }, {
-    url: 'iconMedium',
-    href: 'https://medium.com/hakkafinance'
-  }, {
-    url: 'iconGithub',
-    href: 'https://github.com/hakkafinance'
-  }];
-
-  const renderListIcon = () => {
-    return listIcon.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-        key: i
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-        target: "_blank",
-        href: item.href,
-        rel: "noreferrer"
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgIcon,
-        src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.url]
-      })));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footerContainer
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footerContent
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.logoFooter,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.logoGray,
-    alt: ""
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.footer_icons
-  }, renderListIcon())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_4__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.textCopy
-  }, "\xA9 Copyright 2021 HAKKA FINANCE"));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
-
-/***/ }),
-
-/***/ "./src/containers/Footer/styles.js":
-/*!*****************************************!*\
-  !*** ./src/containers/Footer/styles.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  footerContainer: {
-    paddingLeft: '12.8%',
-    '@media screen and (max-width: 576px)': {
-      padding: '0 16px'
-    }
-  },
-  footerContent: {
-    borderTop: '1px solid #dae1e3',
-    paddingTop: '27px',
-    paddingBottom: '72px',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    '@media screen and (max-width: 576px)': {
-      justifyContent: 'center'
-    } // marginBottom: '72px'
-
-  },
-  logoFooter: {
-    '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
-  },
-  textCopy: {
-    fontSize: [0, 1, 2],
-    color: 'rgba(37, 62, 71, 0.5)',
-    fontWeight: 600,
-    paddingBottom: '28px',
-    '@media screen and (max-width: 576px)': {
-      margin: '0 auto',
-      textAlign: 'center'
-    }
-  },
-  footer_icons: {
-    paddingRight: '28px',
-    '@media screen and (max-width: 576px)': {
-      paddingRight: '0px'
-    }
-  },
-  imgIcon: {
-    cursor: 'pointer',
-    transition: '.3s all',
-    opacity: '.5',
-    '-webkit-touch-callout': 'none',
-
-    /* iOS Safari */
-    '-webkit-user-select': 'none',
-
-    /* Safari */
-    '-khtml-user-select': 'none',
-
-    /* Konqueror HTML */
-    '-moz-user-select': 'none',
-
-    /* Old versions of Firefox */
-    '-ms-user-select': 'none',
-
-    /* Internet Explorer/Edge */
-    'user-select': 'none',
-    ':hover': {
-      opacity: 1
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/containers/Header/index.js":
-/*!****************************************!*\
-  !*** ./src/containers/Header/index.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/Header/styles.js");
-/* harmony import */ var _SideBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SideBar */ "./src/containers/SideBar/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-const Header = props => {
-  const listIcon = [{
-    url: 'iconTelegram',
-    href: 'https://t.me/hakkafinance'
-  }, {
-    url: 'iconTwitter',
-    href: 'https://twitter.com/hakkafinance'
-  }, {
-    url: 'iconDiscord',
-    href: 'https://discord.com/invite/zYfqpUQ'
-  }, {
-    url: 'iconMedium',
-    href: 'https://medium.com/hakkafinance'
-  }, {
-    url: 'iconGithub',
-    href: 'https://github.com/hakkafinance'
-  }];
-  const {
-    toggleSidebar
-  } = props;
-
-  const handleToggleSidebar = () => {
-    toggleSidebar();
-  };
-
-  const renderListIcon = () => {
-    return listIcon.map((item, i) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-        key: i,
-        target: "_blank",
-        href: item.href,
-        rel: "noreferrer"
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-        sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.imgIcon,
-        src: src_images__WEBPACK_IMPORTED_MODULE_2__.default[item.url]
-      }));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerContainer,
-    width: "100%"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerBg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.headerLogo
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Flex, {
-    mr: "28px"
-  }, renderListIcon())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.mobile_header,
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.headerBg,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.headerLogo3x
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.logoRespon,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.hakkaLogo,
-    alt: ""
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    onClick: handleToggleSidebar,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.iconMenu,
-    src: src_images__WEBPACK_IMPORTED_MODULE_2__.default.iconMenu,
-    alt: ""
-  })));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
-
-/***/ }),
-
-/***/ "./src/containers/Header/styles.js":
-/*!*****************************************!*\
-  !*** ./src/containers/Header/styles.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  headerBg: {
-    position: 'absolute',
-    width: '100%',
-    top: '0px',
-    right: '0px',
-    zIndex: '-1'
-  },
-  headerContainer: {
-    display: 'flex',
-    position: 'relative',
-    padding: '16px 0',
-    justifyContent: 'flex-end',
-    '@media screen and (max-width: 576px)': {
-      position: 'unset',
-      display: 'none'
-    } // position: "relative",
-    // top: "-253px",
-    // right: 0,
-
-  },
-  mobile_header: {
-    display: 'none',
-    '@media screen and (max-width: 576px)': {
-      display: 'flex',
-      paddingTop: '12px',
-      paddingBottom: '20px'
-    }
-  },
-  logoRespon: {
-    display: 'none',
-    '@media screen and (max-width: 576px)': {
-      display: 'block'
-    }
-  },
-  iconMenu: {
-    opacity: '0',
-    '@media screen and (max-width: 576px)': {
-      opacity: '1',
-      cursor: 'pointer',
-      paddingRight: '5%'
-    }
-  },
-  iconMenuLeft: {
-    display: 'none',
-    cursor: 'pointer',
-    '@media screen and (max-width: 768px)': {
-      display: 'none',
-      paddingLeft: '50px'
-    },
-    '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
-  },
-  imgIcon: {
-    cursor: 'pointer',
-    transition: '.3s all',
-    opacity: '.5',
-    '@media screen and (max-width: 576px)': {
-      display: 'none'
-    },
-    ':hover': {
-      opacity: 1
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/containers/Layout.js":
-/*!**********************************!*\
-  !*** ./src/containers/Layout.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-helmet */ "./node_modules/react-helmet/es/Helmet.js");
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _SideBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SideBar */ "./src/containers/SideBar/index.js");
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Header */ "./src/containers/Header/index.js");
-/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Footer */ "./src/containers/Footer/index.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles */ "./src/containers/styles.js");
-/* harmony import */ var react_spring__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-spring */ "./node_modules/react-spring/web.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-
-
-
-
-const Layout = ({
-  children,
-  title
-}) => {
-  const {
-    0: isShowSideBar,
-    1: setIsShowSideBar
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const width = typeof window !== 'undefined' ? window.outerWidth : '';
-  const {
-    0: screenWidth,
-    1: setScreenWidth
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(width); // const [isShowSideBar, setIsShowSideBar] = useState(screenWidth > 590)
-
-  const contentProps = (0,react_spring__WEBPACK_IMPORTED_MODULE_8__.useSpring)({
-    display: isShowSideBar ? 'block' : 'none',
-    marginRight: isShowSideBar ? 0 : -1000
-  });
-
-  const toggleSideBar = () => {
-    setIsShowSideBar(!isShowSideBar);
-  };
-
-  const handleClose = value => {
-    setIsShowSideBar(value);
-  };
-
-  const handleResize = () => {
-    const width = window.outerWidth;
-    setScreenWidth(width);
-    console.log('window is resized', width);
-  }; // useEffect(() => {
-  //   window.addEventListener('resize', handleResize)
-  //   if (screenWidth < 590) {
-  //     setIsShowSideBar(!isShowSideBar)
-  //   }
-  //   console.log('screenwidth', screenWidth)
-  // }, [screenWidth])
-
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    console.log('showSidebar', isShowSideBar);
-  }, [isShowSideBar]);
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-    onresize: handleResize
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_helmet__WEBPACK_IMPORTED_MODULE_2__.Helmet, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("meta", {
-    charSet: "utf-8"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("title", null, title || 'Hakka Finance'), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)("meta", {
-    property: "og:image",
-    content: src_images__WEBPACK_IMPORTED_MODULE_9__.default.iconOgImage
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_SideBar__WEBPACK_IMPORTED_MODULE_4__.default, {
-    isShowSideBar: isShowSideBar,
-    onCloseSideBar: handleClose
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "100%",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_7__.default.custom_scroll_bar
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_5__.default, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_7__.default.content_wrapper,
-    toggleSidebar: toggleSideBar
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_7__.default.content
-  }, children), (0,theme_ui__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_6__.default, null))));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(Layout));
-
-/***/ }),
-
-/***/ "./src/containers/SideBar/SideBarItem/index.js":
-/*!*****************************************************!*\
-  !*** ./src/containers/SideBar/SideBarItem/index.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./src/containers/SideBar/SideBarItem/styles.js");
-/* harmony import */ var src_common_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/common/functions */ "./src/common/functions.js");
-/** @jsx jsx */
-
-
-
-
-
-
-
-const SideBarItem = (props, {
-  location,
-  data
-}) => {
-  const {
-    icon,
-    text,
-    path,
-    subIcon
-  } = props;
-  const {
-    0: selectedNavPath,
-    1: setSelectedNavPath
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
-  const isBrowser = typeof window !== 'undefined';
-  const currentPath = isBrowser ? window.location.pathname.replace(/\//g, "") : '';
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setSelectedNavPath(currentPath);
-  }, []);
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    sx: selectedNavPath === path ? _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_item_active : _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_item
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, {
-    sx: {
-      width: '100%'
-    },
-    justifyContent: "space-between"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Flex, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    src: icon,
-    alt: true
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_2__.Text, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_3__.default.sidebar_text,
-    className: "sidebar-text",
-    ml: "12px"
-  }, (0,src_common_functions__WEBPACK_IMPORTED_MODULE_4__.upperCaseFirstLetter)(text))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-    src: subIcon,
-    alt: true
-  })));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SideBarItem);
-
-/***/ }),
-
-/***/ "./src/containers/SideBar/SideBarItem/styles.js":
-/*!******************************************************!*\
-  !*** ./src/containers/SideBar/SideBarItem/styles.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  sidebar_item: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '12px 16px',
-    paddingRight: '0px',
-    opacity: '.5',
-    cursor: 'pointer',
-    transition: 'all 0.25s ease-out ',
-    '&:hover': {
-      opacity: '1'
-    },
-    '&:active': {
-      backgroundColor: '#ebf0f2',
-      borderRadius: '8px'
-    },
-    '&:focus': {
-      backgroundColor: '#ebf0f2',
-      borderRadius: '8px'
-    }
-  },
-  sidebar_item_active: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '12px 16px',
-    backgroundColor: '#ebf0f2',
-    cursor: 'pointer',
-    borderRadius: '8px',
-    '& .sidebar-text': {
-      color: 'black'
-    }
-  },
-  sidebar_text: {
-    cursor: 'pointer',
-    color: 'black',
-    fontWeight: '600',
-    lineHeight: '24px' // textShadow: '0.5px 0px 0px #253e47'
-
-  }
-});
-
-/***/ }),
-
-/***/ "./src/containers/SideBar/index.js":
-/*!*****************************************!*\
-  !*** ./src/containers/SideBar/index.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "botSideBarItems": () => (/* binding */ botSideBarItems),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var theme_ui__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! theme-ui */ "./node_modules/theme-ui/dist/index.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var rebass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rebass */ "./node_modules/rebass/dist/index.esm.js");
-/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./src/containers/SideBar/styles.js");
-/* harmony import */ var src_images__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/images */ "./src/images/index.js");
-/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SideBarItem */ "./src/containers/SideBar/SideBarItem/index.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! gatsby */ "./.cache/gatsby-browser-entry.js");
-
-
-/** @jsx jsx */
-
-
-
-
-
-
-
-
-
-const topSideBarItems = [{
-  name: 'home',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconHome,
-  path: ''
-}, {
-  name: 'products',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconProduct,
-  path: 'products'
-}];
-const botSideBarItems = [{
-  name: 'governance',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconGovernance,
-  path: 'governance',
-  href: 'https://snapshot.org/#/hakka.eth',
-  connectOutsideWebsite: true,
-  underConstruction: false // subIcon: images.iconSnapshot
-
-}, {
-  name: 'forum',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconForum,
-  href: 'https://forum.hakka.finance/',
-  path: 'forum',
-  connectOutsideWebsite: true,
-  underConstruction: false // subIcon: images.iconLinkSmall,
-
-}, {
-  name: 'rewards',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconReward,
-  href: 'https://rewards.hakka.finance/',
-  path: 'rewards',
-  connectOutsideWebsite: false,
-  underConstruction: true
-}, {
-  name: 'staking',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconVesting,
-  href: 'https://staking.hakka.finance/',
-  path: 'staking',
-  connectOutsideWebsite: false,
-  underConstruction: true
-}, {
-  name: 'Guild Bank',
-  icon: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconVault,
-  href: 'https://vault.hakka.finance/',
-  path: 'guildbank',
-  connectOutsideWebsite: false,
-  underConstruction: true
-}];
-
-function SideBar(props) {
-  const {
-    onCloseSideBar,
-    isShowSideBar
-  } = props;
-  const {
-    0: selectedNav,
-    1: setSelectedNav
-  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''); // const href = typeof window !== 'undefined' ? window.location.pathname.replace(/\//g, "") : ''
-  // useEffect(() => {
-  //   console.log('useEffect is working')
-  //   console.log('href', href)
-  //   setSelectedNav(href)
-  // }, [])
-
-  const onSelectNavItem = path => () => {
-    (0,gatsby__WEBPACK_IMPORTED_MODULE_8__.navigate)(`/${path}`);
-    setSelectedNav(path);
-    console.log(path);
-  };
-
-  const handleCloseSideBar = () => {
-    onCloseSideBar(false);
-  };
-
-  const renderTopSideBar = () => {
-    return topSideBarItems.map((it, idx) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-        key: it.name,
-        onClick: onSelectNavItem(it.path)
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(_SideBarItem__WEBPACK_IMPORTED_MODULE_6__.default, {
-        selectedNav: selectedNav,
-        icon: it.icon,
-        text: it.name,
-        path: it.path
-      }));
-    });
-  };
-
-  const renderBotSideBar = () => {
-    return botSideBarItems.map((it, idx) => {
-      return (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-        key: it.name,
-        onClick: it.connectOutsideWebsite ? () => window.open(it.href, '_blank').focus() : onSelectNavItem(it.path)
-      }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(_SideBarItem__WEBPACK_IMPORTED_MODULE_6__.default, {
-        selectedNav: selectedNav,
-        icon: it.icon,
-        text: it.name,
-        path: it.path,
-        subIcon: lodash_get__WEBPACK_IMPORTED_MODULE_0___default()(it, 'subIcon')
-      }));
-    });
-  };
-
-  return (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: isShowSideBar ? _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_responsive_show : _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_responsive
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.custom_padding
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_header
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_5__.default.hakkaLogo
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
-    onClick: handleCloseSideBar,
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_closeBtn,
-    src: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconDeleteRound
-  })), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    mt: "3"
-  }, renderTopSideBar())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.hl,
-    ml: "25px",
-    mt: "2",
-    pr: "0"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.custom_padding
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_subText,
-    pl: "3"
-  }, "DAO"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    mt: "2"
-  }, renderBotSideBar())), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.hl,
-    ml: "25px",
-    mt: "2",
-    pr: "0"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.custom_padding
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.sidebar_subText,
-    pl: "3"
-  }, "News"), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.medium_content
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-    onClick: () => {
-      window.open('https://medium.com/hakkafinance', '_blank').focus();
-    },
-    alignItems: "center"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.left_icon,
-    src: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconMedium,
-    alt: true
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.bold_text,
-    ml: "2"
-  }, "Medium")), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-    onClick: () => {
-      window.open('https://medium.com/hakkafinance', '_blank').focus();
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
-    src: src_images__WEBPACK_IMPORTED_MODULE_5__.default.iconLinkSmall
-  }))))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.hl,
-    mt: "2",
-    pr: "0"
-  }), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    p: "12px"
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_7__.default, {
-    click: () => {
-      window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus();
-    }
-  }, (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: {
-      fontFamily: 'system-ui',
-      fontWeight: '700'
-    }
-  }, "Learn More"))), (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.bold_text_link,
-    mb: "12px",
-    p: "2",
-    textAlign: "center"
-  }, "or", ' ', (0,theme_ui__WEBPACK_IMPORTED_MODULE_9__.jsx)(rebass__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    sx: _styles__WEBPACK_IMPORTED_MODULE_4__.default.bold_text_link,
-    href: "mailto:admin@hakka.finance"
-  }, "contact us")))));
-}
-
-;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().memo(SideBar));
-
-/***/ }),
-
-/***/ "./src/containers/SideBar/styles.js":
-/*!******************************************!*\
-  !*** ./src/containers/SideBar/styles.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  //   displayFlex: {
-  //     display: "flex",
-  //   },
-  sidebar_responsive: {
-    zIndex: '1',
-    transition: 'all ease-out 0.5s',
-    '@media screen and (max-width:576px)': {
-      position: 'absolute',
-      right: '-100%',
-      bottom: '0',
-      top: '0'
-    }
-  },
-  sidebar_responsive_show: {
-    zIndex: '1',
-    transition: 'all ease-out 0.5s',
-    '@media screen and (max-width:576px)': {
-      position: 'absolute',
-      right: '0',
-      bottom: '0',
-      top: '0'
-    }
-  },
-  sidebar: {
-    overflow: 'auto',
-    maxHeight: '100vh',
-    minHeight: '100%',
-    '::-webkit-scrollbar': {
-      display: 'none'
-    },
-    color: 'black',
-    fontSize: '16px',
-    backgroundColor: 'white_green',
-    width: '250px',
-    mr: 0,
-    transition: 'all 0.25s ease-out',
-    borderRight: '1px solid #dae1e3',
-    boxShadow: '-8px 0 16px -8px rgba(123, 135, 148, 0.25)',
-    '@media screen and (max-width: 576px)': {
-      width: '96vw'
-    }
-  },
-  custom_padding: {
-    padding: '12px'
-  },
-  sidebar_header: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  sidebar_closeBtn: {
-    display: 'none',
-    cursor: 'pointer',
-    '@media screen and (max-width: 576px)': {
-      display: 'block',
-      padding: '0px 12px'
-    }
-  },
-  sidebar_subText: {
-    fontSize: '14px'
-  },
-  // hl : horizontal line
-  hl: {
-    borderTop: '0.5px solid #dae1e3'
-  },
-  bold_text: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: '16px'
-  },
-  bold_text_link: {
-    color: 'text_grey',
-    fontWeight: '600',
-    fontSize: '14px'
-  },
-  sidebar_btn: {
-    width: '1'
-  },
-  medium_content: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '12px 16px',
-    paddingRight: '0px',
-    cursor: 'pointer',
-    opacity: '.5',
-    transition: 'all 0.25s ease-out ',
-    ':hover': {
-      opacity: '1'
-    }
-  } // left_icon: {
-  //   opacity: '.5'
-  // }
-
-});
-
-/***/ }),
-
-/***/ "./src/containers/styles.js":
-/*!**********************************!*\
-  !*** ./src/containers/styles.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  content_wrapper: {
-    width: '100%'
-  },
-  content: {// marginLeft: '5%',
-  },
-  custom_scroll_bar: {
-    height: '100vh',
-    overflow: 'auto',
-    '@media screen and (max-width: 576px)': {
-      position: 'relative'
-    },
-    '::-webkit-scrollbar': {
-      display: 'none'
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./src/gatsby-plugin-theme-ui/index.js":
-/*!*********************************************!*\
-  !*** ./src/gatsby-plugin-theme-ui/index.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  breakpoints: ['576px', '1560px', '1680px', '1900px'],
-  colors: {
-    background: '#fff',
-    white_green: '#f7fbfc',
-    primary: '#639',
-    secondary: '#ff6347',
-    main_green: '#3ebd93',
-    dark_green: '#0b555a',
-    black: '#253e47',
-    black_grey: '#52666d',
-    green: '#2da287',
-    light_green: '#dae1e3',
-    text_grey: '#929EA3',
-    active_green: '#ebf0f2'
-  },
-  background_linears: {
-    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)'
-  },
-  fonts: {
-    // body: 'system-ui, sans-serif',
-    // heading: 'system-ui, sans-serif',
-    // monospace: 'Menlo, monospace'
-    // body: 'Open Sans, sans-serif',
-    body: 'Open Sans, system-ui',
-    heading: 'Georgia, serif',
-    monospace: 'Menlo, monospace'
-  },
-  fontWeights: {
-    semi: 600,
-    heading: 700,
-    bold: 700
-  },
-  // lineHeights: {
-  //   body: 1.5,
-  //   heading: 1.125
-  // },
-  lineHeights: [1.5, '24px', '32px', '60px'],
-  fontSizes: [12, 14, 16, 18, 20, 24, 32, 48, 64, 72],
-  space: [0, 4, 8, 16, 32, 80, 164, 256, 512],
-  styles: {
-    root: {
-      overflow: 'hidden',
-      fontFamily: 'body',
-      fontWeights: {
-        semi: 'body',
-        bold: 'bold'
-      },
-      p: {
-        lineHeight: [1, 1, 2, 2]
-      }
-    }
-  }
-});
-/* description :
-  fontSize 14px ---> responsive [0,1,2,3]
-  fontSize 16px ---> responsive [1,2,3,5]
-  fontSize 18px ---> responsive [2,3,4,5]
-  fontSize 20px ---> responsive [3,4,5,6]
-  fontSize 24px ---> responsive [4,5,6,6]
-  fontSize 32px ---> responsive [5,6,7,7]
-  fontSize 48px ---> responsive [6,7,8,8]
-*/
-
-/***/ }),
-
-/***/ "./src/images/index.js":
-/*!*****************************!*\
-  !*** ./src/images/index.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const images = {
-  hakkaLogo: __webpack_require__(/*! ../images/logos/hakkaLogo.svg */ "./src/images/logos/hakkaLogo.svg").default,
-  logoGray: __webpack_require__(/*! ../images/logos/logoGray.svg */ "./src/images/logos/logoGray.svg").default,
-  iconHome: __webpack_require__(/*! ../images/icons/iconHome.svg */ "./src/images/icons/iconHome.svg").default,
-  iconProduct: __webpack_require__(/*! ../images/icons/iconProduct.svg */ "./src/images/icons/iconProduct.svg").default,
-  iconGovernance: __webpack_require__(/*! ../images/icons/iconGovernance.svg */ "./src/images/icons/iconGovernance.svg").default,
-  iconReward: __webpack_require__(/*! ../images/icons/iconReward.svg */ "./src/images/icons/iconReward.svg").default,
-  iconVesting: __webpack_require__(/*! ../images/icons/iconVesting.svg */ "./src/images/icons/iconVesting.svg").default,
-  iconVault: __webpack_require__(/*! ../images/icons/iconVault.svg */ "./src/images/icons/iconVault.svg").default,
-  iconLinkSmall: __webpack_require__(/*! ../images/icons/iconLinkSmall.svg */ "./src/images/icons/iconLinkSmall.svg").default,
-  iconForum: __webpack_require__(/*! ../images/icons/iconForum.svg */ "./src/images/icons/iconForum.svg").default,
-  iconOgImage: __webpack_require__(/*! ../images/logos/ogImage.png */ "./src/images/logos/ogImage.png").default,
-  iconAccount: __webpack_require__(/*! ../images/icons/iconAccount.svg */ "./src/images/icons/iconAccount.svg").default,
-  iconTrash: __webpack_require__(/*! ../images/icons/iconTrash.svg */ "./src/images/icons/iconTrash.svg").default,
-  iconChekBoxChecked: __webpack_require__(/*! ../images/icons/checkboxChecked.svg */ "./src/images/icons/checkboxChecked.svg").default,
-  iconChekBoxUnchecked: __webpack_require__(/*! ../images/icons/checkboxUnchecked.svg */ "./src/images/icons/checkboxUnchecked.svg").default,
-  // web applications icon
-  iconMedium: __webpack_require__(/*! ../images/icons/iconMedium.svg */ "./src/images/icons/iconMedium.svg").default,
-  iconTelegram: __webpack_require__(/*! ../images/icons/iconTelegram.svg */ "./src/images/icons/iconTelegram.svg").default,
-  iconTwitter: __webpack_require__(/*! ../images/icons/iconTwitter.svg */ "./src/images/icons/iconTwitter.svg").default,
-  iconDiscord: __webpack_require__(/*! ../images/icons/iconDiscord.svg */ "./src/images/icons/iconDiscord.svg").default,
-  iconGithub: __webpack_require__(/*! ../images/icons/iconGithub.svg */ "./src/images/icons/iconGithub.svg").default,
-  // Product icons
-  iconBlackhole: __webpack_require__(/*! ../images/icons/iconBlackhole.svg */ "./src/images/icons/iconBlackhole.svg").default,
-  icon3FMutual: __webpack_require__(/*! ../images/icons/icon3FMutual.jpg */ "./src/images/icons/icon3FMutual.jpg").default,
-  iconIgain: __webpack_require__(/*! ../images/icons/iconIgain.svg */ "./src/images/icons/iconIgain.svg").default,
-  iconHakkaIntel: __webpack_require__(/*! ../images/icons/iconHakkaIntel.svg */ "./src/images/icons/iconHakkaIntel.svg").default,
-  iconDefiHandbook: __webpack_require__(/*! ../images/icons/iconDefiHandbook.jpg */ "./src/images/icons/iconDefiHandbook.jpg").default,
-  iconCryptoStructure: __webpack_require__(/*! ../images/icons/iconCryptoStructure.png */ "./src/images/icons/iconCryptoStructure.png").default,
-  iconTcdp: __webpack_require__(/*! ../images/icons/iconTcdp.svg */ "./src/images/icons/iconTcdp.svg").default,
-  // action icons
-  iconDown: __webpack_require__(/*! ../images/icons/iconDown.svg */ "./src/images/icons/iconDown.svg").default,
-  iconUp: __webpack_require__(/*! ../images/icons/iconUp.svg */ "./src/images/icons/iconUp.svg").default,
-  iconRight: __webpack_require__(/*! ../images/icons/iconRight.svg */ "./src/images/icons/iconRight.svg").default,
-  iconRightGrey: __webpack_require__(/*! ../images/icons/iconRightGrey.svg */ "./src/images/icons/iconRightGrey.svg").default,
-  iconDelete: __webpack_require__(/*! ../images/icons/iconDelete.svg */ "./src/images/icons/iconDelete.svg").default,
-  iconDeleteRound: __webpack_require__(/*! ../images/icons/iconDeleteRound.svg */ "./src/images/icons/iconDeleteRound.svg").default,
-  iconAdd: __webpack_require__(/*! ../images/icons/iconAdd.svg */ "./src/images/icons/iconAdd.svg").default,
-  /// home icon
-  iconLight: __webpack_require__(/*! ../images/icons/iconLight.svg */ "./src/images/icons/iconLight.svg").default,
-  iconForward: __webpack_require__(/*! ../images/icons/iconForward.svg */ "./src/images/icons/iconForward.svg").default,
-  iconLinkNormal: __webpack_require__(/*! ../images/icons/iconLinkNormal.svg */ "./src/images/icons/iconLinkNormal.svg").default,
-  iconToken: __webpack_require__(/*! ../images/icons/iconToken.svg */ "./src/images/icons/iconToken.svg").default,
-  iconScrollDown: __webpack_require__(/*! ../images/icons/iconScrollDown.svg */ "./src/images/icons/iconScrollDown.svg").default,
-  iconIntelligence: __webpack_require__(/*! ../images/icons/iconIntelligence.svg */ "./src/images/icons/iconIntelligence.svg").default,
-  iconMutual: __webpack_require__(/*! ../images/icons/iconMutual.png */ "./src/images/icons/iconMutual.png").default,
-  iconHarvester: __webpack_require__(/*! ../images/icons/iconHarvester.svg */ "./src/images/icons/iconHarvester.svg").default,
-  imageTokenGrey: __webpack_require__(/*! ../images/icons/imageTokenGrey.svg */ "./src/images/icons/imageTokenGrey.svg").default,
-  imageAlienGrey: __webpack_require__(/*! ../images/icons/imageAlienGrey.svg */ "./src/images/icons/imageAlienGrey.svg").default,
-  iconEtherscan: __webpack_require__(/*! ../images/icons/iconEtherscan.png */ "./src/images/icons/iconEtherscan.png").default,
-  iconBSCScan: __webpack_require__(/*! ../images/icons/iconBSCScan.png */ "./src/images/icons/iconBSCScan.png").default,
-  iconForwardGreen: __webpack_require__(/*! ../images/icons/iconForwardGreen.svg */ "./src/images/icons/iconForwardGreen.svg").default,
-  iconParliament: __webpack_require__(/*! ../images/icons/iconParliament.svg */ "./src/images/icons/iconParliament.svg").default,
-  iconMoneyBox: __webpack_require__(/*! ../images/icons/iconMoneyBox.svg */ "./src/images/icons/iconMoneyBox.svg").default,
-  iconUser: __webpack_require__(/*! ../images/icons/iconUser.png */ "./src/images/icons/iconUser.png").default,
-  iconLinkSmallGreen: __webpack_require__(/*! ../images/icons/iconLinkSmallGreen.svg */ "./src/images/icons/iconLinkSmallGreen.svg").default,
-  iconMenu: __webpack_require__(/*! ../images/icons/iconMenu.svg */ "./src/images/icons/iconMenu.svg").default,
-  iconSnapshot: __webpack_require__(/*! ../images/icons/iconSnapshot.svg */ "./src/images/icons/iconSnapshot.svg").default,
-  /// icon token
-  iconCoingecko: __webpack_require__(/*! ../images/icons/iconCoingecko.png */ "./src/images/icons/iconCoingecko.png").default,
-  iconCoinmarketcap: __webpack_require__(/*! ../images/icons/iconCoinmarketcap.png */ "./src/images/icons/iconCoinmarketcap.png").default,
-  iconInch: __webpack_require__(/*! ../images/icons/iconInch.png */ "./src/images/icons/iconInch.png").default,
-  iconBalancer: __webpack_require__(/*! ../images/icons/iconBalancer.png */ "./src/images/icons/iconBalancer.png").default,
-  iconUniswap: __webpack_require__(/*! ../images/icons/iconUniswap.png */ "./src/images/icons/iconUniswap.png").default,
-  iconPancakeSwap: __webpack_require__(/*! ../images/icons/iconPancakeSwap.png */ "./src/images/icons/iconPancakeSwap.png").default,
-  /// partners & intergartors
-  imageChainlink: __webpack_require__(/*! ../images/icons/imageChainlink.png */ "./src/images/icons/imageChainlink.png").default,
-  image1inch: __webpack_require__(/*! ../images/icons/image1inch.png */ "./src/images/icons/image1inch.png").default,
-  imageSynthetix: __webpack_require__(/*! ../images/icons/imageSynthetix.png */ "./src/images/icons/imageSynthetix.png").default,
-  imageCompound: __webpack_require__(/*! ../images/icons/compound.png */ "./src/images/icons/compound.png").default,
-  imageDelta: __webpack_require__(/*! ../images/icons/delta.png */ "./src/images/icons/delta.png").default,
-  imageImtoken: __webpack_require__(/*! ../images/icons/imtoken.png */ "./src/images/icons/imtoken.png").default,
-  imageKyberNetwork: __webpack_require__(/*! ../images/icons/kyberNetwork.png */ "./src/images/icons/kyberNetwork.png").default,
-  imageMaker: __webpack_require__(/*! ../images/icons/maker.png */ "./src/images/icons/maker.png").default,
-  imageTrustWallet: __webpack_require__(/*! ../images/icons/trustWallet.png */ "./src/images/icons/trustWallet.png").default,
-  // icon chain
-  iconEthereum: __webpack_require__(/*! ../images/icons/iconEthereum.png */ "./src/images/icons/iconEthereum.png").default,
-  iconEthereumDark: __webpack_require__(/*! ../images/icons/icon-logo-ethereum-dark.png */ "./src/images/icons/icon-logo-ethereum-dark.png").default,
-  iconBinanceGray: __webpack_require__(/*! ../images/icons/iconBinanceGray.png */ "./src/images/icons/iconBinanceGray.png").default,
-  iconBinanceGold: __webpack_require__(/*! ../images/icons/iconBinanceGold.png */ "./src/images/icons/iconBinanceGold.png").default,
-  // icon content
-  iconFlower: __webpack_require__(/*! ../images/icons/iconFlower.svg */ "./src/images/icons/iconFlower.svg").default,
-  iconUnderConstruction: __webpack_require__(/*! ../images/icons/underConstruction.svg */ "./src/images/icons/underConstruction.svg").default,
-  // header backgroud
-  headerLogo: __webpack_require__(/*! ../images/logos/headerBg.jpg */ "./src/images/logos/headerBg.jpg").default,
-  headerLogo3x: __webpack_require__(/*! ../images/logos/headerBg-3x.jpg */ "./src/images/logos/headerBg-3x.jpg").default,
-  blurBall: __webpack_require__(/*! ../images/icons/decorativeBlurBall.png */ "./src/images/icons/decorativeBlurBall.png").default,
-  // avatars
-  pingChen: __webpack_require__(/*! ../images/avatars/pingChen.png */ "./src/images/avatars/pingChen.png").default,
-  jackLai: __webpack_require__(/*! ../images/avatars/jackLai.png */ "./src/images/avatars/jackLai.png").default,
-  wegoChen: __webpack_require__(/*! ../images/avatars/wegoChen.png */ "./src/images/avatars/wegoChen.png").default,
-  ianHsu: __webpack_require__(/*! ../images/avatars/ianHsu.png */ "./src/images/avatars/ianHsu.png").default
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (images);
-
-/***/ }),
-
-/***/ "./src/pages/404.js":
-/*!**************************!*\
-  !*** ./src/pages/404.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gatsby */ "./.cache/gatsby-browser-entry.js");
-
- // styles
-
-const pageStyles = {
-  color: '#232129',
-  padding: '96px',
-  fontFamily: '-apple-system, Roboto, sans-serif, serif'
-};
-const headingStyles = {
-  maxWidth: 320
-};
-const paragraphStyles = {
-  marginBottom: 48
-};
-const codeStyles = {
-  color: '#8A6534',
-  padding: 4,
-  backgroundColor: '#FFF4DB',
-  fontSize: '1.25rem',
-  borderRadius: 4
-}; // markup
-
-const NotFoundPage = () => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
-    style: pageStyles
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("title", null, "Not found"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
-    style: headingStyles
-  }, "Page not found"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    style: paragraphStyles
-  }, "Sorry", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    role: "img",
-    "aria-label": "Pensive emoji"
-  }, "\uD83D\uDE14"), ' ', "we couldn\u2019t find what you were looking for.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null),  true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Try creating a page in ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("code", {
-    style: codeStyles
-  }, "src/pages/"), ".", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null)) : 0, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    to: "/"
-  }, "Go home"), "."));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NotFoundPage);
-
-/***/ }),
-
-/***/ "./src/pages/guildbank.js":
-/*!********************************!*\
-  !*** ./src/pages/guildbank.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var src_components_BlankScreen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/components/BlankScreen */ "./src/components/BlankScreen/index.js");
-/* harmony import */ var src_containers_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/containers/Layout */ "./src/containers/Layout.js");
-/* harmony import */ var _components_VaultPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/VaultPage */ "./src/components/VaultPage/index.js");
-
-
-
-
-
-const GuildBankPage = () => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(src_containers_Layout__WEBPACK_IMPORTED_MODULE_2__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_VaultPage__WEBPACK_IMPORTED_MODULE_3__.default, null));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GuildBankPage);
-
-/***/ }),
-
-/***/ "./src/pages/index.js":
-/*!****************************!*\
-  !*** ./src/pages/index.js ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var src_containers_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/containers/Layout */ "./src/containers/Layout.js");
-/* harmony import */ var src_components_Common_MyButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/components/Common/MyButton */ "./src/components/Common/MyButton/index.js");
-/* harmony import */ var src_components_HomeScreen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/components/HomeScreen */ "./src/components/HomeScreen/index.js");
-/* harmony import */ var src_containers_SideBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/containers/SideBar */ "./src/containers/SideBar/index.js");
-/* harmony import */ var src_components_ProductScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/components/ProductScreen */ "./src/components/ProductScreen/index.js");
-
-
-
-
-
- // markup
-
-const IndexPage = () => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(src_containers_Layout__WEBPACK_IMPORTED_MODULE_1__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(src_components_HomeScreen__WEBPACK_IMPORTED_MODULE_3__.default, null));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IndexPage);
 
 /***/ }),
 
@@ -64586,7 +62741,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTc1OC4wMDAwMDAsIC0zMDguMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiLz4KICAgICAgICAgICAgICAgICAgICA8cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHg9IjQiIHk9IjQiIGZpbGw9IiMyREEyODciIGZpbGwtcnVsZT0ibm9uemVybyIgcng9IjIiLz4KICAgICAgICAgICAgICAgICAgICA8Zz4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTAgMEgxNlYxNkgweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNC4wMDAwMDAsIDQuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMi4xOSAzLjY5Yy41ODUtLjU4NiAxLjUzNS0uNTg2IDIuMTIgMCAuNTUuNTQ5LjU4NCAxLjQxOC4xMDQgMi4wMDdsLS4xMDMuMTE0LTcgN2MtLjU1LjU0OS0xLjQxOS41ODMtMi4wMDguMTAzbC0uMTE0LS4xMDMtMy0zYy0uNTg1LS41ODYtLjU4NS0xLjUzNiAwLTIuMTIyLjU1LS41NDkgMS40MTktLjU4MyAyLjAwOC0uMTAzbC4xMTQuMTAzTDYuMjUgOS42M2w1Ljk0LTUuOTR6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8Zz4NCiAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03NTguMDAwMDAwLCAtMzA4LjAwMDAwMCkgdHJhbnNsYXRlKDczMC4wMDAwMDAsIDE2MC4wMDAwMDApIHRyYW5zbGF0ZSgyOC4wMDAwMDAsIDE0OC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTAgMEgyNFYyNEgweiIvPg0KICAgICAgICAgICAgICAgICAgICA8cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHg9IjQiIHk9IjQiIGZpbGw9IiMyREEyODciIGZpbGwtcnVsZT0ibm9uemVybyIgcng9IjIiLz4NCiAgICAgICAgICAgICAgICAgICAgPGc+DQogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCAwSDE2VjE2SDB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIi8+DQogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMi4xOSAzLjY5Yy41ODUtLjU4NiAxLjUzNS0uNTg2IDIuMTIgMCAuNTUuNTQ5LjU4NCAxLjQxOC4xMDQgMi4wMDdsLS4xMDMuMTE0LTcgN2MtLjU1LjU0OS0xLjQxOS41ODMtMi4wMDguMTAzbC0uMTE0LS4xMDMtMy0zYy0uNTg1LS41ODYtLjU4NS0xLjUzNiAwLTIuMTIyLjU1LS41NDkgMS40MTktLjU4MyAyLjAwOC0uMTAzbC4xMTQuMTAzTDYuMjUgOS42M2w1Ljk0LTUuOTR6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIi8+DQogICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICA8L2c+DQogICAgICAgIDwvZz4NCiAgICA8L2c+DQo8L3N2Zz4NCg==");
 
 /***/ }),
 
@@ -64601,7 +62756,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTc1OC4wMDAwMDAsIC00NDAuMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkgdHJhbnNsYXRlKDAuMDAwMDAwLCAxMzIuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiLz4KICAgICAgICAgICAgICAgICAgICAgICAgPHJlY3Qgd2lkdGg9IjE0LjUiIGhlaWdodD0iMTQuNSIgeD0iNC43NSIgeT0iNC43NSIgZmlsbD0iI0Y3RkJGQyIgc3Ryb2tlPSIjREFFMUUzIiBzdHJva2Utd2lkdGg9IjEuNSIgcng9IjIiLz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8Zz4NCiAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNzU4LjAwMDAwMCwgLTQ0MC4wMDAwMDApIHRyYW5zbGF0ZSg3MzAuMDAwMDAwLCAxNjAuMDAwMDAwKSB0cmFuc2xhdGUoMjguMDAwMDAwLCAxNDguMDAwMDAwKSB0cmFuc2xhdGUoMC4wMDAwMDAsIDEzMi4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxyZWN0IHdpZHRoPSIxNC41IiBoZWlnaHQ9IjE0LjUiIHg9IjQuNzUiIHk9IjQuNzUiIGZpbGw9IiNGN0ZCRkMiIHN0cm9rZT0iI0RBRTFFMyIgc3Ryb2tlLXdpZHRoPSIxLjUiIHJ4PSIyIi8+DQogICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICA8L2c+DQogICAgICAgIDwvZz4NCiAgICA8L2c+DQo8L3N2Zz4NCg==");
 
 /***/ }),
 
@@ -64691,7 +62846,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMTU0LjAwMDAwMCwgLTg4LjAwMDAwMCkgdHJhbnNsYXRlKDgwNi4wMDAwMDAsIDc2LjAwMDAwMCkgdHJhbnNsYXRlKDMzNi4wMDAwMDAsIDAuMDAwMDAwKSB0cmFuc2xhdGUoMTIuMDAwMDAwLCAxMi4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMzRUJEOTMiIGQ9Ik0xNC4yMDUgMi4zMjZsLjUzMi4zNjEuMjI2LjE1OS42NDYuNDY2IDEuNzI2IDEuMjggMS4zOS4yNy4zNi4wNzcuMzE5LjA3LjI1OS4wNjMuMzQyLjA5LjIwNS4wNTguMTguMDU4Yy44MDIuMjY0IDEuMjEyLjU3NyAxLjI0NCAxLjAyN3YuMDkzbC0uMDEyLjA5Mi0uMTY1LjE1Yy0uNjg2LjU2Ni0yLjA2OCAxLjE3Mi0zLjg5NyAxLjY2bC0uMDEtLjE5OGMuMTc0IDIuNDk2LTEuMzQ1IDQuNzE4LTMuNTc5IDUuNTQ0IDQuMzYuNTMgNy41MjkgMi44MDkgNy41MjkgNS42NzV2LjY3NWwtLjAwMy4xMTljLS4wNjYgMS4zNDItMS4yMzUgMi40MTItMi42NjkgMi40MTJINS4xNzJsLS4xMjYtLjAwM0MzLjYzIDIyLjQ2MiAyLjUgMjEuMzU0IDIuNSAxOS45OTZ2LS42NzVsLjAwMi0uMTM5Yy4xMDEtMi44MjEgMy4yODQtNS4wNDcgNy42MjMtNS41NDktMS44ODQtLjcwOS0zLjI5OC0yLjQzLTMuNTMtNC41NDUtMS45NDUtLjIyNS0zLjQ0OS0uNjQzLTQuMjItMS4xMjEtLjA1NC0uMDk5LS4wODYtLjIwMi0uMDk0LS4zMDktLjAzNS0uNDk4LjM1Mi0uOTI4IDEuMjMtMS4zNDgtLjE1NS0uMTQzLS4yMzItLjI3OS0uNDE0LS4zODIuMjUtLjMzNC43MzYtLjYyOSAxLjA3OC0uNzAyLjY4LS4xNjMgMS4xMTcuMDEzIDEuNTg0LjAxOC0uMzctLjEzLTEuMTA5LS43Ni0xLjM3NC0xLjA1Mi0uMzM2LS42NC0uMTY5LTEuMjIzLS4wMTQtMS41NWwuMDMzLS4wNjYuMDU3LS4xMDIuMDY5LS4xMDguMDQ2LS4wMS4xOTUtLjAxOGMuMjk0LS4wMTguNzc2LS4wMTIuOTYzLjE3LjMxMS4zODYuNDc0Ljc5LjU4NCAxLjE1NGwuMDk3LjM0NmMuMDcxLjI3NC4xMjguNTAzLjIyNi42NTRsLjAzNy0uMjA2LjA1My0uMzk4Yy4wMzYtLjI2NS4wODgtLjU0LjI0LS44NjguMjY0LS41NzYgMS4yNjYtMS40MDkgMi4wMjQtMS4zMWwuMDMuMTIuMTAzLjI5M2MuMDI3LjA5NS4wMzguMTk4LjAxLjM0MSAxLjA0LS45MSAxLjgtMS4zODggMi40MTYtMS40My42MjctLjA0NCAxLjQ2Mi4zMzYgMi42NTEgMS4xMjJ6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTE1NC4wMDAwMDAsIC04OC4wMDAwMDApIHRyYW5zbGF0ZSg4MDYuMDAwMDAwLCA3Ni4wMDAwMDApIHRyYW5zbGF0ZSgzMzYuMDAwMDAwLCAwLjAwMDAwMCkgdHJhbnNsYXRlKDEyLjAwMDAwMCwgMTIuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8Zz4NCiAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICA8Zz4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMTU0LjAwMDAwMCwgLTg4LjAwMDAwMCkgdHJhbnNsYXRlKDgwNi4wMDAwMDAsIDc2LjAwMDAwMCkgdHJhbnNsYXRlKDMzNi4wMDAwMDAsIDAuMDAwMDAwKSB0cmFuc2xhdGUoMTIuMDAwMDAwLCAxMi4wMDAwMDApIi8+DQogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjM0VCRDkzIiBkPSJNMTQuMjA1IDIuMzI2bC41MzIuMzYxLjIyNi4xNTkuNjQ2LjQ2NiAxLjcyNiAxLjI4IDEuMzkuMjcuMzYuMDc3LjMxOS4wNy4yNTkuMDYzLjM0Mi4wOS4yMDUuMDU4LjE4LjA1OGMuODAyLjI2NCAxLjIxMi41NzcgMS4yNDQgMS4wMjd2LjA5M2wtLjAxMi4wOTItLjE2NS4xNWMtLjY4Ni41NjYtMi4wNjggMS4xNzItMy44OTcgMS42NmwtLjAxLS4xOThjLjE3NCAyLjQ5Ni0xLjM0NSA0LjcxOC0zLjU3OSA1LjU0NCA0LjM2LjUzIDcuNTI5IDIuODA5IDcuNTI5IDUuNjc1di42NzVsLS4wMDMuMTE5Yy0uMDY2IDEuMzQyLTEuMjM1IDIuNDEyLTIuNjY5IDIuNDEySDUuMTcybC0uMTI2LS4wMDNDMy42MyAyMi40NjIgMi41IDIxLjM1NCAyLjUgMTkuOTk2di0uNjc1bC4wMDItLjEzOWMuMTAxLTIuODIxIDMuMjg0LTUuMDQ3IDcuNjIzLTUuNTQ5LTEuODg0LS43MDktMy4yOTgtMi40My0zLjUzLTQuNTQ1LTEuOTQ1LS4yMjUtMy40NDktLjY0My00LjIyLTEuMTIxLS4wNTQtLjA5OS0uMDg2LS4yMDItLjA5NC0uMzA5LS4wMzUtLjQ5OC4zNTItLjkyOCAxLjIzLTEuMzQ4LS4xNTUtLjE0My0uMjMyLS4yNzktLjQxNC0uMzgyLjI1LS4zMzQuNzM2LS42MjkgMS4wNzgtLjcwMi42OC0uMTYzIDEuMTE3LjAxMyAxLjU4NC4wMTgtLjM3LS4xMy0xLjEwOS0uNzYtMS4zNzQtMS4wNTItLjMzNi0uNjQtLjE2OS0xLjIyMy0uMDE0LTEuNTVsLjAzMy0uMDY2LjA1Ny0uMTAyLjA2OS0uMTA4LjA0Ni0uMDEuMTk1LS4wMThjLjI5NC0uMDE4Ljc3Ni0uMDEyLjk2My4xNy4zMTEuMzg2LjQ3NC43OS41ODQgMS4xNTRsLjA5Ny4zNDZjLjA3MS4yNzQuMTI4LjUwMy4yMjYuNjU0bC4wMzctLjIwNi4wNTMtLjM5OGMuMDM2LS4yNjUuMDg4LS41NC4yNC0uODY4LjI2NC0uNTc2IDEuMjY2LTEuNDA5IDIuMDI0LTEuMzFsLjAzLjEyLjEwMy4yOTNjLjAyNy4wOTUuMDM4LjE5OC4wMS4zNDEgMS4wNC0uOTEgMS44LTEuMzg4IDIuNDE2LTEuNDMuNjI3LS4wNDQgMS40NjIuMzM2IDIuNjUxIDEuMTIyeiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTExNTQuMDAwMDAwLCAtODguMDAwMDAwKSB0cmFuc2xhdGUoODA2LjAwMDAwMCwgNzYuMDAwMDAwKSB0cmFuc2xhdGUoMzM2LjAwMDAwMCwgMC4wMDAwMDApIHRyYW5zbGF0ZSgxMi4wMDAwMDAsIDEyLjAwMDAwMCkiLz4NCiAgICAgICAgICAgICAgICAgICAgPC9nPg0KICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgIDwvZz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K");
 
 /***/ }),
 
@@ -64706,7 +62861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMDcuMDAwMDAwLCAtNDUyLjAwMDAwMCkgdHJhbnNsYXRlKDE2LjAwMDAwMCwgNDI0LjAwMDAwMCkgdHJhbnNsYXRlKDIxNy4wMDAwMDAsIDI4LjAwMDAwMCkgdHJhbnNsYXRlKDc0LjAwMDAwMCwgMC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMyNTNFNDciIGZpbGwtb3BhY2l0eT0iLjUiIGZpbGwtcnVsZT0ibm9uemVybyIgZD0iTTEyIDJjNS41MjMgMCAxMCA0LjQ3NyAxMCAxMHMtNC40NzcgMTAtMTAgMTBTMiAxNy41MjMgMiAxMiA2LjQ3NyAyIDEyIDJ6bTAgMS41Yy00LjY5NCAwLTguNSAzLjgwNi04LjUgOC41czMuODA2IDguNSA4LjUgOC41IDguNS0zLjgwNiA4LjUtOC41LTMuODA2LTguNS04LjUtOC41ek0xMiA3Yy4zOCAwIC42OTMuMjgyLjc0My42NDhsLjAwNy4xMDJ2My41aDMuNWMuNDE0IDAgLjc1LjMzNi43NS43NSAwIC4zOC0uMjgyLjY5My0uNjQ4Ljc0M2wtLjEwMi4wMDdoLTMuNXYzLjVjMCAuNDE0LS4zMzYuNzUtLjc1Ljc1LS4zOCAwLS42OTMtLjI4Mi0uNzQzLS42NDhsLS4wMDctLjEwMnYtMy41aC0zLjVjLS40MTQgMC0uNzUtLjMzNi0uNzUtLjc1IDAtLjM4LjI4Mi0uNjkzLjY0OC0uNzQzbC4xMDItLjAwN2gzLjV2LTMuNWMwLS40MTQuMzM2LS43NS43NS0uNzV6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzA3LjAwMDAwMCwgLTQ1Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDQyNC4wMDAwMDApIHRyYW5zbGF0ZSgyMTcuMDAwMDAwLCAyOC4wMDAwMDApIHRyYW5zbGF0ZSg3NC4wMDAwMDAsIDAuMDAwMDAwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8Zz4NCiAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICA8Zz4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMDcuMDAwMDAwLCAtNDUyLjAwMDAwMCkgdHJhbnNsYXRlKDE2LjAwMDAwMCwgNDI0LjAwMDAwMCkgdHJhbnNsYXRlKDIxNy4wMDAwMDAsIDI4LjAwMDAwMCkgdHJhbnNsYXRlKDc0LjAwMDAwMCwgMC4wMDAwMDApIi8+DQogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjMjUzRTQ3IiBmaWxsLW9wYWNpdHk9Ii41IiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMiAyYzUuNTIzIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc3IDEwLTEwIDEwUzIgMTcuNTIzIDIgMTIgNi40NzcgMiAxMiAyem0wIDEuNWMtNC42OTQgMC04LjUgMy44MDYtOC41IDguNXMzLjgwNiA4LjUgOC41IDguNSA4LjUtMy44MDYgOC41LTguNS0zLjgwNi04LjUtOC41LTguNXpNMTIgN2MuMzggMCAuNjkzLjI4Mi43NDMuNjQ4bC4wMDcuMTAydjMuNWgzLjVjLjQxNCAwIC43NS4zMzYuNzUuNzUgMCAuMzgtLjI4Mi42OTMtLjY0OC43NDNsLS4xMDIuMDA3aC0zLjV2My41YzAgLjQxNC0uMzM2Ljc1LS43NS43NS0uMzggMC0uNjkzLS4yODItLjc0My0uNjQ4bC0uMDA3LS4xMDJ2LTMuNWgtMy41Yy0uNDE0IDAtLjc1LS4zMzYtLjc1LS43NSAwLS4zOC4yODItLjY5My42NDgtLjc0M2wuMTAyLS4wMDdoMy41di0zLjVjMC0uNDE0LjMzNi0uNzUuNzUtLjc1eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTMwNy4wMDAwMDAsIC00NTIuMDAwMDAwKSB0cmFuc2xhdGUoMTYuMDAwMDAwLCA0MjQuMDAwMDAwKSB0cmFuc2xhdGUoMjE3LjAwMDAwMCwgMjguMDAwMDAwKSB0cmFuc2xhdGUoNzQuMDAwMDAwLCAwLjAwMDAwMCkiLz4NCiAgICAgICAgICAgICAgICAgICAgPC9nPg0KICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgIDwvZz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K");
 
 /***/ }),
 
@@ -65411,7 +63566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTAgMEgyNFYyNEgweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg0MS4wMDAwMDAsIC00ODQuMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkgdHJhbnNsYXRlKDAuMDAwMDAwLCAxNzYuMDAwMDAwKSB0cmFuc2xhdGUoODMuMDAwMDAwLCAwLjAwMDAwMCkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZmlsbC1vcGFjaXR5PSIuNSIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMTcuMDA4IDEwbC0uNzE3IDYuNjk1Yy0uMDk1Ljg4OC0uODA3IDEuNTY3LTEuNjgzIDEuNjMzbC0uMTQuMDA1SDkuNTMxYy0uODkzIDAtMS42NDUtLjYzNS0xLjgwMy0xLjVsLS4wMi0uMTM4TDYuOTkgMTBoMTAuMDE4em0tMy44NDItNC42NjdjLjI3NiAwIC41LjIyNC41LjUgMCAuMDU5LS4wMS4xMTUtLjAyOC4xNjdoMS40ODFjLjYxNSAwIDEuMTg1LjMwNSAxLjUyNi44MTZMMTcuNDMzIDhoLjA2NmMuMjc2IDAgLjUuMjI0LjUuNSAwIC4yNi0uMTk4LjQ3My0uNDUyLjQ5OEwxNy41IDloLTExYy0uMjc2IDAtLjUtLjIyNC0uNS0uNSAwLS4yNi4xOTktLjQ3My40NTItLjQ5OEw2LjU2NSA4bC43ODktMS4xODRDNy42OTQgNi4zMDYgOC4yNjUgNiA4Ljg4IDZoMS40ODFjLS4wMTgtLjA1Mi0uMDI4LS4xMDgtLjAyOC0uMTY3IDAtLjI2LjE5OC0uNDczLjQ1Mi0uNDk3bC4wNDgtLjAwM2gyLjMzM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04NDEuMDAwMDAwLCAtNDg0LjAwMDAwMCkgdHJhbnNsYXRlKDczMC4wMDAwMDAsIDE2MC4wMDAwMDApIHRyYW5zbGF0ZSgyOC4wMDAwMDAsIDE0OC4wMDAwMDApIHRyYW5zbGF0ZSgwLjAwMDAwMCwgMTc2LjAwMDAwMCkgdHJhbnNsYXRlKDgzLjAwMDAwMCwgMC4wMDAwMDApIi8+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4NCiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPg0KICAgICAgICA8Zz4NCiAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICA8Zz4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxnPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMjRWMjRIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04NDEuMDAwMDAwLCAtNDg0LjAwMDAwMCkgdHJhbnNsYXRlKDczMC4wMDAwMDAsIDE2MC4wMDAwMDApIHRyYW5zbGF0ZSgyOC4wMDAwMDAsIDE0OC4wMDAwMDApIHRyYW5zbGF0ZSgwLjAwMDAwMCwgMTc2LjAwMDAwMCkgdHJhbnNsYXRlKDgzLjAwMDAwMCwgMC4wMDAwMDApIi8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBmaWxsLW9wYWNpdHk9Ii41IiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xNy4wMDggMTBsLS43MTcgNi42OTVjLS4wOTUuODg4LS44MDcgMS41NjctMS42ODMgMS42MzNsLS4xNC4wMDVIOS41MzFjLS44OTMgMC0xLjY0NS0uNjM1LTEuODAzLTEuNWwtLjAyLS4xMzhMNi45OSAxMGgxMC4wMTh6bS0zLjg0Mi00LjY2N2MuMjc2IDAgLjUuMjI0LjUuNSAwIC4wNTktLjAxLjExNS0uMDI4LjE2N2gxLjQ4MWMuNjE1IDAgMS4xODUuMzA1IDEuNTI2LjgxNkwxNy40MzMgOGguMDY2Yy4yNzYgMCAuNS4yMjQuNS41IDAgLjI2LS4xOTguNDczLS40NTIuNDk4TDE3LjUgOWgtMTFjLS4yNzYgMC0uNS0uMjI0LS41LS41IDAtLjI2LjE5OS0uNDczLjQ1Mi0uNDk4TDYuNTY1IDhsLjc4OS0xLjE4NEM3LjY5NCA2LjMwNiA4LjI2NSA2IDguODggNmgxLjQ4MWMtLjAxOC0uMDUyLS4wMjgtLjEwOC0uMDI4LS4xNjcgMC0uMjYuMTk4LS40NzMuNDUyLS40OTdsLjA0OC0uMDAzaDIuMzMzeiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg0MS4wMDAwMDAsIC00ODQuMDAwMDAwKSB0cmFuc2xhdGUoNzMwLjAwMDAwMCwgMTYwLjAwMDAwMCkgdHJhbnNsYXRlKDI4LjAwMDAwMCwgMTQ4LjAwMDAwMCkgdHJhbnNsYXRlKDAuMDAwMDAwLCAxNzYuMDAwMDAwKSB0cmFuc2xhdGUoODMuMDAwMDAwLCAwLjAwMDAwMCkiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICAgICAgPC9nPg0KICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgIDwvZz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K");
 
 /***/ }),
 

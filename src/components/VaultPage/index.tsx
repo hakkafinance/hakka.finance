@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import images from 'src/images'
+import images from '../../images/index'
 import styles from './styles'
-import MyButton from 'src/components/Common/MyButton'
+import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
-import Web3Status from '../Web3Status/index'
+import Wallet from '../wallet/index'
 
 const VaultPage = (props) => {
 
@@ -46,7 +46,7 @@ const VaultPage = (props) => {
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Web3Status />
+          <Wallet />
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>

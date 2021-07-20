@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import images from 'src/images'
+import images from '../../images/index'
 import styles from './styles'
 // import types from 'prop-types'
-import MyButton from 'src/components/Common/MyButton'
+import MyButton from '../Common/MyButton'
 
-const Web3Status = (props) => {
+const Wallet = (props) => {
   return (
     <div sx={styles.container}>
       <div sx={styles.chainWrapper}>
@@ -22,8 +22,8 @@ const Web3Status = (props) => {
   )
 }
 
-// Web3Status.propTypes = {
+// Wallet.propTypes = {
 //   tokenName: types.string,
 // }
 
-export default Web3Status;
+export default Wallet;
