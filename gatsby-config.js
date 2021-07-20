@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Hakka Finance',
@@ -9,6 +13,7 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
+    'gatsby-plugin-polyfill-io',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
