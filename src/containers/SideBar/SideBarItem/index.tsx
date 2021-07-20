@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Flex, Text } from 'rebass'
 import styles from './styles'
-import { upperCaseFirstLetter } from 'src/common/functions'
+import { upperCaseFirstLetter } from '../../../common/functions'
 
 const SideBarItem = (props, { location, data }) => {
   const { icon, text, path, subIcon } = props
-  const [selectedNavPath, setSelectedNavPath] = useState();
+  const [selectedNavPath, setSelectedNavPath] = useState('');
   const isBrowser = typeof window !== 'undefined'
   const currentPath = isBrowser ? window.location.pathname.replace(/\//g, "") : ''
 

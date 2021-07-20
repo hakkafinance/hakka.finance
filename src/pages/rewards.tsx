@@ -1,10 +1,10 @@
 import React from 'react'
-import BlankScreen from 'src/components/BlankScreen'
-import Layout from 'src/containers/Layout'
+import BlankScreen from '../components/BlankScreen'
+import Layout from '../containers/Layout'
 
 const RewardsPage = () => {
   return (
-    <Layout>
+    <Layout title={'rewards'}>
       <BlankScreen 
         path={'rewards'}
       />

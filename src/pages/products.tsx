@@ -1,10 +1,10 @@
 import React from 'react'
-import ProductScreen from 'src/components/ProductScreen'
-import Layout from 'src/containers/Layout'
+import ProductScreen from '../components/ProductScreen'
+import Layout from '../containers/Layout'
 
 const Product = () => {
   return (
-        <Layout>
+        <Layout title={'product'}>
             <ProductScreen/>
         </Layout>
   )

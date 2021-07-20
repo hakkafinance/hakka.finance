@@ -4,7 +4,7 @@ import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
-import Wallet from '../wallet/index'
+import Wallet from '../Wallet/index'
 
 const VaultPage = (props) => {
 

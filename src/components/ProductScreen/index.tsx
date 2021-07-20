@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { jsx } from 'theme-ui'
 import { Box, Text } from 'rebass'
-import Layout from 'src/containers/Layout'
 import CardPorduct from './CardProduct'
-import images from 'src/images'
+import images from '../../images'
 import styles from './styles'
 import InfoProduct from './InfoProduct'
 
@@ -86,13 +85,13 @@ const ProductScreen = (props) => {
     }
   ]
 
-  const [screenWidth, setScreenWidth] = useState()
+  const [screenWidth, setScreenWidth] = useState(null)
   const [isShowInfoProduct, setIsShowInfoProduct] = useState(false)
   const [dataInfo, setDataInfo] = useState()
   const [selectedInfoTag, setSelectedInfoTag] = useState([])
   const [selectedCard, setSelectedCard] = useState('')
-  const [selectedCardId, setSelectedCardId] = useState()
-  const [selectedComingProductCardId, setSelectedComingProductCardId] = useState()
+  const [selectedCardId, setSelectedCardId] = useState(null)
+  const [selectedComingProductCardId, setSelectedComingProductCardId] = useState(null)
   const [closeInfo, setCloseInfo] = useState(true)
 
   const handleResize = () => {
@@ -216,14 +215,8 @@ const ProductScreen = (props) => {
     setScreenWidth(width)
   }, [])
 
-  useEffect(() => {
-    console.log('use effect is working')
-    window.addEventListener('resize', handleResize)
-    // console.log('screenwidth', screenWidth)
-  }, [screenWidth])
-
   return (
-    <div onresize={handleResize}>
+    <div>
       <Box sx={styles.productScreenContainer}>
         <Text sx={styles.heading}>Products</Text>
         <Box sx={styles.normal_text} mt="3">
