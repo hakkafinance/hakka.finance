@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
@@ -15,7 +15,9 @@ import {
   ChainId,
   HAKKA,
   BURNER_ADDRESS,
+  REWARD_TOKENS
 } from '../../constants';
+import { find } from 'lodash'
 
 const VaultPage = (props) => {
   const { chainId } = useActiveWeb3React()
@@ -48,35 +50,47 @@ const VaultPage = (props) => {
   const estimateAmount = 500;
   const hakkaBalance = 500.123;
   const HAKKAADDRESS = '0x0E29e5Ab…47dE3bcd';
-  const tokenList = {
-    '1': {
-      tokenName: 'HAKKA',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: true,
-      checked: false,
-    }, '2': {
-      tokenName: 'DAI',
-      receiveAmount: '0.201',
-      bankBalance: '200.99',
-      isDefaultToken: true,
-      checked: true,
-    }, '3': {
-      tokenName: 'BHS',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: false,
-      checked: false,
-    }, '4': {
-      tokenName: 'YUANANTOKEN',
-      receiveAmount: '100',
-      bankBalance: '20000',
-      isDefaultToken: false,
-      checked: true,
-    }
-  };
 
-  // const rewardList
+  const [rewardTokens, setRewardTokens] = useState(REWARD_TOKENS[1]) // chainId
+
+  // sort the reward tokens address
+  const [pickedRewardTokensAddress, setPickedRewardTokensAddress] = useState([
+    ...Object.keys(rewardTokens).sort((a, b) => parseInt(a) - parseInt(b)),
+  ]);
+
+  // when new token added sort again.
+  useEffect(() => {
+    let newSortedTokens = Object.keys(rewardTokens).sort(
+      (a, b) => parseInt(a) - parseInt(b)
+    );
+    setPickedRewardTokensAddress(newSortedTokens);
+  }, [rewardTokens]);
+
+  // haddle checklist click 
+
+  // 保留: 不用 callback 是否有差 (印象很模糊，記得好像是我加的)
+  // const toggleTokens = useCallback(
+  //   (tokenAddress) => {
+  //     const selectedTokenList = sortedRewardTokensAddress.includes(tokenAddress) //return true or false
+  //       ? sortedRewardTokensAddress.filter((sortedAddress) => sortedAddress !== tokenAddress) //return 符合規則的新陣列
+  //       : [...sortedRewardTokensAddress, tokenAddress]; //(... 展開運算符) 將點選的地址加入到陣列之中
+  //     const sorted = selectedTokenList.sort(
+  //       (a, b) => parseInt(a) - parseInt(b)
+  //     );
+  //     setSortedRewardTokensAddress(sorted);
+  //   },
+  //   [sortedRewardTokensAddress]
+  // );
+
+  const toggleToken = (tokenAddress: string) => {
+    const selectedTokenList = pickedRewardTokensAddress.includes(tokenAddress) //return true or false
+      ? pickedRewardTokensAddress.filter((sortedAddress) => sortedAddress !== tokenAddress) //return 符合規則的新陣列
+      : [...pickedRewardTokensAddress, tokenAddress]; //(... 展開運算符) 將點選的地址加入到陣列之中
+    const sortedAddress = selectedTokenList.sort(
+      (a, b) => parseInt(a) - parseInt(b)
+    );
+    setPickedRewardTokensAddress(sortedAddress);
+  };
 
   return (
     <div sx={styles.container}>
@@ -113,16 +127,16 @@ const VaultPage = (props) => {
               <MyButton>Add</MyButton>
             </div>
             <div sx={styles.rewardListContainer}>
-              {Object.keys(tokenList).map((tokenAddress) => {
+              {Object.keys(rewardTokens).map((tokenAddress) => {
                 return (
                   <RewardListItem
                     key={tokenAddress}
-                    tokenName={tokenList[tokenAddress].tokenName}
-                    receiveAmount={tokenList[tokenAddress].receiveAmount}
-                    bankBalance={tokenList[tokenAddress].bankBalance}
-                    isDefaultToken={tokenList[tokenAddress].isDefaultToken}
-                    checked={tokenList[tokenAddress].checked}
-                    onChange={() => { alert('123') }}
+                    tokenName={rewardTokens[tokenAddress].symbol}
+                    receiveAmount={'100'}
+                    bankBalance={'10000'}
+                    isDefaultToken={Object.keys(REWARD_TOKENS[1]).includes(tokenAddress)} // chainId
+                    checked={pickedRewardTokensAddress.includes(tokenAddress)}
+                    onChange={() => { toggleToken(tokenAddress) }}
                   />)
               })}
             </div>
