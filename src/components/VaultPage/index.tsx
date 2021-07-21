@@ -1,12 +1,49 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { useEffect } from 'react'
 import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
 import Wallet from '../Wallet/index'
+import { useActiveWeb3React } from '../../hooks/index'
+import { useSnackbar } from '../../hooks/useSnackbar'
+import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
+import { getEtherscanLink, shortenTxId } from '../../utils'
+
+import {
+  ChainId,
+  HAKKA,
+  BURNER_ADDRESS,
+} from '../../constants';
 
 const VaultPage = (props) => {
+  const { chainId } = useActiveWeb3React()
+  const { enqueueSnackbar } = useSnackbar()
+  const [approveInfo, approveCallback] = useApproveCallback(
+    HAKKA[chainId as ChainId],
+    BURNER_ADDRESS[chainId as ChainId]
+  )
+
+  useEffect(() => {
+    if (approveInfo.state === ApprovalState.APPROVED) {
+      console.log('APPROVED')
+    } else if (approveInfo.state === ApprovalState.NOT_APPROVED) {
+      console.log('NOT_APPROVED')
+    } else if (approveInfo.state === ApprovalState.PENDING) {
+      console.log('PENDING')
+      console.log(approveInfo.txid)
+      enqueueSnackbar(
+        <a
+          target='_blank'
+          href={getEtherscanLink(chainId ?? 1, approveInfo.txid, 'transaction')}
+        >{shortenTxId(approveInfo.txid)}</a>,
+        approveInfo.txid
+      )
+    } else {
+      console.log('UNKNOWN')
+    }
+  }, [approveInfo])
 
   const estimateAmount = 500;
   const hakkaBalance = 500.123;
@@ -96,7 +133,7 @@ const VaultPage = (props) => {
               <span sx={styles.totalValueAmount}>{estimateAmount} USD</span>
             </div>
             <div>
-              <MyButton type={'green'}>Burn</MyButton>
+              <MyButton type={'green'} click={approveCallback}>Burn</MyButton>
             </div>
           </div>
         </div>

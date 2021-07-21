@@ -1,6 +1,6 @@
-import { MaxUint256 } from '@ethersproject/constants';
+import { MaxUint256, WeiPerEther } from '@ethersproject/constants';
 import { TransactionResponse } from '@ethersproject/providers';
-import { TokenAmount, CurrencyAmount, ETHER } from '@uniswap/sdk';
+import { Token } from '@uniswap/sdk';
 import { useState, useCallback, useMemo } from 'react';
 import { useTokenAllowance } from '../data/Allowances';
 import { calculateGasMargin } from '../utils';
@@ -15,12 +15,11 @@ export enum ApprovalState {
 }
 
 export function useApproveCallback(
-  amountToApprove?: CurrencyAmount,
+  tokenToApprove?: Token,
   spender?: string
 ): [{ state: ApprovalState, txid: string }, () => Promise<void>] {
   const { account } = useActiveWeb3React();
-  const token =
-    amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined;
+  const token = tokenToApprove;
   const currentAllowance = useTokenAllowance(
     token,
     account ?? undefined,
@@ -29,17 +28,16 @@ export function useApproveCallback(
   const [currentTransaction, setCurrentTransaction] = useState(null)
 
   const approvalInfo: { state: ApprovalState, txid: string | null } = useMemo(() => {
-    if (!amountToApprove || !spender) return { state: ApprovalState.UNKNOWN, txid: null };
-    if (amountToApprove.currency === ETHER) return { state: ApprovalState.APPROVED, txid: null };
+    if (!tokenToApprove || !spender) return { state: ApprovalState.UNKNOWN, txid: null };
     if (!currentAllowance) return { state: ApprovalState.UNKNOWN, txid: null };
 
-    return { state: currentAllowance.lessThan(amountToApprove)
+    return { state: currentAllowance.multiply(WeiPerEther.toString()).lessThan(MaxUint256.toString())
       ? currentTransaction
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED,
-      txid: null };
-  }, [currentTransaction, amountToApprove, currentAllowance, spender]);
+      txid: currentTransaction };
+  }, [currentTransaction, tokenToApprove, currentAllowance, spender]);
 
   const tokenContract = useTokenContract(token?.address);
 
@@ -58,37 +56,23 @@ export function useApproveCallback(
       return;
     }
 
-    if (!amountToApprove) {
-      console.error('missing amount to approve');
-      return;
-    }
-
     if (!spender) {
       console.error('no spender');
       return;
     }
 
-    let useExact = false;
-    const estimatedGas = await tokenContract.estimateGas
-      .approve(spender, MaxUint256)
-      .catch(() => {
-        useExact = true;
-        return tokenContract.estimateGas.approve(
-          spender,
-          amountToApprove.raw.toString()
-        );
-      });
+    const estimatedGas = await tokenContract.estimateGas.approve(
+      spender,
+      MaxUint256,
+    );
 
     return tokenContract
-      .approve(
-        spender,
-        useExact ? amountToApprove.raw.toString() : MaxUint256,
-        {
-          gasLimit: calculateGasMargin(estimatedGas),
-        }
-      )
+      .approve(spender, MaxUint256, {
+        gasLimit: calculateGasMargin(estimatedGas),
+      })
       .then((response: TransactionResponse) => {
         setCurrentTransaction(response.hash);
+        setTimeout(() => setCurrentTransaction(null), 5000);
       })
       .catch((error: Error) => {
         console.debug('Failed to approve token', error);
@@ -98,7 +82,7 @@ export function useApproveCallback(
     approvalInfo,
     token,
     tokenContract,
-    amountToApprove,
+    tokenToApprove,
     spender,
   ]);
 

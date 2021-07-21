@@ -54,6 +54,7 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-spring": "^9.1.2",
+    "react-transition-group": "^4.4.2",
     "rebass": "^4.0.7",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",

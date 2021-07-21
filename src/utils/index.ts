@@ -52,6 +52,10 @@ export function shortenAddress(address: string, chars = 4): string {
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`;
 }
 
+export function shortenTxId(address: string, chars = 6): string {
+  return `${address.substring(0, chars + 2)}...${address.substring(64 - chars)}`;
+}
+
 // add 10%
 export function calculateGasMargin(value: BigNumber): BigNumber {
   return value
