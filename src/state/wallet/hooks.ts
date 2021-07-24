@@ -7,13 +7,14 @@ import {
   TokenAmount,
 } from '@uniswap/sdk';
 import { useMemo } from 'react';
-import ERC20_INTERFACE from '../../constants/abis/erc20';
+import { Interface } from '@ethersproject/abi';
 import { useMulticallContract } from '../../hooks/useContract';
 import { isAddress } from '../../utils';
 import {
   useSingleContractMultipleData,
   useMultipleContractSingleData,
 } from '../multicall/hooks';
+import ERC20_ABI from '../../constants/abis/erc20.json';
 
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.
@@ -75,6 +76,7 @@ export function useTokenBalancesWithLoadingIndicator(
     [validatedTokens]
   );
 
+  const ERC20_INTERFACE = new Interface(ERC20_ABI);
   const balances = useMultipleContractSingleData(
     validatedTokenAddresses,
     ERC20_INTERFACE,

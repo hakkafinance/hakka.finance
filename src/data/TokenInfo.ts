@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
 import { JSBI, TokenAmount, Token } from '@uniswap/sdk';
+import { Interface } from '@ethersproject/abi';
 import { useActiveWeb3React } from '../hooks';
-import ERC20_INTERFACE from '../constants/abis/erc20';
+import ERC20_ABI from '../../constants/abis/erc20.json';
 import { useMultipleContractSingleData } from '../state/multicall/hooks';
 
 export enum TokenInfoState {
@@ -27,6 +28,7 @@ export function useTokensInfo(
   );
 
   const accountArg = useMemo(() => [account ?? undefined], [account]);
+  const ERC20_INTERFACE = new Interface(ERC20_ABI);
 
   // get all the info from the token contracts
   const balances = useMultipleContractSingleData(
