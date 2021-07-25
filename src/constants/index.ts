@@ -17,9 +17,9 @@ export enum ChainId {
 }
 
 export const ChainName: { [chainId in ChainId]: string } = {
-  1: 'Ethereum Mainnet',
-  42: 'Kovan Testnet',
-  56: 'Binance Smart Chain',
+  1: 'Mainnet',
+  42: 'Kovan',
+  56: 'BSC',
 };
 
 export interface WalletInfo {

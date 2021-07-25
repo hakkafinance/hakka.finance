@@ -9,6 +9,7 @@ import { shortenAddress } from '../../utils';
 import MyButton from '../../components/Common/MyButton'
 import WalletModal from '../WalletModal';
 import InfoModal from '../InfoModal';
+import CurrentNetwork from '../CurrentNetwork'
 import images from '../../images'
 import styles from './styles'
 
@@ -26,12 +27,7 @@ const Web3Status = (props) => {
   return (
     <>
       <div sx={styles.container}>
-        <div sx={styles.chainWrapper}>
-          <img src={images.iconEthereumDark} alt='Chain Icon' />
-          <span sx={styles.chainNameWrapper}>
-            Ethereum
-          </span>
-        </div>
+        <CurrentNetwork />
         <div sx={styles.loginButtonWrapper}>
           <MyButton
             id={account ? 'web3-status-connected' : 'connect-wallet'}
