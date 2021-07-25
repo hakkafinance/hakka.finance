@@ -5,6 +5,8 @@ import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
 import { JSBI, Percent } from '@uniswap/sdk';
+import { ERC20_ABI, ERC20_BYTES32_ABI } from '../constants/abis/erc20';
+import { ethers } from 'ethers';
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -177,4 +179,80 @@ export const formattedNum = (
   }
 
   return Number(parseFloat(num.toString()).toFixed(5));
+};
+
+export function isERC20Contract(tokenAddress: string, library: any) {
+  return getContract(tokenAddress, ERC20_ABI, library)
+    .name()
+    .catch(() =>
+      getContract(tokenAddress, ERC20_BYTES32_ABI, library)
+        .name()
+        .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32))
+    )
+    .catch(() => {
+      return false;
+    });
+};
+
+export const ERROR_CODES = [
+  'TOKEN_NAME',
+  'TOKEN_SYMBOL',
+  'TOKEN_DECIMALS',
+].reduce((accumulator: any, currentValue: string, currentIndex: number) => {
+  accumulator[currentValue] = currentIndex;
+  return accumulator;
+}, {});
+
+export async function getTokenName(tokenAddress: string, library: any) {
+  if (!isAddress(tokenAddress)) {
+    throw Error(`Invalid 'tokenAddress' parameter '${tokenAddress}'.`);
+  }
+
+  return getContract(tokenAddress, ERC20_ABI, library)
+    .name()
+    .catch(() =>
+      getContract(tokenAddress, ERC20_BYTES32_ABI, library)
+        .name()
+        .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32))
+    )
+    .catch((error: any) => {
+      error.code = ERROR_CODES.TOKEN_SYMBOL;
+      throw error;
+    });
+};
+
+export async function getTokenSymbol(tokenAddress: string, library: any) {
+  if (!isAddress(tokenAddress)) {
+    throw Error(`Invalid 'tokenAddress' parameter '${tokenAddress}'.`);
+  }
+
+  return getContract(tokenAddress, ERC20_ABI, library)
+    .symbol()
+    .catch(() => {
+      const contractBytes32 = getContract(
+        tokenAddress,
+        ERC20_BYTES32_ABI,
+        library
+      );
+      return contractBytes32
+        .symbol()
+        .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32));
+    })
+    .catch((error: any) => {
+      error.code = ERROR_CODES.TOKEN_SYMBOL;
+      throw error;
+    });
+};
+
+export async function getTokenDecimals(tokenAddress: string, library: any) {
+  if (!isAddress(tokenAddress)) {
+    throw Error(`Invalid 'tokenAddress' parameter '${tokenAddress}'.`);
+  }
+
+  return getContract(tokenAddress, ERC20_ABI, library)
+    .decimals()
+    .catch((error: any) => {
+      error.code = ERROR_CODES.TOKEN_DECIMALS;
+      throw error;
+    });
 };

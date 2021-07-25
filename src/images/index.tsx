@@ -14,6 +14,7 @@ const images = {
   iconTrash: require('../images/icons/iconTrash.svg').default,
   iconChekBoxChecked: require('../images/icons/checkboxChecked.svg').default,
   iconChekBoxUnchecked: require('../images/icons/checkboxUnchecked.svg').default,
+  iconLock: require('../images/icons/iconLock.svg').default,
 
   // web applications icon
 

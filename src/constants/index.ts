@@ -106,7 +106,7 @@ const NAME: string = 'name';
 const SYMBOL: string = 'symbol';
 const DECIMALS: string = 'decimals';
 
-export const REWARD_TOKENS: { [chainId in ChainId]: any } = {
+export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
   [ChainId.MAINNET]: {
     '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE': {
       [NAME]: 'Ether',

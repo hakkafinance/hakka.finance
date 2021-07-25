@@ -53,6 +53,7 @@ export default {
 
     '@media screen and (max-width: 1200px)': {
       width: '100%',
+      marginBottom: '28px',
     }
   },
 
@@ -69,6 +70,10 @@ export default {
   contractAddress: {
     fontWeight: 'bold',
     textDecoration: 'underline',
+
+    ':hover': {
+      cursor: 'pointer',
+    },
   },
 
   hakkaBalance: {
@@ -99,7 +104,7 @@ export default {
 
     '@media screen and (max-width: 1200px)': {
       marginLeft: '0',
-      margin: 'auto'
+      margin: 'auto',
     },
 
     '@media screen and (max-width: 576px)': {
@@ -125,9 +130,13 @@ export default {
     fontSize: '14px',
     color: 'rgba(37, 62, 71, 0.5)',
     fontWeight: '600',
+
+    ':hover': {
+      cursor: 'pointer',
+    },
   },
 
-  addTokenButtonAddIcon: {
+  addIcon: {
     paddingLeft: '4px'
   },
 

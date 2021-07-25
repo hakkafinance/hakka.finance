@@ -6,21 +6,32 @@ import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
 import Wallet from '../Wallet/index'
+import NumericalInputCard from './NumericalInputCard/index'
+import NewTokenAddressInput from './NewTokenAddressInput'
 import { useActiveWeb3React } from '../../hooks/index'
 import { useSnackbar } from '../../hooks/useSnackbar'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 import { getEtherscanLink, shortenTxId } from '../../utils'
+import { useTokenBalance, useETHBalances } from '../../state/wallet/hooks'
+import {
+  isAddress,
+  isERC20Contract,
+  getTokenDecimals,
+  getTokenName,
+  getTokenSymbol
+} from '../../utils/index'
+
 
 import {
   ChainId,
   HAKKA,
   BURNER_ADDRESS,
-  REWARD_TOKENS
+  VAULT_TOKENS,
+  GUILDBANK
 } from '../../constants';
-import { find } from 'lodash'
 
 const VaultPage = (props) => {
-  const { chainId } = useActiveWeb3React()
+  const { account, library, chainId } = useActiveWeb3React()
   const { enqueueSnackbar } = useSnackbar()
   const [approveInfo, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
@@ -47,11 +58,17 @@ const VaultPage = (props) => {
     }
   }, [approveInfo])
 
+  // ----------------------------------------------
   const estimateAmount = 500;
-  const hakkaBalance = 500.123;
-  const HAKKAADDRESS = '0x0E29e5Ab…47dE3bcd';
+  const testHakkaBalance = 500.123;
+  // ----------------------------------------------
 
-  const [rewardTokens, setRewardTokens] = useState(REWARD_TOKENS[1]) // chainId
+  const [inputAmount, setInputAmount] = useState('');
+
+  const [rewardTokens, setRewardTokens] = useState(VAULT_TOKENS[chainId || 1]);
+
+  const [isAddTokenClick, setIsAddTokenClick] = useState(false);
+  const [newAddressInput, setNewAddressInput] = useState('');
 
   // sort the reward tokens address
   const [pickedRewardTokensAddress, setPickedRewardTokensAddress] = useState([
@@ -92,6 +109,28 @@ const VaultPage = (props) => {
     setPickedRewardTokensAddress(sortedAddress);
   };
 
+
+  const [addTokenError, setAddTokenError] = useState<string>('');
+
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
+
+  // // get HAKKA balance
+  // const hakkaBalance = useTokenBalance(
+  //   account as string,
+  //   HAKKA[chainId as ChainId]
+  // );
+
+
+  const getEthBalance = useETHBalances([GUILDBANK[chainId as ChainId]])
+  const ethBalance = getEthBalance[GUILDBANK[chainId as ChainId]]?.raw.toString()
+  console.log("ethBalance", ethBalance)
+
+
+  // ----------------------------------------------------------------------------------------------------------------------------------
+
+
   return (
     <div sx={styles.container}>
       <div sx={styles.vaultPageWrapper}>
@@ -104,28 +143,52 @@ const VaultPage = (props) => {
             <h3 sx={styles.subTitle}>Burn to get value</h3>
             <div sx={styles.contract}>
               <span>Contract</span>
-              <span sx={styles.contractAddress}>{HAKKAADDRESS}</span>
+              <span
+                sx={styles.contractAddress}
+                onClick={() => { window.open('https://etherscan.io/address/0xde02313f8BF17f31380c63e41CDECeE98Bc2b16d#code', '_blank').focus() }}
+              >
+                {BURNER_ADDRESS[chainId || 1].slice(0, 10) + '...' + BURNER_ADDRESS[chainId || 1].slice(-8,)}
+              </span>
             </div>
             <p>Description Description Description Description Description Description</p>
             <div sx={styles.hakkaBalance}>
               <span>Burn</span>
-              <span>HAKKA Balance: {hakkaBalance}</span>
+              <span>HAKKA Balance: {testHakkaBalance}</span>
             </div>
+            <NumericalInputCard
+              value={inputAmount}
+              onUserInput={setInputAmount}
+              hakkaBalance={'1000'}
+              approveCallback={approveCallback}
+              approveState={approveInfo.state}
+            />
           </div>
           <div sx={styles.formContainer}>
             <div sx={styles.formTitleArea}>
               <span sx={styles.formTitle}>You wish to receive</span>
-              <div sx={styles.addTokenButton}>
-                <span sx={{ paddingBottom: '2px' }}>Add token</span>
-                <img style={styles.addTokenButtonAddIcon} src={images.iconAdd} alt='add new token' />  {/* + */}
-                {/* <img src={images.iconDeleteRound} alt='Close the address input window' /> */}
+              <div
+                sx={styles.addTokenButton}
+                onClick={() => setIsAddTokenClick(!isAddTokenClick)}
+              >
+                {isAddTokenClick
+                  ? <img src={images.iconDeleteRound} alt='Close the address input window' />
+                  : <div sx={styles.addTokenButton}>
+                    <span sx={{ paddingBottom: '2px' }}>Add token</span>
+                    <img style={styles.addIcon} src={images.iconAdd} alt='add new token' />
+                  </div>
+                }
               </div>
             </div>
             {/* add new token input area */}
-            <div>
-              {/* input */}
-              <MyButton>Add</MyButton>
-            </div>
+            {isAddTokenClick ?
+              <NewTokenAddressInput
+                value={newAddressInput}
+                onUserInput={setNewAddressInput}
+                rewardTokens={rewardTokens}
+                setAddTokenError={setAddTokenError}
+              />
+              : ''
+            }
             <div sx={styles.rewardListContainer}>
               {Object.keys(rewardTokens).map((tokenAddress) => {
                 return (
@@ -134,7 +197,7 @@ const VaultPage = (props) => {
                     tokenName={rewardTokens[tokenAddress].symbol}
                     receiveAmount={'100'}
                     bankBalance={'10000'}
-                    isDefaultToken={Object.keys(REWARD_TOKENS[1]).includes(tokenAddress)} // chainId
+                    isDefaultToken={Object.keys(VAULT_TOKENS[chainId || 1]).includes(tokenAddress)} // chainId
                     checked={pickedRewardTokensAddress.includes(tokenAddress)}
                     onChange={() => { toggleToken(tokenAddress) }}
                   />)
