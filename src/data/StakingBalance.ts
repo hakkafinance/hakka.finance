@@ -14,10 +14,6 @@ import {
 export function useStakingBalance(): TokenAmount | undefined {
   const { chainId, library, account } = useActiveWeb3React();
 
-  if (chainId !== 1) {
-    return new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(0));
-  }
-
   const contract = getContract(
     STAKING_ADDRESSES[(chainId as ChainId)],
     STAKING_ABI,

@@ -1,6 +1,5 @@
 import { Contract } from '@ethersproject/contracts';
 import { getAddress } from '@ethersproject/address';
-import { AddressZero } from '@ethersproject/constants';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
@@ -18,6 +17,7 @@ export function isAddress(value: any): string | false {
 const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   1: '',
   42: 'kovan.',
+  56: '',
 };
 
 export function getEtherscanLink(
@@ -25,9 +25,12 @@ export function getEtherscanLink(
   data: string,
   type: 'transaction' | 'token' | 'address'
 ): string {
-  const prefix = `https://${
-    ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
-  }etherscan.io`;
+  const prefix =
+    chainId === ChainId.BSC
+      ? 'https://bscscan.com'
+      : `https://${
+          ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
+        }etherscan.io`
 
   switch (type) {
     case 'transaction': {
@@ -91,7 +94,7 @@ export function getContract(
   library: Web3Provider,
   account?: string
 ): Contract {
-  if (!isAddress(address) || address === AddressZero) {
+  if (!isAddress(address)) {
     throw Error(`Invalid 'address' parameter '${address}'.`);
   }
 
