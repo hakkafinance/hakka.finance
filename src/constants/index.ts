@@ -11,7 +11,11 @@ import {
 
 export enum ChainId {
   MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GOERLI = 5,
   KOVAN = 42,
+  BSC = 56,
 }
 
 export interface WalletInfo {
@@ -71,16 +75,25 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
     'HAKKA',
     'Hakka Finance'
   ),
+  [ChainId.BSC]: new Token(
+    56,
+    '0x1d1eb8e8293222e1a29d2c0e4ce6c0acfd89aaac',
+    18,
+    'HAKKA',
+    'Hakka Finance'
+  ),
 };
 
 export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xd9958826bce875a75cc1789d5929459e6ff15040',
   [ChainId.KOVAN]: '',
+  [ChainId.BSC]: '',
 };
 
 export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x51F12323820b3c0077864990d9E6aD9604238Ed6',
   [ChainId.KOVAN]: '',
+  [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {

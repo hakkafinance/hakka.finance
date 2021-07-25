@@ -63,16 +63,16 @@ export default function WalletModal() {
         </div>
         <div sx={styles.contentWrapper}>
           <div>
-            <div>{hakkaValueAmount.toFixed(2)} HAKKA</div>
+            <div>{hakkaValueAmount?.toFixed(2)} HAKKA</div>
             <div>{hakkaPrice} USD</div>
           </div>
           <div>
             <div>Staking balance</div>
-            <div>{stakingValueAmount.toFixed(2)} HAKKA</div>
+            <div>{stakingValueAmount?.toFixed(2)} HAKKA</div>
           </div>
           <div>
             <div>Vesting balance</div>
-            <div>{vestingValueAmount.toFixed(2)} HAKKA</div>
+            <div>{vestingValueAmount?.toFixed(2)} HAKKA</div>
           </div>
         </div>
       </div>

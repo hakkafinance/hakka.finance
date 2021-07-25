@@ -14,21 +14,6 @@ export default {
     alignItems: 'center',
   },
 
-  chainWrapper: {
-    display: 'flex',
-    paddingRight: '12px',
-    '@media screen and (max-width: 576px)': {
-      paddingRight: '0'
-    },
-  },
-
-  chainNameWrapper: {
-    whiteSpace: 'nowrap',
-    color: '#253e47',
-    fontWeight: 'bold',
-    marginLeft: '4px',
-  },
-
   loginButtonWrapper: {
     width: '153px',
     '@media screen and (max-width: 576px)': {
