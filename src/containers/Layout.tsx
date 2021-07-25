@@ -8,6 +8,7 @@ import Header from './Header'
 import Footer from './Footer'
 import styles from './styles'
 import images from '../images'
+import Web3ReactManager from '../components/Web3ReactManager'
 
 const Layout = ({ children, title }) => {
   const [isShowSideBar, setIsShowSideBar] = useState(false)
@@ -41,7 +42,9 @@ const Layout = ({ children, title }) => {
           <Box
             sx={styles.content}
           >
-            {children}
+            <Web3ReactManager>
+              {children}
+            </Web3ReactManager>
           </Box>
           <Footer />
         </Box>

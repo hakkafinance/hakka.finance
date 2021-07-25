@@ -3,12 +3,12 @@ import {
   PopupContent,
   UpdateBlockNumberAction,
   ToggleWalletModalAction,
-  ToggleSettingsMenuAction,
+  ToggleInfoModalAction,
   AddPopupAction,
   RemovePopupAction,
   UPDATE_BLOCK_NUMBER,
   TOGGLE_WALLET_MODAL,
-  TOGGLE_SETTINGS_MENU,
+  TOGGLE_INFO_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
 } from './actions';
@@ -26,20 +26,20 @@ export interface ApplicationState {
   readonly blockNumber: { readonly [chainId: number]: number };
   readonly popupList: PopupList;
   readonly walletModalOpen: boolean;
-  readonly settingsMenuOpen: boolean;
+  readonly infoModalOpen: boolean;
 }
 
 export const initialApplicationState: ApplicationState = {
   blockNumber: {},
   popupList: [],
   walletModalOpen: false,
-  settingsMenuOpen: false,
+  infoModalOpen: false,
 };
 
 type ApplicationAction =
   | UpdateBlockNumberAction
   | ToggleWalletModalAction
-  | ToggleSettingsMenuAction
+  | ToggleInfoModalAction
   | AddPopupAction
   | RemovePopupAction;
 
@@ -73,10 +73,10 @@ export default function reducer(
         walletModalOpen: !state.walletModalOpen,
       };
     }
-    case TOGGLE_SETTINGS_MENU: {
+    case TOGGLE_INFO_MODAL: {
       return {
         ..._state,
-        settingsMenuOpen: !state.settingsMenuOpen,
+        infoModalOpen: !state.infoModalOpen,
       };
     }
     case ADD_POPUP: {

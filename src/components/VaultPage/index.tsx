@@ -8,6 +8,7 @@ import RewardListItem from './RewardListItem/index'
 import Wallet from '../Wallet/index'
 import NumericalInputCard from './NumericalInputCard/index'
 import NewTokenAddressInput from './NewTokenAddressInput'
+import Web3Status from '../Web3Status'
 import { useActiveWeb3React } from '../../hooks/index'
 import { useSnackbar } from '../../hooks/useSnackbar'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
@@ -37,14 +38,18 @@ const VaultPage = (props) => {
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId]
   )
+  const hakkaBalance = useTokenBalance(
+    account as string, 
+    HAKKA[chainId as ChainId] 
+  );
 
   useEffect(() => {
     if (approveInfo.state === ApprovalState.APPROVED) {
-      console.log('APPROVED')
+      // console.log('APPROVED')
     } else if (approveInfo.state === ApprovalState.NOT_APPROVED) {
-      console.log('NOT_APPROVED')
+      // console.log('NOT_APPROVED')
     } else if (approveInfo.state === ApprovalState.PENDING) {
-      console.log('PENDING')
+      // console.log('PENDING')
       console.log(approveInfo.txid)
       enqueueSnackbar(
         <a
@@ -54,12 +59,13 @@ const VaultPage = (props) => {
         approveInfo.txid
       )
     } else {
-      console.log('UNKNOWN')
+      // console.log('UNKNOWN')
     }
   }, [approveInfo])
 
   // ----------------------------------------------
   const estimateAmount = 500;
+
   const testHakkaBalance = 500.123;
   // ----------------------------------------------
 
@@ -136,7 +142,7 @@ const VaultPage = (props) => {
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Wallet />
+          <Web3Status />
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>
@@ -153,7 +159,7 @@ const VaultPage = (props) => {
             <p>Description Description Description Description Description Description</p>
             <div sx={styles.hakkaBalance}>
               <span>Burn</span>
-              <span>HAKKA Balance: {testHakkaBalance}</span>
+              <span>HAKKA Balance: {hakkaBalance?.toFixed(18)}</span>
             </div>
             <NumericalInputCard
               value={inputAmount}

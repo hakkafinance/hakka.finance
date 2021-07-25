@@ -1,17 +1,17 @@
 export default {
+  text: {
+    flex: '1 1 auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    margin: '0 0.5rem 0 0.25rem',
+    fontSize: '1rem',
+    width: 'fit-content',
+    fontWight: '500',
+  },
   container: {
     display: 'flex',
     alignItems: 'center',
-    '@media screen and (max-width: 576px)': {
-      position: 'fixed',
-      bottom: '0',
-      padding: '12px 16px 12px 16px',
-      marginLeft: '-16px',
-      width: '100vw',
-      backgroundColor: '#f7fbfc',
-      boxShadow: '0 -4px 16px 0 rgba(123, 135, 148, 0.25)',
-      justifyContent: 'space-between',
-    },
   },
 
   chainWrapper: {
@@ -40,10 +40,17 @@ export default {
   accountIconWrapper: {
     padding: '12px',
     marginLeft: '12px',
+    border: 'solid 1px #dae1e3',
+    transition: 'all 0.25s ease-out',
     borderRadius: '8px',
     backgroundColor: 'rgba(62, 189, 147, 0.1)',
     '@media screen and (max-width: 576px)': {
       marginLeft: '0'
     },
+    '&:hover': {
+      cursor: 'pointer',
+      border: 'solid 1px #3ebd93',
+      transition: 'all 0.25s ease-out',
+    }
   },
 }
