@@ -1,5 +1,12 @@
+const webpack = require('webpack')
+
 module.exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    plugins: [
+      new webpack.ProvidePlugin({
+        Buffer: [require.resolve('buffer/'), 'Buffer']
+      })
+    ],
     resolve: {
       fallback: {
         os: require.resolve('os-browserify/browser'),

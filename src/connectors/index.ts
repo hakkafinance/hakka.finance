@@ -58,7 +58,7 @@ export const portis = new PortisConnector({
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URL,
-  appName: 'Uniswap',
+  appName: 'Hakka Finance',
   appLogoUrl:
-    'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg',
+    'https://raw.githubusercontent.com/hakka-finance/token-profile/e84d84e3345a9ef52c863a84867e9460a0ed1a40/images/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd.png',
 });

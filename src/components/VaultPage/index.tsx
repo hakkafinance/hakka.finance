@@ -5,8 +5,9 @@ import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
-import Wallet from '../Wallet/index'
+import Web3Status from '../Web3Status'
 import { useActiveWeb3React } from '../../hooks/index'
+import { useTokenBalance } from '../../state/wallet/hooks'
 import { useSnackbar } from '../../hooks/useSnackbar'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 import { getEtherscanLink, shortenTxId } from '../../utils'
@@ -20,20 +21,24 @@ import {
 import { find } from 'lodash'
 
 const VaultPage = (props) => {
-  const { chainId } = useActiveWeb3React()
+  const { chainId, account } = useActiveWeb3React()
   const { enqueueSnackbar } = useSnackbar()
   const [approveInfo, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId]
   )
+  const hakkaBalance = useTokenBalance(
+    account as string, 
+    HAKKA[chainId as ChainId] 
+  );
 
   useEffect(() => {
     if (approveInfo.state === ApprovalState.APPROVED) {
-      console.log('APPROVED')
+      // console.log('APPROVED')
     } else if (approveInfo.state === ApprovalState.NOT_APPROVED) {
-      console.log('NOT_APPROVED')
+      // console.log('NOT_APPROVED')
     } else if (approveInfo.state === ApprovalState.PENDING) {
-      console.log('PENDING')
+      // console.log('PENDING')
       console.log(approveInfo.txid)
       enqueueSnackbar(
         <a
@@ -43,12 +48,11 @@ const VaultPage = (props) => {
         approveInfo.txid
       )
     } else {
-      console.log('UNKNOWN')
+      // console.log('UNKNOWN')
     }
   }, [approveInfo])
 
   const estimateAmount = 500;
-  const hakkaBalance = 500.123;
   const HAKKAADDRESS = '0x0E29e5Ab…47dE3bcd';
 
   const [rewardTokens, setRewardTokens] = useState(REWARD_TOKENS[1]) // chainId
@@ -97,7 +101,7 @@ const VaultPage = (props) => {
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Wallet />
+          <Web3Status />
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>
@@ -109,7 +113,7 @@ const VaultPage = (props) => {
             <p>Description Description Description Description Description Description</p>
             <div sx={styles.hakkaBalance}>
               <span>Burn</span>
-              <span>HAKKA Balance: {hakkaBalance}</span>
+              <span>HAKKA Balance: {hakkaBalance?.toFixed(18)}</span>
             </div>
           </div>
           <div sx={styles.formContainer}>

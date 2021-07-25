@@ -29,8 +29,11 @@ export default {
   },
 
   header: {
-    display: 'flex',
     justifyContent: 'space-between',
+
+    '@media screen and (min-width: 576px)': {
+      display: 'flex',
+    },
   },
 
   title: {

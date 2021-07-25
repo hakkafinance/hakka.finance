@@ -31,16 +31,14 @@ export function useWalletModalToggle(): () => void {
   return toggleWalletModal;
 }
 
-export function useSettingsMenuOpen(): boolean {
-  const settingsMenuOpen = useApplicationContextStateSelector(
-    'settingsMenuOpen'
-  );
-  return settingsMenuOpen;
+export function useInfoModalOpen(): boolean {
+  const infoModalOpen = useApplicationContextStateSelector('infoModalOpen');
+  return infoModalOpen;
 }
 
-export function useToggleSettingsMenu(): () => void {
-  const { toggleSettingsMenu } = useApplicationContext();
-  return toggleSettingsMenu;
+export function useInfoModalToggle(): () => void {
+  const { toggleInfoModal } = useApplicationContext();
+  return toggleInfoModal;
 }
 
 // returns a function that allows adding a popup

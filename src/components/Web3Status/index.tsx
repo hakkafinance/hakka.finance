@@ -1,0 +1,55 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { useWeb3React } from '@web3-react/core';
+import React from 'react';
+import { NetworkContextName } from '../../constants';
+import useENSName from '../../hooks/useENSName';
+import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
+import { shortenAddress } from '../../utils';
+import MyButton from '../../components/Common/MyButton'
+import WalletModal from '../WalletModal';
+import InfoModal from '../InfoModal';
+import images from '../../images'
+import styles from './styles'
+
+const Web3Status = (props) => {
+  const { active, account } = useWeb3React();
+  const contextNetwork = useWeb3React(NetworkContextName);
+  const { ENSName } = useENSName(account ?? undefined);
+  const toggleWalletModal = useWalletModalToggle();
+  const toggleInfoModal = useInfoModalToggle();
+
+  if (!contextNetwork.active && !active) {
+    return null;
+  }
+
+  return (
+    <>
+      <div sx={styles.container}>
+        <div sx={styles.chainWrapper}>
+          <img src={images.iconEthereumDark} alt='Chain Icon' />
+          <span sx={styles.chainNameWrapper}>
+            Ethereum
+          </span>
+        </div>
+        <div sx={styles.loginButtonWrapper}>
+          <MyButton
+            id={account ? 'web3-status-connected' : 'connect-wallet'}
+            click={toggleWalletModal}
+          >
+            {account ?  ENSName || shortenAddress(account) : 'Connect'}
+          </MyButton>
+        </div>
+        <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt='Account Icon' />
+      </div>
+
+      <WalletModal
+        ENSName={ENSName ?? undefined}
+      />
+
+      <InfoModal />
+    </>
+  );
+}
+
+export default Web3Status;

@@ -1,6 +1,6 @@
 const UPDATE_BLOCK_NUMBER = 'UPDATE_BLOCK_NUMBER';
 const TOGGLE_WALLET_MODAL = 'TOGGLE_WALLET_MODAL';
-const TOGGLE_SETTINGS_MENU = 'TOGGLE_SETTINGS_MENU';
+const TOGGLE_INFO_MODAL = 'TOGGLE_INFO_MODAL';
 const ADD_POPUP = 'ADD_POPUP';
 const REMOVE_POPUP = 'REMOVE_POPUP';
 
@@ -36,8 +36,8 @@ export interface ToggleWalletModalAction {
   type: 'TOGGLE_WALLET_MODAL';
 }
 
-export interface ToggleSettingsMenuAction {
-  type: 'TOGGLE_SETTINGS_MENU';
+export interface ToggleInfoModalAction {
+  type: 'TOGGLE_INFO_MODAL';
 }
 
 export interface AddPopupAction {
@@ -61,8 +61,8 @@ const toggleWalletModalAction = (): ToggleWalletModalAction => ({
   type: TOGGLE_WALLET_MODAL,
 });
 
-const toggleSettingsMenuAction = (): ToggleSettingsMenuAction => ({
-  type: TOGGLE_SETTINGS_MENU,
+const toggleInfoModalAction = (): ToggleInfoModalAction => ({
+  type: TOGGLE_INFO_MODAL,
 });
 
 const addPopupAction = (payload: AddPopupPayload): AddPopupAction => ({
@@ -78,12 +78,12 @@ const removePopupAction = (payload: RemovePopupPayload): RemovePopupAction => ({
 export {
   UPDATE_BLOCK_NUMBER,
   TOGGLE_WALLET_MODAL,
-  TOGGLE_SETTINGS_MENU,
+  TOGGLE_INFO_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
   updateBlockNumberAction,
   toggleWalletModalAction,
-  toggleSettingsMenuAction,
+  toggleInfoModalAction,
   addPopupAction,
   removePopupAction,
 };
