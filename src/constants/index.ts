@@ -1,5 +1,6 @@
 import { Token } from '@uniswap/sdk';
 import { AbstractConnector } from '@web3-react/abstract-connector';
+import { AddressZero } from '@ethersproject/constants';
 
 import {
   walletconnect,
@@ -12,7 +13,14 @@ import {
 export enum ChainId {
   MAINNET = 1,
   KOVAN = 42,
+  BSC = 56,
 }
+
+export const ChainName: { [chainId in ChainId]: string } = {
+  1: 'Mainnet',
+  42: 'Kovan',
+  56: 'BSC',
+};
 
 export interface WalletInfo {
   connector?: AbstractConnector;
@@ -71,26 +79,37 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
     'HAKKA',
     'Hakka Finance'
   ),
+  [ChainId.BSC]: new Token(
+    56,
+    '0x1d1eb8e8293222e1a29d2c0e4ce6c0acfd89aaac',
+    18,
+    'HAKKA',
+    'Hakka Finance'
+  ),
 };
 
 export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xd9958826bce875a75cc1789d5929459e6ff15040',
-  [ChainId.KOVAN]: '',
+  [ChainId.KOVAN]: AddressZero,
+  [ChainId.BSC]: AddressZero,
 };
 
 export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x51F12323820b3c0077864990d9E6aD9604238Ed6',
-  [ChainId.KOVAN]: '',
+  [ChainId.KOVAN]: AddressZero,
+  [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xde02313f8BF17f31380c63e41CDECeE98Bc2b16d',
   [ChainId.KOVAN]: '0x793f3a1427592f674113E97A1741D39c91904971',
+  [ChainId.BSC]: AddressZero,
 };
 
 export const GUILDBANK: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x83D0D842e6DB3B020f384a2af11bD14787BEC8E7',
   [ChainId.KOVAN]: '0xB062FE463548FCEf976C9BC5B93f29813e142DB8',
+  [ChainId.BSC]: AddressZero,
 };
 
 export const ETHADDRESS: string = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
@@ -143,5 +162,7 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
       [SYMBOL]: 'COMP',
       [DECIMALS]: 18,
     },
+  },
+  [ChainId.BSC]: {
   },
 };

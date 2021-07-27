@@ -6,6 +6,7 @@ import {
 } from '@uniswap/sdk';
 import { useWeb3React } from '@web3-react/core';
 import { Interface } from '@ethersproject/abi';
+import { AddressZero } from '@ethersproject/constants';
 import { useStakingBalance } from '../../data/StakingBalance'
 import ERC20_ABI from '../../constants/abis/erc20.json';
 import {
@@ -31,7 +32,7 @@ export default function WalletModal() {
   const ERC20_INTERFACE = new Interface(ERC20_ABI);
   const hakkaBalances = useMultipleContractMultipleData(
     [
-      HAKKA[chainId as ChainId].address,
+      HAKKA[chainId as ChainId]?.address,
       VESTING_ADDRESSES[chainId as ChainId],
     ],
     ERC20_INTERFACE,
@@ -42,9 +43,9 @@ export default function WalletModal() {
   const [
     hakkaValueAmount,
     vestingValueAmount,
-  ] = hakkaBalances.map((balance) => new TokenAmount(
-    HAKKA[chainId as ChainId],
-    JSBI.BigInt(balance.result?.[0] ?? 0)
+  ] = hakkaBalances?.map((balance) => new TokenAmount(
+    HAKKA[chainId as ChainId || 1],
+    JSBI.BigInt(balance?.result?.[0] ?? 0)
   ));
 
   const stakingValueAmount = useStakingBalance();
@@ -63,16 +64,16 @@ export default function WalletModal() {
         </div>
         <div sx={styles.contentWrapper}>
           <div>
-            <div>{hakkaValueAmount.toFixed(2)} HAKKA</div>
+            <div>{hakkaValueAmount?.toFixed(2)} HAKKA</div>
             <div>{hakkaPrice} USD</div>
           </div>
           <div>
             <div>Staking balance</div>
-            <div>{stakingValueAmount.toFixed(2)} HAKKA</div>
+            <div>{stakingValueAmount?.toFixed(2)} HAKKA</div>
           </div>
           <div>
             <div>Vesting balance</div>
-            <div>{vestingValueAmount.toFixed(2)} HAKKA</div>
+            <div>{vestingValueAmount?.toFixed(2)} HAKKA</div>
           </div>
         </div>
       </div>

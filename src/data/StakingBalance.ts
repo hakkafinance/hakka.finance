@@ -25,7 +25,7 @@ export function useStakingBalance(): TokenAmount | undefined {
 
   return useMemo(
     () =>
-    chainId && stakingBalance
+    chainId === 1 && stakingBalance
         ? new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(stakingBalance.result?.[0] ?? 0))
         : undefined,
     [chainId, stakingBalance]
