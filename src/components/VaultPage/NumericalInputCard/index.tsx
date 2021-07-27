@@ -4,17 +4,18 @@ import styles from './styles'
 import NumercialInput from '../../NumericalInput' 
 import images from '../../../images/index'
 import { ApprovalState } from '../../../hooks/useApproveCallback'
+import { TokenAmount } from '@uniswap/sdk';
 
 
-interface InputCard {
+interface NumericalInputCardInputCard {
   value: string | number;
   onUserInput: (input: any) => void;
-  hakkaBalance: string | number;
+  hakkaBalance: TokenAmount;
   approveCallback: any;
   approveState: ApprovalState;
 }
 
-const NumericalInputCard = (props: InputCard) => {
+const NumericalInputCard = (props: NumericalInputCardInputCard) => {
 
   return (
     <div sx={styles.InputCardWrapper}>
@@ -34,7 +35,7 @@ const NumericalInputCard = (props: InputCard) => {
           : ''}
         <button
           sx={styles.maxButton}
-          onClick={() => { props.onUserInput(props.hakkaBalance) }}
+          onClick={() => { props.onUserInput(props.hakkaBalance.toSignificant(10)) }}
         >MAX</button>
       </div>
     </div>

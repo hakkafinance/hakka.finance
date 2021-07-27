@@ -96,6 +96,12 @@ export default {
     marginTop: '0',
   },
 
+  errorMessage: {
+    color: '#ff0000',
+    marginTop: '10px',
+    fontWeight: 'bold',
+  },
+
   formContainer: {
     width: '460px',
     padding: '28px 20px 20px 20px',
@@ -154,16 +160,6 @@ export default {
     border: 'none',
     height: '1px',
     margin: '0',
-  },
-
-  totalValueWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '20px 0 36px 0',
-  },
-
-  totalValueAmount: {
-    fontWeight: 'bold',
   },
 
   knowMoreWrapper: {

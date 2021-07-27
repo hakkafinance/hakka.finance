@@ -106,7 +106,7 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
       [SYMBOL]: 'ETH',
       [DECIMALS]: 18,
     },
-    '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2': {
+    '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2': {
       [NAME]: 'Maker',
       [SYMBOL]: 'MKR',
       [DECIMALS]: 18,

@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import images from '../../../images/index'
 import styles from './styles'
 import types from 'prop-types'
+import BigNumber from 'bignumber.js'
 // import { useState } from 'react'
 // import { ReactComponent as IconChekBoxChecked } from '../../../images/icons/checkboxChecked.svg';
 // import { ReactComponent as IconChekBoxUnchecked } from '../../../images/icons/checkboxUnchecked.svg';
@@ -31,7 +32,7 @@ const RewardItem = (props) => {
       </div>
       {props.checked
         ? <div>
-            <span sx={styles.receiveAmount}>{props.receiveAmount}</span>
+            <span sx={styles.receiveAmount}>{props.receiveAmount.isEqualTo(new BigNumber(0)) ? '0' : props.receiveAmount.toFixed(4)  }</span>
             /
             <span sx={styles.bankBalance}>{props.bankBalance}</span>
           </div>
@@ -43,7 +44,7 @@ const RewardItem = (props) => {
 
 RewardItem.propTypes = {
   tokenName: types.string,
-  receiveAmount: types.string,
+  receiveAmount: BigNumber,
   bankBalance: types.string,
   isDefaultToken: types.bool,
   checked: types.bool,

@@ -21,25 +21,28 @@ interface NewTokenAddressInputProps {
 
 const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
   const { library } = useActiveWeb3React();
-  const [addressInputValue, setAddressInputValue] = useState('');
+  const [addressInputValue, setAddressInputValue] = useState<string>('');
   const [tokenInfo, setTokenInfo] = useState<(string | number)[]> (['']);
   const [addBtnDisabled, setAddBtnDisabled] = useState<boolean>(true);
 
-  // const [isErc20, setIsErc20] = useState();
-  // useEffect(() => {
-  //   props.setAddTokenError('');
-  //   if (addressInputValue && isAddress(addressInputValue)) {
-  //     isERC20Contract(addressInputValue, library).then((result: any) => {
-  //       setIsErc20(result);
-  //       if (!result) {
-  //         props.setAddTokenError('This address is not an ERC20 contract');
-  //       }
-  //     });
-  //   }
-  // }, [addressInputValue]);
+  // -------------------------------------------------------------------------
+  const [isErc20, setIsErc20] = useState();
+  useEffect(() => {
+    props.setAddTokenError('');
+    if (addressInputValue && isAddress(addressInputValue) && library) {
+      isERC20Contract(addressInputValue, library).then((result: any) => {
+        setIsErc20(result);
+        // if (!result) {
+        //   props.setAddTokenError('This address is not an ERC20 contract');
+        // }
+      });
+    }
+  }, [addressInputValue]);
 
-  // console.log('isErc20', isErc20);
+  console.log('isErc20', isErc20);
   console.log('addressInputValue', addressInputValue)
+
+  // -------------------------------------------------------------------------
 
 
   return (
