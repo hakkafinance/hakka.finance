@@ -12,6 +12,16 @@ export default {
     },
   },
 
+  InputCardErrorWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '60px',
+    border: '1px solid  #f86a6a',
+    borderRadius: '8px',
+    backgroundColor: '#f7fbfc',
+  },
+
   input: {
     marginLeft: '16px',
     width: '60%'
@@ -46,8 +56,3 @@ export default {
     },
   },
 }
-
-
-// '@media screen and (max-width: 576px)': {
-//   margin: '20px auto 0 auto',
-// }

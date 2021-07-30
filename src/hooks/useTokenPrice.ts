@@ -1,6 +1,5 @@
 import useSWR from 'swr';
 
-
 export default function useTokenPrice(token: string) {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(

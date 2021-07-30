@@ -5,7 +5,6 @@ import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
-// import Wallet from '../Wallet/index'
 import NumericalInputCard from './NumericalInputCard/index'
 import NewTokenAddressInput from './NewTokenAddressInput'
 import Web3Status from '../Web3Status'
@@ -18,15 +17,8 @@ import { useTokenAllowance } from '../../data/Allowances';
 import { getEtherscanLink, shortenTxId, shortenAddress, getContract } from '../../utils'
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks'
 import { useTotalSupply } from '../../data/TotalSupply'
-import { Token, TokenAmount } from '@uniswap/sdk';
+import { Token } from '@uniswap/sdk';
 import BURNER_ABI from '../../constants/abis/burner.json';
-import {
-  isAddress,
-  isERC20Contract,
-  getTokenDecimals,
-  getTokenName,
-  getTokenSymbol
-} from '../../utils/index'
 
 import {
   ChainId,
@@ -42,6 +34,7 @@ import BigNumber from 'bignumber.js';
 const VaultPage = (props) => {
   const { account, library, chainId } = useActiveWeb3React()
   const { enqueueSnackbar } = useSnackbar()
+  
   const [approveInfo, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId]
@@ -75,11 +68,11 @@ const VaultPage = (props) => {
     }
   }, [approveInfo])
 
-
+  // burn amount
   const [inputAmount, setInputAmount] = useState('');
   const [rewardTokens, setRewardTokens] = useState(VAULT_TOKENS[chainId || 1]);
-  const [isAddTokenClick, setIsAddTokenClick] = useState(false);
-  const [newAddressInput, setNewAddressInput] = useState('');
+  const [isShowNewTokenArea, setIsShowNewTokenArea] = useState(false);
+  const [newRewardAddressInput, setNewRewardAddressInput] = useState<string>('');
 
   // when chainId change, update rewardTokens value
   useEffect(() => {
@@ -99,78 +92,18 @@ const VaultPage = (props) => {
     setPickedRewardTokensAddress(newSortedTokens);
   }, [rewardTokens]);
 
-
-
-  // amount, balance, allowance 檢查 且顯示錯誤訊息
-  const [amountError, setAmountError] = useState<string>('');
-  const [approveError, setApproveError] = useState<string>('');
-
-  const tokenAllowance = useTokenAllowance(
-    HAKKA[chainId as ChainId],
-    account ?? undefined,
-    BURNER_ADDRESS[chainId as ChainId]
-  );
-
-  let allowance: number = 0;
-  if (tokenAllowance) {
-    allowance = new BigNumber(parseFloat(tokenAllowance.raw.toString())).div(bignumber1e18).toNumber();
-  }
-
-
-  useEffect(() => {
-    if (inputAmount && approveInfo.state) {
-      if (approveInfo.state !== ApprovalState.APPROVED || allowance === 0) {
-        setApproveError('Please unlock the token to continue');
-      } else {
-        setApproveError('');
-      }
-
-      if (hakkaBalance.raw.toString() < inputAmount) {
-        console.log(
-          `the amount ${inputAmount} is more than your balance ${hakkaBalance.raw.toString()}`
-        );
-        setAmountError('Insufficient balance');
-      } else if (parseFloat(inputAmount) > allowance) {
-        setAmountError('Please unlock the token to continue');
-      } else {
-        setAmountError('');
-      }
-    }
-  }, [hakkaBalance, inputAmount, allowance, approveInfo.state, chainId]);
-
-
-  // 保留: 不用 callback 是否有差 (印象很模糊，記得好像是我加的)
-  // const toggleTokens = useCallback(
-  //   (tokenAddress) => {
-  //     const selectedTokenList = sortedRewardTokensAddress.includes(tokenAddress) //return true or false
-  //       ? sortedRewardTokensAddress.filter((sortedAddress) => sortedAddress !== tokenAddress) //return 符合規則的新陣列
-  //       : [...sortedRewardTokensAddress, tokenAddress]; //(... 展開運算符) 將點選的地址加入到陣列之中
-  //     const sorted = selectedTokenList.sort(
-  //       (a, b) => parseInt(a) - parseInt(b)
-  //     );
-  //     setSortedRewardTokensAddress(sorted);
-  //   },
-  //   [sortedRewardTokensAddress]
-  // );
-
-  const abc123 = 1;
-
   // haddle checklist click 
   const toggleToken = (tokenAddress: string) => {
-    const selectedTokenList = pickedRewardTokensAddress.includes(tokenAddress) //return true or false
-      ? pickedRewardTokensAddress.filter((sortedAddress) => sortedAddress !== tokenAddress) //return 符合規則的新陣列
-      : [...pickedRewardTokensAddress, tokenAddress]; //(... 展開運算符) 將點選的地址加入到陣列之中
+    const selectedTokenList = pickedRewardTokensAddress.includes(tokenAddress) 
+      ? pickedRewardTokensAddress.filter((sortedAddress) => sortedAddress !== tokenAddress) 
+      : [...pickedRewardTokensAddress, tokenAddress];
     const sortedAddress = selectedTokenList.sort(
       (a, b) => parseInt(a) - parseInt(b)
     );
     setPickedRewardTokensAddress(sortedAddress);
   };
 
-
-  // calculate reward amount in local
-
   const ethBalance = useETHBalances([GUILDBANK[chainId as ChainId]])
-  // const guildbankEthBalance = ethBalance[GUILDBANK[chainId as ChainId]]?.raw.toString()
 
   // get reward tokens balance in guild bank
   const [tokens, setTokens] = useState<Token[]>()
@@ -190,7 +123,6 @@ const VaultPage = (props) => {
     setTokens(tokens)
   }, [rewardTokens, chainId, account])
 
-
   const tokensBalanceInBank = useTokenBalances(
     GUILDBANK[chainId as ChainId],
     tokens
@@ -199,28 +131,14 @@ const VaultPage = (props) => {
   // get HAKKA totalSupply
   const totalSupplyTokenAmount = useTotalSupply(HAKKA[chainId as ChainId]);
   const hakkaTotalSupply = new BigNumber(totalSupplyTokenAmount?.raw.toString())
-  // console.log('hakkaTotalSupply', hakkaTotalSupply.div(bignumber1e18).toString())
 
-  // check the input amount is not bigger than total supply
-  const [totalSupplyError, setTotalSupplyError] = useState<string>('');
-  useEffect(() => {
-    if (parseFloat(inputAmount) > hakkaTotalSupply.div(bignumber1e18).toNumber()) {
-      setTotalSupplyError(
-        'The amount is more than HAKKA total supply'
-      );
-    } else {
-      setTotalSupplyError('');
-    }
-  }, [inputAmount]);
-
-  // local端計算rewardAmount
+  // calculate the rewardAmount
   let localRewardAmount: { [key: string]: BigNumber } = {};
   if (inputAmount && rewardTokens && hakkaTotalSupply) {
     const amountBigNumber = new BigNumber(inputAmount);
     Object.keys(rewardTokens).map((tokenAddress) => {
-      // 避免輸入大於HAKKA totalSupply
+      // Input should not be greater than HAKKA totalSupply
       if (hakkaTotalSupply.div(bignumber1e18).isGreaterThanOrEqualTo(amountBigNumber)) {
-        // if(tokenAddress === ETHADDRESS){};
         let balanceBigNumber = tokenAddress === ETHADDRESS ?
           new BigNumber(ethBalance[GUILDBANK[chainId as ChainId]]?.raw.toString())  
           : new BigNumber(tokensBalanceInBank[tokenAddress]?.raw.toString());
@@ -234,7 +152,7 @@ const VaultPage = (props) => {
           .div(hakkaTotalSupply)
           .multipliedBy(balanceBigNumber)
           .div(decimalBigNumber);
-        localRewardAmount[tokenAddress] = num;
+        localRewardAmount[tokenAddress] = num.isNaN() ? new BigNumber(0) : num;
 
       } else {
         localRewardAmount[tokenAddress] = new BigNumber(0);
@@ -243,8 +161,7 @@ const VaultPage = (props) => {
   };
 
   // Parse the valueString representation of units into a BigNumber instance of the amount of wei.
-  // input amount -> decimal, 16進制
-  // 檢查amount是否超過decimal, 避免underflow shutdown.
+  // escape from underflow shutdown
   const [amountParsedError, setAmountParsedError] = useState<string>('');
   const amountParsed = useMemo(() => {
     if (inputAmount) {
@@ -265,10 +182,9 @@ const VaultPage = (props) => {
       setAmountParsedError('');
       return null;
     }
-
   }, [inputAmount]);
 
-  // callback burn
+  // burn callback 
   const [isPending, setIsPending] = useState<boolean>(false);
   const [burnError, setBurnError] = useState();
   const burn = useCallback(async () => {
@@ -298,22 +214,65 @@ const VaultPage = (props) => {
   }, [account, amountParsed, chainId, library, pickedRewardTokensAddress]);
 
 
-  // errorMessage
-  // 問題: account 沒有隨著登入狀態改變
+  // error message
   const noAccountError = useMemo(
     () => (account ? '' : 'Wallet is not connected.'),
     [account]
   );
 
-
   const noAmountError = useMemo(() => !inputAmount, [inputAmount]);
-
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
 
-  const [addTokenError, setAddTokenError] = useState<string>('');
+  // check amount, balance, allowance 
+  const [amountError, setAmountError] = useState<string>('');
+  const [approveError, setApproveError] = useState<string>('');
+
+  const tokenAllowance = useTokenAllowance(
+    HAKKA[chainId as ChainId],
+    account ?? undefined,
+    BURNER_ADDRESS[chainId as ChainId]
+  );
+
+  let allowance: number = 0;
+  if (tokenAllowance) {
+    allowance = new BigNumber(parseFloat(tokenAllowance.raw.toString())).div(bignumber1e18).toNumber();
+  }
+
+  useEffect(() => {
+    if (inputAmount && approveInfo.state) {
+      if (approveInfo.state !== ApprovalState.APPROVED || allowance === 0) {
+        setApproveError('Please unlock the token to continue');
+      } else {
+        setApproveError('');
+      }
+
+      if (parseFloat(hakkaBalance.raw.toString()) < parseFloat(inputAmount)) {
+        console.log(
+          `the amount ${inputAmount} is more than your balance ${hakkaBalance.raw.toString()}`
+        );
+        setAmountError('Insufficient balance');
+      } else if (parseFloat(inputAmount) > allowance) {
+        setAmountError('Please unlock the token to continue');
+      } else {
+        setAmountError('');
+      }
+    }
+  }, [hakkaBalance, inputAmount, allowance, approveInfo.state, chainId]);
+
+  
+  // check the input amount is not bigger than total supply
+  const [totalSupplyError, setTotalSupplyError] = useState<string>('');
+  useEffect(() => {
+    if (parseFloat(inputAmount) > hakkaTotalSupply.div(bignumber1e18).toNumber()) {
+      setTotalSupplyError(
+        'The amount is more than HAKKA total supply'
+      );
+    } else {
+      setTotalSupplyError('');
+    }
+  }, [inputAmount]);
 
   const errorMessage =
-    addTokenError ||
     noAccountError ||
     approveError ||
     amountParsedError ||
@@ -353,18 +312,18 @@ const VaultPage = (props) => {
               hakkaBalance={hakkaBalance}
               approveCallback={approveCallback}
               approveState={approveInfo.state}
+              amountError={amountError}
+              totalSupplyError={totalSupplyError}
             />
-            <div sx={styles.errorMessage}>{errorMessage}</div>
-            
           </div>
           <div sx={styles.formContainer}>
             <div sx={styles.formTitleArea}>
               <span sx={styles.formTitle}>You wish to receive</span>
               <div
                 sx={styles.addTokenButton}
-                onClick={() => setIsAddTokenClick(!isAddTokenClick)}
+                onClick={() => setIsShowNewTokenArea(!isShowNewTokenArea)}
               >
-                {isAddTokenClick
+                {isShowNewTokenArea
                   ? <img src={images.iconDeleteRound} alt='Close the address input window' />
                   : <div sx={styles.addTokenButton}>
                     <span sx={{ paddingBottom: '2px' }}>Add token</span>
@@ -374,12 +333,13 @@ const VaultPage = (props) => {
               </div>
             </div>
             {/* add new token input area */}
-            {isAddTokenClick ?
+            {isShowNewTokenArea ?
               <NewTokenAddressInput
-                value={newAddressInput}
-                onUserInput={setNewAddressInput}
                 rewardTokens={rewardTokens}
-                setAddTokenError={setAddTokenError}
+                addressInputValue={newRewardAddressInput}
+                setAddressInputValue={setNewRewardAddressInput}
+                setIsShowNewTokenArea={setIsShowNewTokenArea}
+                setRewardTokens={setRewardTokens}
               />
               : ''
             }
@@ -388,15 +348,18 @@ const VaultPage = (props) => {
                 return (
                   <RewardListItem
                     key={tokenAddress}
+                    tokenAddress={tokenAddress}
                     tokenName={rewardTokens[tokenAddress].symbol}
                     receiveAmount={localRewardAmount[tokenAddress] || new BigNumber(0)}
                     bankBalance={tokenAddress === ETHADDRESS
-                      ? ethBalance[GUILDBANK[chainId as ChainId]]?.toSignificant(6)
-                      : tokensBalanceInBank[tokenAddress]?.toSignificant(6)
+                      ? ethBalance[GUILDBANK[chainId as ChainId]]?.toFixed(4)
+                      : tokensBalanceInBank[tokenAddress]?.toFixed(4) || '0'
                     }
                     isDefaultToken={Object.keys(VAULT_TOKENS[chainId || 1]).includes(tokenAddress)} // chainId
                     checked={pickedRewardTokensAddress.includes(tokenAddress)}
                     onChange={() => { toggleToken(tokenAddress) }}
+                    rewardTokens={rewardTokens}
+                    setRewardTokens={setRewardTokens}
                   />)
               })}
             </div>
@@ -404,9 +367,20 @@ const VaultPage = (props) => {
             {/* total value */}
             <RewardValue 
               localRewardAmount={localRewardAmount}
+              pickedRewardTokensAddress={pickedRewardTokensAddress}
+              inputAmount={inputAmount}
+              newRewardAddressInput={newRewardAddressInput}
             />
             <div>
-              <MyButton type={'green'} click={burn} disabled={!!errorMessage}>Burn</MyButton>
+              <MyButton 
+                type={'green'} 
+                click={burn} 
+                disabled={errorMessage}
+              >
+                {errorMessage && errorMessage.constructor!==Boolean ? 
+                  errorMessage 
+                  : 'Burn'} 
+              </MyButton>
             </div>
           </div>
         </div>

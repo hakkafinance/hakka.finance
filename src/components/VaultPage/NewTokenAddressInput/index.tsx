@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles'
 import MyButton from '../../Common/MyButton/index'
 import { useActiveWeb3React } from '../../../hooks/index';
@@ -13,37 +13,88 @@ import {
 } from '../../../utils/index'
 
 interface NewTokenAddressInputProps {
-  value: string;
-  onUserInput: (input: string) => void;
+  addressInputValue: string;
+  setAddressInputValue: (input: string) => void;
   rewardTokens: any;
-  setAddTokenError: (input: string) => void;
+  setRewardTokens: any;
+  setIsShowNewTokenArea: (input: boolean) => void;
 }
 
 const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
   const { library } = useActiveWeb3React();
-  const [addressInputValue, setAddressInputValue] = useState<string>('');
-  const [tokenInfo, setTokenInfo] = useState<(string | number)[]> (['']);
-  const [addBtnDisabled, setAddBtnDisabled] = useState<boolean>(true);
+  const [tokenInfo, setTokenInfo] = useState<(string | number)[]>(['']);
+  const [isAddBtnDisabled, setIsAddBtnDisabled] = useState<boolean>(true);
+  // const [addTokenError, setAddTokenError] = useState<string>('');
 
-  // -------------------------------------------------------------------------
   const [isErc20, setIsErc20] = useState();
   useEffect(() => {
-    props.setAddTokenError('');
-    if (addressInputValue && isAddress(addressInputValue) && library) {
-      isERC20Contract(addressInputValue, library).then((result: any) => {
+    // setAddTokenError('');
+    if (props.addressInputValue && isAddress(props.addressInputValue) && library) {
+      isERC20Contract(props.addressInputValue, library).then((result: any) => {
         setIsErc20(result);
-        // if (!result) {
-        //   props.setAddTokenError('This address is not an ERC20 contract');
-        // }
+        if (!result) {
+          // setAddTokenError('This address is not an ERC20 contract');
+          props.setAddressInputValue('');
+        }
       });
     }
-  }, [addressInputValue]);
+  }, [props.addressInputValue]);
 
-  console.log('isErc20', isErc20);
-  console.log('addressInputValue', addressInputValue)
+  // get the TokenName TokenSymbol TokenDecimals of the new token
+  useEffect(() => {
+    if (props.addressInputValue && isAddress(props.addressInputValue) && !!isErc20) {
+      Promise.all([
+        getTokenName(props.addressInputValue, library),
+        getTokenSymbol(props.addressInputValue, library),
+        getTokenDecimals(props.addressInputValue, library),
+      ])
+        .then((value) => {
+          setTokenInfo(value);
+          setIsAddBtnDisabled(false);
+        })
+        .catch((error: string) => {
+          throw error;
+        });
+    }
+  }, [isErc20]);
 
-  // -------------------------------------------------------------------------
+  const handleAddBtnClick = () => {
+    if (isAddress(props.addressInputValue)) {
+      props.setIsShowNewTokenArea(false);
 
+      const newTokenInfo = {
+        name: tokenInfo[0],
+        symbol: tokenInfo[1],
+        decimals: tokenInfo[2],
+      };
+
+      // Check the address is duplicate or not
+      let tokensInfoValue: { decimals: number, name: string, symbol: string }[] = Object.values(props.rewardTokens);
+      let duplicateTokens: (string | number)[];
+
+      for (let i = 0; i < tokensInfoValue.length; i++) {
+        let tokenInfo = Object.values(tokensInfoValue[i]);
+        duplicateTokens = tokenInfo.filter((value) => {
+          return value === newTokenInfo.name;
+        });
+        if (duplicateTokens.length !== 0) {
+          break;
+        }
+      }
+
+      // Add token information to RewardTokenList
+      if (duplicateTokens.length === 0) {
+        props.setRewardTokens((prevState: any) => ({
+          ...prevState,
+          [props.addressInputValue]: newTokenInfo,
+        }));
+      }
+      setIsAddBtnDisabled(true);
+    } else {
+      console.log('It is not a address');
+    }
+    props.setAddressInputValue('');
+  };
 
   return (
     <div sx={styles.container} >
@@ -51,13 +102,15 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
         <input
           placeholder={'Token Address'}
           sx={styles.input}
-          value={addressInputValue}
-          onChange={(event) => { setAddressInputValue(event.target.value) }}
+          value={props.addressInputValue}
+          onChange={(event) => { props.setAddressInputValue(event.target.value) }}
         />
       </div>
       <div sx={styles.addButton}>
         <MyButton
           type={'green'}
+          disabled={isAddBtnDisabled}
+          click={handleAddBtnClick}
         >Add</MyButton>
       </div>
     </div>

@@ -13,12 +13,13 @@ interface NumericalInputCardInputCard {
   hakkaBalance: TokenAmount;
   approveCallback: any;
   approveState: ApprovalState;
+  amountError: string;
+  totalSupplyError:string;
 }
 
 const NumericalInputCard = (props: NumericalInputCardInputCard) => {
-
   return (
-    <div sx={styles.InputCardWrapper}>
+    <div sx={ props.amountError||props.totalSupplyError ? styles.InputCardErrorWrapper : styles.InputCardWrapper}>
       <NumercialInput
         value={props.value}
         onUserInput={props.onUserInput}

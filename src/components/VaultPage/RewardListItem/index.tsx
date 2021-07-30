@@ -4,12 +4,13 @@ import images from '../../../images/index'
 import styles from './styles'
 import types from 'prop-types'
 import BigNumber from 'bignumber.js'
-// import { useState } from 'react'
-// import { ReactComponent as IconChekBoxChecked } from '../../../images/icons/checkboxChecked.svg';
-// import { ReactComponent as IconChekBoxUnchecked } from '../../../images/icons/checkboxUnchecked.svg';
 
 const RewardItem = (props) => {
-
+  const handleTokenDeleteClick = () => {
+    let newObj =  JSON.parse(JSON.stringify(props.rewardTokens));
+    delete newObj[props.tokenAddress];
+    props.setRewardTokens(newObj);
+  }
 
   return (
     <div sx={styles.rewardItemWrapper}>
@@ -27,7 +28,7 @@ const RewardItem = (props) => {
           <span sx={styles.tokenName}>{props.tokenName}</span>
         </label>
         {props.isDefaultToken ||
-          <img sx={styles.iconTrash} src={images.iconTrash} alt='delete this reward' />}
+          <img sx={styles.iconTrash} src={images.iconTrash} onClick={()=>handleTokenDeleteClick()} alt='delete this reward' />}
           
       </div>
       {props.checked
@@ -43,12 +44,15 @@ const RewardItem = (props) => {
 }
 
 RewardItem.propTypes = {
+  tokenAddress: types.string,
   tokenName: types.string,
   receiveAmount: BigNumber,
   bankBalance: types.string,
   isDefaultToken: types.bool,
   checked: types.bool,
   onChange: types.func,
+  rewardTokens: types.object,
+  setRewardTokens:types.func,
 }
 
 export default RewardItem;

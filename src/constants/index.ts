@@ -166,3 +166,10 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
   [ChainId.BSC]: {
   },
 };
+
+export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } ={
+  '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE': 'ethereum',
+  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48': 'usd-coin',
+  '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2': 'maker',
+  '0x35101c731b1548B5e48bb23F99eDBc2f5c341935': 'blackholeswap-compound-dai-usdc',
+}
