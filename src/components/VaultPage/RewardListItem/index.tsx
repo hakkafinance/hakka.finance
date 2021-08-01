@@ -33,7 +33,7 @@ const RewardItem = (props) => {
       </div>
       {props.checked
         ? <div>
-            <span sx={styles.receiveAmount}>{props.receiveAmount.isEqualTo(new BigNumber(0)) ? '0' : props.receiveAmount.toFixed(4)  }</span>
+            <span sx={styles.receiveAmount}>{props.receiveAmount?.isEqualTo(new BigNumber(0)) ? '0' : props.receiveAmount?.toFixed(4)  }</span>
             /
             <span sx={styles.bankBalance}>{props.bankBalance}</span>
           </div>
@@ -46,7 +46,7 @@ const RewardItem = (props) => {
 RewardItem.propTypes = {
   tokenAddress: types.string,
   tokenName: types.string,
-  receiveAmount: BigNumber,
+  receiveAmount: types.any, // BigNumber not exists
   bankBalance: types.string,
   isDefaultToken: types.bool,
   checked: types.bool,
