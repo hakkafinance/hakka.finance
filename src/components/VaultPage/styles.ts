@@ -42,6 +42,7 @@ export default {
   },
 
   body: {
+    minHeight: '400px',
     display: 'flex',
     alignItems: 'flex-start',
 
