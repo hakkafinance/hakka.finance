@@ -5,6 +5,7 @@ import ENS_ABI from '../constants/abis/ens-registrar.json';
 import ENS_PUBLIC_RESOLVER_ABI from '../constants/abis/ens-public-resolver.json';
 import ERC20_BYTES32_ABI from '../constants/abis/erc20.json';
 import ERC20_ABI from '../constants/abis/erc20.json';
+import VESTING_ABI from '../constants/abis/vesting.json';
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall';
 import { getContract } from '../utils';
 import { useActiveWeb3React } from './index';
@@ -38,6 +39,13 @@ export function useTokenContract(
   withSignerIfPossible?: boolean
 ): Contract | null {
   return useContract(tokenAddress, ERC20_ABI, withSignerIfPossible);
+}
+
+export function useVestingContract(
+  vestingAddress?: string,
+  withSignerIfPossible?: boolean
+): Contract | null {
+  return useContract(vestingAddress, VESTING_ABI, withSignerIfPossible);
 }
 
 export function useENSRegistrarContract(
