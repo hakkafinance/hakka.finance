@@ -15,6 +15,11 @@ const images = {
   iconChekBoxChecked: require('../images/icons/checkboxChecked.svg').default,
   iconChekBoxUnchecked: require('../images/icons/checkboxUnchecked.svg').default,
   iconLock: require('../images/icons/iconLock.svg').default,
+  iconBack: require('../images/icons/iconBack.svg').default,
+  iconWaiting: require('../images/icons/iconWaiting.svg').default,
+  iconWithdrawAvailable: require('../images/icons/iconWithdrawAvailable.svg').default,
+  iconMetamask: require('../images/icons/iconMetamask.svg').default,
+
 
   // web applications icon
 

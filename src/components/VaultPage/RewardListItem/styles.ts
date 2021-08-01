@@ -1,7 +1,7 @@
 export default {
   rewardItemWrapper: {
     display: 'flex',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     minHeight: '24px',
     marginBottom: '20px',
     lineHeight: '1.5',
@@ -34,7 +34,7 @@ export default {
   },
 
   checkBox: {
-    display:'none',
+    display: 'none',
   },
 
   tokenName: {

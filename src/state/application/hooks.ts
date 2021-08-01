@@ -41,6 +41,16 @@ export function useInfoModalToggle(): () => void {
   return toggleInfoModal;
 }
 
+export function useClaimModalOpen(): boolean {
+  const claimModalOpen = useApplicationContextStateSelector('claimModalOpen');
+  return claimModalOpen;
+}
+
+export function useClaimModalToggle(): () => void {
+  const { toggleClaimModal } = useApplicationContext();
+  return toggleClaimModal;
+}
+
 // returns a function that allows adding a popup
 export function useAddPopup(): (content: PopupContent, key?: string) => void {
   const { addPopup } = useApplicationContext();

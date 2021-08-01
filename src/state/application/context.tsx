@@ -8,6 +8,7 @@ import {
   updateBlockNumberAction,
   toggleWalletModalAction,
   toggleInfoModalAction,
+  toggleClaimModalAction,
   addPopupAction,
   removePopupAction,
 } from './actions';
@@ -17,6 +18,7 @@ interface ApplicationContextProps {
   updateBlockNumber: (payload: UpdateBlockNumberPayload) => void;
   toggleWalletModal: () => void;
   toggleInfoModal: () => void;
+  toggleClaimModal: ()=> void;
   addPopup: (payload: AddPopupPayload) => void;
   removePopup: (payload: RemovePopupPayload) => void;
 }
@@ -40,6 +42,10 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
     dispatch(toggleInfoModalAction());
   }, []);
 
+  const toggleClaimModal = useCallback(() => {
+    dispatch(toggleClaimModalAction());
+  }, []);
+
   const addPopup = useCallback((payload) => {
     dispatch(addPopupAction(payload));
   }, []);
@@ -56,6 +62,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           updateBlockNumber,
           toggleWalletModal,
           toggleInfoModal,
+          toggleClaimModal,
           addPopup,
           removePopup,
         }),
@@ -64,6 +71,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           updateBlockNumber,
           toggleWalletModal,
           toggleInfoModal,
+          toggleClaimModal,
           addPopup,
           removePopup,
         ]
