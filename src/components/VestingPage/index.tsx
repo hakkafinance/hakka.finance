@@ -7,6 +7,7 @@ import {
 } from '@uniswap/sdk';
 import images from '../../images'
 import React, { useMemo, useCallback, useEffect } from 'react';
+import Countdown, { zeroPad } from 'react-countdown'
 import styles from './styles'
 import MyButton from '../../components/Common/MyButton/index'
 import ClaimModal from '../ClaimModal';
@@ -40,20 +41,29 @@ const VestingPage = () => {
     vestingContract,
     'proportion',
   );
+  const lastWithdrawalTime = useSingleCallResult(
+    vestingContract,
+    'lastWithdrawalTime',
+    [account],
+  );
+  const isWaitingCycle = useMemo(
+    () => lastWithdrawalTime && Date.now() -  parseInt(lastWithdrawalTime?.result?.toString()) * 1000 < 1641600000,
+    [lastWithdrawalTime]
+  )
   const vestingValueAmount = useMemo(
     () =>
-    vestingValue.result && chainId
+      vestingValue.result && chainId
         ? new TokenAmount(HAKKA[chainId], vestingValue.result.toString())
         : new TokenAmount(HAKKA[chainId], '0'),
     [vestingValue, chainId]
   );
   const vestingValuePrice = useMemo(
-    () => vestingValueAmount.multiply(JSBI.BigInt(hakkaPrice*1e8)).divide(JSBI.BigInt(1e8)),
+    () => vestingValueAmount.multiply(JSBI.BigInt(hakkaPrice * 1e8)).divide(JSBI.BigInt(1e8)),
     [vestingValueAmount]
   );
   const vestingProportionAmount = useMemo(
     () =>
-    vestingProportion.result && chainId
+      vestingProportion.result && chainId
         ? new TokenAmount(HAKKA[chainId], vestingProportion.result.toString())
         : new TokenAmount(HAKKA[chainId], '0'),
     [vestingProportion, chainId]
@@ -75,6 +85,12 @@ const VestingPage = () => {
       },
     })
   }, [chainId])
+
+  const countdownRenderer = ({ days, hours, minutes, seconds }) => (
+    <div>
+      {zeroPad(days)}D {zeroPad(hours)}H {zeroPad(minutes)}M {zeroPad(seconds)}S
+    </div>
+  )
 
   useEffect(() => {
     if (claimInfo.state === VestingState.PENDING) {
@@ -102,7 +118,7 @@ const VestingPage = () => {
             <div sx={styles.vestingCard}>
               <div sx={styles.balanceCard}>
                 <div sx={styles.iconWaitingBackgroundColor}>
-                  <img src={images.iconWaiting}/>
+                  <img src={images.iconWaiting} />
                 </div>
                 <p sx={styles.vestingCardItemHeading}>Vesting Balance</p>
                 <div sx={styles.balanceValueCard}>
@@ -136,16 +152,19 @@ const VestingPage = () => {
                 <MyButton
                   click={claimCallback}
                   type={'green'}
-                  disabled={claimInfo.state === VestingState.PENDING}
+                  disabled={claimInfo.state === VestingState.PENDING || isWaitingCycle}
                 >
-                  Claim
+                  {isWaitingCycle ? <Countdown
+                    date={parseInt(lastWithdrawalTime?.result?.toString()) * 1000 + 1641600000}
+                    renderer={countdownRenderer}
+                  /> : 'Claim'}
                 </MyButton>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <ClaimModal />
     </>
   )
