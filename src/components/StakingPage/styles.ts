@@ -37,12 +37,35 @@ export default {
       fontWeight: '600',
       lineHeight: '1.25',
     },
+
+    '@media screen and (max-width: 576px)': {
+      display: 'block',
+      fontSize: [0],
+
+      'h1':{
+        marginBottom: '25px',
+      },
+    },
   },
 
   body: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    
+    '@media screen and (max-width: 1190px)': {
+      display:'block'
+    },
+  },
+
+  infoArea: {
+    width: '300px',
+    marginTop: '40px',
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      marginTop: '28px',
+    },
   },
 
   amountArea: {
@@ -51,8 +74,12 @@ export default {
     'h4': {
       margin: '0 0 28px 0',
       fontWeight: '600',
-      fontSize: [5],
+      fontSize: [3,5],
       lineHeight: '1.17',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      paddingTop: '0',
     },
   },
 
@@ -133,7 +160,17 @@ export default {
     fontSize: [1],
     fontWeight: '600',
     lineHeight: '1.71',
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
+
+    '@media screen and (max-width: 1190px)': {
+      position: 'static',
+      width: '460px',
+      marginTop: '28px',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+    },
   },
 
   sHakkaRewardLinkWrapper: {
@@ -164,6 +201,14 @@ export default {
     color: 'rgba(37, 62, 71, 0.5)',
     border: '1px solid #dae1e3',
     borderRadius: '8px',
+
+    '@media screen and (max-width: 1190px)': {
+      marginTop: '0',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+    },
   },
 
   hakkaBalanceWrapper: {
@@ -230,10 +275,32 @@ export default {
     paddingTop: '20px',
     fontSize: [2],
     color: '#253e47',
-    lineHeight: '1.5'
+    lineHeight: '1.5',
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+    },
   },
 
   stakeBtn: {
     paddingTop: '36px',
+  },
+
+  positionContainer: {
+    marginBottom: '148px',
+
+    '@media screen and (max-width: 576px)': {
+      marginBottom: '80px',
+    },
+  },
+
+
+  positionHeading: {
+    margin: '0 0 36px 0',
+
+    '@media screen and (max-width: 576px)': {
+      fontSize: [3],
+      margin: '60px 0 36px 0'
+    },
   },
 };
