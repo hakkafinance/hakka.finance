@@ -6,7 +6,7 @@ import {
   TokenAmount,
 } from '@uniswap/sdk';
 import images from '../../images'
-import React, { useMemo, useCallback, useEffect } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import Countdown, { zeroPad } from 'react-countdown'
 import styles from './styles'
 import MyButton from '../../components/Common/MyButton/index'
@@ -20,16 +20,12 @@ import {
   VESTING_ADDRESSES
 } from '../../constants';
 import { useVestingContract } from '../../hooks/useContract';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { getEtherscanLink, shortenTxId } from '../../utils'
-
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
-  const { enqueueSnackbar } = useSnackbar()
   const toggleClaimModal = useClaimModalToggle();
   const hakkaPrice = useTokenPrice('hakka-finance')
-  const [claimInfo, claimCallback] = useVestingCallback(VESTING_ADDRESSES[chainId], account)
+  const [claimState, claimCallback] = useVestingCallback(VESTING_ADDRESSES[chainId], account)
 
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -92,19 +88,6 @@ const VestingPage = () => {
     </div>
   )
 
-  useEffect(() => {
-    if (claimInfo.state === VestingState.PENDING) {
-      console.log(claimInfo.txid)
-      enqueueSnackbar(
-        <a
-          target='_blank'
-          href={getEtherscanLink(chainId ?? 1, claimInfo.txid, 'transaction')}
-        >{shortenTxId(claimInfo.txid)}</a>,
-        claimInfo.txid
-      )
-    }
-  }, [claimInfo])
-
   return (
     <>
       <div sx={styles.container}>
@@ -152,7 +135,7 @@ const VestingPage = () => {
                 <MyButton
                   click={claimCallback}
                   type={'green'}
-                  disabled={claimInfo.state === VestingState.PENDING || isWaitingCycle}
+                  disabled={claimState === VestingState.PENDING || isWaitingCycle}
                 >
                   {isWaitingCycle ? <Countdown
                     date={parseInt(lastWithdrawalTime?.result?.toString()) * 1000 + 1641600000}

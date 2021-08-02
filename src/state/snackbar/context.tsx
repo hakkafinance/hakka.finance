@@ -30,7 +30,7 @@ export function useSnackbarContext() {
 }
 
 export default function SnackbarProvider(props: SnackbarProviderProps): JSX.Element {
-  const { children, duration = 8000 } = props
+  const { children, duration = 12000 } = props
 
   const [alerts, setAlerts] = useState<Alert[]>([])
   useEffect(() => {

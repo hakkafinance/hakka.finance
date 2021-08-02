@@ -11,14 +11,13 @@ import Web3Status from '../Web3Status'
 import RewardValue from './RewardValue'
 import { useActiveWeb3React } from '../../hooks/index'
 import { ethers } from 'ethers';
-import { useSnackbar } from '../../hooks/useSnackbar'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
+import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback'
 import { useTokenAllowance } from '../../data/Allowances';
-import { getEtherscanLink, shortenTxId, shortenAddress, getContract } from '../../utils'
+import { shortenAddress, getContract } from '../../utils'
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { Token } from '@uniswap/sdk';
-import BURNER_ABI from '../../constants/abis/burner.json';
 
 import {
   ChainId,
@@ -33,9 +32,8 @@ import BigNumber from 'bignumber.js';
 
 const VaultPage = (props) => {
   const { account, library, chainId } = useActiveWeb3React()
-  const { enqueueSnackbar } = useSnackbar()
   
-  const [approveInfo, approveCallback] = useApproveCallback(
+  const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId]
   )
@@ -47,26 +45,6 @@ const VaultPage = (props) => {
 
   // 1e18
   const bignumber1e18 = new BigNumber(ethers.constants.WeiPerEther.toString());
-
-  useEffect(() => {
-    if (approveInfo.state === ApprovalState.APPROVED) {
-      // console.log('APPROVED')
-    } else if (approveInfo.state === ApprovalState.NOT_APPROVED) {
-      // console.log('NOT_APPROVED')
-    } else if (approveInfo.state === ApprovalState.PENDING) {
-      // console.log('PENDING')
-      console.log(approveInfo.txid)
-      enqueueSnackbar(
-        <a
-          target='_blank'
-          href={getEtherscanLink(chainId ?? 1, approveInfo.txid, 'transaction')}
-        >{shortenTxId(approveInfo.txid)}</a>,
-        approveInfo.txid
-      )
-    } else {
-      // console.log('UNKNOWN')
-    }
-  }, [approveInfo])
 
   // burn amount
   const [inputAmount, setInputAmount] = useState('');
@@ -183,36 +161,13 @@ const VaultPage = (props) => {
       return null;
     }
   }, [inputAmount]);
-
-  // burn callback 
-  const [isPending, setIsPending] = useState<boolean>(false);
-  const [burnError, setBurnError] = useState();
-  const burn = useCallback(async () => {
-    if (
-      amountParsed &&
-      pickedRewardTokensAddress.length &&
-      account &&
-      chainId &&
-      library
-    ) {
-      const burner = getContract(
-        BURNER_ADDRESS[chainId as ChainId],
-        BURNER_ABI,
-        library,
-        account
-      );
-      try {
-        setIsPending(true);
-        const tx = await burner.ragequit(pickedRewardTokensAddress, amountParsed);
-        await tx.wait();
-      } catch (e) {
-        setBurnError(e.message);
-      } finally {
-        setIsPending(false);
-      }
-    }
-  }, [account, amountParsed, chainId, library, pickedRewardTokensAddress]);
-
+  
+  const [burnState, burnCallback] = useBurnCallback(
+    BURNER_ADDRESS[chainId as ChainId],
+    account,
+    amountParsed,
+    pickedRewardTokensAddress,
+  );
 
   // error message
   const noAccountError = useMemo(
@@ -239,8 +194,8 @@ const VaultPage = (props) => {
   }
 
   useEffect(() => {
-    if (inputAmount && approveInfo.state) {
-      if (approveInfo.state !== ApprovalState.APPROVED || allowance === 0) {
+    if (inputAmount && approveState) {
+      if (approveState !== ApprovalState.APPROVED || allowance === 0) {
         setApproveError('Please unlock the token to continue');
       } else {
         setApproveError('');
@@ -257,7 +212,7 @@ const VaultPage = (props) => {
         setAmountError('');
       }
     }
-  }, [hakkaBalance, inputAmount, allowance, approveInfo.state, chainId]);
+  }, [hakkaBalance, inputAmount, allowance, approveState, chainId]);
 
   
   // check the input amount is not bigger than total supply
@@ -279,8 +234,7 @@ const VaultPage = (props) => {
     totalSupplyError ||
     amountError ||
     noAmountError ||
-    noTokenError ||
-    burnError;
+    noTokenError;
 
   return (
     <div sx={styles.container}>
@@ -311,7 +265,7 @@ const VaultPage = (props) => {
               onUserInput={setInputAmount}
               hakkaBalance={hakkaBalance}
               approveCallback={approveCallback}
-              approveState={approveInfo.state}
+              approveState={approveState}
               amountError={amountError}
               totalSupplyError={totalSupplyError}
             />
@@ -374,8 +328,8 @@ const VaultPage = (props) => {
             <div>
               <MyButton 
                 type={'green'} 
-                click={burn} 
-                disabled={errorMessage}
+                click={burnCallback} 
+                disabled={errorMessage || burnState === BurnState.PENDING}
               >
                 {errorMessage && errorMessage.constructor!==Boolean ? 
                   errorMessage 
