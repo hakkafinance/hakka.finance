@@ -141,7 +141,7 @@ export default {
 
     ':hover' :{
       cursor: 'pointer',
-      backgroundColor: '#3ebd93',
+      backgroundColor: 'rgba(62, 189, 147, 0.1)',
     }
   },
 
