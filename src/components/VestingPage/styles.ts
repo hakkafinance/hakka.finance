@@ -13,7 +13,7 @@ export default {
     },
   },
 
-  vaultPageWrapper: {
+  vestingPageWrapper: {
     maxWidth: '860px',
     color: '#253e47',
 
@@ -62,8 +62,6 @@ export default {
     '@media screen and (max-width: 1150px)': {
       flexDirection: 'column'
     },
-
-
   },
 
   balanceCard: {
@@ -203,14 +201,5 @@ export default {
       width: '100%',
       marginBottom: '20px',
     },
-
   },
-
-
-
-
-
-
-
-
 }

@@ -17,7 +17,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '60px',
-    border: '1px solid  #f86a6a',
+    border: '1px solid #f86a6a',
     borderRadius: '8px',
     backgroundColor: '#f7fbfc',
   },

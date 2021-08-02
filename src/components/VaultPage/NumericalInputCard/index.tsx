@@ -13,8 +13,8 @@ interface NumericalInputCardInputCard {
   hakkaBalance: TokenAmount;
   approveCallback: any;
   approveState: ApprovalState;
-  amountError: string;
-  totalSupplyError:string;
+  amountError?: string;
+  totalSupplyError?: string;
 }
 
 const NumericalInputCard = (props: NumericalInputCardInputCard) => {
@@ -36,7 +36,7 @@ const NumericalInputCard = (props: NumericalInputCardInputCard) => {
           : ''}
         <button
           sx={styles.maxButton}
-          onClick={() => { props.onUserInput(props.hakkaBalance.toSignificant(10)) }}
+          onClick={() => { props.onUserInput(props.hakkaBalance?.toSignificant(10)) }}
         >MAX</button>
       </div>
     </div>
