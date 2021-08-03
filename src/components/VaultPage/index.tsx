@@ -196,7 +196,7 @@ const VaultPage = (props) => {
   useEffect(() => {
     if (inputAmount && approveState) {
       if (approveState !== ApprovalState.APPROVED || allowance === 0) {
-        setApproveError('Please unlock the token to continue');
+        setApproveError('Please approve to continue');
       } else {
         setApproveError('');
       }
@@ -207,7 +207,7 @@ const VaultPage = (props) => {
         );
         setAmountError('Insufficient balance');
       } else if (parseFloat(inputAmount) > allowance) {
-        setAmountError('Please unlock the token to continue');
+        setAmountError('Please approve to continue');
       } else {
         setAmountError('');
       }
@@ -247,7 +247,7 @@ const VaultPage = (props) => {
           <div sx={styles.infomationContainer}>
             <h3 sx={styles.subTitle}>Burn to get value</h3>
             <div sx={styles.contract}>
-              <span>Contract</span>
+              <span>Guild Bank Contract</span>
               <span
                 sx={styles.contractAddress}
                 onClick={() => { window.open('https://etherscan.io/address/0xde02313f8BF17f31380c63e41CDECeE98Bc2b16d#code', '_blank').focus() }}
@@ -255,7 +255,7 @@ const VaultPage = (props) => {
                 {chainId ? shortenAddress(BURNER_ADDRESS[chainId]) : ''}
               </span>
             </div>
-            <p>Description Description Description Description Description Description</p>
+            <p>An interface for Hakka holders to call ragequit() function to burn their HAKKA and draw funds from Guild Bank proportionally.</p>
             <div sx={styles.hakkaBalance}>
               <span>Burn</span>
               <span>HAKKA Balance: {hakkaBalance?.toSignificant(10)}</span>

@@ -66,7 +66,7 @@ export default {
     fontStyle: 'normal',
     lineHeight: '1.33',
     letterSpacing: 'normal',
-    color: '#253e47',
+    color: 'inherit',
   },
   balance:{
     display: 'flex',

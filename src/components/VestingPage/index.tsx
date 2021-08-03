@@ -5,6 +5,7 @@ import {
   JSBI,
   TokenAmount,
 } from '@uniswap/sdk';
+import Web3Status from '../Web3Status';
 import images from '../../images'
 import React, { useMemo, useCallback } from 'react';
 import Countdown, { zeroPad } from 'react-countdown'
@@ -92,6 +93,10 @@ const VestingPage = () => {
     <>
       <div sx={styles.container}>
         <div sx={styles.vestingPageWrapper}>
+          <div sx={styles.header}>
+            <h1 sx={styles.title}>Rewards</h1>
+            <Web3Status />
+          </div>
           <div sx={styles.backBtn}>
             <img src={images.iconBack} sx={styles.iconBack} />
             <span>Back</span>

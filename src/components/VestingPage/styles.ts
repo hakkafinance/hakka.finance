@@ -28,6 +28,19 @@ export default {
     },
   },
 
+  header: {
+    justifyContent: 'space-between',
+
+    '@media screen and (min-width: 576px)': {
+      display: 'flex',
+    },
+  },
+
+  title: {
+    fontWeight: 'bold',
+    fontSize: [5, 6, 6, 6],
+  },
+
   backBtn: {
     display: 'flex',
     alignItems: 'center',
