@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { useCallback } from 'react';
 import {
   JSBI,
   TokenAmount,
 } from '@uniswap/sdk';
 import { useWeb3React } from '@web3-react/core';
 import { Interface } from '@ethersproject/abi';
-import { AddressZero } from '@ethersproject/constants';
+import { ArrowRightCircle } from 'react-feather';
 import { useStakingBalance } from '../../data/StakingBalance'
 import ERC20_ABI from '../../constants/abis/erc20.json';
 import {
@@ -53,27 +54,77 @@ export default function WalletModal() {
   const infoModalOpen = useInfoModalOpen();
   const toggleInfoModal = useInfoModalToggle();
 
+  const addToMetamask = useCallback(() => {
+    const _ethereum = window.ethereum
+    _ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: HAKKA[chainId].address,
+          symbol: 'HAKKA',
+          decimals: 18,
+          image:
+            'https://assets.coingecko.com/coins/images/12163/small/Hakka-icon.png?1597746776',
+        },
+      },
+    })
+  }, [chainId])
+
   function getModalContent() {
     return (
       <div sx={styles.upperSection}>
+        <div sx={styles.illustration}></div>
         <div sx={styles.closeIcon} onClick={toggleInfoModal}>
           <img src={images.iconDeleteRound} />
         </div>
-        <div sx={styles.headerRow}>
-          <div sx={styles.hoverText}>Your HAKKA breakdown</div>
+        <div>
+          <div sx={styles.title}>Your HAKKA breakdown</div>
         </div>
         <div sx={styles.contentWrapper}>
-          <div>
-            <div>{hakkaValueAmount?.toFixed(2)} HAKKA</div>
-            <div>{hakkaPrice} USD</div>
+          <div sx={styles.balance}>
+            <img sx={styles.hakkaIcon} src={images.hakkaAccount} />
+            <div sx={styles.hakkaValue}>{hakkaValueAmount?.toFixed(2) || '-'}</div>
+            <button
+              onClick={addToMetamask}
+              sx={styles.addMetamaskBtn}
+            >
+              <img src={images.iconAdd} sx={styles.iconAdd} />
+              <img src={images.iconMetamask} />
+            </button>
           </div>
-          <div>
-            <div>Staking balance</div>
-            <div>{stakingValueAmount?.toFixed(2)} HAKKA</div>
+          <div sx={styles.displayBetween}>
+            <div sx={styles.label}>Price</div>
+            <div sx={styles.data}>{hakkaPrice} USD</div>
           </div>
-          <div>
-            <div>Vesting balance</div>
-            <div>{vestingValueAmount?.toFixed(2)} HAKKA</div>
+        </div>
+        <div sx={styles.divider}></div>
+        <div sx={styles.contentWrapper}>
+          <div sx={styles.displayBetween}>
+            <div>
+              <div sx={styles.label}>Staking balance</div>
+              <div sx={styles.data}>{stakingValueAmount?.toFixed(2) || '-'} HAKKA</div>
+            </div>
+            <button
+              onClick={() => { location.href = '/staking' }}
+              sx={styles.pageBtn}
+            >
+              Staking
+              <ArrowRightCircle size={'20'} />
+            </button>
+          </div>
+          <div sx={styles.displayBetween}>
+            <div>
+              <div sx={styles.label}>Vesting balance</div>
+              <div sx={styles.data}>{vestingValueAmount?.toFixed(2) || '-'} HAKKA</div>
+            </div>
+            <button
+              onClick={() => { location.href = '/vesting' }}
+              sx={styles.pageBtn}
+            >
+              Vesting
+              <ArrowRightCircle size={'20'} />
+            </button>
           </div>
         </div>
       </div>

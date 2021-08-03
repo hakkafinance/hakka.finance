@@ -7,13 +7,12 @@ import Copy from './Copy';
 
 import { SUPPORTED_WALLETS } from '../../constants';
 import images from '../../../src/images';
-import { getEtherscanLink } from '../../utils';
+import CurrentNetwork from '../CurrentNetwork';
 import {
   injected,
   walletlink,
 } from '../../connectors';
 import MyButton from '..//Common/MyButton'
-import { ExternalLink as LinkIcon } from 'react-feather';
 import styles from './styles';
 
 interface AccountDetailsProps {
@@ -47,6 +46,7 @@ export default function AccountDetails({
   return (
     <>
       <div sx={styles.upperSection}>
+        <div sx={styles.illustration}></div>
         <div sx={styles.closeIcon} onClick={toggleWalletModal}>
           <img src={images.iconDeleteRound} />
         </div>
@@ -56,61 +56,41 @@ export default function AccountDetails({
             <div sx={styles.infoCard}>
               <div sx={styles.accountGroupingRow}>
                 {formatConnectorName()}
-                <div>
-                  {connector !== injected && connector !== walletlink ? (
-                    <MyButton
-                      style={{
-                        fontSize: '.825rem',
-                        fontWeight: 400,
-                        marginRight: '8px',
-                      }}
-                      click={() => {
-                        (connector as any).close();
-                      }}
-                    >
-                      Disconnect
-                    </MyButton>
-                  ) : (
-                  <MyButton
-                    style={{ fontSize: '.825rem', fontWeight: 400 }}
-                    click={() => {
-                      openOptions();
-                    }}
-                  >
-                    Change
-                  </MyButton>
-                  )}
-                </div>
               </div>
               <div sx={styles.accountGroupingRow} id="web3-account-identifier-row">
                 <div sx={styles.accountControl}>
                   <p> {ENSName || account && shortenAddress(account)}</p>
                 </div>
-              </div>
-              <div sx={styles.accountGroupingRow}>
-                <div sx={styles.accountControl}>
-                  <div>
                     {account && (
                       <Copy toCopy={account}>
                         <span style={{ marginLeft: '4px' }}>
-                          Copy Address
+                          Copy
                         </span>
                       </Copy>
                     )}
-                    {chainId && account && (
-                      <a
-                        sx={styles.addressLink}
-                        target='_blank'
-                        href={getEtherscanLink(chainId, account, 'address')}
-                      >
-                        <LinkIcon size={16} />
-                        <span style={{ marginLeft: '4px' }}>
-                          View on Etherscan
-                        </span>
-                      </a>
-                    )}
-                  </div>
-                </div>
+              </div>
+              <div sx={styles.accountGroupingRow}>
+                <div sx={styles.network}>Network:</div>
+                <CurrentNetwork />
+              </div>
+              <div sx={styles.buttonSection}>
+                {connector !== injected && connector !== walletlink ? (
+                  <MyButton
+                    click={() => {
+                      (connector as any).close();
+                    }}
+                  >
+                    Disconnect
+                  </MyButton>
+                ) : (
+                <MyButton
+                  click={() => {
+                    openOptions();
+                  }}
+                >
+                  Change
+                </MyButton>
+                )}
               </div>
             </div>
           </div>

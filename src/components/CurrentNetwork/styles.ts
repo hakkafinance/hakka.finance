@@ -2,9 +2,6 @@ export default {
   chainWrapper: {
     display: 'flex',
     paddingRight: '12px',
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '12px'
-    },
   },
 
   chainNameWrapper: {

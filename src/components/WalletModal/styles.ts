@@ -10,6 +10,16 @@ export default {
     },
     borderColor: '#EDEEF2',
   },
+  illustration: {
+    position: 'fixed',
+    width: '90px',
+    height: '90px',
+    margin: '0 139px 27px 0',
+    padding: '45px 11px 21px 0',
+    webkitFilter: 'blur(20px)',
+    filter: 'blur(20px)',
+    backgroundColor: 'rgba(217, 251, 227, 0.3)',
+  },
   optionCard: {
     display: 'flex',
     flexDirection: 'row',
@@ -85,10 +95,11 @@ export default {
     width: '100%',
   },
   headerRow: {
+    fontSize: '18px',
     display: 'flex',
     flexFlow: 'row nowrap',
     padding: '1rem 1rem',
-    fontWeight: '500',
+    fontWeight: '600',
     color: 'inherit',
   },
   contentWrapper: {

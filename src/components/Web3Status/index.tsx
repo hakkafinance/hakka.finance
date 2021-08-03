@@ -28,15 +28,17 @@ const Web3Status = (props) => {
     <>
       <div sx={styles.container}>
         <CurrentNetwork />
-        <div sx={styles.loginButtonWrapper}>
-          <MyButton
-            id={account ? 'web3-status-connected' : 'connect-wallet'}
-            click={toggleWalletModal}
-          >
-            {account ?  ENSName || shortenAddress(account) : 'Connect'}
-          </MyButton>
+        <div sx={styles.accountContainer}>
+          <div sx={styles.loginButtonWrapper}>
+            <MyButton
+              id={account ? 'web3-status-connected' : 'connect-wallet'}
+              click={toggleWalletModal}
+            >
+              {account ?  ENSName || shortenAddress(account) : 'Connect'}
+            </MyButton>
+          </div>
+          <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt='Account Icon' />
         </div>
-        <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt='Account Icon' />
       </div>
 
       <WalletModal

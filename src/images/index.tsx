@@ -30,6 +30,7 @@ const images = {
   iconTwitter: require('../images/icons/iconTwitter.svg').default,
   iconDiscord: require('../images/icons/iconDiscord.svg').default,
   iconGithub: require('../images/icons/iconGithub.svg').default,
+  hakkaAccount: require('../images/icons/hakkaAccount.svg').default,
 
   // Product icons
 

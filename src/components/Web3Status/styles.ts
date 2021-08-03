@@ -10,16 +10,20 @@ export default {
     fontWight: '500',
   },
   container: {
-    display: 'flex',
     alignItems: 'center',
+    '@media screen and (min-width: 576px)': {
+      display: 'flex',
+    },
+  },
+  accountContainer: {
+    display: 'flex',
+    '@media screen and (max-width: 576px)': {
+      marginTop: '10px',
+    },
   },
 
   loginButtonWrapper: {
     width: '153px',
-    '@media screen and (max-width: 576px)': {
-      width: '176px',
-      order: '-1',
-    },
   },
 
   accountIconWrapper: {
@@ -29,9 +33,6 @@ export default {
     transition: 'all 0.25s ease-out',
     borderRadius: '8px',
     backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    '@media screen and (max-width: 576px)': {
-      marginLeft: '0'
-    },
     '&:hover': {
       cursor: 'pointer',
       border: 'solid 1px #3ebd93',

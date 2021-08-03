@@ -3,24 +3,24 @@ export default {
     color: '#888D9B',
     display: 'flex',
     textDecoration: 'none',
-    fontSize: '0.825rem',
-
-
-    padding: '14px 16px',
-    backgroundColor: '#fff',
-    border: 'solid 1px #dae1e3',
-    width: '160px',
+    fontSize: '14px',
+    border: 'none',
+    width: '120px',
+    height: '40px',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontWeight: '600',
     transition: 'all 0.25s ease-out',
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f7fbfc',
   },
   headerRow: {
+    fontSize: '18px',
     display: 'flex',
     flexFlow: 'row nowrap',
     padding: '1rem 1rem',
-    fontWeight: '500',
+    fontWeight: '600',
     color: 'inherit',
   },
   upperSection: {
@@ -38,10 +38,18 @@ export default {
       fontWeight: '500',
     }
   },
+  illustration: {
+    position: 'fixed',
+    width: '90px',
+    height: '90px',
+    margin: '0 139px 27px 0',
+    padding: '45px 11px 21px 0',
+    webkitFilter: 'blur(20px)',
+    filter: 'blur(20px)',
+    backgroundColor: 'rgba(217, 251, 227, 0.3)',
+  },
   infoCard: {
     padding: '1rem',
-    border: '1px solid #edeef2',
-    borderRadius: '1px',
     position: 'relative',
     display: 'grid',
     gridRowGap: '12px',
@@ -76,6 +84,9 @@ export default {
       fontWeight: '500',
     }
   },
+  buttonSection: {
+    marginTop: '30px',
+  },
   accountControl: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -83,7 +94,7 @@ export default {
     width: '100%',
   
     fontWeight: '500',
-    fontSize: '1.25rem',
+    fontSize: '24px',
   
     'a:hover': {
       textDecoration: 'underline',
@@ -117,9 +128,14 @@ export default {
   },
   walletName: {
     width: 'initial',
-    fontSize: '0.825rem',
+    fontSize: '14px',
     fontWeight: '500',
     color: '#888d9b',
+  },
+  network: {
+    width: 'initial',
+    fontSize: '14px',
+    fontWeight: '500',
   },
   walletAction: {
     width: 'fit-content',
@@ -129,7 +145,7 @@ export default {
     padding: '4px 6px',
     ':hover': {
       cursor: 'pointer',
-      textDecoration: 'underline',
+      textDeaccountGroupingRowcoration: 'underline',
     }
   },
 }

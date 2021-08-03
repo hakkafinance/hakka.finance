@@ -16,7 +16,7 @@ export default function CopyHelper(props: {
       {isCopied ? (
         <CheckCircle size={'16'} />
       ) : (
-        <Copy size={'16'} />
+        <Copy size={'18'} />
       )}
       {isCopied ? <span style={{ marginLeft: '4px' }}>Copied</span> : props.children}
     </button>

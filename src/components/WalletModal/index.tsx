@@ -135,6 +135,7 @@ export default function WalletModal({
     }
     return (
       <div sx={styles.upperSection}>
+        <div sx={styles.illustration}></div>
         <div sx={styles.closeIcon} onClick={toggleWalletModal}>
           <img src={images.iconDeleteRound} />
         </div>
