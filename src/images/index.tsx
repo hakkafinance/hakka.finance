@@ -19,7 +19,9 @@ const images = {
   iconWaiting: require('../images/icons/iconWaiting.svg').default,
   iconWithdrawAvailable: require('../images/icons/iconWithdrawAvailable.svg').default,
   iconMetamask: require('../images/icons/iconMetamask.svg').default,
-
+  iconVotingPower: require('../images/icons/iconPower.svg').default,
+  iconBecome: require('../images/icons/iconBecome.svg').default,
+  iconTop: require('../images/icons/iconTop.svg').default,
 
   // web applications icon
 

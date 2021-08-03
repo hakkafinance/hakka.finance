@@ -91,7 +91,7 @@ const VestingPage = () => {
   return (
     <>
       <div sx={styles.container}>
-        <div sx={styles.vaultPageWrapper}>
+        <div sx={styles.vestingPageWrapper}>
           <div sx={styles.backBtn}>
             <img src={images.iconBack} sx={styles.iconBack} />
             <span>Back</span>

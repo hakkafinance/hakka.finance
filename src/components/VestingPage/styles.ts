@@ -13,7 +13,7 @@ export default {
     },
   },
 
-  vaultPageWrapper: {
+  vestingPageWrapper: {
     maxWidth: '860px',
     color: '#253e47',
 
@@ -62,8 +62,6 @@ export default {
     '@media screen and (max-width: 1150px)': {
       flexDirection: 'column'
     },
-
-
   },
 
   balanceCard: {
@@ -143,7 +141,7 @@ export default {
 
     ':hover' :{
       cursor: 'pointer',
-      backgroundColor: '#3ebd93',
+      backgroundColor: 'rgba(62, 189, 147, 0.1)',
     }
   },
 
@@ -203,14 +201,5 @@ export default {
       width: '100%',
       marginBottom: '20px',
     },
-
   },
-
-
-
-
-
-
-
-
 }
