@@ -50,8 +50,8 @@ const VestingPage = () => {
   const vestingValueAmount = useMemo(
     () =>
       vestingValue.result && chainId
-        ? new TokenAmount(HAKKA[chainId], vestingValue.result.toString())
-        : new TokenAmount(HAKKA[chainId], '0'),
+        ? new TokenAmount(HAKKA[chainId || 1], vestingValue.result.toString())
+        : new TokenAmount(HAKKA[chainId || 1], '0'),
     [vestingValue, chainId]
   );
   const vestingValuePrice = useMemo(
@@ -61,8 +61,8 @@ const VestingPage = () => {
   const vestingProportionAmount = useMemo(
     () =>
       vestingProportion.result && chainId
-        ? new TokenAmount(HAKKA[chainId], vestingProportion.result.toString())
-        : new TokenAmount(HAKKA[chainId], '0'),
+        ? new TokenAmount(HAKKA[chainId || 1], vestingProportion.result.toString())
+        : new TokenAmount(HAKKA[chainId || 1], '0'),
     [vestingProportion, chainId]
   );
 
