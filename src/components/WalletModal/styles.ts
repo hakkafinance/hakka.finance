@@ -11,6 +11,7 @@ export default {
     borderColor: '#EDEEF2',
   },
   illustration: {
+    zIndex: 0,
     position: 'fixed',
     width: '90px',
     height: '90px',
@@ -131,6 +132,7 @@ export default {
     gridGap: '10px',
   },
   hoverText: {
+    zIndex: 1,
     ':hover': {
       cursor: 'pointer',
     }
