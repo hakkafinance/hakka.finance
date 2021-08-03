@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useActiveWeb3React } from '../../hooks';
 import useDebounce from '../../hooks/useDebounce';
-import useIsWindowVisible from '../../hooks/useIsWindowVisible';
 import { useApplicationContext } from './hooks';
 
 export default function Updater(): null {
   const { library, chainId } = useActiveWeb3React();
   const { updateBlockNumber } = useApplicationContext();
-
-  const windowVisible = useIsWindowVisible();
 
   const [state, setState] = useState<{
     chainId: number | undefined;
@@ -37,7 +34,7 @@ export default function Updater(): null {
 
   // attach/detach listeners
   useEffect(() => {
-    if (!library || !chainId || !windowVisible) return undefined;
+    if (!library || !chainId ) return undefined;
 
     setState({ chainId, blockNumber: null });
 
@@ -55,15 +52,14 @@ export default function Updater(): null {
     return () => {
       library.removeListener('block', blockNumberCallback);
     };
-  }, [updateBlockNumber, chainId, library, blockNumberCallback, windowVisible]);
+  }, [updateBlockNumber, chainId, library, blockNumberCallback]);
 
   const debouncedState = useDebounce(state, 100);
 
   useEffect(() => {
     if (
       !debouncedState.chainId ||
-      !debouncedState.blockNumber ||
-      !windowVisible
+      !debouncedState.blockNumber
     )
       return;
     updateBlockNumber({
@@ -71,7 +67,6 @@ export default function Updater(): null {
       blockNumber: debouncedState.blockNumber,
     });
   }, [
-    windowVisible,
     updateBlockNumber,
     debouncedState.blockNumber,
     debouncedState.chainId,
