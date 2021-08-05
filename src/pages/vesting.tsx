@@ -1,12 +1,12 @@
 import React from 'react'
-import Layout from '../containers/Layout'
+import DappLayout from '../containers/Layout'
 import VestingPage from '../components/VestingPage'
 
 const Vesting = () => {
   return (
-    <Layout title={'vesting'}>
+    <DappLayout title={'vesting'}>
       <VestingPage />
-    </Layout>
+    </DappLayout>
   )
 }
 

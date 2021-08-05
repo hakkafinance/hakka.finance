@@ -104,6 +104,8 @@ const images = {
   // header backgroud
   headerLogo: require('../images/logos/headerBg.jpg').default,
   headerLogo3x: require('../images/logos/headerBg-3x.jpg').default,
+  dappHeaderLogo: require('../images/logos/dappHeaderBg.jpg').default,
+  dappHeaderLogo3x: require('../images/logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('../images/icons/decorativeBlurBall.png').default,
 
   // avatars

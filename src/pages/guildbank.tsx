@@ -1,16 +1,18 @@
 import React from 'react'
-import BlankScreen from 'src/components/BlankScreen'
-import Layout from 'src/containers/Layout'
+// import BlankScreen from '../components/BlankScreen'
+import DappLayout from '../containers/DappLayout'
 import VaultPage from '../components/VaultPage'
 
 const GuildBankPage = () => {
   return (
-    <Layout>
+    <DappLayout
+      title = {'guildbank'}
+    >
       {/* <BlankScreen
         path = {'guildbank'}
       /> */}
       <VaultPage />
-    </Layout>
+    </DappLayout>
   )
 }
 

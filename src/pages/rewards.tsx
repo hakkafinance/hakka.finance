@@ -1,14 +1,14 @@
 import React from 'react'
 import BlankScreen from '../components/BlankScreen'
-import Layout from '../containers/Layout'
+import DappLayout from '../containers/DappLayout'
 
 const RewardsPage = () => {
   return (
-    <Layout title={'rewards'}>
+    <DappLayout title={'rewards'}>
       <BlankScreen 
         path={'rewards'}
       />
-    </Layout>
+    </DappLayout>
   )
 }
 

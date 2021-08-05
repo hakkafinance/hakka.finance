@@ -39,6 +39,10 @@ export default {
   title: {
     fontWeight: 'bold',
     fontSize: [5, 6, 6, 6],
+    margin: '0',
+    '@media screen and (max-width: 1200px)': {
+      marginBottom: '18px',
+    }
   },
 
   body: {
