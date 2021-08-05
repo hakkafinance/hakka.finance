@@ -1,62 +1,67 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import images from "../../../images";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { TokenAmount } from '@uniswap/sdk';
 import styles from "./styles";
 import MyButton from "../../Common/MyButton/index";
-import NumericalInputCard from "../../VaultPage/NumericalInputCard";
-import { useTokenBalance } from "../../../state/wallet/hooks";
+import NumericalInputCard from "../NumericalInputCard";
 import { useActiveWeb3React } from "../../../hooks/index";
 import { useApproveCallback } from "../../../hooks/useApproveCallback";
-import { ChainId, HAKKA, BURNER_ADDRESS } from "../../../constants";
+import { useStakingVaultData } from '../../../data/StakingVaultData';
+import { ChainId, HAKKA, STAKING_ADDRESSES } from "../../../constants";
+import { formatUnits, parseUnits } from '@ethersproject/units'
+import { BigNumber } from 'ethers';
 
-// interface StakePositionProps {
-//   stakedHakka: string;
-//   getsSHakka: string;
-//   until: string;
-//   DetailLInk?: string;
-// }
+interface StakePositionProps {
+  index: number;
+  stakedHakka: BigNumber;
+  sHakkaReceived: BigNumber;
+  until: BigNumber;
+}
 
-const StakePositionItem = () => {
-  const { account, library, chainId } = useActiveWeb3React();
-  const [inputAmount, setInputAmount] = useState<string>();
+const StakePositionItem = (props: StakePositionProps) => {
+  const { chainId } = useActiveWeb3React();
+  const [inputAmount, setInputAmount] = useState();
+  const { index, stakedHakka, sHakkaReceived, until } = props
+  const stakingValue = useStakingVaultData(index, inputAmount);
 
-  // !!change to sHAKKA balance
-  const hakkaBalance = useTokenBalance(
-    account as string,
-    HAKKA[chainId as ChainId]
-  );
-
-  const [approveInfo, approveCallback] = useApproveCallback(
+  const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
-    // just for test. Wrong address!
-    BURNER_ADDRESS[chainId as ChainId]
+    STAKING_ADDRESSES[chainId as ChainId]
   );
+
+  const timeOption: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  }
+
+  const lockUntil = useMemo(() => {
+    return new Date(until?.mul(1000).toNumber()).toLocaleString(
+      'en-US',
+      timeOption,
+    )
+  }, [until]);
 
   const [isShowRedeem, setIsShowRedeem] = useState<boolean>(false);
 
   return (
       <div sx={styles.positionFormWrapper}>
-        <span sx={styles.positionNumber}>1</span>
+        <span sx={styles.positionNumber}>{index}</span>
         <div sx={styles.positionCard}>
           <div sx={styles.positionItem}>
             <div sx={styles.stackedHakkaWrapper}>
               <p>Staked HAKKA</p>
-              <p sx={styles.amountFontColor}>12,520</p>
+              <p sx={styles.amountFontColor}>{formatUnits(stakedHakka || 0)}</p>
             </div>
             <div sx={styles.stackedHakkaWrapper}>
               <p>Get sHAKKA</p>
-              <p sx={styles.amountFontColor}>1,005</p>
+              <p sx={styles.amountFontColor}>{formatUnits(sHakkaReceived || 0)}</p>
             </div>
-            <div sx={styles.stackInfo}>
-              <div sx={styles.untilWrapper}>
-                <p>Until</p>
-                <p sx={styles.amountFontColor}>07/12/2020 15:35</p>
-              </div>
-              <div sx={styles.DetailLink}>
-                <span>Detail</span>
-                <img src={images.iconLinkNormal} />
-              </div>
+            <div sx={styles.stackedHakkaWrapper}>
+              <p>Until</p>
+              <p sx={styles.amountFontColor}>{lockUntil}</p>
             </div>
             <div
               sx={styles.redeemToggleBtn}
@@ -71,25 +76,24 @@ const StakePositionItem = () => {
               <div sx={styles.inputArea}>
                 <div sx={styles.balance}>
                   <span>Burn</span>
-                  <span>sHAKKA Balance: 5699.3228</span>
                 </div>
                 <NumericalInputCard
                   value={inputAmount}
                   onUserInput={setInputAmount}
-                  hakkaBalance={hakkaBalance}
+                  hakkaBalance={TokenAmount.ether(formatUnits(sHakkaReceived || 0, 0)) as TokenAmount}
                   approveCallback={approveCallback}
-                  approveState={approveInfo.state}
+                  approveState={approveState}
                 />
               </div>
               <div sx={styles.receiveAmountWrapper}>
                 <img src={images.iconBecome} sx={styles.iconBecome}/>
                 <div>
                   <p sx={{ fontWeight: "normal" }}>Receive HAKKA</p>
-                  <p>12.520</p>
+                  <p>{stakingValue.toFixed(4)}</p>
                 </div>
               </div>
               <div sx={styles.redeemBtn}>
-                <MyButton type={"green"}>Redeem</MyButton>
+                <MyButton type={"green"} disabled={stakingValue.equalTo('0')}>Redeem</MyButton>
               </div>
             </div>
           )}

@@ -16,6 +16,8 @@ export enum ChainId {
   BSC = 56,
 }
 
+export const stakingMonth = [12, 6, 3, 1]
+
 export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
   42: 'Kovan Testnet',

@@ -4,6 +4,7 @@ import { useActiveWeb3React } from '../hooks';
 
 import { getContract } from '../utils';
 import { useSingleCallResult } from '../state/multicall/hooks';
+import { BigNumber } from "ethers";
 import STAKING_ABI from '../constants/abis/shakka.json';
 import {
   ChainId,
@@ -11,7 +12,7 @@ import {
   STAKING_ADDRESSES,
 } from '../constants';
 
-export function useStakingBalance(): TokenAmount | undefined {
+export function useStakingVaultData(index: number, wAmount: BigNumber): TokenAmount {
   const { chainId, library, account } = useActiveWeb3React();
 
   const contract = getContract(
@@ -21,13 +22,13 @@ export function useStakingBalance(): TokenAmount | undefined {
     account,
   );
 
-  const stakingBalance = useSingleCallResult(contract, 'stakedHakka', [account]);
+  const unstake = useSingleCallResult(contract, 'unstake', [account, index, wAmount]);
 
   return useMemo(
     () =>
-    chainId === 1 && stakingBalance
-        ? new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(stakingBalance.result?.[0] ?? 0))
+    chainId === 1 && unstake
+        ? new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(unstake.result?.[0] ?? 0))
         : undefined,
-    [chainId, stakingBalance]
+    [chainId, unstake]
   );
 }
