@@ -21,7 +21,7 @@ const NumericalInputCard = (props: NumericalInputCardInputCard) => {
   return (
     <div sx={ props.amountError||props.totalSupplyError ? styles.InputCardErrorWrapper : styles.InputCardWrapper}>
       <NumercialInput
-        value={props.value}
+        value={props.value || '0'}
         onUserInput={props.onUserInput}
         sx={styles.input}
       />
@@ -36,7 +36,7 @@ const NumericalInputCard = (props: NumericalInputCardInputCard) => {
           : ''}
         <button
           sx={styles.maxButton}
-          onClick={() => { props.onUserInput(props.hakkaBalance?.toSignificant(10)) }}
+          onClick={() => { props.onUserInput(props.hakkaBalance?.toSignificant(1000)) }}
         >MAX</button>
       </div>
     </div>

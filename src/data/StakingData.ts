@@ -47,7 +47,13 @@ export function useStakingData(): { stakingBalance: TokenAmount, sHakkaBalance: 
           stakingRate: stakingRate.map((rate) => JSBI.BigInt(rate.result?.[0] ?? 0).toString()),
           vaults: vaults,
         }
-        : undefined,
+        : {
+          stakingBalance: undefined,
+          sHakkaBalance: undefined,
+          votingPower: undefined,
+          stakingRate: undefined,
+          vaults: [],
+        },
     [chainId, stakingBalance, votingPower, stakingRate, vaults]
   );
 }

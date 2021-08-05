@@ -8,9 +8,9 @@ import MyButton from "../../Common/MyButton/index";
 import NumericalInputCard from "../NumericalInputCard";
 import { useActiveWeb3React } from "../../../hooks/index";
 import { useApproveCallback } from "../../../hooks/useApproveCallback";
-import { useStakingVaultData } from '../../../data/StakingVaultData';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from "../../../constants";
-import { formatUnits, parseUnits } from '@ethersproject/units'
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
 import { BigNumber } from 'ethers';
 
 interface StakePositionProps {
@@ -21,10 +21,12 @@ interface StakePositionProps {
 }
 
 const StakePositionItem = (props: StakePositionProps) => {
-  const { chainId } = useActiveWeb3React();
-  const [inputAmount, setInputAmount] = useState();
+  const { chainId, account } = useActiveWeb3React();
+  const [inputAmount, setInputAmount] = useState('0');
   const { index, stakedHakka, sHakkaReceived, until } = props
-  const stakingValue = useStakingVaultData(index, inputAmount);
+  const stakingValue = useMemo(
+    () => parseUnits(inputAmount || '0').mul(stakedHakka || 0).div(sHakkaReceived || 1)
+    , [inputAmount, stakedHakka, sHakkaReceived]);
 
   const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
@@ -46,9 +48,16 @@ const StakePositionItem = (props: StakePositionProps) => {
 
   const [isShowRedeem, setIsShowRedeem] = useState<boolean>(false);
 
+  const [unstakeState, unstakeCallback] = useUnstakeCallback(
+    STAKING_ADDRESSES[chainId as ChainId],
+    account,
+    index,
+    parseUnits(inputAmount || '0'),
+  );
+
   return (
       <div sx={styles.positionFormWrapper}>
-        <span sx={styles.positionNumber}>{index}</span>
+        <span sx={styles.positionNumber}>{index+1}</span>
         <div sx={styles.positionCard}>
           <div sx={styles.positionItem}>
             <div sx={styles.stackedHakkaWrapper}>
@@ -89,11 +98,11 @@ const StakePositionItem = (props: StakePositionProps) => {
                 <img src={images.iconBecome} sx={styles.iconBecome}/>
                 <div>
                   <p sx={{ fontWeight: "normal" }}>Receive HAKKA</p>
-                  <p>{stakingValue.toFixed(4)}</p>
+                  <p>{formatUnits(stakingValue)}</p>
                 </div>
               </div>
               <div sx={styles.redeemBtn}>
-                <MyButton type={"green"} disabled={stakingValue.equalTo('0')}>Redeem</MyButton>
+                <MyButton type={"green"} click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING}>Redeem</MyButton>
               </div>
             </div>
           )}

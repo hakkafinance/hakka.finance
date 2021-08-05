@@ -6,6 +6,7 @@ import {
 } from '@uniswap/sdk';
 import images from "../../images";
 import React, { useState, useMemo } from "react";
+import { parseUnits } from '@ethersproject/units'
 import styles from "./styles";
 import MyButton from "../../components/Common/MyButton/index";
 import Web3Status from "../Web3Status";
@@ -14,6 +15,7 @@ import { useTokenBalance } from "../../state/wallet/hooks";
 import { useStakingData } from '../../data/StakingData'
 import { useWeb3React } from '@web3-react/core';
 import { useApproveCallback } from "../../hooks/useApproveCallback";
+import { useStakeCallback, StakeState } from "../../hooks/useStakeCallback";
 import StakePositionItem from "./StakePositionItem/index";
 import { ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth } from "../../constants";
 
@@ -47,8 +49,15 @@ const Staking = () => {
   }, [lockTime]);
 
   const sHakkaPreview = useMemo(() => 
-    stakingRate && inputAmount ? new TokenAmount(HAKKA[chainId as ChainId], stakingRate[stakingMonth.indexOf(lockTime)]).multiply(inputAmount) : 0
+    stakingRate && inputAmount ? new TokenAmount(HAKKA[chainId as ChainId], stakingRate[stakingMonth.indexOf(lockTime)]).multiply(inputAmount * 1e18).divide(1e18) : 0
   , [lockTime, stakingRate, inputAmount]);
+
+  const [stakeState, stakeCallback] = useStakeCallback(
+    STAKING_ADDRESSES[chainId as ChainId],
+    account,
+    parseUnits(inputAmount || '0'),
+    lockTime,
+  );
 
   return (
     <div sx={styles.container}>
@@ -128,7 +137,7 @@ const Staking = () => {
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
-              <MyButton type={"green"}>Stake</MyButton>
+              <MyButton type={"green"} click={stakeCallback} disabled={stakeState === StakeState.PENDING}>Stake</MyButton>
             </div>
           </div>
         </div>
@@ -146,7 +155,7 @@ const Staking = () => {
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) => <StakePositionItem key={index} index={index+1} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
+          {vaults.map((vault, index) => <StakePositionItem key={index} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
         </div>
       </div>
     </div>

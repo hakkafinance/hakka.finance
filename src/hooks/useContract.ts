@@ -7,6 +7,7 @@ import ERC20_BYTES32_ABI from '../constants/abis/erc20.json';
 import ERC20_ABI from '../constants/abis/erc20.json';
 import VESTING_ABI from '../constants/abis/vesting.json';
 import BURNER_ABI from '../constants/abis/burner.json';
+import STAKE_ABI from '../constants/abis/shakka.json';
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall';
 import { getContract } from '../utils';
 import { useActiveWeb3React } from './index';
@@ -47,6 +48,13 @@ export function useBurnContract(
   withSignerIfPossible?: boolean
 ): Contract | null {
   return useContract(burnAddress, BURNER_ABI, withSignerIfPossible);
+}
+
+export function useStakeContract(
+  stakeAddress?: string,
+  withSignerIfPossible?: boolean
+): Contract | null {
+  return useContract(stakeAddress, STAKE_ABI, withSignerIfPossible);
 }
 
 export function useVestingContract(

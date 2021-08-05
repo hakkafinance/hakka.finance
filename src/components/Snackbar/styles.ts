@@ -3,12 +3,13 @@ export default {
     position: 'fixed',
     top: '88px',
     right: '24px',
+    zIndex: '80',
+    maxWidth: '100vw',
 
     '@media screen and (max-width: 576px)': {
       top: '100px',
       left: '18px',
       maxWidth: '90vw',
-      zIndex: '80',
     }
   },
   wrapper: {
