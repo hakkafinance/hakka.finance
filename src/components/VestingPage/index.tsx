@@ -17,10 +17,12 @@ import { useSingleCallResult } from '../../state/multicall/hooks';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { useVestingCallback, VestingState } from '../../hooks/useVestingCallback';
 import {
+  ChainId,
   HAKKA,
   VESTING_ADDRESSES
 } from '../../constants';
 import { useVestingContract } from '../../hooks/useContract';
+import { AddressZero } from '@ethersproject/constants';
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
@@ -95,7 +97,7 @@ const VestingPage = () => {
         <div sx={styles.vestingPageWrapper}>
           <div sx={styles.header}>
             <h1 sx={styles.title}>Rewards</h1>
-            <Web3Status />
+            <Web3Status unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero}/>
           </div>
           <div sx={styles.backBtn}>
             <img src={images.iconBack} sx={styles.iconBack} />

@@ -18,6 +18,7 @@ import { shortenAddress, getEtherscanLink } from '../../utils'
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { Token } from '@uniswap/sdk';
+import { AddressZero } from '@ethersproject/constants';
 
 import {
   ChainId,
@@ -241,7 +242,7 @@ const VaultPage = (props) => {
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Web3Status />
+          <Web3Status unsupported={BURNER_ADDRESS[chainId as ChainId] === AddressZero}/>
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>

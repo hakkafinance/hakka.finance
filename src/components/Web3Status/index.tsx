@@ -13,7 +13,7 @@ import CurrentNetwork from '../CurrentNetwork'
 import images from '../../images'
 import styles from './styles'
 
-const Web3Status = (props) => {
+const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { active, account } = useWeb3React();
   const contextNetwork = useWeb3React(NetworkContextName);
   const { ENSName } = useENSName(account ?? undefined);
@@ -27,7 +27,7 @@ const Web3Status = (props) => {
   return (
     <>
       <div sx={styles.container}>
-        <CurrentNetwork />
+        <CurrentNetwork unsupported={unsupported} />
         <div sx={styles.accountContainer}>
           <div sx={styles.loginButtonWrapper}>
             <MyButton

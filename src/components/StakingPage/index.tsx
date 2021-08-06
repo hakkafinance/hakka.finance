@@ -18,6 +18,7 @@ import { useApproveCallback } from "../../hooks/useApproveCallback";
 import { useStakeCallback, StakeState } from "../../hooks/useStakeCallback";
 import StakePositionItem from "./StakePositionItem/index";
 import { ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth } from "../../constants";
+import { AddressZero } from '@ethersproject/constants';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -64,7 +65,7 @@ const Staking = () => {
       <div sx={styles.stakingPageWrapper}>
         <div sx={styles.heading}>
           <h1>Staking</h1>
-          <Web3Status />
+          <Web3Status unsupported={STAKING_ADDRESSES[chainId as ChainId] === AddressZero}/>
         </div>
         <div sx={styles.body}>
           {/* infoPart */}
