@@ -1,19 +1,26 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import {
+  JSBI,
+  TokenAmount,
+} from '@uniswap/sdk';
 import images from "../../images";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { parseUnits } from '@ethersproject/units'
 import styles from "./styles";
 import MyButton from "../../components/Common/MyButton/index";
 import Web3Status from "../Web3Status";
-import NumericalInputCard from "../VaultPage/NumericalInputCard";
+import NumericalInputCard from "./NumericalInputCard";
 import { useTokenBalance } from "../../state/wallet/hooks";
-import { useActiveWeb3React } from "../../hooks/index";
+import { useStakingData } from '../../data/StakingData'
+import { useWeb3React } from '@web3-react/core';
 import { useApproveCallback } from "../../hooks/useApproveCallback";
+import { useStakeCallback, StakeState } from "../../hooks/useStakeCallback";
 import StakePositionItem from "./StakePositionItem/index";
-import { ChainId, HAKKA, BURNER_ADDRESS } from "../../constants";
+import { ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth } from "../../constants";
 
 const Staking = () => {
-  const { account, library, chainId } = useActiveWeb3React();
+  const { account, chainId } = useWeb3React();
 
   const [inputAmount, setInputAmount] = useState<string>();
 
@@ -21,15 +28,36 @@ const Staking = () => {
     account as string,
     HAKKA[chainId as ChainId]
   );
+  const { stakingBalance, sHakkaBalance, votingPower, stakingRate, vaults } = useStakingData();
 
-  const [approveInfo, approveCallback] = useApproveCallback(
+  const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
-    // just for test. Wrong address!
-    BURNER_ADDRESS[chainId as ChainId]
+    STAKING_ADDRESSES[chainId as ChainId]
   );
 
-  const [lockTime, setLockTime] = useState<string>("12");
-  const lockTimeArray = ["12", "6", "3", "1"];
+  const [lockTime, setLockTime] = useState<number>(12);
+  const timeOption: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  }
+  const lockUntil = useMemo(() => {
+    return new Date(Date.now() + lockTime * 2592000 * 1000).toLocaleString(
+      'en-US',
+      timeOption,
+    )
+  }, [lockTime]);
+
+  const sHakkaPreview = useMemo(() => 
+    stakingRate && inputAmount ? new TokenAmount(HAKKA[chainId as ChainId], stakingRate[stakingMonth.indexOf(lockTime)]).multiply(inputAmount * 1e18).divide(1e18) : 0
+  , [lockTime, stakingRate, inputAmount]);
+
+  const [stakeState, stakeCallback] = useStakeCallback(
+    STAKING_ADDRESSES[chainId as ChainId],
+    account,
+    parseUnits(inputAmount || '0'),
+    lockTime,
+  );
 
   return (
     <div sx={styles.container}>
@@ -46,25 +74,25 @@ const Staking = () => {
                 <h4>Stake to increase power</h4>
                 <div sx={styles.valueWrapper}>
                   <span>Wallet sHAKKA balance</span>
-                  <span sx={styles.amountBold}>0</span>
+                  <span sx={styles.amountBold}>{sHakkaBalance?.toFixed(2)}</span>
                 </div>
                 <div sx={styles.valueWrapper}>
                   <span>Staked HAKKA amount</span>
-                  <span sx={styles.amountBold}>0</span>
+                  <span sx={styles.amountBold}>{stakingBalance?.toFixed(2)}</span>
                 </div>
               </div>
               <div sx={styles.votingPowerCard}>
                 <div sx={styles.powerContent}>
                   <div>
                     <span>Voting Power</span>
-                    <p>0.0</p>
+                    <p>{votingPower?.toFixed(2)}</p>
                   </div>
                   <img src={images.iconVotingPower} sx={styles.iconPower} />
                 </div>
-                <div sx={styles.viewGovernance}>
+                <a sx={styles.viewGovernance} target="_blank" href="https://snapshot.org/#/hakka.eth">
                   <span>View governance</span>
                   <img src={images.iconLinkNormal} />
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -72,21 +100,21 @@ const Staking = () => {
           <div sx={styles.stakingCard}>
             <div sx={styles.hakkaBalanceWrapper}>
               <span>Amount</span>
-              <span>HAKKA Balance: 5699.3228</span>
+              <span>HAKKA Balance: {hakkaBalance?.toFixed(2)}</span>
             </div>
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
               hakkaBalance={hakkaBalance}
               approveCallback={approveCallback}
-              approveState={approveInfo.state}
+              approveState={approveState}
               //  amountError={amountError}
               //  totalSupplyError={totalSupplyError}
             />
             <p sx={{ margin: "20px 0 8px 0" }}>Lock time (month)</p>
             <div sx={styles.optionContainer}>
               <div sx={styles.optionWrapper}>
-                {lockTimeArray.map((month) => (
+                {stakingMonth.map((month) => (
                   <div
                     onClick={() => setLockTime(month)}
                     sx={
@@ -100,16 +128,16 @@ const Staking = () => {
                   </div>
                 ))}
               </div>
-              <span sx={styles.lockTimeUntil}>until 10/14/2021</span>
+              <span sx={styles.lockTimeUntil}>until {lockUntil}</span>
             </div>
             <div sx={styles.getsHakkaWrapper}>
               <span sx={{ fontWeight: "normal" }}>
                 Get sHAKKA (voting power)
               </span>
-              <span>0</span>
+              <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
-              <MyButton type={"green"}>Stake</MyButton>
+              <MyButton type={"green"} click={stakeCallback} disabled={stakeState === StakeState.PENDING}>Stake</MyButton>
             </div>
           </div>
         </div>
@@ -119,16 +147,15 @@ const Staking = () => {
           <hr sx={styles.hr} />
           <div sx={styles.sHakkaRewardLinkWrapper}>
             <span>Earn more Hakka</span>
-            <div sx={styles.sHakkaRewardLinkBtn}>
+            <a sx={styles.sHakkaRewardLinkBtn} target="_blank" href="https://rewards.hakka.finance/stake/0xd9958826Bce875A75cc1789D5929459E6ff15040">
               <span>sHAKKA Reward</span>
               <img src={images.iconForwardGreen} />
-            </div>
+            </a>
           </div>
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          <StakePositionItem />
-          <StakePositionItem />
+          {vaults.map((vault, index) => <StakePositionItem key={index} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
         </div>
       </div>
     </div>

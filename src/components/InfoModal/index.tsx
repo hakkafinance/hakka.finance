@@ -8,7 +8,7 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { Interface } from '@ethersproject/abi';
 import { ArrowRightCircle } from 'react-feather';
-import { useStakingBalance } from '../../data/StakingBalance'
+import { useStakingData } from '../../data/StakingData'
 import ERC20_ABI from '../../constants/abis/erc20.json';
 import {
   ChainId,
@@ -49,7 +49,7 @@ export default function WalletModal() {
     JSBI.BigInt(balance?.result?.[0] ?? 0)
   ));
 
-  const stakingValueAmount = useStakingBalance();
+  const { stakingBalance } = useStakingData();
 
   const infoModalOpen = useInfoModalOpen();
   const toggleInfoModal = useInfoModalToggle();
@@ -103,7 +103,7 @@ export default function WalletModal() {
           <div sx={styles.displayBetween}>
             <div>
               <div sx={styles.label}>Staking balance</div>
-              <div sx={styles.data}>{stakingValueAmount?.toFixed(2) || '-'} HAKKA</div>
+              <div sx={styles.data}>{stakingBalance?.toFixed(2) || '-'} HAKKA</div>
             </div>
             <button
               onClick={() => { location.href = '/staking' }}

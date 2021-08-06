@@ -55,7 +55,7 @@ const VestingPage = () => {
     [vestingValue, chainId]
   );
   const vestingValuePrice = useMemo(
-    () => vestingValueAmount.multiply(JSBI.BigInt(hakkaPrice * 1e8)).divide(JSBI.BigInt(1e8)),
+    () => vestingValueAmount.multiply(JSBI.BigInt((hakkaPrice * 1e8).toFixed(0))).divide(JSBI.BigInt(1e8)),
     [vestingValueAmount]
   );
   const vestingProportionAmount = useMemo(

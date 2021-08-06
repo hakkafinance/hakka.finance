@@ -8,7 +8,7 @@ import { TokenAmount } from '@uniswap/sdk';
 
 
 interface NumericalInputCardInputCard {
-  value: string | number;
+  value: string;
   onUserInput: (input: any) => void;
   hakkaBalance: TokenAmount;
   approveCallback: any;

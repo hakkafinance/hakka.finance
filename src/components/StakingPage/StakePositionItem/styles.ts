@@ -71,19 +71,6 @@ export default {
     },    
   },
 
-  untilWrapper: {
-    paddingRight: '60px',
-
-    '@media screen and (max-width: 576px)': {
-      display: 'flex',
-      paddingRight: '0',
-
-      'p:last-child':{
-        paddingLeft: '12px'
-      },
-    },    
-  },
-
   DetailLink:{
     display: 'flex',
     alignItems: 'center',
