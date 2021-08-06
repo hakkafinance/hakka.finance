@@ -1,5 +1,5 @@
 import React from 'react'
-import DappLayout from '../containers/Layout'
+import DappLayout from '../containers/DappLayout'
 import VestingPage from '../components/VestingPage'
 
 const Vesting = () => {
