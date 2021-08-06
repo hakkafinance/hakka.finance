@@ -14,7 +14,7 @@ import NumericalInputCard from "./NumericalInputCard";
 import { useTokenBalance } from "../../state/wallet/hooks";
 import { useStakingData } from '../../data/StakingData'
 import { useWeb3React } from '@web3-react/core';
-import { useApproveCallback } from "../../hooks/useApproveCallback";
+import { useApproveCallback, ApprovalState } from "../../hooks/useApproveCallback";
 import { useStakeCallback, StakeState } from "../../hooks/useStakeCallback";
 import StakePositionItem from "./StakePositionItem/index";
 import { ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth } from "../../constants";
@@ -138,7 +138,19 @@ const Staking = () => {
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
-              <MyButton type={"green"} click={stakeCallback} disabled={stakeState === StakeState.PENDING}>Stake</MyButton>
+              <MyButton
+                type={"green"}
+                click={
+                  approveState !== ApprovalState.APPROVED
+                    ? approveCallback
+                    : stakeCallback
+                }
+                disabled={stakeState === StakeState.PENDING}
+              >
+                {approveState !== ApprovalState.APPROVED
+                  ? 'Unlock Token'
+                  : 'Stake'}
+              </MyButton>
             </div>
           </div>
         </div>
