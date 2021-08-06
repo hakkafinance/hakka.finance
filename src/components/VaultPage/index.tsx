@@ -14,7 +14,7 @@ import { ethers } from 'ethers';
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback'
 import { useTokenAllowance } from '../../data/Allowances';
-import { shortenAddress, getContract } from '../../utils'
+import { shortenAddress, getEtherscanLink } from '../../utils'
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { Token } from '@uniswap/sdk';
@@ -250,7 +250,13 @@ const VaultPage = (props) => {
               <span>Guild Bank Contract</span>
               <span
                 sx={styles.contractAddress}
-                onClick={() => { window.open('https://etherscan.io/address/0xde02313f8BF17f31380c63e41CDECeE98Bc2b16d#code', '_blank').focus() }}
+                onClick={() => {
+                  window
+                    .open(
+                      getEtherscanLink(chainId, GUILDBANK[chainId], "address")
+                    )
+                    .focus();
+                }}
               >
                 {chainId ? shortenAddress(BURNER_ADDRESS[chainId]) : ''}
               </span>
@@ -326,14 +332,22 @@ const VaultPage = (props) => {
               newRewardAddressInput={newRewardAddressInput}
             />
             <div>
-              <MyButton 
-                type={'green'} 
-                click={burnCallback} 
-                disabled={errorMessage || burnState === BurnState.PENDING}
+              <MyButton
+                type={"green"}
+                click={
+                  approveState !== ApprovalState.APPROVED
+                    ? approveCallback
+                    : burnCallback
+                }
+                disabled={
+                  approveState === ApprovalState.APPROVED && errorMessage || burnState === BurnState.PENDING
+                }
               >
-                {errorMessage && errorMessage.constructor!==Boolean ? 
-                  errorMessage 
-                  : 'Burn'} 
+                {approveState !== ApprovalState.APPROVED
+                  ? "Unlock Token"
+                  : errorMessage && errorMessage.constructor !== Boolean
+                  ? errorMessage
+                  : "Burn"}
               </MyButton>
             </div>
           </div>
@@ -341,7 +355,7 @@ const VaultPage = (props) => {
         <div sx={styles.knowMoreWrapper}>
           <hr sx={styles.hr} />
           <div sx={styles.knowMoreRow}>
-            <span sx={styles.knowMoreTitle}>Know more</span>
+            <span sx={styles.knowMoreTitle}>More Information</span>
             <div sx={styles.wikiLinkArea} onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus() }}>
               <span sx={styles.visitWikiLink}>Visit Wiki</span>
               <img src={images.iconForwardGreen} alt='link' />
