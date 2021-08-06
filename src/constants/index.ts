@@ -76,7 +76,7 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
   ),
   [ChainId.KOVAN]: new Token(
     42,
-    '0xf0b165c4a0674bac5e78d75f66180ce5da87ddcf',
+    '0xaFF4481D10270F50f203E0763e2597776068CBc5',
     18,
     'HAKKA',
     'Hakka Finance'
@@ -92,7 +92,7 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
 
 export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xd9958826bce875a75cc1789d5929459e6ff15040',
-  [ChainId.KOVAN]: AddressZero,
+  [ChainId.KOVAN]: '0xBf605Cb5f610C0aEDbf6e89af652892FF007B47c',
   [ChainId.BSC]: AddressZero,
 };
 

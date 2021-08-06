@@ -25,12 +25,13 @@ const StakePositionItem = (props: StakePositionProps) => {
   const [inputAmount, setInputAmount] = useState('0');
   const { index, stakedHakka, sHakkaReceived, until } = props
   const stakingValue = useMemo(
-    () => parseUnits(inputAmount || '0').mul(stakedHakka || 0).div(sHakkaReceived || 1)
+    () => parseUnits(inputAmount || '0').mul(stakedHakka || 0).div(!sHakkaReceived || sHakkaReceived.eq(0) ? 1 : sHakkaReceived)
     , [inputAmount, stakedHakka, sHakkaReceived]);
 
   const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
-    STAKING_ADDRESSES[chainId as ChainId]
+    STAKING_ADDRESSES[chainId as ChainId],
+    inputAmount,
   );
 
   const timeOption: Intl.DateTimeFormatOptions = {
@@ -102,7 +103,7 @@ const StakePositionItem = (props: StakePositionProps) => {
                 </div>
               </div>
               <div sx={styles.redeemBtn}>
-                <MyButton type={"green"} click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING}>Redeem</MyButton>
+                <MyButton type={"green"} click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING || sHakkaReceived.eq(0)}>Redeem</MyButton>
               </div>
             </div>
           )}

@@ -3,10 +3,11 @@ import { getAddress } from '@ethersproject/address';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
-import { JSBI, Percent } from '@uniswap/sdk';
+import { Currency, CurrencyAmount, JSBI, Percent, Token, TokenAmount } from '@uniswap/sdk';
 import ERC20_ABI from '../constants/abis/erc20.json';
 import ERC20_BYTES32_ABI from '../constants/abis/erc20_bytes32.json';
 import { ethers } from 'ethers';
+import { parseUnits } from '@ethersproject/units';
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -260,3 +261,22 @@ export async function getTokenDecimals(tokenAddress: string, library: any) {
       throw error;
     });
 };
+
+export function tryParseAmount(
+  value?: string,
+): CurrencyAmount | undefined {
+  if (!value) {
+    return CurrencyAmount.ether(JSBI.BigInt('0'));
+  }
+  try {
+    const typedValueParsed = parseUnits(value, 18).toString();
+    if (typedValueParsed !== '0') {
+      return CurrencyAmount.ether(JSBI.BigInt(typedValueParsed));
+    }
+  } catch (error) {
+    // should fail if the user specifies too many decimal places of precision (or maybe exceed max uint?)
+    console.debug(`Failed to parse input amount: "${value}"`, error);
+  }
+  // necessary for all paths to return a value
+  return CurrencyAmount.ether(JSBI.BigInt('0'));
+}

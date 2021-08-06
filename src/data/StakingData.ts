@@ -39,7 +39,7 @@ export function useStakingData(): { stakingBalance: TokenAmount, sHakkaBalance: 
 
   return useMemo(
     () =>
-    chainId === 1 && stakingBalance && sHakkaBalance && votingPower && stakingRate
+    chainId === 1 || 42 && stakingBalance && sHakkaBalance && votingPower && stakingRate
         ? {
           stakingBalance: new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(stakingBalance.result?.[0] ?? 0)),
           sHakkaBalance: new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(sHakkaBalance.result?.[0] ?? 0)),

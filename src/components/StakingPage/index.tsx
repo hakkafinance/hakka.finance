@@ -23,7 +23,7 @@ import { AddressZero } from '@ethersproject/constants';
 const Staking = () => {
   const { account, chainId } = useWeb3React();
 
-  const [inputAmount, setInputAmount] = useState<string>();
+  const [inputAmount, setInputAmount] = useState<string>('0');
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -33,7 +33,8 @@ const Staking = () => {
 
   const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
-    STAKING_ADDRESSES[chainId as ChainId]
+    STAKING_ADDRESSES[chainId as ChainId],
+    inputAmount
   );
 
   const [lockTime, setLockTime] = useState<number>(12);

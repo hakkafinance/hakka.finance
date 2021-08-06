@@ -1,4 +1,4 @@
-import { MaxUint256, WeiPerEther } from '@ethersproject/constants';
+import { MaxUint256 } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
 import { Token } from '@uniswap/sdk';
 import React, { useState, useCallback, useMemo } from 'react';
@@ -6,7 +6,7 @@ import { useTokenAllowance } from '../data/Allowances';
 import { useTokenContract } from './useContract';
 import { useSnackbar } from './useSnackbar';
 import { useActiveWeb3React } from './index';
-import { getEtherscanLink, shortenTxId } from '../utils';
+import { getEtherscanLink, shortenTxId, tryParseAmount } from '../utils';
 
 export enum ApprovalState {
   UNKNOWN,
@@ -16,8 +16,9 @@ export enum ApprovalState {
 }
 
 export function useApproveCallback(
-  tokenToApprove?: Token,
-  spender?: string
+  tokenToApprove: Token,
+  spender: string,
+  requiredAllowance: string,
 ): [ApprovalState, () => Promise<void>] {
   const { account } = useActiveWeb3React();
   const { chainId } = useWeb3React();
@@ -34,7 +35,7 @@ export function useApproveCallback(
     if (!tokenToApprove || !spender) return ApprovalState.UNKNOWN;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
-    return currentAllowance.multiply(WeiPerEther.toString()).lessThan(MaxUint256.toString())
+    return currentAllowance.lessThan(tryParseAmount(requiredAllowance))
       ? currentTransaction
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED

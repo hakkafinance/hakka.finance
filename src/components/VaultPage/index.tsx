@@ -33,11 +33,6 @@ import BigNumber from 'bignumber.js';
 
 const VaultPage = (props) => {
   const { account, library, chainId } = useActiveWeb3React()
-  
-  const [approveState, approveCallback] = useApproveCallback(
-    HAKKA[chainId as ChainId],
-    BURNER_ADDRESS[chainId as ChainId]
-  )
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -48,10 +43,16 @@ const VaultPage = (props) => {
   const bignumber1e18 = new BigNumber(ethers.constants.WeiPerEther.toString());
 
   // burn amount
-  const [inputAmount, setInputAmount] = useState('');
+  const [inputAmount, setInputAmount] = useState('0');
   const [rewardTokens, setRewardTokens] = useState(VAULT_TOKENS[chainId || 1]);
   const [isShowNewTokenArea, setIsShowNewTokenArea] = useState(false);
   const [newRewardAddressInput, setNewRewardAddressInput] = useState<string>('');
+  
+  const [approveState, approveCallback] = useApproveCallback(
+    HAKKA[chainId as ChainId],
+    BURNER_ADDRESS[chainId as ChainId],
+    inputAmount
+  );
 
   // when chainId change, update rewardTokens value
   useEffect(() => {
