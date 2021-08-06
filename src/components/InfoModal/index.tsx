@@ -81,6 +81,7 @@ export default function WalletModal() {
         <div>
           <div sx={styles.title}>Your HAKKA breakdown</div>
         </div>
+        <img sx={styles.sakura} src={images.sakura} />
         <div sx={styles.contentWrapper}>
           <div sx={styles.balance}>
             <img sx={styles.hakkaIcon} src={images.hakkaAccount} />

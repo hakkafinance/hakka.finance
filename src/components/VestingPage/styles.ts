@@ -78,10 +78,16 @@ export default {
   },
 
   balanceCard: {
-    paddingRight: '103px',
+    width: '50%',
 
     '@media screen and (max-width: 1150px)': {
       marginBottom: '28px',
+    },
+  },
+
+  claimableCard: {
+    '@media screen and (min-width: 1150px)': {
+      marginLeft: '20px',
     },
   },
 
@@ -189,6 +195,7 @@ export default {
     opacity: 0.8,
     filter: 'grayscale(100%)',
     transition: 'all 0.25s ease-out',
+    textDecoration: 'none',
 
     ':hover': {
       cursor: 'pointer',

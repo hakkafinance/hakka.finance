@@ -23,6 +23,7 @@ export default {
     color: 'inherit',
   },
   contentWrapper: {
+    position: 'relative',
     padding: '14px 20px 14px 20px',
     borderBottomLeftRadius: '20px',
     borderBottomRightRadius: '20px',
@@ -56,6 +57,15 @@ export default {
     filter: 'blur(20px)',
     backgroundColor: 'rgba(217, 251, 227, 0.3)',
   },
+  sakura: {
+    position: 'fixed',
+    margin: '0 0 0 360px',
+    width: '100px',
+    height: '60px',
+    '@media screen and (max-width: 768px)': {
+      display: 'none'
+    }
+  },
   title: {
     width: '217px',
     height: '24px',
@@ -71,7 +81,6 @@ export default {
   balance:{
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'left',
     marginBottom: '20px',
   },
   displayBetween:{

@@ -21,7 +21,7 @@ export default {
   
       alignSelf: 'center',
   
-      maxWidth: '380px',
+      maxWidth: '460px',
       maxHeight: '90vh',
       display: 'flex',
       borderRadius: '1px',

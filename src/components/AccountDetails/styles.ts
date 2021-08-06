@@ -49,11 +49,13 @@ export default {
     backgroundColor: 'rgba(217, 251, 227, 0.3)',
   },
   infoCard: {
-    padding: '1rem',
     position: 'relative',
     display: 'grid',
     gridRowGap: '12px',
     marginBottom: '20px',
+    '@media screen and (min-width: 576px)': {
+      padding: '1rem',
+    }
   },
   accountGroupingRow: {
     display: 'flex',

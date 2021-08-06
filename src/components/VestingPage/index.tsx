@@ -99,11 +99,11 @@ const VestingPage = () => {
             <h1 sx={styles.title}>Rewards</h1>
             <Web3Status unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero}/>
           </div>
-          <div sx={styles.backBtn}>
+          {/* <div sx={styles.backBtn}>
             <img src={images.iconBack} sx={styles.iconBack} />
             <span>Back</span>
-          </div>
-          <h3 onClick={toggleClaimModal} sx={styles.heading}>Vesting</h3>
+          </div> */}
+          <h3 sx={styles.heading}>Vesting</h3>
           <div sx={styles.vestingCardWrapper}>
             <div sx={styles.vestingCard}>
               <div sx={styles.balanceCard}>
@@ -116,7 +116,7 @@ const VestingPage = () => {
                   <span sx={styles.vestingBalanceValue}>(={vestingValuePrice.toFixed(4)} USD)</span>
                 </div>
               </div>
-              <div>
+              <div sx={styles.claimableCard}>
                 <div sx={styles.iconWithdrawAvailableBackgroundColor}>
                   <img src={images.iconWithdrawAvailable} />
                 </div>
@@ -134,10 +134,10 @@ const VestingPage = () => {
               </div>
             </div>
             <div sx={styles.activeArea}>
-              <div sx={styles.linkWrapper}>
+              <a sx={styles.linkWrapper} target="_blank" href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76">
                 <span>Check vesting terms and learn more</span>
                 <img src={images.iconLinkNormal} sx={styles.iconLink} />
-              </div>
+              </a>
               <div sx={styles.claimBtn}>
                 <MyButton
                   click={claimCallback}
