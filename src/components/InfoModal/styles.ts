@@ -67,7 +67,6 @@ export default {
     }
   },
   title: {
-    width: '217px',
     height: '24px',
     margin: '20px 62px 8px 20px',
     fontSize: '18px',
