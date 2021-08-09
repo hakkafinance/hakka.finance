@@ -35,10 +35,18 @@ export const injected = new InjectedConnector({
   supportedChainIds: [1, 42, 56],
 });
 
-// mainnet only
 export const walletconnect = new WalletConnectConnector({
+  supportedChainIds: [1],
   rpc: { 1: NETWORK_URL },
-  bridge: 'https://bridge.walletconnect.org',
+  bridge: 'https://uniswap.bridge.walletconnect.org',
+  qrcode: true,
+  pollingInterval: 15000,
+});
+
+export const bscWalletconnect = new WalletConnectConnector({
+  supportedChainIds: [56],
+  rpc: { 56: 'https://bsc-dataseed1.ninicoin.io' },
+  bridge: 'https://uniswap.bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
 });

@@ -4,6 +4,7 @@ import { AddressZero } from '@ethersproject/constants';
 
 import {
   walletconnect,
+  bscWalletconnect,
   walletlink,
   fortmatic,
   injected,
@@ -41,6 +42,12 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   WALLET_CONNECT: {
     connector: walletconnect,
     name: 'WalletConnect',
+    iconName: 'walletConnectIcon',
+    description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
+  },
+  BSC_WALLET_CONNECT: {
+    connector: bscWalletconnect,
+    name: 'BSC WalletConnect',
     iconName: 'walletConnectIcon',
     description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
   },
