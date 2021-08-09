@@ -35,7 +35,7 @@ export function useApproveCallback(
     if (!tokenToApprove || !spender) return ApprovalState.UNKNOWN;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
-    return currentAllowance.lessThan(tryParseAmount(requiredAllowance))
+    return currentAllowance.lessThan(tryParseAmount(requiredAllowance)) || currentAllowance.equalTo(tryParseAmount('0'))
       ? currentTransaction
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED

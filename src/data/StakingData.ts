@@ -1,8 +1,8 @@
-import { JSBI, TokenAmount } from '@uniswap/sdk';
+import { JSBI, CurrencyAmount } from '@uniswap/sdk';
 import { useMemo } from 'react';
 import { useActiveWeb3React } from '../hooks';
 
-import { getContract } from '../utils';
+import { getContract, tryParseAmount } from '../utils';
 import { useSingleCallResult, useSingleContractMultipleData } from '../state/multicall/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 import {
@@ -11,12 +11,13 @@ import {
   STAKING_ADDRESSES,
   stakingMonth,
 } from '../constants';
+import { formatUnits } from '@ethersproject/units';
 
-export function useStakingData(): { stakingBalance: TokenAmount, sHakkaBalance: TokenAmount, votingPower: TokenAmount, stakingRate: string[], vaults: any[] } {
+export function useStakingData(): { stakingBalance: CurrencyAmount, sHakkaBalance: CurrencyAmount, votingPower: CurrencyAmount, stakingRate: string[], vaults: any[] } {
   const { chainId, library, account } = useActiveWeb3React();
 
   const contract = getContract(
-    STAKING_ADDRESSES[(chainId as ChainId)],
+    STAKING_ADDRESSES[chainId || 1 as ChainId],
     STAKING_ABI,
     library,
     account,
@@ -41,9 +42,9 @@ export function useStakingData(): { stakingBalance: TokenAmount, sHakkaBalance: 
     () =>
     chainId === 1 || 42 && stakingBalance && sHakkaBalance && votingPower && stakingRate
         ? {
-          stakingBalance: new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(stakingBalance.result?.[0] ?? 0)),
-          sHakkaBalance: new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(sHakkaBalance.result?.[0] ?? 0)),
-          votingPower: new TokenAmount(HAKKA[chainId as ChainId], JSBI.BigInt(votingPower.result?.[0] ?? 0)),
+          stakingBalance: tryParseAmount(formatUnits(stakingBalance.result?.[0] ?? 0)),
+          sHakkaBalance: tryParseAmount(formatUnits(sHakkaBalance.result?.[0] ?? 0)),
+          votingPower: tryParseAmount(formatUnits(votingPower.result?.[0] ?? 0)),
           stakingRate: stakingRate.map((rate) => JSBI.BigInt(rate.result?.[0] ?? 0).toString()),
           vaults: vaults,
         }

@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import images from "../../../images";
 import React, { useState, useMemo } from "react";
-import { TokenAmount } from '@uniswap/sdk';
+import { CurrencyAmount } from '@uniswap/sdk';
 import styles from "./styles";
 import MyButton from "../../Common/MyButton/index";
 import NumericalInputCard from "../NumericalInputCard";
@@ -11,10 +11,12 @@ import { useApproveCallback } from "../../../hooks/useApproveCallback";
 import { ChainId, HAKKA, STAKING_ADDRESSES } from "../../../constants";
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
+import { tryParseAmount } from '../../../utils';
 import { BigNumber } from 'ethers';
 
 interface StakePositionProps {
   index: number;
+  sHakkaBalance: CurrencyAmount;
   stakedHakka: BigNumber;
   sHakkaReceived: BigNumber;
   until: BigNumber;
@@ -23,7 +25,7 @@ interface StakePositionProps {
 const StakePositionItem = (props: StakePositionProps) => {
   const { chainId, account } = useActiveWeb3React();
   const [inputAmount, setInputAmount] = useState('0');
-  const { index, stakedHakka, sHakkaReceived, until } = props
+  const { index, sHakkaBalance, stakedHakka, sHakkaReceived, until } = props
   const stakingValue = useMemo(
     () => parseUnits(inputAmount || '0').mul(stakedHakka || 0).div(!sHakkaReceived || sHakkaReceived.eq(0) ? 1 : sHakkaReceived)
     , [inputAmount, stakedHakka, sHakkaReceived]);
@@ -86,11 +88,12 @@ const StakePositionItem = (props: StakePositionProps) => {
               <div sx={styles.inputArea}>
                 <div sx={styles.balance}>
                   <span>Burn</span>
+                  <span>sHAKKA Balance: {sHakkaBalance.toFixed(2)}</span>
                 </div>
                 <NumericalInputCard
                   value={inputAmount}
                   onUserInput={setInputAmount}
-                  hakkaBalance={TokenAmount.ether(formatUnits(sHakkaReceived || 0, 0)) as TokenAmount}
+                  hakkaBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
                   approveCallback={approveCallback}
                   approveState={approveState}
                 />

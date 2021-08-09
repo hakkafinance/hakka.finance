@@ -1,11 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import {
-  JSBI,
-  TokenAmount,
-} from '@uniswap/sdk';
 import images from "../../images";
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { parseUnits } from '@ethersproject/units'
 import styles from "./styles";
 import MyButton from "../../components/Common/MyButton/index";
@@ -16,14 +12,22 @@ import { useStakingData } from '../../data/StakingData'
 import { useWeb3React } from '@web3-react/core';
 import { useApproveCallback, ApprovalState } from "../../hooks/useApproveCallback";
 import { useStakeCallback, StakeState } from "../../hooks/useStakeCallback";
+import { useTokenAllowance } from '../../data/Allowances';
 import StakePositionItem from "./StakePositionItem/index";
 import { ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth } from "../../constants";
 import { AddressZero } from '@ethersproject/constants';
+import { tryParseAmount } from '../../utils';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
 
   const [inputAmount, setInputAmount] = useState<string>('0');
+
+  const tokenAllowance = useTokenAllowance(
+    HAKKA[chainId as ChainId],
+    account ?? undefined,
+    STAKING_ADDRESSES[chainId as ChainId]
+  );
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -51,7 +55,7 @@ const Staking = () => {
   }, [lockTime]);
 
   const sHakkaPreview = useMemo(() => 
-    stakingRate && inputAmount ? new TokenAmount(HAKKA[chainId as ChainId], stakingRate[stakingMonth.indexOf(lockTime)]).multiply(inputAmount * 1e18).divide(1e18) : 0
+    stakingRate && inputAmount ? tryParseAmount(stakingRate[stakingMonth.indexOf(lockTime)]).multiply(tryParseAmount(inputAmount)).divide(1e18.toString()) : 0
   , [lockTime, stakingRate, inputAmount]);
 
   const [stakeState, stakeCallback] = useStakeCallback(
@@ -146,9 +150,9 @@ const Staking = () => {
                     ? approveCallback
                     : stakeCallback
                 }
-                disabled={stakeState === StakeState.PENDING}
+                disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}
               >
-                {approveState !== ApprovalState.APPROVED
+                {approveState === ApprovalState.NOT_APPROVED || tokenAllowance?.equalTo('0')
                   ? 'Unlock Token'
                   : 'Stake'}
               </MyButton>
@@ -169,7 +173,7 @@ const Staking = () => {
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) => <StakePositionItem key={index} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
+          {vaults.map((vault, index) => <StakePositionItem key={index} sHakkaBalance={sHakkaBalance} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
         </div>
       </div>
     </div>

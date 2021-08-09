@@ -2,15 +2,14 @@
 import { jsx } from 'theme-ui'
 import styles from './styles'
 import NumercialInput from '../../NumericalInput' 
-import images from '../../../images/index'
 import { ApprovalState } from '../../../hooks/useApproveCallback'
-import { TokenAmount } from '@uniswap/sdk';
+import { CurrencyAmount } from '@uniswap/sdk';
 
 
 interface NumericalInputCardInputCard {
   value: string;
   onUserInput: (input: any) => void;
-  hakkaBalance: TokenAmount;
+  hakkaBalance: CurrencyAmount;
   approveCallback: any;
   approveState: ApprovalState;
   amountError?: string;
@@ -26,14 +25,6 @@ const NumericalInputCard = (props: NumericalInputCardInputCard) => {
         sx={styles.input}
       />
       <div sx={styles.activeArea}>
-        {(props.approveState !== ApprovalState.APPROVED) ? 
-          <img
-            src={images.iconLock}
-            alt='Unlock token to continue'
-            sx={styles.iconLock}
-            onClick={()=>props.approveCallback()}
-          /> 
-          : ''}
         <button
           sx={styles.maxButton}
           onClick={() => { props.onUserInput(props.hakkaBalance?.toSignificant(1000)) }}
