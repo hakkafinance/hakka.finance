@@ -56,7 +56,9 @@ export default {
   },
 
   stackedHakkaWrapper: {
+    width: '25%',
     '@media screen and (max-width: 576px)': {
+      width: '100%',
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
@@ -102,6 +104,22 @@ export default {
 
     ':hover':{
       cursor: 'pointer',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      justifyContent: 'center',
+      marginTop: '28px',
+    },    
+  },
+
+  redeemToggleCountdown:{
+    display: 'flex',
+    alignItems: 'center',
+    color: 'rgba(37, 62, 71, 0.5);',
+    fontSize: [2],
+
+    'span':{
+      paddingRight: '8px',
     },
 
     '@media screen and (max-width: 576px)': {

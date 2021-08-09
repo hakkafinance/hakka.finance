@@ -13,6 +13,7 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
 import { tryParseAmount } from '../../../utils';
 import { BigNumber } from 'ethers';
+import Countdown, { zeroPad } from 'react-countdown';
 
 interface StakePositionProps {
   index: number;
@@ -40,6 +41,8 @@ const StakePositionItem = (props: StakePositionProps) => {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   }
 
   const lockUntil = useMemo(() => {
@@ -57,6 +60,12 @@ const StakePositionItem = (props: StakePositionProps) => {
     index,
     parseUnits(inputAmount || '0'),
   );
+  
+  const countdownRenderer = ({ days }) => (
+    <div sx={styles.redeemToggleCountdown}>
+      <span>Left {zeroPad(days)} Days</span>
+    </div>
+  );
 
   return (
       <div sx={styles.positionFormWrapper}>
@@ -65,16 +74,21 @@ const StakePositionItem = (props: StakePositionProps) => {
           <div sx={styles.positionItem}>
             <div sx={styles.stackedHakkaWrapper}>
               <p>Staked HAKKA</p>
-              <p sx={styles.amountFontColor}>{formatUnits(stakedHakka || 0)}</p>
+              <p sx={styles.amountFontColor}>{(+formatUnits(stakedHakka || 0)).toFixed(4)}</p>
             </div>
             <div sx={styles.stackedHakkaWrapper}>
               <p>Get sHAKKA</p>
-              <p sx={styles.amountFontColor}>{formatUnits(sHakkaReceived || 0)}</p>
+              <p sx={styles.amountFontColor}>{(+formatUnits(sHakkaReceived || 0)).toFixed(4)}</p>
             </div>
             <div sx={styles.stackedHakkaWrapper}>
               <p>Until</p>
               <p sx={styles.amountFontColor}>{lockUntil}</p>
             </div>
+            {Date.now() < until?.mul(1000).toNumber() ? <Countdown
+              date={new Date(until?.mul(1000).toNumber())}
+              renderer={countdownRenderer}
+            />
+            :
             <div
               sx={styles.redeemToggleBtn}
               onClick={() => setIsShowRedeem(!isShowRedeem)}
@@ -82,6 +96,7 @@ const StakePositionItem = (props: StakePositionProps) => {
               <span>Redeem</span>
               <img src={isShowRedeem ? images.iconTop : images.iconDown} />
             </div>
+            }
           </div>
           {isShowRedeem && (
             <div sx={styles.redeemContainer}>
@@ -102,7 +117,7 @@ const StakePositionItem = (props: StakePositionProps) => {
                 <img src={images.iconBecome} sx={styles.iconBecome}/>
                 <div>
                   <p sx={{ fontWeight: "normal" }}>Receive HAKKA</p>
-                  <p>{formatUnits(stakingValue)}</p>
+                  <p>{(+formatUnits(stakingValue || 0)).toFixed(4)}</p>
                 </div>
               </div>
               <div sx={styles.redeemBtn}>
