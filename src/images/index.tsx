@@ -79,6 +79,9 @@ const images = {
   iconBalancer: require('../images/icons/iconBalancer.png').default,
   iconUniswap: require('../images/icons/iconUniswap.png').default,
   iconPancakeSwap: require('../images/icons/iconPancakeSwap.png').default,
+  icon4Tokens: require('../images/icons/icon4Tokens.png').default,
+  icon2TokensMkrHakka: require('../images/icons/icon2TokensMkrHakka.png').default,
+  icon2TokensCompHakka: require('../images/icons/icon2TokensCompHakka.png').default,
 
   /// partners & intergartors
   imageChainlink: require('../images/icons/imageChainlink.png').default,
