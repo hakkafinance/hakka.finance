@@ -22,6 +22,8 @@ const images = {
   iconVotingPower: require('../images/icons/iconPower.svg').default,
   iconBecome: require('../images/icons/iconBecome.svg').default,
   iconTop: require('../images/icons/iconTop.svg').default,
+  iconClaimableReward: require('../images/icons/iconClaimableReward.svg').default,
+  iconInform: require('../images/icons/iconInform.svg').default,
 
   // web applications icon
 
