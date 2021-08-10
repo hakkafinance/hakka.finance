@@ -22,6 +22,8 @@ const images = {
   iconVotingPower: require('../images/icons/iconPower.svg').default,
   iconBecome: require('../images/icons/iconBecome.svg').default,
   iconTop: require('../images/icons/iconTop.svg').default,
+  iconClaimableReward: require('../images/icons/iconClaimableReward.svg').default,
+  iconInform: require('../images/icons/iconInform.svg').default,
 
   // web applications icon
 
@@ -79,6 +81,9 @@ const images = {
   iconBalancer: require('../images/icons/iconBalancer.png').default,
   iconUniswap: require('../images/icons/iconUniswap.png').default,
   iconPancakeSwap: require('../images/icons/iconPancakeSwap.png').default,
+  icon4Tokens: require('../images/icons/icon4Tokens.png').default,
+  icon2TokensMkrHakka: require('../images/icons/icon2TokensMkrHakka.png').default,
+  icon2TokensCompHakka: require('../images/icons/icon2TokensCompHakka.png').default,
 
   /// partners & intergartors
   imageChainlink: require('../images/icons/imageChainlink.png').default,

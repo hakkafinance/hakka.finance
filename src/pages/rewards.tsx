@@ -1,15 +1,13 @@
 import React from 'react'
-import BlankScreen from '../components/BlankScreen'
 import DappLayout from '../containers/DappLayout'
+import RewardsPage from '../components/RewardsPage/index'
 
-const RewardsPage = () => {
+const Rewards = () => {
   return (
     <DappLayout title={'rewards'}>
-      <BlankScreen 
-        path={'rewards'}
-      />
+      <RewardsPage />
     </DappLayout>
   )
 }
 
-export default RewardsPage
+export default Rewards
