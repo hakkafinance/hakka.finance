@@ -21,7 +21,9 @@ const DappLayout = ({ children, title }) => {
   }
 
   useEffect(() => {
-    console.log('showSidebar', isShowSideBar)
+    const gatsbyFocusWrapper = document.getElementById('gatsby-focus-wrapper')
+    gatsbyFocusWrapper.removeAttribute('tabIndex')
+    document.getElementById('wrapper').focus()
   }, [isShowSideBar])
 
   return (
@@ -35,6 +37,8 @@ const DappLayout = ({ children, title }) => {
         <SideBar isShowSideBar={isShowSideBar} onCloseSideBar={handleClose}/>
 
         <Box
+          id="wrapper"
+          tabIndex="-1"
           width="100%"
           sx={styles.custom_scroll_bar}
         >
