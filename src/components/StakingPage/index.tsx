@@ -6,7 +6,7 @@ import { parseUnits } from '@ethersproject/units'
 import styles from "./styles";
 import MyButton from "../../components/Common/MyButton/index";
 import Web3Status from "../Web3Status";
-import NumericalInputCard from "./NumericalInputCard";
+import NumericalInputCard from "../NumericalInputCard";
 import { useTokenBalance } from "../../state/wallet/hooks";
 import { useStakingData } from '../../data/StakingData'
 import { useWeb3React } from '@web3-react/core';
@@ -111,7 +111,7 @@ const Staking = () => {
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
-              hakkaBalance={hakkaBalance}
+              tokenBalance={hakkaBalance}
               approveCallback={approveCallback}
               approveState={approveState}
               //  amountError={amountError}

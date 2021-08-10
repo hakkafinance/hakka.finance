@@ -5,7 +5,7 @@ import React, { useState, useMemo } from "react";
 import { CurrencyAmount } from '@uniswap/sdk';
 import styles from "./styles";
 import MyButton from "../../Common/MyButton/index";
-import NumericalInputCard from "../NumericalInputCard";
+import NumericalInputCard from "../../NumericalInputCard";
 import { useActiveWeb3React } from "../../../hooks/index";
 import { useApproveCallback } from "../../../hooks/useApproveCallback";
 import { ChainId, HAKKA, STAKING_ADDRESSES } from "../../../constants";
@@ -108,7 +108,7 @@ const StakePositionItem = (props: StakePositionProps) => {
                 <NumericalInputCard
                   value={inputAmount}
                   onUserInput={setInputAmount}
-                  hakkaBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
+                  tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
                   approveCallback={approveCallback}
                   approveState={approveState}
                 />

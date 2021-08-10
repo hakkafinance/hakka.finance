@@ -5,12 +5,11 @@ import images from '../../images/index'
 import styles from './styles'
 import MyButton from '../Common/MyButton/index'
 import RewardListItem from './RewardListItem/index'
-import NumericalInputCard from './NumericalInputCard/index'
+import NumericalInputCard from '../NumericalInputCard/index'
 import NewTokenAddressInput from './NewTokenAddressInput'
 import Web3Status from '../Web3Status'
 import RewardValue from './RewardValue'
 import { useActiveWeb3React } from '../../hooks/index'
-import { ethers } from 'ethers';
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback'
 import { useTokenAllowance } from '../../data/Allowances';
@@ -18,7 +17,8 @@ import { shortenAddress, getEtherscanLink } from '../../utils'
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { Token } from '@uniswap/sdk';
-import { AddressZero } from '@ethersproject/constants';
+import { AddressZero, WeiPerEther } from '@ethersproject/constants';
+import { parseUnits } from '@ethersproject/units'
 
 import {
   ChainId,
@@ -40,7 +40,7 @@ const VaultPage = (props) => {
   );
 
   // 1e18
-  const bignumber1e18 = new BigNumber(ethers.constants.WeiPerEther.toString());
+  const bignumber1e18 = new BigNumber(WeiPerEther.toString());
 
   // burn amount
   const [inputAmount, setInputAmount] = useState('0');
@@ -140,26 +140,10 @@ const VaultPage = (props) => {
     })
   };
 
-  // Parse the valueString representation of units into a BigNumber instance of the amount of wei.
-  // escape from underflow shutdown
-  const [amountParsedError, setAmountParsedError] = useState<string>('');
   const amountParsed = useMemo(() => {
     if (inputAmount) {
-      try {
-        setAmountParsedError('');
-        return ethers.utils.parseUnits(inputAmount.toString(), 18);
-      } catch (error) {
-        // should fail if the user specifies too many decimal places of precision
-        console.log(`Failed to parse input amount: "${inputAmount}"`, error);
-        setAmountParsedError(`Failed to parse input amount: "${inputAmount}"`);
-        setInputAmount((prevState: string) => {
-          const amountString = prevState.substring(0, prevState.length - 1);
-          return amountString;
-        });
-        return null;
-      }
+      return parseUnits(inputAmount.toString(), 18);
     } else {
-      setAmountParsedError('');
       return null;
     }
   }, [inputAmount]);
@@ -232,7 +216,6 @@ const VaultPage = (props) => {
   const errorMessage =
     noAccountError ||
     approveError ||
-    amountParsedError ||
     totalSupplyError ||
     amountError ||
     noAmountError ||
@@ -271,7 +254,7 @@ const VaultPage = (props) => {
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
-              hakkaBalance={hakkaBalance}
+              tokenBalance={hakkaBalance}
               approveCallback={approveCallback}
               approveState={approveState}
               amountError={amountError}
