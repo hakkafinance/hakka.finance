@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import React, { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 import { network } from '../../connectors';
 import { useEagerConnect, useInactiveListener } from '../../hooks';
 import { NetworkContextName } from '../../constants';
-import styles from './styles'
+import styles from './styles';
 
 export default function Web3ReactManager({
   children,

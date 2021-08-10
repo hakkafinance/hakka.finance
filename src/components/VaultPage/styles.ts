@@ -1,5 +1,5 @@
 export default {
-  container:{
+  container: {
     display: 'flex',
     justifyContent: 'center',
     marginLeft: '34px',
@@ -7,7 +7,7 @@ export default {
     '@media screen and (max-width: 1200px)': {
       marginLeft: '40px',
     },
-    
+
     '@media screen and (max-width: 576px)': {
       marginLeft: '0',
     },
@@ -18,13 +18,13 @@ export default {
     color: '#253e47',
 
     '@media screen and (max-width: 1200px)': {
-      width:'85%',
+      width: '85%',
       maxWidth: 'none',
       padding: '0 16px 0 16px',
     },
 
     '@media screen and (max-width: 576px)': {
-      width:'100%',
+      width: '100%',
     },
   },
 
@@ -42,7 +42,7 @@ export default {
     margin: '0',
     '@media screen and (max-width: 1200px)': {
       marginBottom: '18px',
-    }
+    },
   },
 
   body: {
@@ -52,7 +52,7 @@ export default {
 
     '@media screen and (max-width: 1200px)': {
       display: 'block',
-    }
+    },
   },
 
   infomationContainer: {
@@ -62,7 +62,7 @@ export default {
     '@media screen and (max-width: 1200px)': {
       width: '100%',
       marginBottom: '28px',
-    }
+    },
   },
 
   subTitle: {
@@ -123,14 +123,14 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       width: '100%',
-    }
+    },
   },
 
   formTitleArea: {
     display: 'flex',
     justifyContent: 'space-between',
     whiteSpace: 'nowrap',
-    padding: '0 8px 0 8px'
+    padding: '0 8px 0 8px',
   },
 
   formTitle: {
@@ -151,7 +151,7 @@ export default {
   },
 
   addIcon: {
-    paddingLeft: '4px'
+    paddingLeft: '4px',
   },
 
   rewardListContainer: {
@@ -186,12 +186,12 @@ export default {
     marginBottom: '64px',
     fontWeight: '600',
     '@media screen and (max-width: 576px)': {
-      marginBottom: '100px'
+      marginBottom: '100px',
     },
   },
 
   knowMoreTitle: {
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
   },
 
   wikiLinkArea: {
@@ -204,4 +204,4 @@ export default {
     color: '#2da287',
   },
 
-}
+};

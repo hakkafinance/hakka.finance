@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import React from 'react';
 import { animated, useTransition } from 'react-spring';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
@@ -33,24 +33,23 @@ export default function Modal({
   return (
     <>
       {fadeTransition.map(
-        ({ item, key, props }) =>
-          item && (
-            <AnimatedDialogOverlay
-              sx={styles.dialogOverlay}
-              key={key}
-              style={props}
-              onDismiss={onDismiss}
-              initialFocusRef={initialFocusRef}
-            >
-              <AnimatedDialogContent
-                sx={styles.dialogContent}
-                aria-label="dialog content"
-              >
-                {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}
-                {children}
-              </AnimatedDialogContent>
-            </AnimatedDialogOverlay>
-          )
+        ({ item, key, props }) => item && (
+        <AnimatedDialogOverlay
+          sx={styles.dialogOverlay}
+          key={key}
+          style={props}
+          onDismiss={onDismiss}
+          initialFocusRef={initialFocusRef}
+        >
+          <AnimatedDialogContent
+            sx={styles.dialogContent}
+            aria-label="dialog content"
+          >
+            {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}
+            {children}
+          </AnimatedDialogContent>
+        </AnimatedDialogOverlay>
+        ),
       )}
     </>
   );

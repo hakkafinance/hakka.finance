@@ -73,7 +73,7 @@ export default {
     color: '#253e47',
 
     '@media screen and (max-width: 1150px)': {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
   },
 
@@ -144,12 +144,12 @@ export default {
     },
   },
 
-  displayFlex:{
+  displayFlex: {
     display: 'flex',
   },
 
   addMetamaskBtn: {
-    display:'flex',
+    display: 'flex',
     alignItems: 'center',
     padding: '4px 6px',
     marginLeft: '12px',
@@ -158,10 +158,10 @@ export default {
     backgroundColor: '#f7fbfc',
     border: 'none',
 
-    ':hover' :{
+    ':hover': {
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    }
+    },
   },
 
   iconAdd: {
@@ -174,7 +174,7 @@ export default {
     alignItems: 'flex-end',
 
     '@media screen and (max-width: 1150px)': {
-      flexDirection:'column-reverse',
+      flexDirection: 'column-reverse',
       alignItems: 'center ',
     },
 
@@ -201,7 +201,7 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
 
     '@media screen and (max-width: 1150px)': {
@@ -222,4 +222,4 @@ export default {
       marginBottom: '20px',
     },
   },
-}
+};

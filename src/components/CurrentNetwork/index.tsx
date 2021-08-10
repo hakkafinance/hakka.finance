@@ -1,18 +1,19 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
-import images from '../../images'
-import styles from './styles'
-import { ChainName } from '../../constants'
+import images from '../../images';
+import styles from './styles';
+import { ChainName } from '../../constants';
 
 const CurrentNetwork = ({ unsupported }: { unsupported?: boolean }) => {
   const { chainId, error } = useWeb3React();
 
   if (!chainId && !error) {
-    return <div></div>
-  } else if (error instanceof UnsupportedChainIdError || unsupported) {
-    return (<div sx={styles.chainWrapper}>
-        <img src={images.iconSnapshot} alt='Chain Icon' />
+    return <div />;
+  } if (error instanceof UnsupportedChainIdError || unsupported) {
+    return (
+      <div sx={styles.chainWrapper}>
+        <img src={images.iconSnapshot} alt="Chain Icon" />
         <span sx={styles.chainNameWrapper}>Wrong Network</span>
       </div>
     );
@@ -20,10 +21,10 @@ const CurrentNetwork = ({ unsupported }: { unsupported?: boolean }) => {
 
   return (
     <div sx={styles.chainWrapper}>
-      <img src={chainId && chainId === 56 ? images.iconBinanceGold : images.iconEthereumDark} alt='Chain Icon' />
+      <img src={chainId && chainId === 56 ? images.iconBinanceGold : images.iconEthereumDark} alt="Chain Icon" />
       <span sx={styles.chainNameWrapper}>{ChainName[chainId]}</span>
     </div>
   );
-}
+};
 
 export default CurrentNetwork;

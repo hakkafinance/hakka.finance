@@ -7,7 +7,7 @@ export default {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    }
+    },
   },
   dialogContent: {
     '&[data-reach-dialog-content]': {
@@ -18,22 +18,22 @@ export default {
       padding: '0px',
       width: '50vw',
       overflow: 'hidden',
-  
+
       alignSelf: 'center',
-  
+
       maxWidth: '460px',
       maxHeight: '90vh',
       display: 'flex',
       borderRadius: '1px',
-  
+
       '@media (max-width: 960px)': {
         width: '65vw',
         margin: '0',
       },
-  
+
       '@media (max-width: 720px)': {
         width: '85vw',
-      }
-    }
+      },
+    },
   },
-}
+};

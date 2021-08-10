@@ -2,12 +2,14 @@ import { Contract } from '@ethersproject/contracts';
 import { getAddress } from '@ethersproject/address';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId } from '../constants';
-import { Currency, CurrencyAmount, JSBI, Percent, Token, TokenAmount } from '@uniswap/sdk';
-import ERC20_ABI from '../constants/abis/erc20.json';
-import ERC20_BYTES32_ABI from '../constants/abis/erc20_bytes32.json';
+import {
+  Currency, CurrencyAmount, JSBI, Percent, Token, TokenAmount,
+} from '@uniswap/sdk';
 import { ethers } from 'ethers';
 import { parseUnits } from '@ethersproject/units';
+import { ChainId } from '../constants';
+import ERC20_ABI from '../constants/abis/erc20.json';
+import ERC20_BYTES32_ABI from '../constants/abis/erc20_bytes32.json';
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -27,14 +29,13 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
 export function getEtherscanLink(
   chainId: ChainId,
   data: string,
-  type: 'transaction' | 'token' | 'address'
+  type: 'transaction' | 'token' | 'address',
 ): string {
-  const prefix =
-    chainId === ChainId.BSC
-      ? 'https://bscscan.com'
-      : `https://${
-          ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
-        }etherscan.io`
+  const prefix = chainId === ChainId.BSC
+    ? 'https://bscscan.com'
+    : `https://${
+      ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
+    }etherscan.io`;
 
   switch (type) {
     case 'transaction': {
@@ -78,7 +79,7 @@ export function basisPointsToPercent(num: number): Percent {
 // account is not optional
 export function getSigner(
   library: Web3Provider,
-  account: string
+  account: string,
 ): JsonRpcSigner {
   return library.getSigner(account).connectUnchecked();
 }
@@ -86,7 +87,7 @@ export function getSigner(
 // account is optional
 export function getProviderOrSigner(
   library: Web3Provider,
-  account?: string
+  account?: string,
 ): Web3Provider | JsonRpcSigner {
   return account ? getSigner(library, account) : library;
 }
@@ -96,7 +97,7 @@ export function getContract(
   address: string,
   ABI: any,
   library: Web3Provider,
-  account?: string
+  account?: string,
 ): Contract {
   if (!isAddress(address)) {
     throw Error(`Invalid 'address' parameter '${address}'.`);
@@ -105,7 +106,7 @@ export function getContract(
   return new Contract(
     address,
     ABI,
-    getProviderOrSigner(library, account) as any
+    getProviderOrSigner(library, account) as any,
   );
 }
 
@@ -137,7 +138,7 @@ export function getNetworkName(networkId: number) {
 }
 
 // using a currency library here in case we want to add more in future
-var priceFormatter = new Intl.NumberFormat('en-US', {
+const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 2,
@@ -146,12 +147,12 @@ var priceFormatter = new Intl.NumberFormat('en-US', {
 export const formattedNum = (
   number: any,
   usd = false,
-  acceptNegatives = false
+  acceptNegatives = false,
 ) => {
   if (isNaN(number) || number === '' || number === undefined) {
     return usd ? '$0' : 0;
   }
-  let num = parseFloat(number);
+  const num = parseFloat(number);
 
   if (num > 500000000) {
     return (usd ? '$' : '') + toK(num.toFixed(0));
@@ -170,17 +171,16 @@ export const formattedNum = (
 
   if (num > 1000) {
     return usd
-      ? '$' + Number(parseFloat(num.toString()).toFixed(0)).toLocaleString()
-      : '' + Number(parseFloat(num.toString()).toFixed(0)).toLocaleString();
+      ? `$${Number(parseFloat(num.toString()).toFixed(0)).toLocaleString()}`
+      : `${Number(parseFloat(num.toString()).toFixed(0)).toLocaleString()}`;
   }
 
   if (usd) {
     if (num < 0.1) {
-      return '$' + Number(parseFloat(num.toString()).toFixed(4));
-    } else {
-      let usdString = priceFormatter.format(num);
-      return '$' + usdString.slice(1, usdString.length);
+      return `$${Number(parseFloat(num.toString()).toFixed(4))}`;
     }
+    const usdString = priceFormatter.format(num);
+    return `$${usdString.slice(1, usdString.length)}`;
   }
 
   return Number(parseFloat(num.toString()).toFixed(5));
@@ -189,15 +189,11 @@ export const formattedNum = (
 export function isERC20Contract(tokenAddress: string, library: any) {
   return getContract(tokenAddress, ERC20_ABI, library)
     .name()
-    .catch(() =>
-      getContract(tokenAddress, ERC20_BYTES32_ABI, library)
-        .name()
-        .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32))
-    )
-    .catch(() => {
-      return false;
-    });
-};
+    .catch(() => getContract(tokenAddress, ERC20_BYTES32_ABI, library)
+      .name()
+      .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32)))
+    .catch(() => false);
+}
 
 export const ERROR_CODES = [
   'TOKEN_NAME',
@@ -215,16 +211,14 @@ export async function getTokenName(tokenAddress: string, library: any) {
 
   return getContract(tokenAddress, ERC20_ABI, library)
     .name()
-    .catch(() =>
-      getContract(tokenAddress, ERC20_BYTES32_ABI, library)
-        .name()
-        .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32))
-    )
+    .catch(() => getContract(tokenAddress, ERC20_BYTES32_ABI, library)
+      .name()
+      .then((bytes32: any) => ethers.utils.parseBytes32String(bytes32)))
     .catch((error: any) => {
       error.code = ERROR_CODES.TOKEN_SYMBOL;
       throw error;
     });
-};
+}
 
 export async function getTokenSymbol(tokenAddress: string, library: any) {
   if (!isAddress(tokenAddress)) {
@@ -237,7 +231,7 @@ export async function getTokenSymbol(tokenAddress: string, library: any) {
       const contractBytes32 = getContract(
         tokenAddress,
         ERC20_BYTES32_ABI,
-        library
+        library,
       );
       return contractBytes32
         .symbol()
@@ -247,7 +241,7 @@ export async function getTokenSymbol(tokenAddress: string, library: any) {
       error.code = ERROR_CODES.TOKEN_SYMBOL;
       throw error;
     });
-};
+}
 
 export async function getTokenDecimals(tokenAddress: string, library: any) {
   if (!isAddress(tokenAddress)) {
@@ -260,7 +254,7 @@ export async function getTokenDecimals(tokenAddress: string, library: any) {
       error.code = ERROR_CODES.TOKEN_DECIMALS;
       throw error;
     });
-};
+}
 
 export function tryParseAmount(
   value?: string,

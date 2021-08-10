@@ -19,8 +19,7 @@ export default function Updater(): null {
     (blockNumber: number) => {
       setState((state) => {
         if (chainId === state.chainId) {
-          if (typeof state.blockNumber !== 'number')
-            return { chainId, blockNumber };
+          if (typeof state.blockNumber !== 'number') return { chainId, blockNumber };
           return {
             chainId,
             blockNumber: Math.max(blockNumber, state.blockNumber),
@@ -29,24 +28,22 @@ export default function Updater(): null {
         return state;
       });
     },
-    [chainId, setState]
+    [chainId, setState],
   );
 
   // attach/detach listeners
   useEffect(() => {
-    if (!library || !chainId ) return undefined;
+    if (!library || !chainId) return undefined;
 
     setState({ chainId, blockNumber: null });
 
     library
       .getBlockNumber()
       .then(blockNumberCallback)
-      .catch((error) =>
-        console.error(
-          `Failed to get block number for chainId: ${chainId}`,
-          error
-        )
-      );
+      .catch((error) => console.error(
+        `Failed to get block number for chainId: ${chainId}`,
+        error,
+      ));
 
     library.on('block', blockNumberCallback);
     return () => {
@@ -58,10 +55,9 @@ export default function Updater(): null {
 
   useEffect(() => {
     if (
-      !debouncedState.chainId ||
-      !debouncedState.blockNumber
-    )
-      return;
+      !debouncedState.chainId
+      || !debouncedState.blockNumber
+    ) return;
     updateBlockNumber({
       chainId: debouncedState.chainId,
       blockNumber: debouncedState.blockNumber,

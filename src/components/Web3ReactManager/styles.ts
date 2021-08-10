@@ -5,4 +5,4 @@ export default {
     justifyContent: 'center',
     height: '20rem',
   },
-}
+};

@@ -11,18 +11,18 @@ export enum VestingState {
 
 export function useVestingCallback(
   vestingAddress?: string,
-  spender?: string
+  spender?: string,
 ): [VestingState, () => Promise<void>] {
   const { chainId } = useWeb3React();
-  const [currentTransaction, setCurrentTransaction] = useState(null)
-  const { enqueueSnackbar } = useSnackbar()
+  const [currentTransaction, setCurrentTransaction] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const vestingState: VestingState = useMemo(() => {
     if (!spender) return VestingState.UNKNOWN;
 
     return currentTransaction
-        ? VestingState.PENDING
-        : VestingState.UNKNOWN
+      ? VestingState.PENDING
+      : VestingState.UNKNOWN;
   }, [currentTransaction, spender]);
 
   const vestingContract = useVestingContract(vestingAddress);
@@ -32,25 +32,28 @@ export function useVestingCallback(
       console.error('no spender');
       return;
     }
-    
+
     try {
       const tx = await vestingContract.withdraw();
       setCurrentTransaction(tx.hash);
       enqueueSnackbar(
         <a
-          target='_blank'
+          target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
-        >{shortenTxId(tx.hash)}</a>,
-        tx.hash
+          rel="noreferrer"
+        >
+          {shortenTxId(tx.hash)}
+        </a>,
+        tx.hash,
       );
-      await tx.wait()
+      await tx.wait();
     } catch (err) {
       enqueueSnackbar(
         <div>{err.message}</div>,
-        err.message
+        err.message,
       );
     } finally {
-      setCurrentTransaction(null)
+      setCurrentTransaction(null);
     }
   }, [
     vestingContract,

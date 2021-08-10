@@ -10,8 +10,8 @@ export default {
       backgroundColor: '#f7fbfc',
 
       '& *': {
-        color: '#253e47'
-      }
+        color: '#253e47',
+      },
     },
 
     '@media screen and (max-width: 576px)': {
@@ -20,19 +20,19 @@ export default {
 
       ':first-child': {
         // marginTop: '20px'
-      }
-    }
+      },
+    },
   },
 
   imageProduct: {
     // marginRight: '10px',
-    width: '40px'
+    width: '40px',
   },
 
   productHeading: {
     fontSize: [3, 3, 4, 5],
     fontWeight: 'bold',
     color: '#52666d',
-    whiteSpace: 'nowrap'
-  }
-}
+    whiteSpace: 'nowrap',
+  },
+};

@@ -56,7 +56,7 @@ export interface RemovePopupAction {
 }
 
 const updateBlockNumberAction = (
-  payload: UpdateBlockNumberPayload
+  payload: UpdateBlockNumberPayload,
 ): UpdateBlockNumberAction => ({
   type: UPDATE_BLOCK_NUMBER,
   payload,

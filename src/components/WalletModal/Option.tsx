@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React from 'react';
-import styles from './styles'
+import styles from './styles';
 import logos from '../../assets';
 
 export default function Option({
@@ -27,7 +27,7 @@ export default function Option({
         </div>
       </div>
       <div sx={styles.iconWrapper}>
-        <img src={logos[icon]} alt={'Icon'} />
+        <img src={logos[icon]} alt="Icon" />
       </div>
     </div>
   );

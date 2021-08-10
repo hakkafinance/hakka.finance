@@ -8,8 +8,8 @@ export default {
     height: '0',
     transition: 'all ease-out 0.25s',
     '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
   info_section_show: {
     paddingBottom: '20px',
@@ -18,12 +18,12 @@ export default {
     height: '100%',
     transition: 'all ease-out 0.25s',
     '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
   infoTitle: {
     flex: '1',
-    paddingLeft: '20px'
+    paddingLeft: '20px',
   },
   icon_delete_title: {
     cursor: 'pointer',
@@ -32,22 +32,22 @@ export default {
     transition: 'all 0.25s ease-out',
     opacity: '.5',
     ':hover': {
-      opacity: '1'
+      opacity: '1',
     },
     '@media screen and (max-width: 1180px)': {
       display: 'flex',
-      alignItems: 'flex-end'
-    }
+      alignItems: 'flex-end',
+    },
 
   },
   infoContent: {
-    flex: '2'
+    flex: '2',
   },
   infoTitle_name: {
     fontSize: [5, 5, 6],
     fontWeight: '700',
     fontFamily: 'system-ui',
-    color: 'black'
+    color: 'black',
   },
   icon_delete: {
     cursor: 'pointer',
@@ -56,17 +56,17 @@ export default {
     transition: 'all 0.25s ease-out',
     opacity: '.5',
     ':hover': {
-      opacity: '1'
+      opacity: '1',
     },
     '@media screen and (max-width: 1180px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   infoContent_text: {
     fontSize: [1, 1, 2, 3],
     color: 'black',
     paddingLeft: '20px',
-    paddingRight: '20px'
+    paddingRight: '20px',
     // padding: '0 34px'
   },
   tag_box: {
@@ -74,12 +74,12 @@ export default {
     padding: '6px 12px',
     borderRadius: '8px',
     color: 'black',
-    fontSize: [1, 1, 2, 3]
+    fontSize: [1, 1, 2, 3],
   },
   btn_section: {
     padding: '0 20px',
     '@media screen and (max-width: 1180px)': {
-      flexDirection: 'column'
-    }
-  }
-}
+      flexDirection: 'column',
+    },
+  },
+};

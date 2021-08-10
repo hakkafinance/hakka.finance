@@ -8,7 +8,7 @@ import { ChainId, NetworkContextName } from '../constants';
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & {
   chainId?: ChainId;
-} {
+  } {
   const context = useWeb3ReactCore<Web3Provider>();
   const contextNetwork = useWeb3ReactCore<Web3Provider>(NetworkContextName);
   return context.active ? context : contextNetwork;
@@ -24,14 +24,12 @@ export function useEagerConnect() {
         activate(injected, undefined, true).catch(() => {
           setTried(true);
         });
-      } else {
-        if (isMobile && window.ethereum) {
-          activate(injected, undefined, true).catch(() => {
-            setTried(true);
-          });
-        } else {
+      } else if (isMobile && window.ethereum) {
+        activate(injected, undefined, true).catch(() => {
           setTried(true);
-        }
+        });
+      } else {
+        setTried(true);
       }
     });
   }, [activate]); // intentionally only running on mount (make sure it's only mounted once :))

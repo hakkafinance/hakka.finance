@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import styles from './styles'
+import { jsx } from 'theme-ui';
 import React from 'react';
-import { escapeRegExp } from '../../utils/index'
-import { parseUnits } from '@ethersproject/units'
+import { parseUnits } from '@ethersproject/units';
+import styles from './styles';
+import { escapeRegExp } from '../../utils/index';
 
-const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`); // match escaped "." characters via in a non-capturing group
+const inputRegex = RegExp('^\\d*(?:\\\\[.])?\\d*$'); // match escaped "." characters via in a non-capturing group
 
-export const NumercialInput = React.memo(function InnerInput({
+export const NumercialInput = React.memo(({
   value,
   onUserInput,
   placeholder,
@@ -18,7 +18,7 @@ export const NumercialInput = React.memo(function InnerInput({
   error?: number; // for escape Warning: Received `false` for a non-boolean attribute `error`. When use error?: boolean;
   fontSize?: string;
   align?: 'right' | 'left';
-} & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
+} & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) => {
   const enforcer = (nextUserInput: string) => {
     if (nextUserInput === '' || inputRegex.test(escapeRegExp(nextUserInput))) {
       // Parse the valueString representation of units into a BigNumber instance of the amount of wei.
@@ -63,4 +63,3 @@ export const NumercialInput = React.memo(function InnerInput({
 });
 
 export default NumercialInput;
-

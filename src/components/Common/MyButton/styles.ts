@@ -13,20 +13,20 @@ export default {
     // textShadow: '0.5px 0px 0px #253e47',
 
     ':hover': {
-      borderColor: '#2da287'
+      borderColor: '#2da287',
     },
 
     ':active': {
       transform: 'scale(0.98)',
-      outline: 'none'
+      outline: 'none',
     },
     ':disabled': {
       color: '#9D9D9D',
       cursor: 'not-allowed',
-      ':hover' :{
-        borderColor: '#dae1e3'
-      }
-    }
+      ':hover': {
+        borderColor: '#dae1e3',
+      },
+    },
   },
   mybutton_green: {
     padding: '14px 16px',
@@ -43,12 +43,12 @@ export default {
 
     ':hover': {
       borderColor: '#2da287',
-      backgroundColor: '#6ad7a8'
+      backgroundColor: '#6ad7a8',
     },
 
     ':active': {
       transform: 'scale(0.98)',
-      outline: 'none'
+      outline: 'none',
     },
 
     ':disabled': {
@@ -56,6 +56,6 @@ export default {
       cursor: 'not-allowed',
       backgroundColor: '#ebf0f2',
       border: 'none',
-    }
-  }
-}
+    },
+  },
+};

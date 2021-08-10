@@ -10,7 +10,7 @@ export default {
       top: '100px',
       left: '18px',
       maxWidth: '90vw',
-    }
+    },
   },
   wrapper: {
     padding: '24px',
@@ -23,4 +23,4 @@ export default {
     fontSize: '14px',
     fontWeight: '500',
   },
-}
+};

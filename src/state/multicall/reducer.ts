@@ -48,14 +48,14 @@ type MulticallAction =
 
 export default function reducer(
   state: MulticallState,
-  action: MulticallAction
+  action: MulticallAction,
 ): MulticallState {
   const _state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case ADD_MULTICALL_LISTENERS: {
-      const payload = (action as AddMulticallListenersAction).payload;
-      const chainId = payload.chainId;
-      const calls = payload.calls;
+      const { payload } = action as AddMulticallListenersAction;
+      const { chainId } = payload;
+      const { calls } = payload;
       const options = payload.options ?? {};
       const blocksPerFetch = options.blocksPerFetch ?? 1;
 
@@ -67,8 +67,7 @@ export default function reducer(
       calls.forEach((call) => {
         const callKey = toCallKey(call);
         listeners[chainId][callKey] = listeners[chainId][callKey] ?? {};
-        listeners[chainId][callKey][blocksPerFetch] =
-          (listeners[chainId][callKey][blocksPerFetch] ?? 0) + 1;
+        listeners[chainId][callKey][blocksPerFetch] = (listeners[chainId][callKey][blocksPerFetch] ?? 0) + 1;
       });
 
       return {
@@ -76,9 +75,9 @@ export default function reducer(
       };
     }
     case REMOVE_MULTICALL_LISTENERS: {
-      const payload = (action as RemoveMulticallListenersAction).payload;
-      const chainId = payload.chainId;
-      const calls = payload.calls;
+      const { payload } = action as RemoveMulticallListenersAction;
+      const { chainId } = payload;
+      const { calls } = payload;
       const options = payload.options ?? {};
       const blocksPerFetch = options.blocksPerFetch ?? 1;
 
@@ -105,10 +104,10 @@ export default function reducer(
       };
     }
     case FETCHING_MULTICALL_RESULTS: {
-      const payload = (action as FetchingMulticallResultsAction).payload;
-      const chainId = payload.chainId;
-      const calls = payload.calls;
-      const fetchingBlockNumber = payload.fetchingBlockNumber;
+      const { payload } = action as FetchingMulticallResultsAction;
+      const { chainId } = payload;
+      const { calls } = payload;
+      const { fetchingBlockNumber } = payload;
 
       _state.callResults[chainId] = _state.callResults[chainId] ?? {};
       calls.forEach((call) => {
@@ -131,10 +130,10 @@ export default function reducer(
       };
     }
     case ERROR_FETCHING_MULTICALL_RESULTS: {
-      const payload = (action as ErrorFetchingMulticallResultsAction).payload;
-      const chainId = payload.chainId;
-      const calls = payload.calls;
-      const fetchingBlockNumber = payload.fetchingBlockNumber;
+      const { payload } = action as ErrorFetchingMulticallResultsAction;
+      const { chainId } = payload;
+      const { calls } = payload;
+      const { fetchingBlockNumber } = payload;
 
       _state.callResults[chainId] = _state.callResults[chainId] ?? {};
       calls.forEach((call) => {
@@ -153,10 +152,10 @@ export default function reducer(
       };
     }
     case UPDATE_MULTICALL_RESULTS: {
-      const payload = (action as UpdateMulticallResultsAction).payload;
-      const chainId = payload.chainId;
-      const blockNumber = payload.blockNumber;
-      const results = payload.results;
+      const { payload } = action as UpdateMulticallResultsAction;
+      const { chainId } = payload;
+      const { blockNumber } = payload;
+      const { results } = payload;
 
       _state.callResults[chainId] = _state.callResults[chainId] ?? {};
       Object.keys(results).forEach((callKey) => {
@@ -174,7 +173,7 @@ export default function reducer(
     }
     default: {
       throw Error(
-        `Unexpected action type in MulticallContext reducer: '${action}'.`
+        `Unexpected action type in MulticallContext reducer: '${action}'.`,
       );
     }
   }

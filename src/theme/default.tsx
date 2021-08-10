@@ -1,25 +1,24 @@
-
 const buttons = {
   primary: {
     color: 'red',
-    bg: 'blue'
-  }
-}
+    bg: 'blue',
+  },
+};
 
-const fontSizes = []
+const fontSizes = [];
 
 const colors = {
   background: 'black',
-  primary: 'tomato'
-}
+  primary: 'tomato',
+};
 
-const space = [0, 4, 8, 12, 16, 32, 64]
+const space = [0, 4, 8, 12, 16, 32, 64];
 
 const defaultTheme = {
   colors: {
     background: 'black',
-    primary: 'tomato'
-  }
-}
+    primary: 'tomato',
+  },
+};
 
-export default defaultTheme
+export default defaultTheme;

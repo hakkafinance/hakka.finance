@@ -50,21 +50,21 @@ type ApplicationAction =
 
 export default function reducer(
   state: ApplicationState,
-  action: ApplicationAction
+  action: ApplicationAction,
 ): ApplicationState {
   const _state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case UPDATE_BLOCK_NUMBER: {
-      const payload = (action as UpdateBlockNumberAction).payload;
-      const chainId = payload.chainId;
-      const blockNumber = payload.blockNumber;
+      const { payload } = action as UpdateBlockNumberAction;
+      const { chainId } = payload;
+      const { blockNumber } = payload;
 
       if (typeof state.blockNumber[chainId] !== 'number') {
         _state.blockNumber[chainId] = blockNumber;
       } else {
         _state.blockNumber[chainId] = Math.max(
           blockNumber,
-          state.blockNumber[chainId]
+          state.blockNumber[chainId],
         );
       }
 
@@ -91,9 +91,9 @@ export default function reducer(
       };
     }
     case ADD_POPUP: {
-      const payload = (action as AddPopupAction).payload;
-      const key = payload.key;
-      const content = payload.content;
+      const { payload } = action as AddPopupAction;
+      const { key } = payload;
+      const { content } = payload;
       const removeAfterMs = payload.removeAfterMs ?? 1500;
 
       _state.popupList = (key
@@ -113,8 +113,8 @@ export default function reducer(
       };
     }
     case REMOVE_POPUP: {
-      const payload = (action as RemovePopupAction).payload;
-      const key = payload.key;
+      const { payload } = action as RemovePopupAction;
+      const { key } = payload;
       _state.popupList.forEach((p: Popup) => {
         if (p.key === key) {
           p.show = false;
@@ -127,7 +127,7 @@ export default function reducer(
     }
     default: {
       throw Error(
-        `Unexpected action type in ApplicationContext reducer: '${action}'.`
+        `Unexpected action type in ApplicationContext reducer: '${action}'.`,
       );
     }
   }

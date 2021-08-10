@@ -59,7 +59,7 @@ export function useAddPopup(): (content: PopupContent, key?: string) => void {
     (content: PopupContent, key?: string) => {
       addPopup({ content, key });
     },
-    [addPopup]
+    [addPopup],
   );
 }
 
@@ -70,7 +70,7 @@ export function useRemovePopup(): (key: string) => void {
     (key: string) => {
       removePopup({ key });
     },
-    [removePopup]
+    [removePopup],
   );
 }
 

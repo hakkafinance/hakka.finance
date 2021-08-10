@@ -6,7 +6,7 @@ export default {
     '&:hover': {
       cursor: 'pointer',
       opacity: '0.6',
-    }
+    },
   },
   wrapper: {
     display: 'flex',
@@ -30,22 +30,22 @@ export default {
   },
   upperSection: {
     position: 'relative',
-  
-    'h5': {
+
+    h5: {
       margin: '0',
       marginBottom: '0.5rem',
       fontSize: '1rem',
       fontWeight: '400',
     },
-  
+
     'h5:last-child': {
       marginBottom: '0px',
     },
-  
-    'h4': {
+
+    h4: {
       marginTop: '0',
       fontWeight: '500',
-    }
+    },
   },
   illustration: {
     position: 'fixed',
@@ -63,8 +63,8 @@ export default {
     width: '100px',
     height: '60px',
     '@media screen and (max-width: 768px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   title: {
     height: '24px',
@@ -77,12 +77,12 @@ export default {
     letterSpacing: 'normal',
     color: 'inherit',
   },
-  balance:{
+  balance: {
     display: 'flex',
     alignItems: 'center',
     marginBottom: '20px',
   },
-  displayBetween:{
+  displayBetween: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -90,7 +90,7 @@ export default {
     marginBottom: '20px',
   },
   addMetamaskBtn: {
-    display:'flex',
+    display: 'flex',
     alignItems: 'center',
     padding: '4px 6px',
     height: '28px',
@@ -98,11 +98,11 @@ export default {
     backgroundColor: '#f7fbfc',
     border: 'none',
 
-    ':hover' :{
+    ':hover': {
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
     },
-  
+
     ':focus': {
       outline: 'none',
     },
@@ -125,10 +125,10 @@ export default {
     backgroundColor: '#f7fbfc',
     border: 'none',
 
-    ':hover' :{
+    ':hover': {
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    }
+    },
   },
   iconAdd: {
     width: '16px',
@@ -171,5 +171,5 @@ export default {
     lineHeight: '1.5',
     letterSpacing: 'normal',
     color: '#253e47',
-  }
-}
+  },
+};

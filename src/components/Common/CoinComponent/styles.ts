@@ -12,12 +12,12 @@ export default {
     '@media screen and (max-width: 576px)': {
       width: '100%',
       // margin: '12px 0 0 0',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
 
     ':hover': {
-      border: '1px solid #dae1e3'
-    }
+      border: '1px solid #dae1e3',
+    },
   },
 
   coinHakka: {
@@ -29,23 +29,23 @@ export default {
     border: '1px solid transparent',
 
     ':hover': {
-      border: '1px solid #dae1e3'
-    }
+      border: '1px solid #dae1e3',
+    },
   },
 
   coinImg: {
-    width: '24px'
+    width: '24px',
   },
 
   coinName: {
     fontSize: [1, 1, 2, 3],
     color: '#253e47',
-    fontWeight: '600'
+    fontWeight: '600',
   },
   custom_link: {
     textDecoration: 'none',
     '@media screen and (max-width: 576px)': {
-      width: '100%'
-    }
-  }
-}
+      width: '100%',
+    },
+  },
+};

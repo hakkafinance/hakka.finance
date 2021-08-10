@@ -5,9 +5,9 @@ export default {
     gridTemplateColumns: '1fr 1fr',
     maxWidth: '1200px',
     '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr'
+      gridTemplateColumns: '1fr',
       // maxWidth: '400px'
-    }
+    },
   },
   // big green card
   cardFirstContainer: {
@@ -27,21 +27,21 @@ export default {
 
     '& .sub-content': {
       opacity: '.5',
-      transition: 'all 0.25s ease-out'
+      transition: 'all 0.25s ease-out',
 
     },
 
     ':hover': {
       '& .sub-content': {
-        opacity: 1
+        opacity: 1,
       },
 
       ':active': {
-        transform: 'scale(.98)'
+        transform: 'scale(.98)',
       },
 
-      borderColor: '#3ebd93'
-    }
+      borderColor: '#3ebd93',
+    },
   },
 
   // small cards
@@ -63,7 +63,7 @@ export default {
     boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
 
     ':last-child': {
-      marginRight: 0
+      marginRight: 0,
     },
 
     '& .sub-content': {
@@ -71,8 +71,8 @@ export default {
       filter: 'grayscale(100%)',
       transition: 'all 0.25s ease-out',
       '& .text': {
-        color: 'rgba(37, 62, 71, 0.5)'
-      }
+        color: 'rgba(37, 62, 71, 0.5)',
+      },
     },
 
     ':hover': {
@@ -84,14 +84,14 @@ export default {
         filter: 'grayscale(0)',
 
         '& .text': {
-          color: '#2da287'
-        }
-      }
+          color: '#2da287',
+        },
+      },
     },
 
     ':active': {
-      transform: 'scale(.98)'
-    }
+      transform: 'scale(.98)',
+    },
   },
 
   cardImg: {
@@ -100,7 +100,7 @@ export default {
   cardFirstImg: {
     padding: '10px',
     borderRadius: '8px',
-    backgroundImage: 'linear-gradient(45deg, #d9fbe3, #ffffff 100%)'
+    backgroundImage: 'linear-gradient(45deg, #d9fbe3, #ffffff 100%)',
   },
 
   cardHeading: {
@@ -109,7 +109,7 @@ export default {
     // margin: '12px 0',
     fontWeight: 'bold',
     fontFamily: 'system-ui',
-    fontSize: [3, 3, 4, 5]
+    fontSize: [3, 3, 4, 5],
   },
 
   cardFirstHeading: {
@@ -118,23 +118,23 @@ export default {
     // margin: '12px 0',
     fontWeight: 'bold',
     fontFamily: 'system-ui',
-    fontSize: [3, 3, 4, 5]
+    fontSize: [3, 3, 4, 5],
   },
   subText: {
     fontSize: [1, 1, 2, 3],
     fontWeight: '600',
-    color: '#253e47'
+    color: '#253e47',
   },
 
   forwardImg: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   subTextGreen: {
     color: 'text_grey',
     fontWeight: '600',
-    fontSize: [1, 1, 2, 3]
+    fontSize: [1, 1, 2, 3],
   },
-  anchor:{
-    textDecoration:'none'
+  anchor: {
+    textDecoration: 'none',
   },
-}
+};

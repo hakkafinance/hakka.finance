@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import images from '../../images'
-import styles from './styles'
-import RewardsPoolCard from './RewardsPoolCard'
-import PoolDetail from './PoolDetail'
-import Web3Status from '../Web3Status'
-import { useState } from 'react'
-import { ChainId } from '../../constants/index'
+import { jsx } from 'theme-ui';
+import { useState } from 'react';
+import images from '../../images';
+import styles from './styles';
+import RewardsPoolCard from './RewardsPoolCard';
+import PoolDetail from './PoolDetail';
+import Web3Status from '../Web3Status';
+import { ChainId } from '../../constants/index';
 
 const RewardsPage = () => {
   const [whichChain, setWhichChain] = useState<ChainId>(ChainId.MAINNET);
@@ -19,7 +19,7 @@ const RewardsPage = () => {
           <p>Rewards</p>
           <Web3Status />
         </div>
-        
+
         <PoolDetail />
 
         {/* pool portals  */}
@@ -92,10 +92,10 @@ const RewardsPage = () => {
             </div>
           }
         </div> */}
-        
+
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RewardsPage
+export default RewardsPage;

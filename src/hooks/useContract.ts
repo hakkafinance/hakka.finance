@@ -16,7 +16,7 @@ import { useActiveWeb3React } from './index';
 export function useContract(
   address: string | undefined,
   ABI: any,
-  withSignerIfPossible = true
+  withSignerIfPossible = true,
 ): Contract | null {
   const { library, account } = useActiveWeb3React();
 
@@ -27,7 +27,7 @@ export function useContract(
         address,
         ABI,
         library,
-        withSignerIfPossible && account ? account : undefined
+        withSignerIfPossible && account ? account : undefined,
       );
     } catch (error) {
       console.error('Failed to get contract', error);
@@ -38,34 +38,34 @@ export function useContract(
 
 export function useTokenContract(
   tokenAddress?: string,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(tokenAddress, ERC20_ABI, withSignerIfPossible);
 }
 
 export function useBurnContract(
   burnAddress?: string,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(burnAddress, BURNER_ABI, withSignerIfPossible);
 }
 
 export function useStakeContract(
   stakeAddress?: string,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(stakeAddress, STAKE_ABI, withSignerIfPossible);
 }
 
 export function useVestingContract(
   vestingAddress?: string,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(vestingAddress, VESTING_ABI, withSignerIfPossible);
 }
 
 export function useENSRegistrarContract(
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   const { chainId } = useActiveWeb3React();
   let address: string | undefined;
@@ -81,14 +81,14 @@ export function useENSRegistrarContract(
 
 export function useENSResolverContract(
   address: string | undefined,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(address, ENS_PUBLIC_RESOLVER_ABI, withSignerIfPossible);
 }
 
 export function useBytes32TokenContract(
   tokenAddress?: string,
-  withSignerIfPossible?: boolean
+  withSignerIfPossible?: boolean,
 ): Contract | null {
   return useContract(tokenAddress, ERC20_BYTES32_ABI, withSignerIfPossible);
 }
@@ -98,6 +98,6 @@ export function useMulticallContract(): Contract | null {
   return useContract(
     chainId && MULTICALL_NETWORKS[chainId],
     MULTICALL_ABI,
-    false
+    false,
   );
 }

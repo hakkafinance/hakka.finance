@@ -9,7 +9,7 @@ import useDebounce from './useDebounce';
  * Does a lookup for an ENS name to find its address.
  */
 export default function useENSAddress(
-  ensName?: string | null
+  ensName?: string | null,
 ): { loading: boolean; address: string | null } {
   const debouncedName = useDebounce(ensName, 200);
   const ensNodeArgument = useMemo(() => {
@@ -24,14 +24,14 @@ export default function useENSAddress(
   const resolverAddress = useSingleCallResult(
     registrarContract,
     'resolver',
-    ensNodeArgument
+    ensNodeArgument,
   );
   const resolverAddressResult = resolverAddress.result?.[0];
   const resolverContract = useENSResolverContract(
     resolverAddressResult && !isZero(resolverAddressResult)
       ? resolverAddressResult
       : undefined,
-    false
+    false,
   );
   const addr = useSingleCallResult(resolverContract, 'addr', ensNodeArgument);
 

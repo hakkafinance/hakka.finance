@@ -1,7 +1,9 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import { useState, useEffect } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { AbstractConnector } from '@web3-react/abstract-connector';
 import usePrevious from '../../hooks/usePrevious';
 import {
   useWalletModalOpen,
@@ -15,8 +17,6 @@ import Modal from '../Modal';
 import AccountDetails from '../AccountDetails';
 import Option from './Option';
 import { SUPPORTED_WALLETS } from '../../constants';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { AbstractConnector } from '@web3-react/abstract-connector';
 import styles from './styles';
 
 const WALLET_VIEWS = {
@@ -32,7 +32,9 @@ export default function WalletModal({
   ENSName?: string;
 }) {
   // important that these are destructed from the account-specific web3-react context
-  const { active, account, connector, activate, error } = useWeb3React();
+  const {
+    active, account, connector, activate, error,
+  } = useWeb3React();
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);
 
@@ -66,9 +68,9 @@ export default function WalletModal({
   const connectorPrevious = usePrevious(connector);
   useEffect(() => {
     if (
-      walletModalOpen &&
-      ((active && !activePrevious) ||
-        (connector && connector !== connectorPrevious && !error))
+      walletModalOpen
+      && ((active && !activePrevious)
+        || (connector && connector !== connectorPrevious && !error))
     ) {
       setWalletView(WALLET_VIEWS.ACCOUNT);
     }
@@ -84,19 +86,19 @@ export default function WalletModal({
 
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     setWalletView(WALLET_VIEWS.PENDING);
-    console.log(connector)
+    console.log(connector);
 
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
     if (
-      connector instanceof WalletConnectConnector &&
-      connector.walletConnectProvider?.wc?.uri
+      connector instanceof WalletConnectConnector
+      && connector.walletConnectProvider?.wc?.uri
     ) {
       connector.walletConnectProvider = undefined;
     }
 
-    connector &&
-      activate(connector, undefined, true).catch((error) => {
-        console.log(error)
+    connector
+      && activate(connector, undefined, true).catch((error) => {
+        console.log(error);
         if (error instanceof UnsupportedChainIdError) {
           activate(connector);
         }
@@ -135,7 +137,7 @@ export default function WalletModal({
     }
     return (
       <div sx={styles.upperSection}>
-        <div sx={styles.illustration}></div>
+        <div sx={styles.illustration} />
         <div sx={styles.closeIcon} onClick={toggleWalletModal}>
           <img src={images.iconDeleteRound} />
         </div>

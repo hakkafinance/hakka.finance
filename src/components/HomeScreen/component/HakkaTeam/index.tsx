@@ -1,52 +1,48 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import React from 'react'
-import { Box, Flex, Heading } from 'rebass'
-import styles from './styles'
-import images from 'src/images'
+import { jsx } from 'theme-ui';
+import React from 'react';
+import { Box, Flex, Heading } from 'rebass';
+import images from 'src/images';
+import styles from './styles';
 
-function HakkaTeam () {
+function HakkaTeam() {
   const listMenbers = [
     {
       avatar: images.jackLai,
       name: 'Jack Lai',
-      job: 'researcher'
+      job: 'researcher',
     },
     {
       avatar: images.wegoChen,
       name: 'Wego Chen',
-      job: 'ADVISOR'
+      job: 'ADVISOR',
     },
     {
       avatar: images.ianHsu,
       name: 'Ian Hsu',
-      job: 'ADVISOR'
-    }
-  ]
+      job: 'ADVISOR',
+    },
+  ];
 
-  const renderListMembers = () => {
-    return listMenbers.map((item, i) => {
-      return (
-        <Box
-          sx={styles.hakkaTeamInfoUser}
-          flexDirection="column"
-          key={i}
-        >
-          <Flex sx={styles.team_img_responsive}><img sx={styles.hakkaTeamImgUserList} src={item.avatar} alt="" /></Flex>
-          <Box sx={styles.hakkaTeamName} mt="24px">{item.name}</Box>
-          <Box sx={styles.hakkaTeamJob} mt="2">{item.job}</Box>
-        </Box>
-      )
-    })
-  }
+  const renderListMembers = () => listMenbers.map((item, i) => (
+    <Box
+      sx={styles.hakkaTeamInfoUser}
+      flexDirection="column"
+      key={i}
+    >
+      <Flex sx={styles.team_img_responsive}><img sx={styles.hakkaTeamImgUserList} src={item.avatar} alt="" /></Flex>
+      <Box sx={styles.hakkaTeamName} mt="24px">{item.name}</Box>
+      <Box sx={styles.hakkaTeamJob} mt="2">{item.job}</Box>
+    </Box>
+  ));
 
   return (
     <Box sx={styles.hakkaTeam}>
       <Box sx={styles.hakkaTeamHead}>Hakka Team</Box>
-      <Flex sx={styles.hakkaTeamUser} >
+      <Flex sx={styles.hakkaTeamUser}>
         <img sx={styles.hakkaTeamImgUser} src={images.pingChen} alt="" />
 
-        <Box sx={styles.hakkaTeamInfo} >
+        <Box sx={styles.hakkaTeamInfo}>
           <Box sx={styles.hakkaTeamName} mt={['24px', '0px', '0px', '0px']}>Ping Chen</Box>
           <Box sx={styles.hakkaTeamJob} mt="2">FOUNDER</Box>
           <p sx={styles.hakkaTeamComment}>
@@ -68,7 +64,7 @@ function HakkaTeam () {
         </Flex>
       </Flex>
     </Box>
-  )
+  );
 }
 
-export default HakkaTeam
+export default HakkaTeam;

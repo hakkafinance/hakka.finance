@@ -4,7 +4,7 @@ export default {
     color: '#253e47',
 
     '@media screen and (max-width: 576px)': {
-      width:'318.75px',
+      width: '318.75px',
     },
   },
 
@@ -14,7 +14,7 @@ export default {
     width: '100%',
     fontSize: [0],
 
-    'h2':{
+    h2: {
       margin: '0',
       fontWeight: 'bold',
       lineHeight: '1.33',
@@ -22,18 +22,18 @@ export default {
   },
 
   stateCard: {
-    display:'flex', 
+    display: 'flex',
     paddingTop: '28px',
   },
 
   stateInfo: {
-    paddingLeft:'36px',
+    paddingLeft: '36px',
     fontWeight: '600',
 
-    'h4':{
-      margin: '0'
+    h4: {
+      margin: '0',
     },
-    'p':{
+    p: {
       margin: '0 0 28px 0',
       fontSize: [1],
       color: 'rgba(37,62, 71, 0.5)',
@@ -41,10 +41,9 @@ export default {
     },
 
     '@media screen and (max-width: 576px)': {
-      paddingLeft:'28px',
+      paddingLeft: '28px',
     },
 
-    
   },
 
   message: {
@@ -52,7 +51,7 @@ export default {
     margin: '0',
     lineHeight: '1.71',
 
-    'span':{
+    span: {
       fontWeight: '600',
     },
   },
@@ -73,11 +72,11 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
   },
 
-  confirmBtn:{
+  confirmBtn: {
     marginTop: '36px',
   },
 
@@ -117,4 +116,4 @@ export default {
     paddingRight: '10px',
   },
 
-}
+};

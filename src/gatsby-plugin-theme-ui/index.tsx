@@ -12,10 +12,10 @@ export default {
     green: '#2da287',
     light_green: '#dae1e3',
     text_grey: '#929EA3',
-    active_green: '#ebf0f2'
+    active_green: '#ebf0f2',
   },
   background_linears: {
-    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)'
+    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
   },
   fonts: {
     // body: 'system-ui, sans-serif',
@@ -24,12 +24,12 @@ export default {
     // body: 'Open Sans, sans-serif',
     body: 'Open Sans, system-ui',
     heading: 'Georgia, serif',
-    monospace: 'Menlo, monospace'
+    monospace: 'Menlo, monospace',
   },
   fontWeights: {
     semi: 600,
     heading: 700,
-    bold: 700
+    bold: 700,
   },
   // lineHeights: {
   //   body: 1.5,
@@ -44,16 +44,16 @@ export default {
       fontFamily: 'body',
       fontWeights: {
         semi: 'body',
-        bold: 'bold'
+        bold: 'bold',
       },
       p: {
-        lineHeight: [1, 1, 2, 2]
-      }
-    }
+        lineHeight: [1, 1, 2, 2],
+      },
+    },
 
-  }
+  },
 
-}
+};
 
 /* description :
   fontSize 14px ---> responsive [0,1,2,3]

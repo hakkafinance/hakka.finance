@@ -11,7 +11,7 @@ import useDebounce from './useDebounce';
  * Note this is not the same as looking up an ENS name to find an address.
  */
 export default function useENSName(
-  address?: string
+  address?: string,
 ): { ENSName: string | null; loading: boolean } {
   const debouncedAddress = useDebounce(address, 200);
   const ensNodeArgument = useMemo(() => {
@@ -28,14 +28,14 @@ export default function useENSName(
   const resolverAddress = useSingleCallResult(
     registrarContract,
     'resolver',
-    ensNodeArgument
+    ensNodeArgument,
   );
   const resolverAddressResult = resolverAddress.result?.[0];
   const resolverContract = useENSResolverContract(
     resolverAddressResult && !isZero(resolverAddressResult)
       ? resolverAddressResult
       : undefined,
-    false
+    false,
   );
   const name = useSingleCallResult(resolverContract, 'name', ensNodeArgument);
 

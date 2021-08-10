@@ -14,7 +14,7 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f7fbfc',
-  
+
     ':focus': {
       outline: 'none',
     },
@@ -29,18 +29,18 @@ export default {
   },
   upperSection: {
     position: 'relative',
-  
-    'h5': {
+
+    h5: {
       margin: '0',
       marginBottom: '0.5rem',
       fontSize: '1rem',
       fontWeight: '400',
     },
 
-    'h4': {
+    h4: {
       marginTop: '0',
       fontWeight: '500',
-    }
+    },
   },
   illustration: {
     position: 'fixed',
@@ -59,7 +59,7 @@ export default {
     marginBottom: '20px',
     '@media screen and (min-width: 576px)': {
       padding: '1rem',
-    }
+    },
   },
   accountGroupingRow: {
     display: 'flex',
@@ -68,27 +68,27 @@ export default {
     alignItems: 'center',
     fontWeight: '400',
     color: '#000000',
-  
-    'div': {
+
+    div: {
       display: 'flex',
       flexFlow: 'row nowrap',
       alignItems: 'center',
-    }
+    },
   },
   accountSection: {
     backgroundColor: '#ffffff',
     padding: '0rem 1rem',
   },
   yourAccount: {
-    'h5': {
+    h5: {
       margin: '0 0 1rem 0',
       fontWeight: '400',
     },
-  
-    'h4': {
+
+    h4: {
       margin: '0',
       fontWeight: '500',
-    }
+    },
   },
   buttonSection: {
     marginTop: '30px',
@@ -98,21 +98,21 @@ export default {
     justifyContent: 'space-between',
     minWidth: '0',
     width: '100%',
-  
+
     fontWeight: '500',
     fontSize: '24px',
-  
+
     'a:hover': {
       textDecoration: 'underline',
     },
-  
-    'p': {
+
+    p: {
       minWidth: '0',
       margin: '0',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
-    }
+    },
   },
   addressLink: {
     fontSize: '0.825rem',
@@ -121,7 +121,7 @@ export default {
     display: 'flex',
     ':hover': {
       color: '#565a69',
-    }
+    },
   },
   closeIcon: {
     position: 'absolute',
@@ -130,7 +130,7 @@ export default {
     '&:hover': {
       cursor: 'pointer',
       opacity: '0.6',
-    }
+    },
   },
   walletName: {
     width: 'initial',
@@ -152,6 +152,6 @@ export default {
     ':hover': {
       cursor: 'pointer',
       textDeaccountGroupingRowcoration: 'underline',
-    }
+    },
   },
-}
+};

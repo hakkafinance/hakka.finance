@@ -2,24 +2,24 @@ export default {
   utilityHead: {
     fontSize: [5, 6, 7, 7],
     color: '#253e47',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
   },
 
   utilityTextLink: {
     // marginBottom: '60px',
     maxWidth: '1200px',
-    alignItems: "center",
+    alignItems: 'center',
 
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
-      justifyContent: 'flex-start'
-    }
+      justifyContent: 'flex-start',
+    },
   },
 
   utilityText: {
     fontSize: [2, 2, 3, 4],
     color: '#253e47',
-    
+
   },
 
   utilityLink: {
@@ -34,15 +34,13 @@ export default {
     },
     ':hover': {
       '*': {
-        color: '#3ebd93'
+        color: '#3ebd93',
       },
-      'img': {
+      img: {
         opacity: '0.7',
       },
     },
   },
-
-
 
   imgForward: {
     width: '24px',
@@ -54,7 +52,7 @@ export default {
     flex: '1',
 
     '@media screen and (max-width: 576px)': {
-      width: '100%'
+      width: '100%',
     },
 
     ':last-child': {
@@ -62,12 +60,12 @@ export default {
       '@media screen and (max-width: 576px)': {
         paddingTop: '20px',
         marginLeft: '0',
-      }
-    }
+      },
+    },
   },
 
   utilityImgInfo: {
-    width: '48px'
+    width: '48px',
   },
 
   utilityTitle: {
@@ -75,13 +73,13 @@ export default {
     fontSize: [3, 3, 4, 5],
     color: '#253e47',
     fontWeight: '700',
-    fontFamily: 'system-ui'
+    fontFamily: 'system-ui',
   },
 
   detailsInfo: {
     maxWidth: '1200px',
     '@media screen and (max-width: 576px)': {
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
-}
+};

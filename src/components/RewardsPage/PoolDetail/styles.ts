@@ -13,12 +13,12 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
 
-    'span': {
+    span: {
       marginLeft: '4px',
-    }
+    },
   },
 
   title: {
@@ -28,9 +28,9 @@ export default {
     height: '28px',
     paddingTop: '12px',
 
-    'p': {
+    p: {
       margin: '0',
-      fontSize: '1.5rem'
+      fontSize: '1.5rem',
     },
 
     '@media screen and (max-width: 576px)': {
@@ -65,7 +65,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       paddingLeft: '0',
-    }
+    },
   },
 
   contractAddress: {
@@ -73,7 +73,7 @@ export default {
     fontWeight: '600',
     textDecoration: 'underline',
 
-    ':hover' : {
+    ':hover': {
       color: '#2da287',
       cursor: 'pointer',
     },
@@ -106,7 +106,7 @@ export default {
     width: '46.5%',
     fontSize: '0.875rem',
 
-    'p': {
+    p: {
       margin: '0',
     },
 
@@ -138,7 +138,7 @@ export default {
       color: '#2da287',
     },
 
-    'span': {
+    span: {
       paddingRight: '4px',
     },
 
@@ -214,7 +214,7 @@ export default {
   rewardInfoLabelWrapper: {
     display: 'flex',
 
-    'p': {
+    p: {
       margin: '0',
       lineHeight: '1.71',
     },
@@ -245,7 +245,7 @@ export default {
     backgroundColor: '#f7fbfc',
     fontSize: '1rem',
 
-    'span': {
+    span: {
       paddingRight: '4px',
       color: '#253e47',
     },
@@ -262,11 +262,11 @@ export default {
   },
 
   rewardAmount: {
-    color: '#2da287'
+    color: '#2da287',
   },
 
   amountIsZero: {
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
   },
 
   learnMoreLinkWrapper: {
@@ -276,7 +276,7 @@ export default {
     color: 'rgba(37, 62, 71, 0.5)',
     fontSize: '0.875rem',
 
-    'img': {
+    img: {
       paddingRight: '8px',
     },
   },
@@ -288,7 +288,7 @@ export default {
     ':hover': {
       cursor: 'pointer',
       color: '#2da287',
-    }
+    },
   },
 
   switch: {
@@ -298,7 +298,7 @@ export default {
     fontWeight: 'bold',
     lineHeight: '1.5',
 
-    'div': {
+    div: {
       width: '48%',
       padding: '12px 0',
       display: 'flex',
@@ -315,7 +315,7 @@ export default {
 
   switchFocus: {
     backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    color: '#2da287'
+    color: '#2da287',
   },
 
   stakeBalanceContainer: {
@@ -329,7 +329,7 @@ export default {
   },
 
   numericalInputWrapper: {
-    padding: '12px 0 20px 0'
+    padding: '12px 0 20px 0',
   },
 
   depositBtnContent: {
@@ -341,19 +341,19 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
     lineHeight: '1.33',
-    
-    '> div' : {
+
+    '> div': {
       width: '48.4%',
     },
 
-    '& .exitContent' : {
+    '& .exitContent': {
       fontSize: '0.75rem',
       color: 'rgba(37, 62, 71, 0.5)',
       lineHeight: '1.33',
     },
 
     '@media screen and (max-width: 1199px)': {
-      '> div' : {
+      '> div': {
         width: '48%',
         marginBottom: '8px',
       },
@@ -370,9 +370,9 @@ export default {
   },
 
   exitBtnContent: {
-    'p' : {
+    p: {
       margin: '0',
-      lineHeight: '1.5'
+      lineHeight: '1.5',
     },
   },
-}
+};

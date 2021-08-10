@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react'
-import { jsx } from 'theme-ui'
-import { Box, Text } from 'rebass'
-import CardPorduct from './CardProduct'
-import images from '../../images'
-import styles from './styles'
-import InfoProduct from './InfoProduct'
+import React, { useEffect, useState } from 'react';
+import { jsx } from 'theme-ui';
+import { Box, Text } from 'rebass';
+import CardPorduct from './CardProduct';
+import images from '../../images';
+import styles from './styles';
+import InfoProduct from './InfoProduct';
 
 const ProductScreen = (props) => {
   const topArr = [
@@ -25,8 +25,8 @@ const ProductScreen = (props) => {
       whitepaper: 'https://3fmutual.com/whitepaper.pdf',
       vist: 'https://3fmutual.com/',
       id: 2,
-      infoTag: ['Insurance','MutualFund']
-      
+      infoTag: ['Insurance', 'MutualFund'],
+
     },
     {
       icon: images.iconIgain,
@@ -45,7 +45,7 @@ const ProductScreen = (props) => {
       whitepaper: 'https://medium.com/hakkafinance/hakka-intelligence-handbook-d77a80f44ac6',
       vist: 'https://intelligence.hakka.finance/',
       id: 4,
-      infoTag: ['PredictionMarket', 'PricePrediction']
+      infoTag: ['PredictionMarket', 'PricePrediction'],
     },
     {
       icon: images.iconDefiHandbook,
@@ -53,7 +53,7 @@ const ProductScreen = (props) => {
       info: 'DeFi Handbook make easier for you to dive into DeFi protocols.',
       vist: 'https://defihandbook.cc/',
       id: 5,
-      infoTag: ['Dev', 'Tool']
+      infoTag: ['Dev', 'Tool'],
     },
     {
       icon: images.iconHarvester,
@@ -62,9 +62,9 @@ const ProductScreen = (props) => {
       whitepaper: 'https://medium.com/hakkafinance/hakka-harvester-born-for-chad-hakka-farmers-83c37f0170b9',
       vist: 'https://harvesters.hakka.finance/pools',
       id: 6,
-      infoTag: ['Aggregator', 'YieldFarming']
+      infoTag: ['Aggregator', 'YieldFarming'],
     },
-  ]
+  ];
 
   const botArr = [
     {
@@ -82,121 +82,72 @@ const ProductScreen = (props) => {
       info: 'tCDP is tokenized CDP (Collateral Debt Position) that is fungible and tradable on exchanges.',
       comingProductId: 2,
       infoTag: ['Collateral', 'Tool'],
-    }
-  ]
+    },
+  ];
 
-  const [screenWidth, setScreenWidth] = useState(null)
-  const [isShowInfoProduct, setIsShowInfoProduct] = useState(false)
-  const [dataInfo, setDataInfo] = useState()
-  const [selectedInfoTag, setSelectedInfoTag] = useState([])
-  const [selectedCard, setSelectedCard] = useState('')
-  const [selectedCardId, setSelectedCardId] = useState(null)
-  const [selectedComingProductCardId, setSelectedComingProductCardId] = useState(null)
-  const [closeInfo, setCloseInfo] = useState(true)
+  const [screenWidth, setScreenWidth] = useState(null);
+  const [isShowInfoProduct, setIsShowInfoProduct] = useState(false);
+  const [dataInfo, setDataInfo] = useState();
+  const [selectedInfoTag, setSelectedInfoTag] = useState([]);
+  const [selectedCard, setSelectedCard] = useState('');
+  const [selectedCardId, setSelectedCardId] = useState(null);
+  const [selectedComingProductCardId, setSelectedComingProductCardId] = useState(null);
+  const [closeInfo, setCloseInfo] = useState(true);
 
   const handleResize = () => {
-    const width = window.innerWidth
-    setScreenWidth(width)
-    console.log('window is resized', width)
-  }
+    const width = window.innerWidth;
+    setScreenWidth(width);
+    console.log('window is resized', width);
+  };
   // toggle Info
   const handleCloseInfo = (value) => {
-    setIsShowInfoProduct(value)
-    setCloseInfo(value)
-    setSelectedCard('')
-  }
+    setIsShowInfoProduct(value);
+    setCloseInfo(value);
+    setSelectedCard('');
+  };
   // active selected Card
   const handleGetSelectedCard = (item) => () => {
-    console.log('item.infoTag', item.infoTag)
-    setSelectedCard(item.cardName)
-    setSelectedCardId(item.id)
-    setSelectedComingProductCardId(item.comingProductId)
-    setDataInfo(item)
-    setSelectedInfoTag(item.infoTag)
-  }
+    console.log('item.infoTag', item.infoTag);
+    setSelectedCard(item.cardName);
+    setSelectedCardId(item.id);
+    setSelectedComingProductCardId(item.comingProductId);
+    setDataInfo(item);
+    setSelectedInfoTag(item.infoTag);
+  };
   const handleShowInfo = (value) => {
-    setIsShowInfoProduct(value)
-  }
+    setIsShowInfoProduct(value);
+  };
 
-  console.log('isShowInfoProduct', isShowInfoProduct)
+  console.log('isShowInfoProduct', isShowInfoProduct);
 
   // render
   const renderCardProduct = () => {
     if (screenWidth < 1195) {
-      return topArr.slice(0, 2).map((item) => {
-        return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
-            <CardPorduct
-              isShowInfoProduct={closeInfo}
-              selectedCard={selectedCard}
-              onShowInfo={handleShowInfo}
-              cardData={item}
-            />
-          </Box>
-        )
-      })
-    } else {
-      return topArr.slice(0, 3).map((item) => {
-        return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
-            <CardPorduct
-              isShowInfoProduct={closeInfo}
-              selectedCard={selectedCard}
-              onShowInfo={handleShowInfo}
-              cardData={item}
-            />
-          </Box>
-        )
-      })
+      return topArr.slice(0, 2).map((item) => (
+        <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+          <CardPorduct
+            isShowInfoProduct={closeInfo}
+            selectedCard={selectedCard}
+            onShowInfo={handleShowInfo}
+            cardData={item}
+          />
+        </Box>
+      ));
     }
-  }
+    return topArr.slice(0, 3).map((item) => (
+      <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+        <CardPorduct
+          isShowInfoProduct={closeInfo}
+          selectedCard={selectedCard}
+          onShowInfo={handleShowInfo}
+          cardData={item}
+        />
+      </Box>
+    ));
+  };
   const renderCardProductResponsive = () => {
     if (screenWidth < 1195) {
-      return topArr.slice(2, 4).map((item) => {
-        return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
-            <CardPorduct
-              selectedCard={selectedCard}
-              onShowInfo={handleShowInfo}
-              cardData={item}
-            />
-          </Box>
-        )
-      })
-    } else {
-      return topArr.slice(3, 6).map((item) => {
-        return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
-            <CardPorduct
-              selectedCard={selectedCard}
-              onShowInfo={handleShowInfo}
-              cardData={item}
-            />
-          </Box>
-        )
-      })
-    }
-  }
-
-  const renderCardProductResponsive2 = () => {
-    if (screenWidth < 1195) {
-      return topArr.slice(4, 6).map((item) => {
-        return (
-          <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
-            <CardPorduct
-              selectedCard={selectedCard}
-              onShowInfo={handleShowInfo}
-              cardData={item}
-            />
-          </Box>
-        )
-      })
-    } 
-  }
-
-  const renderComingProduct = () => {
-    return botArr.map((item) => {
-      return (
+      return topArr.slice(2, 4).map((item) => (
         <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
           <CardPorduct
             selectedCard={selectedCard}
@@ -204,16 +155,48 @@ const ProductScreen = (props) => {
             cardData={item}
           />
         </Box>
-      )
-    })
-  }
+      ));
+    }
+    return topArr.slice(3, 6).map((item) => (
+      <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+        <CardPorduct
+          selectedCard={selectedCard}
+          onShowInfo={handleShowInfo}
+          cardData={item}
+        />
+      </Box>
+    ));
+  };
 
+  const renderCardProductResponsive2 = () => {
+    if (screenWidth < 1195) {
+      return topArr.slice(4, 6).map((item) => (
+        <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+          <CardPorduct
+            selectedCard={selectedCard}
+            onShowInfo={handleShowInfo}
+            cardData={item}
+          />
+        </Box>
+      ));
+    }
+  };
+
+  const renderComingProduct = () => botArr.map((item) => (
+    <Box key={item.cardName} onClick={handleGetSelectedCard(item)}>
+      <CardPorduct
+        selectedCard={selectedCard}
+        onShowInfo={handleShowInfo}
+        cardData={item}
+      />
+    </Box>
+  ));
 
   // problem 1
-  const width = typeof window !== 'undefined' ? window.innerWidth : ''
+  const width = typeof window !== 'undefined' ? window.innerWidth : '';
   useEffect(() => {
-    setScreenWidth(width)
-  }, [])
+    setScreenWidth(width);
+  }, []);
 
   return (
     <div>
@@ -229,12 +212,14 @@ const ProductScreen = (props) => {
 
         <Box>
           {selectedCardId <= (screenWidth < 1195 ? 2 : 3)
-            ? <InfoProduct
-              onClose={handleCloseInfo}
-              dataInfo={dataInfo}
-              isShowInfoProduct={isShowInfoProduct}
-              infoTag={selectedInfoTag}
-            />
+            ? (
+              <InfoProduct
+                onClose={handleCloseInfo}
+                dataInfo={dataInfo}
+                isShowInfoProduct={isShowInfoProduct}
+                infoTag={selectedInfoTag}
+              />
+            )
             : ''}
         </Box>
 
@@ -244,14 +229,15 @@ const ProductScreen = (props) => {
 
         <Box>
           {selectedCardId > (screenWidth < 1195 ? 2 : 3) && selectedCardId < (screenWidth < 1195 ? 5 : 7)
-            ? <InfoProduct
-              onClose={handleCloseInfo}
-              dataInfo={dataInfo}
-              isShowInfoProduct={isShowInfoProduct}
-              infoTag={selectedInfoTag}
-            />
-            : ''
-          }
+            ? (
+              <InfoProduct
+                onClose={handleCloseInfo}
+                dataInfo={dataInfo}
+                isShowInfoProduct={isShowInfoProduct}
+                infoTag={selectedInfoTag}
+              />
+            )
+            : ''}
         </Box>
 
         <Box sx={styles.responsive_cards} mt="48px">
@@ -259,15 +245,16 @@ const ProductScreen = (props) => {
         </Box>
 
         <Box>
-          {(screenWidth < 1195 && selectedCardId >= 5 && selectedCardId <= 6) 
-            ? <InfoProduct
-              onClose={handleCloseInfo}
-              dataInfo={dataInfo}
-              isShowInfoProduct={isShowInfoProduct}
-              infoTag={selectedInfoTag}
-            />
-            : ''
-          }
+          {(screenWidth < 1195 && selectedCardId >= 5 && selectedCardId <= 6)
+            ? (
+              <InfoProduct
+                onClose={handleCloseInfo}
+                dataInfo={dataInfo}
+                isShowInfoProduct={isShowInfoProduct}
+                infoTag={selectedInfoTag}
+              />
+            )
+            : ''}
         </Box>
 
         <Text sx={styles.sub_heading} mt="60px">
@@ -279,17 +266,18 @@ const ProductScreen = (props) => {
         </Box>
         <Box sx={styles.coming_InfoProduct}>
           {selectedComingProductCardId <= 3
-            ? <InfoProduct
-              onClose={handleCloseInfo}
-              dataInfo={dataInfo}
-              isShowInfoProduct={isShowInfoProduct}
-              infoTag={selectedInfoTag}
-            />
-            : ''
-          }
+            ? (
+              <InfoProduct
+                onClose={handleCloseInfo}
+                dataInfo={dataInfo}
+                isShowInfoProduct={isShowInfoProduct}
+                infoTag={selectedInfoTag}
+              />
+            )
+            : ''}
         </Box>
       </Box>
     </div>
-  )
-}
-export default ProductScreen
+  );
+};
+export default ProductScreen;

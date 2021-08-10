@@ -1,21 +1,20 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import React from 'react'
-import { Box } from 'rebass'
-import images from '../../../images/index'
-import styles from './styles'
+import { jsx } from 'theme-ui';
+import React from 'react';
+import { Box } from 'rebass';
+import images from '../../../images/index';
+import styles from './styles';
 
 const DappHeader = (props) => {
-  
-  const { toggleSidebar } = props
+  const { toggleSidebar } = props;
 
   const handleToggleSidebar = () => {
-    toggleSidebar()
-  }
+    toggleSidebar();
+  };
 
   return (
     <>
-      <Box sx={styles.headerContainer} width="100%" >
+      <Box sx={styles.headerContainer} width="100%">
         <Box>
           <img sx={styles.headerBg} src={images.dappHeaderLogo} />
         </Box>
@@ -27,6 +26,6 @@ const DappHeader = (props) => {
         <img onClick={handleToggleSidebar} sx={styles.iconMenu} src={images.iconMenu} alt="" />
       </Box>
     </>
-  )
-}
-export default DappHeader
+  );
+};
+export default DappHeader;

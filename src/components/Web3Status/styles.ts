@@ -37,6 +37,6 @@ export default {
       cursor: 'pointer',
       border: 'solid 1px #3ebd93',
       transition: 'all 0.25s ease-out',
-    }
+    },
   },
-}
+};

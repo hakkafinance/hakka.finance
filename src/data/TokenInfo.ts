@@ -19,12 +19,12 @@ interface TokenInfo {
 }
 
 export function useTokensInfo(
-  tokens: (Token | undefined)[]
+  tokens: (Token | undefined)[],
 ): [TokenInfoState, TokenInfo | null][] {
   const { chainId, account } = useActiveWeb3React();
   const tokenAddresses = useMemo(
     () => tokens.map((token) => (token ? token!.address : undefined)),
-    [tokens]
+    [tokens],
   );
 
   const accountArg = useMemo(() => [account ?? undefined], [account]);
@@ -35,12 +35,12 @@ export function useTokensInfo(
     tokenAddresses,
     ERC20_INTERFACE,
     'balanceOf',
-    accountArg
+    accountArg,
   );
   const totalSupplies = useMultipleContractSingleData(
     tokenAddresses,
     ERC20_INTERFACE,
-    'totalSupply'
+    'totalSupply',
   );
 
   return useMemo(() => {
@@ -56,8 +56,8 @@ export function useTokensInfo(
 
         if (
           // these three are dependent on account
-          balanceState?.loading ||
-          (totalSupplyState && totalSupplyState.loading)
+          balanceState?.loading
+          || (totalSupplyState && totalSupplyState.loading)
         ) {
           memo.push([TokenInfoState.LOADING, null]);
           return memo;
@@ -76,30 +76,30 @@ export function useTokensInfo(
         // check for account, if no account set to 0
         const balanceAmount = new TokenAmount(
           token,
-          JSBI.BigInt(balanceState?.result?.[0] ?? 0)
+          JSBI.BigInt(balanceState?.result?.[0] ?? 0),
         );
 
         const totalSupplyAmount = new TokenAmount(
           token,
-          JSBI.BigInt(totalSupplyState.result[0])
+          JSBI.BigInt(totalSupplyState.result[0]),
         );
 
         memo.push([
           TokenInfoState.EXISTS,
           {
-            balanceAmount: balanceAmount,
-            totalSupplyAmount: totalSupplyAmount,
+            balanceAmount,
+            totalSupplyAmount,
           },
         ]);
         return memo;
       },
-      []
+      [],
     );
   }, [balances, chainId, tokens, totalSupplies]);
 }
 
 export function useTokenInfo(
-  token: Token | undefined
+  token: Token | undefined,
 ): [TokenInfoState, TokenInfo | null] {
   return useTokensInfo([token])[0];
 }

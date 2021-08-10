@@ -33,14 +33,21 @@ interface BatchItem {
 
 class MiniRpcProvider implements AsyncSendable {
   public readonly isMetaMask: false = false;
+
   public readonly chainId: number;
+
   public readonly url: string;
+
   public readonly host: string;
+
   public readonly path: string;
+
   public readonly batchWaitTimeMs: number;
 
   private nextId = 1;
+
   private batchTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
   private batch: BatchItem[] = [];
 
   constructor(chainId: number, url: string, batchWaitTimeMs?: number) {
@@ -55,7 +62,7 @@ class MiniRpcProvider implements AsyncSendable {
 
   public readonly clearBatch = async () => {
     console.debug('Clearing batch', this.batch);
-    const batch = this.batch;
+    const { batch } = this;
     this.batch = [];
     this.batchTimeoutId = null;
     let response: Response;
@@ -69,18 +76,14 @@ class MiniRpcProvider implements AsyncSendable {
         body: JSON.stringify(batch.map((item) => item.request)),
       });
     } catch (error) {
-      batch.forEach(({ reject }) =>
-        reject(new Error('Failed to send batch call'))
-      );
+      batch.forEach(({ reject }) => reject(new Error('Failed to send batch call')));
       return;
     }
 
     if (!response.ok) {
-      batch.forEach(({ reject }) =>
-        reject(
-          new RequestError(`${response.status}: ${response.statusText}`, -32000)
-        )
-      );
+      batch.forEach(({ reject }) => reject(
+        new RequestError(`${response.status}: ${response.statusText}`, -32000),
+      ));
       return;
     }
 
@@ -88,9 +91,7 @@ class MiniRpcProvider implements AsyncSendable {
     try {
       json = await response.json();
     } catch (error) {
-      batch.forEach(({ reject }) =>
-        reject(new Error('Failed to parse JSON response'))
-      );
+      batch.forEach(({ reject }) => reject(new Error('Failed to parse JSON response')));
       return;
     }
     const byKey = batch.reduce<{ [id: number]: BatchItem }>((memo, current) => {
@@ -109,8 +110,8 @@ class MiniRpcProvider implements AsyncSendable {
             new RequestError(
               result?.error?.message,
               result?.error?.code,
-              result?.error?.data
-            )
+              result?.error?.data,
+            ),
           );
         } else if ('result' in result) {
           resolve(result.result);
@@ -119,8 +120,8 @@ class MiniRpcProvider implements AsyncSendable {
             new RequestError(
               `Received unexpected JSON-RPC response to ${method} request.`,
               -32000,
-              result
-            )
+              result,
+            ),
           );
         }
       }
@@ -134,18 +135,16 @@ class MiniRpcProvider implements AsyncSendable {
       method: string;
       params?: unknown[] | object;
     },
-    callback: (error: any, response: any) => void
+    callback: (error: any, response: any) => void,
   ): void => {
     this.request(request.method, request.params)
-      .then((result) =>
-        callback(null, { jsonrpc: '2.0', id: request.id, result })
-      )
+      .then((result) => callback(null, { jsonrpc: '2.0', id: request.id, result }))
       .catch((error) => callback(error, null));
   };
 
   public readonly request = async (
     method: string | { method: string; params: unknown[] },
-    params?: unknown[] | object
+    params?: unknown[] | object,
   ): Promise<unknown> => {
     if (typeof method !== 'string') {
       return this.request(method.method, method.params);
@@ -165,20 +164,20 @@ class MiniRpcProvider implements AsyncSendable {
         reject,
       });
     });
-    this.batchTimeoutId =
-      this.batchTimeoutId ?? setTimeout(this.clearBatch, this.batchWaitTimeMs);
+    this.batchTimeoutId = this.batchTimeoutId ?? setTimeout(this.clearBatch, this.batchWaitTimeMs);
     return promise;
   };
 }
 
 export class NetworkConnector extends AbstractConnector {
   private readonly providers: { [chainId: number]: MiniRpcProvider };
+
   private currentChainId: number;
 
   constructor({ urls, defaultChainId }: NetworkConnectorArguments) {
     invariant(
       defaultChainId || Object.keys(urls).length === 1,
-      'defaultChainId is a required argument with >1 url'
+      'defaultChainId is a required argument with >1 url',
     );
     super({
       supportedChainIds: Object.keys(urls).map((k): number => Number(k)),
@@ -190,7 +189,7 @@ export class NetworkConnector extends AbstractConnector {
     }>((accumulator, chainId) => {
       accumulator[Number(chainId)] = new MiniRpcProvider(
         Number(chainId),
-        urls[Number(chainId)]
+        urls[Number(chainId)],
       );
       return accumulator;
     }, {});
@@ -221,6 +220,6 @@ export class NetworkConnector extends AbstractConnector {
   }
 
   public deactivate() {
-    return;
+
   }
 }

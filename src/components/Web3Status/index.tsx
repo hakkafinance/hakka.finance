@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import { useWeb3React } from '@web3-react/core';
 import React from 'react';
 import { NetworkContextName } from '../../constants';
 import useENSName from '../../hooks/useENSName';
 import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
 import { shortenAddress } from '../../utils';
-import MyButton from '../../components/Common/MyButton'
+import MyButton from '../../components/Common/MyButton';
 import WalletModal from '../WalletModal';
 import InfoModal from '../InfoModal';
-import CurrentNetwork from '../CurrentNetwork'
-import images from '../../images'
-import styles from './styles'
+import CurrentNetwork from '../CurrentNetwork';
+import images from '../../images';
+import styles from './styles';
 
 const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { active, account } = useWeb3React();
@@ -34,10 +34,10 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
               id={account ? 'web3-status-connected' : 'connect-wallet'}
               click={toggleWalletModal}
             >
-              {account ?  ENSName || shortenAddress(account) : 'Connect'}
+              {account ? ENSName || shortenAddress(account) : 'Connect'}
             </MyButton>
           </div>
-          <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt='Account Icon' />
+          <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt="Account Icon" />
         </div>
       </div>
 
@@ -48,6 +48,6 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
       <InfoModal />
     </>
   );
-}
+};
 
 export default Web3Status;

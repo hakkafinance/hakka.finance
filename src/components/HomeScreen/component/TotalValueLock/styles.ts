@@ -1,7 +1,7 @@
 export default {
   totalValueContainer: {
     paddingLeft: '20px',
-    position: 'relative'
+    position: 'relative',
   },
 
   totalValueHeadNum: {
@@ -14,8 +14,8 @@ export default {
     fontWeight: 'bold',
 
     '@media screen and (max-width: 768px)': {
-      whiteSpace: 'nowrap'
-    }
+      whiteSpace: 'nowrap',
+    },
   },
 
   totalValueMoney: {
@@ -24,23 +24,23 @@ export default {
     fontWeight: '600',
 
     '@media screen and (max-width: 768px)': {
-      whiteSpace: 'nowrap'
-    }
+      whiteSpace: 'nowrap',
+    },
   },
 
   totalValueSubText: {
     fontSize: [1, 1, 2, 3],
     color: 'text_grey',
     // marginBottom: '20px',
-    fontWeight: '600'
+    fontWeight: '600',
   },
 
   listProducts: {
     '@media screen and (max-width: 950px)': {
       flexDirection: 'column',
       display: 'block',
-      justifyContent: 'flex-start'
-    }
+      justifyContent: 'flex-start',
+    },
   },
 
   totalValueImg: {
@@ -55,7 +55,7 @@ export default {
       width: '200px',
       height: '151px',
       // position: 'absolute',
-      top: '-80px'
-    }
-  }
-}
+      top: '-80px',
+    },
+  },
+};

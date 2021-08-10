@@ -24,7 +24,7 @@ interface ApplicationContextProps {
 }
 
 const ApplicationContext = createContext<ApplicationContextProps>(
-  {} as ApplicationContextProps
+  {} as ApplicationContextProps,
 );
 
 const ApplicationContextProvider: React.FC = ({ children }) => {
@@ -74,7 +74,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleClaimModal,
           addPopup,
           removePopup,
-        ]
+        ],
       )}
     >
       {children}

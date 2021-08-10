@@ -1,6 +1,6 @@
 export default {
   content_wrapper: {
-    width: '100%'
+    width: '100%',
   },
   content: {
     // marginLeft: '5%',
@@ -9,10 +9,10 @@ export default {
     height: '100vh',
     overflow: 'auto',
     '@media screen and (max-width: 576px)': {
-      position: 'relative'
+      position: 'relative',
     },
     '::-webkit-scrollbar': {
-      display: 'none'
-    }
-  }
-}
+      display: 'none',
+    },
+  },
+};

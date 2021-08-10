@@ -11,24 +11,24 @@ export default {
     flexDirection: 'column',
     transition: 'all 0.25s ease-out',
     '& .card-text': {
-      color: 'black_grey'
+      color: 'black_grey',
     },
     '& .dropdown-text': {
-      opacity: '.5'
+      opacity: '.5',
     },
     ':hover': {
-      border: 'solid 1px #3ebd93'
+      border: 'solid 1px #3ebd93',
     },
 
     ':active': {
       transform: 'scale(.98)',
-      backgroundColor: '#f7fbfc'
+      backgroundColor: '#f7fbfc',
     },
     '@media screen and (max-width: 576px)': {
       // padding: '12px',
       display: 'flex',
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
   card_active: {
     height: '100%',
@@ -43,24 +43,24 @@ export default {
     flexDirection: 'column',
     transition: 'all 0.25s ease-out',
     '& .card-text': {
-      color: 'black'
+      color: 'black',
     },
     '& .dropdown-text': {
-      opacity: '1'
+      opacity: '1',
     },
     '@media screen and (max-width: 576px)': {
       // padding: '12px',
       display: 'flex',
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
   card_link: {
     padding: ['2px', '10px', '10px', '10px'],
     paddingBottom: ['12px', '28px', '28px', '28px'],
     '& .top-left-icon': {
       filter: 'grayscale(100%)',
-      transition: 'all 0.25s ease-out'
-    }
+      transition: 'all 0.25s ease-out',
+    },
   },
   card_content: {
     display: 'flex',
@@ -71,21 +71,21 @@ export default {
     paddingTop: ['0px', '0px', '0px', '0px'],
     '& .bottom-right-icon': {
       filter: 'grayscale(100%)',
-      transition: 'all 0.25s ease-out'
+      transition: 'all 0.25s ease-out',
     },
     ':hover': {
       '& .bottom-right-icon': {
-        filter: 'grayscale(0%)'
+        filter: 'grayscale(0%)',
       },
       '& .card-text': {
-        color: 'black'
-      }
+        color: 'black',
+      },
     },
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
-      alignItems: 'unset'
+      alignItems: 'unset',
 
-    }
+    },
   },
   dropdown_text: {
     display: 'none',
@@ -93,8 +93,8 @@ export default {
     color: 'black',
     fontWeight: '600',
     '@media screen and (max-width: 576px)': {
-      display: 'flex'
-    }
+      display: 'flex',
+    },
   },
   card_text: {
     fontSize: [3, 3, 4, 5],
@@ -103,7 +103,7 @@ export default {
     fontWeight: 'bold',
     minHeight: '48px',
     display: 'flex',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
     // color: 'black_grey'
   },
   img_icon: {
@@ -111,18 +111,18 @@ export default {
     height: '60px',
     '@media screen and (max-width: 960px)': {
       width: '48px',
-      height: '48px'
-    }
+      height: '48px',
+    },
   },
 
   link: {
     padding: '10px',
     ':hover': {
       '& .text-visit': {
-        color: 'green'
+        color: 'green',
       },
       '& .top-left-icon': {
-        filter: 'grayscale(0%)'
+        filter: 'grayscale(0%)',
       },
     },
   },
@@ -133,7 +133,7 @@ export default {
     fontWeight: 'bold',
     transition: 'all 0.25s ease-out',
     '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
-  }
-}
+      display: 'none',
+    },
+  },
+};

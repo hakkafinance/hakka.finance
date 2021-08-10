@@ -4,12 +4,12 @@ import React, {
   useCallback,
   useMemo,
   useState,
-  useEffect
-} from 'react'
-import SnackbarContainer from '../../components/Snackbar/SnackbarContainer'
-import Snackbar from '../../components/Snackbar/Snackbar'
+  useEffect,
+} from 'react';
+import SnackbarContainer from '../../components/Snackbar/SnackbarContainer';
+import Snackbar from '../../components/Snackbar/Snackbar';
 
-type Alert =  {
+type Alert = {
   key: string
   message: string
 }
@@ -23,29 +23,29 @@ type SnackbarProviderProps = {
   duration?: number
 }
 
-const SnackbarContext = createContext<SnackbarContext>(undefined!)
+const SnackbarContext = createContext<SnackbarContext>(undefined!);
 
 export function useSnackbarContext() {
-  return useContext(SnackbarContext)
+  return useContext(SnackbarContext);
 }
 
 export default function SnackbarProvider(props: SnackbarProviderProps): JSX.Element {
-  const { children, duration = 12000 } = props
+  const { children, duration = 12000 } = props;
 
-  const [alerts, setAlerts] = useState<Alert[]>([])
+  const [alerts, setAlerts] = useState<Alert[]>([]);
   useEffect(() => {
     if (alerts.length > 0) {
-      const timer = setTimeout(() => setAlerts((alerts) => alerts.slice(0, alerts.length - 1)), duration)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setAlerts((alerts) => alerts.slice(0, alerts.length - 1)), duration);
+      return () => clearTimeout(timer);
     }
-  }, [alerts, duration])
+  }, [alerts, duration]);
 
   const addAlert = useCallback(
     (alert: Alert) => setAlerts((alerts: Alert[]) => [alert, ...alerts]),
     [],
-  )
+  );
 
-  const value = useMemo(() => ({ addAlert }), [addAlert])
+  const value = useMemo(() => ({ addAlert }), [addAlert]);
   return (
     <SnackbarContext.Provider value={value}>
       {children}
@@ -59,5 +59,5 @@ export default function SnackbarProvider(props: SnackbarProviderProps): JSX.Elem
         ))}
       </SnackbarContainer>
     </SnackbarContext.Provider>
-  )
+  );
 }

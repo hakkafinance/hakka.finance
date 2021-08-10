@@ -28,7 +28,7 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
 
-    'p': {
+    p: {
       color: '#2da287',
       fontSize: '1rem',
       lineHeight: '1.5',
@@ -62,10 +62,10 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
 
-    'span': {
+    span: {
       paddingRight: '4px',
     },
   },
@@ -73,10 +73,10 @@ export default {
   rewardInfo: {
     paddingBottom: '28px',
 
-    'p': {
+    p: {
       margin: '8px 0 0 0 ',
       fontSize: '0.875rem',
-    }
+    },
   },
 
   amountWrapper: {
@@ -87,6 +87,6 @@ export default {
   },
 
   amount: {
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
   },
-}
+};

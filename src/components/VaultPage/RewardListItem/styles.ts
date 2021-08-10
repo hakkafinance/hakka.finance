@@ -30,7 +30,7 @@ export default {
     fontSize: '14px',
     lineHeight: '1.71',
     fontWeight: '600',
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
   },
 
   checkBox: {
@@ -45,5 +45,5 @@ export default {
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
-  }
-}
+  },
+};

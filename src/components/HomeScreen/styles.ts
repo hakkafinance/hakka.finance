@@ -6,7 +6,7 @@ export default {
     '@media screen and (max-width: 576px)': {
       paddingLeft: '16px',
       paddingRight: '16px',
-    }
+    },
   },
 
   homescreenSubTitle: {
@@ -20,7 +20,7 @@ export default {
   spanLink: {
     textDecoration: 'underline',
     paddingLeft: '3px',
-    fontSize: [1, 1, 2, 3]
+    fontSize: [1, 1, 2, 3],
   },
 
   homeHeading: {
@@ -29,19 +29,19 @@ export default {
     width: '100%',
     fontWeight: '300',
     paddingTop: '36px',
-    paddingBottom: ['36px', '64px', '64px', '64px']
+    paddingBottom: ['36px', '64px', '64px', '64px'],
   },
 
   homeDescription: {
     fontSize: [2, 2, 3, 4],
     color: 'black',
-    maxWidth: '1200px'
+    maxWidth: '1200px',
 
   },
 
   // Card top
   homeCardTop: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
+    paddingBottom: ['100px', '160px', '160px', '160px'],
   },
 
   homeTotalValue: {
@@ -49,14 +49,14 @@ export default {
     paddingBottom: ['100px', '176px', '176px', '176px'],
 
     '@media screen and (max-width: 576px)': {
-      paddingLeft: '16px'
+      paddingLeft: '16px',
       // paddingRight: '5%'
-    }
+    },
   },
 
   // what hakka
   whatHakka: {
-    paddingBottom: ['48px', '80px', '80px', '80px']
+    paddingBottom: ['48px', '80px', '80px', '80px'],
     // '@media screen and (max-width: 576px)': {
     //   paddingBottom: '160px',
     // }
@@ -64,12 +64,12 @@ export default {
 
   // token metrics
   tokenMetrics: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
+    paddingBottom: ['100px', '160px', '160px', '160px'],
 
   },
   // utility hakka
   utilityHakka: {
-    paddingBottom: ['100px', '160px', '160px', '160px']
+    paddingBottom: ['100px', '160px', '160px', '160px'],
   },
 
   // partners and intergrator
@@ -86,13 +86,13 @@ export default {
     paddingBottom: ['48px', '36px', '36px', '36px'],
     '@media screen and (max-width: 576px)': {
       display: 'flex',
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   },
   img_partners_responsive: {
     '@media screen and (max-width: 1280px)': {
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
 
   },
   imgPartner_wrapper: {
@@ -106,22 +106,22 @@ export default {
     '.biggerIcon': {
       '@media screen and (max-width: 576px)': {
         height: '64px',
-      }
+      },
     },
   },
   imgPartner: {
     '@media screen and (max-width: 576px)': {
       height: '48px',
-    }
+    },
   },
   imgPartnerBiggerIcon: {
     '@media screen and (max-width: 576px)': {
       height: '64px',
-    }
+    },
   },
   // blur img
   blur_img_blue_section: {
-    position: 'relative'
+    position: 'relative',
   },
   blur_img_blue: {
     borderRadius: '50%',
@@ -134,8 +134,8 @@ export default {
     left: '-40%',
     zIndex: '-1',
     '@media screen and (max-width: 768px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   blur_img_green_section: {
@@ -148,8 +148,8 @@ export default {
 
     zIndex: '-1',
     '@media screen and (max-width: 768px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   blur_img_green_section_mobile: {
@@ -165,11 +165,11 @@ export default {
       top: '-20px',
       right: '-4.5%',
       zIndex: '-1',
-    }
+    },
   },
 
   blur_img_blue_section_mobile: {
-    position: 'relative'
+    position: 'relative',
   },
   blur_img_blue_mobile: {
     display: 'none',
@@ -183,7 +183,7 @@ export default {
       position: 'absolute',
       top: '-160px',
       left: '-15%',
-      zIndex: '-1'
-    }
-  }
-}
+      zIndex: '-1',
+    },
+  },
+};

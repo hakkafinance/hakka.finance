@@ -35,11 +35,11 @@ export default {
     alignItems: 'center',
     marginBottom: '40px',
 
-    'p':{
+    p: {
       margin: '0 0 20px 0',
       fontSize: [5, 6],
       fontWeight: '600',
-      lineHeight: '1.25',      
+      lineHeight: '1.25',
     },
 
     '@media screen and (max-width: 576px)': {
@@ -55,13 +55,13 @@ export default {
     paddingBottom: '20px',
     fontWeight: '600',
 
-    'div': {
+    div: {
       padding: '12px 24px',
       borderRadius: '8px',
 
       ':hover': {
         cursor: 'pointer',
-        color: '#253e47'
+        color: '#253e47',
       },
     },
   },
@@ -73,25 +73,24 @@ export default {
 
   activeTitle: {
     margin: '0 0 20px 0',
-    fontSize: '0.875rem', 
+    fontSize: '0.875rem',
   },
 
   poolContainer: {
     display: 'flex',
     flexWrap: 'wrap',
 
-    '> div' : {
+    '> div': {
       marginRight: '30px',
       marginBottom: '15px',
     },
 
     '@media screen and (max-width: 576px)': {
-      '> div' : {
+      '> div': {
         marginRight: '0',
       },
     },
   },
-
 
   archivedTitle: {
     display: 'flex',
@@ -107,11 +106,11 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
 
-    'p': {
+    p: {
       paddingRight: '4px',
     },
   },
-}
+};

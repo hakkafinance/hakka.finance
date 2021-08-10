@@ -47,14 +47,14 @@ export default {
     flexFlow: 'row nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-  
+
     '&:first-child': {
       height: '8px',
       width: '8px',
       marginRight: '8px',
       backgroundColor: '#27ae60',
       borderRadius: '50%',
-    }
+    },
   },
   circleWrapper: {
     color: '#27ae60',
@@ -77,7 +77,7 @@ export default {
     '& > img, span': {
       height: '24px',
       width: '24px',
-    }
+    },
   },
   closeIcon: {
     position: 'absolute',
@@ -86,7 +86,7 @@ export default {
     '&:hover': {
       cursor: 'pointer',
       opacity: '0.6',
-    }
+    },
   },
   wrapper: {
     display: 'flex',
@@ -110,22 +110,22 @@ export default {
   },
   upperSection: {
     position: 'relative',
-  
-    'h5': {
+
+    h5: {
       margin: '0',
       marginBottom: '0.5rem',
       fontSize: '1rem',
       fontWeight: '400',
     },
-  
+
     'h5:last-child': {
       marginBottom: '0px',
     },
-  
-    'h4': {
+
+    h4: {
       marginTop: '0',
       fontWeight: '500',
-    }
+    },
   },
   optionGrid: {
     display: 'grid',
@@ -135,6 +135,6 @@ export default {
     zIndex: 1,
     ':hover': {
       cursor: 'pointer',
-    }
+    },
   },
-}
+};

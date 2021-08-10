@@ -27,9 +27,9 @@ export function useApproveCallback(
   const currentAllowance = useTokenAllowance(
     token,
     account ?? undefined,
-    spender
+    spender,
   );
-  const [currentTransaction, setCurrentTransaction] = useState(null)
+  const [currentTransaction, setCurrentTransaction] = useState(null);
 
   const approvalState: ApprovalState = useMemo(() => {
     if (!tokenToApprove || !spender) return ApprovalState.UNKNOWN;
@@ -39,7 +39,7 @@ export function useApproveCallback(
       ? currentTransaction
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
-      : ApprovalState.APPROVED
+      : ApprovalState.APPROVED;
   }, [currentTransaction, tokenToApprove, currentAllowance, spender]);
 
   const tokenContract = useTokenContract(token?.address);
@@ -63,25 +63,28 @@ export function useApproveCallback(
       console.error('no spender');
       return;
     }
-    
+
     try {
       const tx = await tokenContract.approve(spender, MaxUint256);
       setCurrentTransaction(tx.hash);
       enqueueSnackbar(
         <a
-          target='_blank'
+          target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
-        >{shortenTxId(tx.hash)}</a>,
-        tx.hash
+          rel="noreferrer"
+        >
+          {shortenTxId(tx.hash)}
+        </a>,
+        tx.hash,
       );
-      await tx.wait()
+      await tx.wait();
     } catch (err) {
       enqueueSnackbar(
         <div>{err.message}</div>,
-        err.message
+        err.message,
       );
     } finally {
-      setCurrentTransaction(null)
+      setCurrentTransaction(null);
     }
   }, [
     approvalState,

@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function useCopyClipboard(
-  timeout = 500
+  timeout = 500,
 ): [boolean, (toCopy: string) => void] {
   const [isCopied, setIsCopied] = useState(false);
 

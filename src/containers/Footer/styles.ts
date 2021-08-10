@@ -2,8 +2,8 @@ export default {
   footerContainer: {
     paddingLeft: '12.8%',
     '@media screen and (max-width: 576px)': {
-      padding: '0 16px'
-    }
+      padding: '0 16px',
+    },
   },
 
   footerContent: {
@@ -13,15 +13,15 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     '@media screen and (max-width: 576px)': {
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
     // marginBottom: '72px'
   },
 
   logoFooter: {
     '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   textCopy: {
@@ -32,28 +32,28 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       margin: '0 auto',
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
   footer_icons: {
     paddingRight: '28px',
     '@media screen and (max-width: 576px)': {
-      paddingRight: '0px'
-    }
+      paddingRight: '0px',
+    },
   },
   imgIcon: {
     cursor: 'pointer',
     transition: '.3s all',
     opacity: '.5',
-    'WebkitTouchCallout': 'none', /* iOS Safari */
-    'WebkitUserSelect': 'none', /* Safari */
-    'KhtmlUserSelect': 'none', /* Konqueror HTML */
-    'mozUserSelect': 'none', /* Old versions of Firefox */
-    'msUserSelect': 'none', /* Internet Explorer/Edge */
-    'userSelect': 'none',
+    WebkitTouchCallout: 'none', /* iOS Safari */
+    WebkitUserSelect: 'none', /* Safari */
+    KhtmlUserSelect: 'none', /* Konqueror HTML */
+    mozUserSelect: 'none', /* Old versions of Firefox */
+    msUserSelect: 'none', /* Internet Explorer/Edge */
+    userSelect: 'none',
 
     ':hover': {
-      opacity: 1
-    }
-  }
-}
+      opacity: 1,
+    },
+  },
+};

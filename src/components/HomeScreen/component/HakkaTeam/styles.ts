@@ -10,8 +10,8 @@ export default {
     fontWeight: 'normal',
     paddingBottom: ['48px', '60px', '60px', '60px'],
     '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
     // marginBottom: '60px'
   },
 
@@ -19,13 +19,13 @@ export default {
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   },
   team_img_responsive: {
     '@media screen and (max-width: 576px)': {
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   },
   hakkaTeamImgUser: {
     width: '100px',
@@ -35,7 +35,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       // marginRight: 0
-    }
+    },
   },
 
   hakkaTeamInfo: {
@@ -43,8 +43,8 @@ export default {
     // marginBottom: '48px',
     paddingLeft: '48px',
     '@media screen and (max-width: 576px)': {
-      paddingLeft: '0px'
-    }
+      paddingLeft: '0px',
+    },
 
   },
 
@@ -55,8 +55,8 @@ export default {
     lineHeight: '28px',
     color: 'black',
     '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
 
   hakkaTeamJob: {
@@ -66,8 +66,8 @@ export default {
     lineHeight: '24px',
     fontWeight: '600',
     '@media screen and (max-width: 576px)': {
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
 
   hakkaTeamComment: {
@@ -76,8 +76,8 @@ export default {
     color: '#253e47',
     maxWidth: '1050px',
     '@media screen and (max-width: 576px)': {
-      padding: '0 32px'
-    }
+      padding: '0 32px',
+    },
   },
 
   hakkaTeamListMember: {
@@ -87,36 +87,36 @@ export default {
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
     maxWidth: '1200px',
     '@media screen and (max-width: 960px)': {
-      gridTemplateColumns: '1fr 1fr'
+      gridTemplateColumns: '1fr 1fr',
     },
     '@media screen and (max-width: 576px)': {
       gridGap: '24px',
-      gridTemplateColumns: '1fr 1fr'
-    }
+      gridTemplateColumns: '1fr 1fr',
+    },
   },
 
   hakkaTeamImgUserList: {
     width: '100px',
     height: '100px',
-    borderRadius: '8px'
+    borderRadius: '8px',
     // marginRight: '48px',
     // marginBottom: '23px'
   },
 
   dividerLine: {
     // maxWidth: '900px',
-    border: '.5px solid #dae1e3'
+    border: '.5px solid #dae1e3',
     // marginBottom: '11px'
   },
   hakkaTeamFootContent: {
     maxWidth: '1200px',
     paddingTop: '12px',
-    borderTop: '1px solid #dae1e3'
+    borderTop: '1px solid #dae1e3',
   },
   hakkaTeamFootText: {
     fontSize: [1, 1, 2, 3],
     fontWeight: '600',
-    color: 'rgba(37, 62, 71, 0.5)'
+    color: 'rgba(37, 62, 71, 0.5)',
   },
 
   hakkaTeamFootTextLink: {
@@ -124,7 +124,7 @@ export default {
     // textShadow: '0.5px 0px 0px #253e47',
     fontSize: [1, 1, 2, 3],
     color: '#2da287',
-    cursor: 'pointer'
+    cursor: 'pointer',
 
   },
 
@@ -141,8 +141,8 @@ export default {
 
     ':last-child': {
       '@media screen and (max-width: 768px)': {
-        paddingTop: '36px'
-      }
-    }
-  }
-}
+        paddingTop: '36px',
+      },
+    },
+  },
+};

@@ -5,22 +5,22 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       paddingLeft: '16px',
-      paddingRight: '16px'
-    }
+      paddingRight: '16px',
+    },
   },
   heading: {
     fontSize: [5, 6, 7, 7],
     fontWeight: '600',
-    color: 'black'
+    color: 'black',
   },
   sub_heading: {
     fontSize: [4, 5, 6, 6],
     fontWeight: '600',
-    color: 'black'
+    color: 'black',
   },
   normal_text: {
     color: 'black',
-    fontSize: [1, 2, 3, 4]
+    fontSize: [1, 2, 3, 4],
 
   },
   responsive_cards: {
@@ -28,18 +28,18 @@ export default {
     gridGap: '28px',
     gridTemplateColumns: '1fr 1fr 1fr',
     '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr 1fr'
-    }
+      gridTemplateColumns: '1fr 1fr',
+    },
   },
   responsive_coming_cards: {
     display: 'grid',
     gridGap: '28px',
     gridTemplateColumns: '1fr 1fr 1fr',
     '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr 1fr'
-    }
+      gridTemplateColumns: '1fr 1fr',
+    },
   },
-  coming_InfoProduct:{
+  coming_InfoProduct: {
     paddingBottom: ['100px', '160px', '160px', '160px'],
   },
-}
+};

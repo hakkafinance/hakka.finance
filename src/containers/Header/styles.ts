@@ -4,7 +4,7 @@ export default {
     width: '100%',
     top: '0px',
     right: '0px',
-    zIndex: '-1'
+    zIndex: '-1',
   },
 
   headerContainer: {
@@ -14,8 +14,8 @@ export default {
     justifyContent: 'flex-end',
     '@media screen and (max-width: 576px)': {
       position: 'unset',
-      display: 'none'
-    }
+      display: 'none',
+    },
     // position: "relative",
     // top: "-253px",
     // right: 0,
@@ -27,15 +27,15 @@ export default {
     '@media screen and (max-width: 576px)': {
       display: 'flex',
       paddingTop: '12px',
-      paddingBottom: '20px'
-    }
+      paddingBottom: '20px',
+    },
   },
   logoRespon: {
     display: 'none',
 
     '@media screen and (max-width: 576px)': {
-      display: 'block'
-    }
+      display: 'block',
+    },
   },
 
   iconMenu: {
@@ -44,19 +44,19 @@ export default {
     '@media screen and (max-width: 576px)': {
       opacity: '1',
       cursor: 'pointer',
-      paddingRight: '5%'
-    }
+      paddingRight: '5%',
+    },
   },
   iconMenuLeft: {
     display: 'none',
     cursor: 'pointer',
     '@media screen and (max-width: 768px)': {
       display: 'none',
-      paddingLeft: '50px'
+      paddingLeft: '50px',
     },
     '@media screen and (max-width: 576px)': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   imgIcon: {
@@ -64,10 +64,10 @@ export default {
     transition: '.3s all',
     opacity: '.5',
     '@media screen and (max-width: 576px)': {
-      display: 'none'
+      display: 'none',
     },
     ':hover': {
-      opacity: 1
-    }
-  }
-}
+      opacity: 1,
+    },
+  },
+};

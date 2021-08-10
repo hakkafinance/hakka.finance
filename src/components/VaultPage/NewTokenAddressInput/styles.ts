@@ -7,12 +7,12 @@ export default {
     border: '1px solid  #dae1e3',
     borderRadius: '8px',
     backgroundColor: '#f7fbfc',
-    ':focus-within' :{
+    ':focus-within': {
       border: '1px solid #3ebd93',
     },
     '@media screen and (max-width: 576px)': {
       width: '215px',
-    }
+    },
   },
 
   input: {
@@ -30,7 +30,7 @@ export default {
     },
   },
 
-  container:{
+  container: {
     display: 'flex',
     marginTop: '20px',
 
@@ -40,4 +40,4 @@ export default {
     width: '80px',
     marginLeft: '8px',
   },
-}
+};

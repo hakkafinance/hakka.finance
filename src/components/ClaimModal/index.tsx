@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import {
   useClaimModalOpen,
   useClaimModalToggle,
@@ -23,9 +23,9 @@ export default function ClaimModal() {
         <div sx={styles.stateCard}>
           <div>
             <div sx={styles.ringStyle}> 1</div>
-            <div sx={styles.lineStyle}></div>
+            <div sx={styles.lineStyle} />
             <div sx={styles.activeRing}> 2</div>
-            <div sx={styles.lineStyle}></div>
+            <div sx={styles.lineStyle} />
             <div sx={styles.ringStyle}> 3</div>
           </div>
           <div sx={styles.stateInfo}>
@@ -37,8 +37,13 @@ export default function ClaimModal() {
             <p>withDraw 19% every 19 days</p>
           </div>
         </div>
-        <p sx={styles.message}>Your <span>2,436.0388 HAKKA</span> rewards will be moved to vesting contract</p>
-        <div sx={{display:'inline-block'}} >
+        <p sx={styles.message}>
+          Your
+          <span>2,436.0388 HAKKA</span>
+          {' '}
+          rewards will be moved to vesting contract
+        </p>
+        <div sx={{ display: 'inline-block' }}>
           <div sx={styles.learnMoreLink}>
             <span>Learn more </span>
             <img src={images.iconLinkNormal} />

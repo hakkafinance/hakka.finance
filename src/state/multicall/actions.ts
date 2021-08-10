@@ -95,35 +95,35 @@ export interface UpdateMulticallResultsAction {
 }
 
 const addMulticallListenersAction = (
-  payload: AddMulticallListenersPayload
+  payload: AddMulticallListenersPayload,
 ): AddMulticallListenersAction => ({
   type: ADD_MULTICALL_LISTENERS,
   payload,
 });
 
 const removeMulticallListenersAction = (
-  payload: RemoveMulticallListenersPayload
+  payload: RemoveMulticallListenersPayload,
 ): RemoveMulticallListenersAction => ({
   type: REMOVE_MULTICALL_LISTENERS,
   payload,
 });
 
 const fetchingMulticallResultsAction = (
-  payload: FetchingMulticallResultsPayload
+  payload: FetchingMulticallResultsPayload,
 ): FetchingMulticallResultsAction => ({
   type: FETCHING_MULTICALL_RESULTS,
   payload,
 });
 
 const errorFetchingMulticallResultsAction = (
-  payload: ErrorFetchingMulticallResultsPayload
+  payload: ErrorFetchingMulticallResultsPayload,
 ): ErrorFetchingMulticallResultsAction => ({
   type: ERROR_FETCHING_MULTICALL_RESULTS,
   payload,
 });
 
 const updateMulticallResultsAction = (
-  payload: UpdateMulticallResultsPayload
+  payload: UpdateMulticallResultsPayload,
 ): UpdateMulticallResultsAction => ({
   type: UPDATE_MULTICALL_RESULTS,
   payload,

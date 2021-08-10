@@ -6,5 +6,5 @@ export function useCoingeckoTokenId(address: string) {
     `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}`,
     fetcher,
   );
-  return data ? data : "";
+  return data || '';
 }

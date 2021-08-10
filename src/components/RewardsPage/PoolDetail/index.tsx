@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import styles from './styles'
-import images from '../../../images/index'
-import MyButton from '../../Common/MyButton'
-import NumericalInputCard from '../NumericalInputCard/index'
+import { jsx } from 'theme-ui';
 import { useWeb3React } from '@web3-react/core';
-import { useState } from 'react'
-import { ChainId, HAKKA, STAKING_ADDRESSES } from "../../../constants/index";
-import { useTokenBalance } from "../../../state/wallet/hooks";
-import { useApproveCallback } from "../../../hooks/useApproveCallback";
+import { useState } from 'react';
+import styles from './styles';
+import images from '../../../images/index';
+import MyButton from '../../Common/MyButton';
+import NumericalInputCard from '../NumericalInputCard/index';
+import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants/index';
+import { useTokenBalance } from '../../../state/wallet/hooks';
+import { useApproveCallback } from '../../../hooks/useApproveCallback';
 
 const PoolDetail = () => {
   const { account, chainId } = useWeb3React();
@@ -18,14 +18,14 @@ const PoolDetail = () => {
   // wrong balance
   const hakkaBalance = useTokenBalance(
     account as string,
-    HAKKA[chainId as ChainId]
+    HAKKA[chainId as ChainId],
   );
 
   // wrong address
   const [approveState, approveCallback] = useApproveCallback(
     HAKKA[chainId as ChainId],
     STAKING_ADDRESSES[chainId as ChainId],
-    stakeInputAmount
+    stakeInputAmount,
   );
 
   enum SwitchOption {
@@ -68,7 +68,11 @@ const PoolDetail = () => {
         </div>
         <div sx={styles.depositInfoItem}>
           <p>APY</p>
-          <span sx={styles.depositInfoValue}>{'-'} %</span>
+          <span sx={styles.depositInfoValue}>
+            -
+            {' '}
+            %
+          </span>
           <span> (Pool 78.41% + Bonus 47.27%) </span>
         </div>
       </div>
@@ -92,7 +96,7 @@ const PoolDetail = () => {
               </div>
             </div>
             <div sx={styles.rewardBtn}>
-              <MyButton type={'green'}>
+              <MyButton type="green">
                 Claim
               </MyButton>
             </div>
@@ -113,7 +117,8 @@ const PoolDetail = () => {
           </div>
           <div sx={styles.learnMoreLinkWrapper}>
             <img src={images.iconInform} />
-            <span>Claim means your HAKKA rewards will be locked in vesting contract.
+            <span>
+              Claim means your HAKKA rewards will be locked in vesting contract.
               <span sx={styles.learnMoreLink}>learn more</span>
             </span>
           </div>
@@ -122,14 +127,16 @@ const PoolDetail = () => {
         <div sx={styles.operateCard}>
           <p>Stake</p>
           <div sx={styles.switch}>
-            <div 
-              onClick={() => setSwitchPick(SwitchOption.DEPOSIT)} 
-              sx={switchPick === SwitchOption.DEPOSIT && styles.switchFocus}>
+            <div
+              onClick={() => setSwitchPick(SwitchOption.DEPOSIT)}
+              sx={switchPick === SwitchOption.DEPOSIT && styles.switchFocus}
+            >
               Deposit
             </div>
-            <div 
-              onClick={() => setSwitchPick(SwitchOption.WITHDRAW)} 
-              sx={switchPick === SwitchOption.WITHDRAW && styles.switchFocus}>
+            <div
+              onClick={() => setSwitchPick(SwitchOption.WITHDRAW)}
+              sx={switchPick === SwitchOption.WITHDRAW && styles.switchFocus}
+            >
               Withdraw
             </div>
           </div>
@@ -148,13 +155,13 @@ const PoolDetail = () => {
           </div>
           {switchPick === SwitchOption.DEPOSIT
             ? (
-              <MyButton type={'green'}>
+              <MyButton type="green">
                 <p sx={styles.depositBtnContent}>Deposit</p>
               </MyButton>
             ) : (
               <div sx={styles.withdrawBtnContainer}>
                 <div>
-                  <MyButton type={'green'}>
+                  <MyButton type="green">
                     <p sx={styles.withdrawContent}>Withdraw</p>
                   </MyButton>
                 </div>
@@ -162,7 +169,7 @@ const PoolDetail = () => {
                   <MyButton>
                     <div sx={styles.exitBtnContent}>
                       <p>Exit</p>
-                      <p className='exitContent'>Withdraw all and claim</p>
+                      <p className="exitContent">Withdraw all and claim</p>
                     </div>
                   </MyButton>
                 </div>
@@ -171,7 +178,7 @@ const PoolDetail = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PoolDetail
+export default PoolDetail;

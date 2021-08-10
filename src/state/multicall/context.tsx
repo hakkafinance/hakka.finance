@@ -1,4 +1,6 @@
-import React, { createContext, useCallback, useMemo, useReducer } from 'react';
+import React, {
+  createContext, useCallback, useMemo, useReducer,
+} from 'react';
 
 import reducer, { initialMulticallState, MulticallState } from './reducer';
 
@@ -27,7 +29,7 @@ interface MulticallContextProps {
 }
 
 const MulticallContext = createContext<MulticallContextProps>(
-  {} as MulticallContextProps
+  {} as MulticallContextProps,
 );
 
 const MulticallContextProvider: React.FC = ({ children }) => {
@@ -71,7 +73,7 @@ const MulticallContextProvider: React.FC = ({ children }) => {
           fetchingMulticallResults,
           errorFetchingMulticallResults,
           updateMulticallResults,
-        ]
+        ],
       )}
     >
       {children}

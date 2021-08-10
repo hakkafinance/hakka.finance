@@ -17,15 +17,15 @@ export function useStakeCallback(
   lockMonth: number,
 ): [StakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
-  const [currentTransaction, setCurrentTransaction] = useState(null)
-  const { enqueueSnackbar } = useSnackbar()
+  const [currentTransaction, setCurrentTransaction] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const stakeState: StakeState = useMemo(() => {
     if (!spender) return StakeState.UNKNOWN;
 
     return currentTransaction
-        ? StakeState.PENDING
-        : StakeState.UNKNOWN
+      ? StakeState.PENDING
+      : StakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
   const stakeContract = useStakeContract(stakeAddress);
@@ -35,25 +35,28 @@ export function useStakeCallback(
       console.error('no spender');
       return;
     }
-    
+
     try {
       const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 60 * 60 * 24 * 30);
       setCurrentTransaction(tx.hash);
       enqueueSnackbar(
         <a
-          target='_blank'
+          target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
-        >{shortenTxId(tx.hash)}</a>,
-        tx.hash
+          rel="noreferrer"
+        >
+          {shortenTxId(tx.hash)}
+        </a>,
+        tx.hash,
       );
-      await tx.wait()
+      await tx.wait();
     } catch (err) {
       enqueueSnackbar(
         <div>{err.message}</div>,
-        err.message
+        err.message,
       );
     } finally {
-      setCurrentTransaction(null)
+      setCurrentTransaction(null);
     }
   }, [
     stakeContract,

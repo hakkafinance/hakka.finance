@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from 'theme-ui';
 import { useEffect, useState } from 'react';
-import styles from './styles'
-import MyButton from '../../Common/MyButton/index'
+import styles from './styles';
+import MyButton from '../../Common/MyButton/index';
 import { useActiveWeb3React } from '../../../hooks/index';
 import {
   isAddress,
   isERC20Contract,
   getTokenDecimals,
   getTokenName,
-  getTokenSymbol
-} from '../../../utils/index'
+  getTokenSymbol,
+} from '../../../utils/index';
 
 interface NewTokenAddressInputProps {
   addressInputValue: string;
@@ -69,14 +69,12 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
       };
 
       // Check the address is duplicate or not
-      let tokensInfoValue: { decimals: number, name: string, symbol: string }[] = Object.values(props.rewardTokens);
+      const tokensInfoValue: { decimals: number, name: string, symbol: string }[] = Object.values(props.rewardTokens);
       let duplicateTokens: (string | number)[];
 
       for (let i = 0; i < tokensInfoValue.length; i++) {
-        let tokenInfo = Object.values(tokensInfoValue[i]);
-        duplicateTokens = tokenInfo.filter((value) => {
-          return value === newTokenInfo.name;
-        });
+        const tokenInfo = Object.values(tokensInfoValue[i]);
+        duplicateTokens = tokenInfo.filter((value) => value === newTokenInfo.name);
         if (duplicateTokens.length !== 0) {
           break;
         }
@@ -97,24 +95,26 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
   };
 
   return (
-    <div sx={styles.container} >
+    <div sx={styles.container}>
       <div sx={styles.NewTokenAddressInputWrapper}>
         <input
-          placeholder={'Token Address'}
+          placeholder="Token Address"
           sx={styles.input}
           value={props.addressInputValue}
-          onChange={(event) => { props.setAddressInputValue(event.target.value) }}
+          onChange={(event) => { props.setAddressInputValue(event.target.value); }}
         />
       </div>
       <div sx={styles.addButton}>
         <MyButton
-          type={'green'}
+          type="green"
           disabled={isAddBtnDisabled}
           click={handleAddBtnClick}
-        >Add</MyButton>
+        >
+          Add
+        </MyButton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewTokenAddressInput
+export default NewTokenAddressInput;

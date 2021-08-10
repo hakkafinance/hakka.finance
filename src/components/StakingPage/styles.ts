@@ -32,7 +32,7 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
 
-    'h1': {
+    h1: {
       margin: '0',
       fontWeight: '600',
       lineHeight: '1.25',
@@ -42,7 +42,7 @@ export default {
       display: 'block',
       fontSize: [0],
 
-      'h1':{
+      h1: {
         marginBottom: '25px',
       },
     },
@@ -52,9 +52,9 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    
+
     '@media screen and (max-width: 1190px)': {
-      display:'block'
+      display: 'block',
     },
   },
 
@@ -71,10 +71,10 @@ export default {
   amountArea: {
     paddingTop: '12px',
 
-    'h4': {
+    h4: {
       margin: '0 0 28px 0',
       fontWeight: '600',
-      fontSize: [3,5],
+      fontSize: [3, 5],
       lineHeight: '1.17',
     },
 
@@ -111,7 +111,7 @@ export default {
     justifyContent: 'space-between',
     lineHeight: '1.71',
 
-    'p': {
+    p: {
       fontSize: [5],
       color: 'rgba(37, 62, 71, 0.5)',
       lineHeight: '1.17',
@@ -142,7 +142,7 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
   },
 
@@ -150,7 +150,7 @@ export default {
     backgroundColor: '#dae1e3',
     border: 'none',
     height: '1px',
-    margin: '0 0 11px 0'
+    margin: '0 0 11px 0',
   },
 
   sHakkaRewardLinkArea: {
@@ -189,7 +189,7 @@ export default {
       cursor: 'pointer',
     },
 
-    'img': {
+    img: {
       marginLeft: '4px',
     },
   },
@@ -257,7 +257,7 @@ export default {
     padding: '6px 10px',
     borderRadius: '8px',
     backgroundColor: '#ebf0f2',
-    color:'#253e47',
+    color: '#253e47',
 
     ':hover': {
       cursor: 'pointer',
@@ -296,13 +296,12 @@ export default {
     },
   },
 
-
   positionHeading: {
     margin: '0 0 36px 0',
 
     '@media screen and (max-width: 576px)': {
       fontSize: [3],
-      margin: '60px 0 36px 0'
+      margin: '60px 0 36px 0',
     },
   },
 };

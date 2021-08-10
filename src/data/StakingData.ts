@@ -1,5 +1,6 @@
 import { JSBI, CurrencyAmount } from '@uniswap/sdk';
 import { useMemo } from 'react';
+import { formatUnits } from '@ethersproject/units';
 import { useActiveWeb3React } from '../hooks';
 
 import { getContract, tryParseAmount } from '../utils';
@@ -11,7 +12,6 @@ import {
   STAKING_ADDRESSES,
   stakingMonth,
 } from '../constants';
-import { formatUnits } from '@ethersproject/units';
 
 export function useStakingData(): { stakingBalance: CurrencyAmount, sHakkaBalance: CurrencyAmount, votingPower: CurrencyAmount, stakingRate: string[], vaults: any[] } {
   const { chainId, library, account } = useActiveWeb3React();
@@ -29,32 +29,31 @@ export function useStakingData(): { stakingBalance: CurrencyAmount, sHakkaBalanc
   const stakingRate = useSingleContractMultipleData(
     contract,
     'getStakingRate',
-    stakingMonth.map((lockMonth) => [lockMonth * 60 * 60 * 24 * 30])
+    stakingMonth.map((lockMonth) => [lockMonth * 60 * 60 * 24 * 30]),
   );
   const vaultCount = useSingleCallResult(contract, 'vaultCount', [account]);
   const vaults = useSingleContractMultipleData(
     contract,
     'vaults',
-    Array.from(Array(vaultCount.result?.[0].toNumber() || 0).keys()).map((vaultNum) => [account, vaultNum])
+    Array.from(Array(vaultCount.result?.[0].toNumber() || 0).keys()).map((vaultNum) => [account, vaultNum]),
   );
 
   return useMemo(
-    () =>
-    chainId === 1 || 42 && stakingBalance && sHakkaBalance && votingPower && stakingRate
-        ? {
-          stakingBalance: tryParseAmount(formatUnits(stakingBalance.result?.[0] ?? 0)),
-          sHakkaBalance: tryParseAmount(formatUnits(sHakkaBalance.result?.[0] ?? 0)),
-          votingPower: tryParseAmount(formatUnits(votingPower.result?.[0] ?? 0)),
-          stakingRate: stakingRate.map((rate) => JSBI.BigInt(rate.result?.[0] ?? 0).toString()),
-          vaults: vaults,
-        }
-        : {
-          stakingBalance: undefined,
-          sHakkaBalance: undefined,
-          votingPower: undefined,
-          stakingRate: undefined,
-          vaults: [],
-        },
-    [chainId, stakingBalance, votingPower, stakingRate, vaults]
+    () => (chainId === 1 || 42 && stakingBalance && sHakkaBalance && votingPower && stakingRate
+      ? {
+        stakingBalance: tryParseAmount(formatUnits(stakingBalance.result?.[0] ?? 0)),
+        sHakkaBalance: tryParseAmount(formatUnits(sHakkaBalance.result?.[0] ?? 0)),
+        votingPower: tryParseAmount(formatUnits(votingPower.result?.[0] ?? 0)),
+        stakingRate: stakingRate.map((rate) => JSBI.BigInt(rate.result?.[0] ?? 0).toString()),
+        vaults,
+      }
+      : {
+        stakingBalance: undefined,
+        sHakkaBalance: undefined,
+        votingPower: undefined,
+        stakingRate: undefined,
+        vaults: [],
+      }),
+    [chainId, stakingBalance, votingPower, stakingRate, vaults],
   );
 }

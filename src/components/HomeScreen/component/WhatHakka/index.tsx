@@ -1,25 +1,22 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import React ,{ useState } from 'react'
-import styles from './styles'
-import { Box, Flex, Heading } from 'rebass'
+import { jsx } from 'theme-ui';
+import React, { useState } from 'react';
+import { Box, Flex, Heading } from 'rebass';
 import fetch from 'cross-fetch';
+import styles from './styles';
 
-function WhatHakka (props) {
-
-  const [circulatingSupplyValue, setCirculatingSupplyValue]= useState(0);
-  fetch('https://api.hakka.finance/').then((res) => {
-    return res.text()
-  }).then((res) => {
-    const value = Math.floor(res*10000)/ 10000
-    setCirculatingSupplyValue(`${value} HAKKA`)
-  })
+function WhatHakka(props) {
+  const [circulatingSupplyValue, setCirculatingSupplyValue] = useState(0);
+  fetch('https://api.hakka.finance/').then((res) => res.text()).then((res) => {
+    const value = Math.floor(res * 10000) / 10000;
+    setCirculatingSupplyValue(`${value} HAKKA`);
+  });
 
   return (
     <>
-      <Box id='whatHakka' sx={styles.whatHakkaHeading}>What is HAKKA Token</Box>
+      <Box id="whatHakka" sx={styles.whatHakkaHeading}>What is HAKKA Token</Box>
       <Box sx={styles.whatHakkaText} mt="4">
-       <p> HAKKA is the protocol token that empowers the community governance of Hakka Finance.</p>
+        <p> HAKKA is the protocol token that empowers the community governance of Hakka Finance.</p>
       </Box>
       <Box sx={styles.circulatingSupplyText}>
         <span>Circulating Supply: </span>
@@ -29,7 +26,7 @@ function WhatHakka (props) {
         {props.renderCoin()}
       </Flex>
     </>
-  )
+  );
 }
 
-export default WhatHakka
+export default WhatHakka;

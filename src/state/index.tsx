@@ -13,12 +13,10 @@ export function useContextStateSelector<
   return useContextSelector(context, (v) => v.state[selector]);
 }
 
-export const ContextProviders: React.FC = ({ children }) => {
-  return (
-    <ApplicationContextProvider>
-      <SnackbarProvider>
-        <MulticallContextProvider>{children}</MulticallContextProvider>
-      </SnackbarProvider>
-    </ApplicationContextProvider>
-  );
-};
+export const ContextProviders: React.FC = ({ children }) => (
+  <ApplicationContextProvider>
+    <SnackbarProvider>
+      <MulticallContextProvider>{children}</MulticallContextProvider>
+    </SnackbarProvider>
+  </ApplicationContextProvider>
+);

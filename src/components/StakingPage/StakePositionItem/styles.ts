@@ -1,6 +1,6 @@
 export default {
   amountFontColor: {
-    color: '#253e47'
+    color: '#253e47',
   },
 
   positionFormWrapper: {
@@ -8,11 +8,11 @@ export default {
     justifyContent: 'space-between',
 
     '@media screen and (max-width: 576px)': {
-      maxWidth:'370px',
+      maxWidth: '370px',
     },
 
     '@media screen and (max-width: 400px)': {
-      maxWidth:'none',
+      maxWidth: 'none',
     },
   },
 
@@ -25,7 +25,7 @@ export default {
   },
 
   positionCard: {
-    width:'800px',
+    width: '800px',
     padding: '20px',
     marginBottom: '24px',
     border: '1px solid #dae1e3',
@@ -35,7 +35,7 @@ export default {
     fontSize: [1],
 
     '@media screen and (max-width: 576px)': {
-      width:'307px',
+      width: '307px',
       marginBottom: '12px',
     },
   },
@@ -44,8 +44,8 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    
-    'p':{
+
+    p: {
       margin: '0',
       lineHeight: '1.71',
     },
@@ -69,11 +69,11 @@ export default {
     display: 'flex',
 
     '@media screen and (max-width: 576px)': {
-      justifyContent: 'space-between'
-    },    
+      justifyContent: 'space-between',
+    },
   },
 
-  DetailLink:{
+  DetailLink: {
     display: 'flex',
     alignItems: 'center',
     opacity: 0.8,
@@ -84,48 +84,48 @@ export default {
       cursor: 'pointer',
       opacity: 1,
       filter: 'grayscale(0)',
-      color: '#2da287'
+      color: '#2da287',
     },
 
-    'span':{
+    span: {
       paddingRight: '4px',
     },
   },
 
-  redeemToggleBtn:{
+  redeemToggleBtn: {
     display: 'flex',
     alignItems: 'center',
     color: '#2da287',
     fontSize: [2],
 
-    'span':{
+    span: {
       paddingRight: '8px',
     },
 
-    ':hover':{
+    ':hover': {
       cursor: 'pointer',
     },
 
     '@media screen and (max-width: 576px)': {
       justifyContent: 'center',
       marginTop: '28px',
-    },    
+    },
   },
 
-  redeemToggleCountdown:{
+  redeemToggleCountdown: {
     display: 'flex',
     alignItems: 'center',
     color: 'rgba(37, 62, 71, 0.5);',
     fontSize: [2],
 
-    'span':{
+    span: {
       paddingRight: '8px',
     },
 
     '@media screen and (max-width: 576px)': {
       justifyContent: 'center',
       marginTop: '28px',
-    },    
+    },
   },
 
   redeemContainer: {
@@ -135,7 +135,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'block',
-    },   
+    },
   },
 
   inputArea: {
@@ -143,7 +143,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       width: '100%',
-    }, 
+    },
   },
 
   balance: {
@@ -159,24 +159,24 @@ export default {
     color: '#253e47',
     fontSize: [2],
 
-    'img':{
+    img: {
       paddingRight: '20px',
     },
 
-    'p': {
+    p: {
       margin: '0',
     },
 
     '@media screen and (max-width: 576px)': {
       paddingTop: '20px',
-      marginBottom: '20px'
-    }, 
+      marginBottom: '20px',
+    },
   },
 
   iconBecome: {
     '@media screen and (max-width: 576px)': {
       display: 'none',
-    }, 
+    },
   },
 
   amountBold: {
@@ -188,6 +188,6 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       width: '100%',
-    }, 
+    },
   },
-}
+};
