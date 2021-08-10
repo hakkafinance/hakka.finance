@@ -14,6 +14,10 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f7fbfc',
+  
+    ':focus': {
+      outline: 'none',
+    },
   },
   headerRow: {
     fontSize: '18px',

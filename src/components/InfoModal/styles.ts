@@ -102,7 +102,11 @@ export default {
     ':hover' :{
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    }
+    },
+  
+    ':focus': {
+      outline: 'none',
+    },
   },
   pageBtn: {
     fontSize: '16px',
