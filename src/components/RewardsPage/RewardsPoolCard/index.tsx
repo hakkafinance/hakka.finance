@@ -5,12 +5,16 @@ import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
 
 interface RewardsPoolCardProps {
-  apiPercentage: string;
   tokenImage: string;
   title: string;
+  url: string;
   linkContent: string;
   btnContent: string;
   depositedTokenSymbol: string;
+  rewardsAddress: string;
+  apy: string;
+  depositedBalance: string;
+  earnedBalance: string;
 }
 
 const RewardsPoolCard = (props: RewardsPoolCardProps) => (
@@ -18,32 +22,29 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => (
     <div sx={styles.illustration} />
     <div sx={styles.header}>
       <p>
-        APY
-        {props.apiPercentage}
+        APY {props.apy} %
       </p>
       <img src={props.tokenImage} />
     </div>
     <p sx={styles.title}>{props.title}</p>
-    <div sx={styles.link}>
+    <a sx={styles.link} target='_blank' href={props.url}>
       <span>{props.linkContent}</span>
       <img src={images.iconLinkNormal} />
-    </div>
+    </a>
     <div sx={styles.rewardInfo}>
       <p>You deposited</p>
       <div sx={styles.amountWrapper}>
-        <span sx={styles.amount}> 0 </span>
+        <span sx={styles.amount}> {props.depositedBalance} </span>
         <span>{props.depositedTokenSymbol}</span>
       </div>
       <p>Earned</p>
       <div sx={styles.amountWrapper}>
-        <span sx={styles.amount}> 0 </span>
+        <span sx={styles.amount}> {props.earnedBalance} </span>
         <span>HAKKA</span>
       </div>
     </div>
-    <MyButton>
-      {' '}
+    <MyButton click={() => { location.href = `/rewards?pool=${props.rewardsAddress}`; }}>
       {props.btnContent}
-      {' '}
     </MyButton>
   </div>
 );

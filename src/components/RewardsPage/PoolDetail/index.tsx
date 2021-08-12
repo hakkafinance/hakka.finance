@@ -37,10 +37,10 @@ const PoolDetail = () => {
 
   return (
     <div>
-      <div sx={styles.btnBack}>
+      <a sx={styles.btnBack} href='/rewards'>
         <img src={images.iconBack} />
         <span>Back</span>
-      </div>
+      </a>
       <div sx={styles.title}>
         <p>BHS-USDC-DAI-HAKKA</p>
         <div sx={styles.infoWrapper}>

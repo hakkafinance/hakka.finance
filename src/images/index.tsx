@@ -84,6 +84,7 @@ const images = {
   icon4Tokens: require('./icons/icon4Tokens.png').default,
   icon2TokensMkrHakka: require('./icons/icon2TokensMkrHakka.png').default,
   icon2TokensCompHakka: require('./icons/icon2TokensCompHakka.png').default,
+  iconSealedHakka: require('./icons/iconSealedHakka.png').default,
 
   /// partners & intergartors
   imageChainlink: require('./icons/imageChainlink.png').default,

@@ -8,6 +8,7 @@ export default {
     opacity: 0.8,
     filter: 'grayscale(100%)',
     transition: 'all 0.25s ease-out',
+    textDecoration: 'none',
 
     ':hover': {
       cursor: 'pointer',
