@@ -33,7 +33,7 @@ export const botSideBarItems = [
     href: 'https://snapshot.org/#/hakka.eth',
     connectOutsideWebsite: true,
     underConstruction: false,
-    // subIcon: images.iconSnapshot
+    subIcon: images.iconSnapshot
 
   },
   {
@@ -43,16 +43,22 @@ export const botSideBarItems = [
     path: 'forum',
     connectOutsideWebsite: true,
     underConstruction: false,
-    // subIcon: images.iconLinkSmall,
+    subIcon: images.iconLinkSmall,
   },
   {
-    name: 'rewards',
-    icon: images.iconReward,
+    name: 'farms',
+    icon: images.iconFarms,
     href: 'https://rewards.hakka.finance/',
-    path: 'rewards',
+    path: 'farms',
     connectOutsideWebsite: false,
     underConstruction: true,
-
+  },
+  {
+    name: 'vesting',
+    icon: images.iconReward,
+    path: 'vesting',
+    connectOutsideWebsite: false,
+    underConstruction: true,
   },
   {
     name: 'staking',
@@ -75,13 +81,6 @@ export const botSideBarItems = [
 function SideBar(props) {
   const { onCloseSideBar, isShowSideBar } = props;
   const [selectedNav, setSelectedNav] = useState('');
-
-  // const href = typeof window !== 'undefined' ? window.location.pathname.replace(/\//g, "") : ''
-  // useEffect(() => {
-  //   console.log('useEffect is working')
-  //   console.log('href', href)
-  //   setSelectedNav(href)
-  // }, [])
 
   const onSelectNavItem = (path) => () => {
     navigate(`/${path}`);
@@ -120,7 +119,7 @@ function SideBar(props) {
         <Box>
           <Box sx={styles.custom_padding}>
             <Box sx={styles.sidebar_header}>
-              <img src={images.hakkaLogo} />
+              <img src={images.hakkaLogo} onClick={()=>navigate(`/`)}/>
               <img onClick={handleCloseSideBar} sx={styles.sidebar_closeBtn} src={images.iconDeleteRound} />
             </Box>
             <Box mt="3">{renderTopSideBar()}</Box>

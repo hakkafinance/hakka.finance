@@ -6,6 +6,7 @@ const images = {
   iconGovernance: require('./icons/iconGovernance.svg').default,
   iconReward: require('./icons/iconReward.svg').default,
   iconVesting: require('./icons/iconVesting.svg').default,
+  iconFarms: require('./icons/iconFarms.svg').default,
   iconVault: require('./icons/iconVault.svg').default,
   iconLinkSmall: require('./icons/iconLinkSmall.svg').default,
   iconForum: require('./icons/iconForum.svg').default,

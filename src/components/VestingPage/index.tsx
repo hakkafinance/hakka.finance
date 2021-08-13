@@ -103,14 +103,16 @@ const VestingPage = () => {
       <div sx={styles.container}>
         <div sx={styles.vestingPageWrapper}>
           <div sx={styles.header}>
-            <h1 sx={styles.title}>Rewards</h1>
+            <h1 sx={styles.title}>Vesting</h1>
             <Web3Status unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero} />
           </div>
           {/* <div sx={styles.backBtn}>
             <img src={images.iconBack} sx={styles.iconBack} />
             <span>Back</span>
           </div> */}
-          <h3 sx={styles.heading}>Vesting</h3>
+          
+          {/* for temporary change, it should be 'Vesting' */}
+          <h3 sx={styles.heading}></h3>
           <div sx={styles.vestingCardWrapper}>
             <div sx={styles.vestingCard}>
               <div sx={styles.balanceCard}>

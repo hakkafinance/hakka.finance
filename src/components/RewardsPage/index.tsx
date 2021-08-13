@@ -57,7 +57,7 @@ const RewardsPage = () => {
     <div sx={styles.container}>
       <div sx={styles.rewardsPageWrapper}>
         <div sx={styles.header}>
-          <p>Rewards</p>
+          <p>Farms</p>
           <Web3Status />
         </div>
 

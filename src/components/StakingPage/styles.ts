@@ -40,10 +40,10 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'block',
-      fontSize: [0],
 
       h1: {
-        marginBottom: '25px',
+        marginBottom: '20px',
+        fontSize: '24px',
       },
     },
   },

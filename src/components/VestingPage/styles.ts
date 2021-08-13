@@ -39,6 +39,11 @@ export default {
   title: {
     fontWeight: 'bold',
     fontSize: [5, 6, 6, 6],
+    margin: '0',
+
+    '@media screen and (max-width: 576px)': {
+      marginBottom: '20px',
+    }
   },
 
   backBtn: {

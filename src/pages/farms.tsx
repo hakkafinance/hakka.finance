@@ -2,10 +2,10 @@ import React from 'react';
 import DappLayout from '../containers/DappLayout';
 import RewardsPage from '../components/RewardsPage/index';
 
-const Rewards = () => (
-  <DappLayout title="rewards">
+const Farms = () => (
+  <DappLayout title="farms">
     <RewardsPage />
   </DappLayout>
 );
 
-export default Rewards;
+export default Farms;
