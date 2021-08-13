@@ -10,13 +10,14 @@ import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
 import NumericalInputCard from '../NumericalInputCard/index';
-import { ChainId, HAKKA, STAKING_ADDRESSES, BSC_REWARD_POOLS, REWARD_POOLS, VESTING_ADDRESSES } from '../../../constants';
+import { HAKKA, BSC_REWARD_POOLS, REWARD_POOLS, VESTING_ADDRESSES } from '../../../constants';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { useApproveCallback } from '../../../hooks/useApproveCallback';
 import { useSingleCallResult } from '../../../state/multicall/hooks';
 import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils';
 import { useRewardsData } from '../../../data/RewardsData';
 import { useVestingContract } from '../../../hooks/useContract';
+import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
 
 const PoolDetail = () => {
   const { account, chainId } = useWeb3React();
@@ -86,7 +87,6 @@ const PoolDetail = () => {
     token,
   );
 
-  // wrong address
   const [approveState, approveCallback] = useApproveCallback(
     token,
     pool,
@@ -99,6 +99,8 @@ const PoolDetail = () => {
   }
 
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
+
+  const [claimState, claimCallback] = useClaimCallback(pool, account);
 
   return (
     <div>
@@ -159,7 +161,11 @@ const PoolDetail = () => {
               </div>
             </div>
             <div sx={styles.rewardBtn}>
-              <MyButton type="green">
+              <MyButton
+                click={claimCallback}
+                type="green"
+                disabled={claimState === ClaimState.PENDING}
+              >
                 Claim
               </MyButton>
             </div>
