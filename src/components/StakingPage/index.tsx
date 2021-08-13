@@ -139,8 +139,7 @@ const Staking = () => {
                 ))}
               </div>
               <span sx={styles.lockTimeUntil}>
-                until
-                {lockUntil}
+                until {lockUntil}
               </span>
             </div>
             <div sx={styles.getsHakkaWrapper}>

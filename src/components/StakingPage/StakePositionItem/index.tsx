@@ -65,10 +65,9 @@ const StakePositionItem = (props: StakePositionProps) => {
   const countdownRenderer = ({ days }) => (
     <div sx={styles.redeemToggleCountdown}>
       <span>
-        Left
         {zeroPad(days)}
         {' '}
-        Days
+        Days Left
       </span>
     </div>
   );
