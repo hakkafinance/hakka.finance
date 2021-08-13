@@ -131,6 +131,7 @@ export default {
     opacity: 0.8,
     filter: 'grayscale(100%)',
     transition: 'all 0.25s ease-out',
+    textDecoration: 'none',
 
     ':hover': {
       cursor: 'pointer',
@@ -245,6 +246,7 @@ export default {
     fontWeight: '600',
     backgroundColor: '#f7fbfc',
     fontSize: '1rem',
+    textDecoration: 'none',
 
     span: {
       paddingRight: '4px',
