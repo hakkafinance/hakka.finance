@@ -132,7 +132,7 @@ const PoolDetail = () => {
             <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
           </div>
         </div>
-        <img src={images.icon4Tokens} sx={styles.infoIcon} />
+        <img src={pools[pool].icon} sx={styles.infoIcon} />
       </div>
       <div sx={styles.depositInfoContainer}>
         <div sx={styles.depositInfoItem}>

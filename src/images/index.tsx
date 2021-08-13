@@ -82,10 +82,15 @@ const images = {
   iconBalancer: require('./icons/iconBalancer.png').default,
   iconUniswap: require('./icons/iconUniswap.png').default,
   iconPancakeSwap: require('./icons/iconPancakeSwap.png').default,
-  icon4Tokens: require('./icons/icon4Tokens.png').default,
-  icon2TokensMkrHakka: require('./icons/icon2TokensMkrHakka.png').default,
-  icon2TokensCompHakka: require('./icons/icon2TokensCompHakka.png').default,
-  iconSealedHakka: require('./icons/iconSealedHakka.png').default,
+
+  // rewards
+  icon4Tokens: require('./rewards/icon4Tokens.png').default,
+  icon2TokensMkrHakka: require('./rewards/icon2TokensMkrHakka.png').default,
+  icon2TokensCompHakka: require('./rewards/icon2TokensCompHakka.png').default,
+  iconSealedHakka: require('./rewards/iconSealedHakka.png').default,
+  iconBHS: require('./rewards/iconBHS.png').default,
+  iconTFT: require('./rewards/iconTFT.png').default,
+  iconBSC_BHS: require('./rewards/iconBSC_BHS.png').default,
 
   /// partners & intergartors
   imageChainlink: require('./icons/imageChainlink.png').default,
