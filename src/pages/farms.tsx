@@ -1,10 +1,14 @@
 import React from 'react';
 import DappLayout from '../containers/DappLayout';
-import RewardsPage from '../components/RewardsPage/index';
+import BlankScreen from '../components/BlankScreen/index'
+// import RewardsPage from '../components/RewardsPage/index';
 
 const Farms = () => (
   <DappLayout title="farms">
-    <RewardsPage />
+    <BlankScreen
+        path = {'farms'}
+    />
+    {/* <RewardsPage /> */}
   </DappLayout>
 );
 
