@@ -248,6 +248,7 @@ const VaultPage = (props) => {
               <span>Burn</span>
               <span>
                 HAKKA Balance:
+                {' '}
                 {hakkaBalance?.toSignificant(10)}
               </span>
             </div>
