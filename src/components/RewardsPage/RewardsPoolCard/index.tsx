@@ -24,7 +24,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => (
       <p>
         APY {props.apy} %
       </p>
-      <img src={props.tokenImage} />
+      <img sx={styles.icon} src={props.tokenImage} />
     </div>
     <p sx={styles.title}>{props.title}</p>
     <a sx={styles.link} target='_blank' href={props.url}>

@@ -238,7 +238,7 @@ export type Pool = {
 export const REWARD_POOLS: { [key: string]: Pool } = {
   '0x6b1ecbbd69eeaf8d089bdce4daaa4165f8c3ff11': {
     name: 'BHS',
-    icon: images.iconSealedHakka,
+    icon: images.iconBHS,
     website: 'BlackHoleSwap',
     url: 'https://blackholeswap.com/deposit',
     tokenAddress: '0x35101c731b1548B5e48bb23F99eDBc2f5c341935',
@@ -265,7 +265,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF': {
     name: 'BHS/HAKKA',
-    icon: images.iconSealedHakka,
+    icon: images.icon2TokensCompHakka,
     website: 'Balancer LP token',
     url:
       'https://pools.balancer.exchange/#/pool/0xae95d3198d602acfb18f9188d733d710e14a27dd',
@@ -293,7 +293,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058': {
     name: 'TFT',
-    icon: images.iconSealedHakka,
+    icon: images.iconTFT,
     website: '3FMutual',
     url: 'http://3fmutual.com',
     tokenAddress: '0xBdDa9670Bc2a672c36ccE0102ce8C69B12E9deE3',
@@ -322,7 +322,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
 export const BSC_REWARD_POOLS: { [key: string]: Pool } = {
   '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a': {
     name: 'BHS',
-    icon: images.iconSealedHakka,
+    icon: images.iconBSC_BHS,
     website: 'USDT-BUSD BHS',
     url: 'https://bsc.blackholeswap.com/deposit',
     tokenAddress: '0x75192D6f3d51554CC2eE7B40C3aAc5f97934ce7E',

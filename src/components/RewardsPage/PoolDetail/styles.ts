@@ -85,6 +85,7 @@ export default {
   },
 
   infoIcon: {
+    maxHeight: '28px',
     '@media screen and (max-width: 576px)': {
       display: 'none',
     },
