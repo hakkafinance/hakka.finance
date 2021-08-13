@@ -109,6 +109,7 @@ const Staking = () => {
               <span>Amount</span>
               <span>
                 HAKKA Balance:
+                {' '}
                 {hakkaBalance?.toFixed(2)}
               </span>
             </div>

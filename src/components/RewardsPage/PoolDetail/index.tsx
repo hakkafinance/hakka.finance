@@ -223,7 +223,7 @@ const PoolDetail = () => {
           </div>
           <div sx={styles.stakeBalanceContainer}>
             <span>Amount</span>
-            <span>Balance: {switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
+            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
           {switchPick === SwitchOption.DEPOSIT

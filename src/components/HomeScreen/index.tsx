@@ -90,6 +90,7 @@ const HomeScreen = (props) => {
             <img src={images.iconFlower} alt="" />
             <span>
               Hakka Finance is
+              {' '}
               <span sx={{ textDecoration: 'underline' }}>hiring</span>
               . Come join
               us!
