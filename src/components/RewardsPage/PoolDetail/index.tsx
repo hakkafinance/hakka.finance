@@ -18,6 +18,7 @@ import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils
 import { useRewardsData } from '../../../data/RewardsData';
 import { useVestingContract } from '../../../hooks/useContract';
 import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
+import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
 
 const PoolDetail = () => {
   const { account, chainId } = useWeb3React();
@@ -101,6 +102,7 @@ const PoolDetail = () => {
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
 
   const [claimState, claimCallback] = useClaimCallback(pool, account);
+  const [exitState, exitCallback] = useExitCallback(pool, account);
 
   return (
     <div>
@@ -235,7 +237,10 @@ const PoolDetail = () => {
                   </MyButton>
                 </div>
                 <div>
-                  <MyButton>
+                  <MyButton
+                    click={exitCallback}
+                    disabled={exitState === ExitState.PENDING}
+                  >
                     <div sx={styles.exitBtnContent}>
                       <p>Exit</p>
                       <p className="exitContent">Withdraw all and claim</p>
