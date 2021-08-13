@@ -9,7 +9,7 @@ import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
-import NumericalInputCard from '../NumericalInputCard/index';
+import NumericalInputCard from '../../NumericalInputCard/index';
 import { HAKKA, BSC_REWARD_POOLS, REWARD_POOLS, VESTING_ADDRESSES } from '../../../constants';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { useApproveCallback } from '../../../hooks/useApproveCallback';
@@ -19,6 +19,8 @@ import { useRewardsData } from '../../../data/RewardsData';
 import { useVestingContract } from '../../../hooks/useContract';
 import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
 import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
+import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
+import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
 
 const PoolDetail = () => {
   const { account, chainId } = useWeb3React();
@@ -81,17 +83,23 @@ const PoolDetail = () => {
   }, [tokenPrice]);
 
   const [stakeInputAmount, setStakeInputAmount] = useState<string>('');
+  const [withdrawInputAmount, setWithdrawInputAmount] = useState<string>('');
 
   const token = new Token(1, pools[pool].tokenAddress, 18);
+  const stakedToken = new Token(1, pool, 18);
   const tokenBalance = useTokenBalance(
     account as string,
     token,
+  );
+  const stakedBalance = useTokenBalance(
+    account as string,
+    stakedToken,
   );
 
   const [approveState, approveCallback] = useApproveCallback(
     token,
     pool,
-    stakeInputAmount,
+    stakeInputAmount > withdrawInputAmount ? stakeInputAmount : withdrawInputAmount,
   );
 
   enum SwitchOption {
@@ -103,6 +111,8 @@ const PoolDetail = () => {
 
   const [claimState, claimCallback] = useClaimCallback(pool, account);
   const [exitState, exitCallback] = useExitCallback(pool, account);
+  const [depositState, depositCallback] = useDepositCallback(pool, stakeInputAmount, account);
+  const [withdrawState, withdrawCallback] = useWithdrawCallback(pool, withdrawInputAmount, account);
 
   return (
     <div>
@@ -213,26 +223,45 @@ const PoolDetail = () => {
           </div>
           <div sx={styles.stakeBalanceContainer}>
             <span>Amount</span>
-            <span>Balance: {tokenBalance?.toExact()}</span>
+            <span>Balance: {switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
-            <NumericalInputCard
-              value={stakeInputAmount}
-              onUserInput={setStakeInputAmount}
-              hakkaBalance={tokenBalance}
-              approveCallback={approveCallback}
-              approveState={approveState}
-            />
+          {switchPick === SwitchOption.DEPOSIT
+            ? (
+              <NumericalInputCard
+                value={stakeInputAmount}
+                onUserInput={setStakeInputAmount}
+                tokenBalance={tokenBalance}
+                approveCallback={approveCallback}
+                approveState={approveState}
+              />
+            ) : (
+              <NumericalInputCard
+                value={withdrawInputAmount}
+                onUserInput={setWithdrawInputAmount}
+                tokenBalance={stakedBalance}
+                approveCallback={approveCallback}
+                approveState={approveState}
+              />
+            )}
           </div>
           {switchPick === SwitchOption.DEPOSIT
             ? (
-              <MyButton type="green">
+              <MyButton
+                click={depositCallback}
+                type="green"
+                disabled={depositState === DepositState.PENDING}
+              >
                 <p sx={styles.depositBtnContent}>Deposit</p>
               </MyButton>
             ) : (
               <div sx={styles.withdrawBtnContainer}>
                 <div>
-                  <MyButton type="green">
+                  <MyButton
+                    click={withdrawCallback}
+                    type="green"
+                    disabled={withdrawState === WithdrawState.PENDING}
+                  >
                     <p sx={styles.withdrawContent}>Withdraw</p>
                   </MyButton>
                 </div>
