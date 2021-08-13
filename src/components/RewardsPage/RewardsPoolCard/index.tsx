@@ -43,7 +43,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => (
         <span>HAKKA</span>
       </div>
     </div>
-    <MyButton click={() => { location.href = `/rewards?pool=${props.rewardsAddress}`; }}>
+    <MyButton click={() => { location.href = `/farms?pool=${props.rewardsAddress}`; }}>
       {props.btnContent}
     </MyButton>
   </div>
