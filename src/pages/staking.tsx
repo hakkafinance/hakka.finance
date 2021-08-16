@@ -7,7 +7,6 @@ const StakingPage = () => (
   <DappLayout
     title="staking"
   >
-
     <BlankScreen
       path={'staking'}
     />

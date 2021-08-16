@@ -119,25 +119,28 @@ const Staking = () => {
               tokenBalance={hakkaBalance}
               approveCallback={approveCallback}
               approveState={approveState}
-              //  amountError={amountError}
-              //  totalSupplyError={totalSupplyError}
+            //  amountError={amountError}
+            //  totalSupplyError={totalSupplyError}
             />
-            <p sx={{ margin: '20px 0 8px 0' }}>Lock time (month)</p>
+            <p sx={{ margin: '20px 0 8px 0' }}>Lock time</p>
             <div sx={styles.optionContainer}>
-              <div sx={styles.optionWrapper}>
-                {stakingMonth.map((month) => (
-                  <div
-                    onClick={() => setLockTime(month)}
-                    sx={
-                      lockTime === month
-                        ? styles.optionItemActive
-                        : styles.optionItem
-                    }
-                    key={month}
-                  >
-                    {month}
-                  </div>
-                ))}
+              <div sx={styles.monthSwitch}>
+                <div sx={styles.optionWrapper}>
+                  {stakingMonth.map((month) => (
+                    <div
+                      onClick={() => setLockTime(month)}
+                      sx={
+                        lockTime === month
+                          ? styles.optionItemActive
+                          : styles.optionItem
+                      }
+                      key={month}
+                    >
+                      {month}
+                    </div>
+                  ))}
+                </div>
+                <span>Month(s)</span>
               </div>
               <span sx={styles.lockTimeUntil}>
                 until {lockUntil}
@@ -145,7 +148,7 @@ const Staking = () => {
             </div>
             <div sx={styles.getsHakkaWrapper}>
               <span sx={{ fontWeight: 'normal' }}>
-                Get sHAKKA (voting power)
+                Get sHAKKA (Voting Power)
               </span>
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
