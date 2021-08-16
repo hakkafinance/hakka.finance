@@ -87,14 +87,7 @@ const VestingPage = () => {
     days, hours, minutes, seconds,
   }) => (
     <div>
-      {zeroPad(days)}
-      D
-      {zeroPad(hours)}
-      H
-      {zeroPad(minutes)}
-      M
-      {zeroPad(seconds)}
-      S
+      {zeroPad(days)}D {zeroPad(hours)}H {zeroPad(minutes)}M {zeroPad(seconds)}S
     </div>
   );
 

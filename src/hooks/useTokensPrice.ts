@@ -1,27 +1,12 @@
 import useSWR from 'swr';
+import { TOKEN_PRICE_SLUGS } from '../constants';
 
-export default function useTokensPrice(tokensId:{[address:string]:string}) {
-  const addressArray = Object.keys(tokensId);
-  const idArray = Object.values(tokensId);
-
-  // for coingecko api ex: ethereum%2Cdai%2Cusd-coin%2Ccompound-governance-token%2Cuniswap%2Cnexo
-  let tokenUrl = '';
-  for (let i = 0; i < idArray.length; i++) {
-    tokenUrl += `${String(idArray[i])}%2C`;
-  }
-
+export default function useTokensPrice() {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(
-    `https://api.coingecko.com/api/v3/simple/price?ids=${tokenUrl}&vs_currencies=usd`,
+    `https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&ids=${TOKEN_PRICE_SLUGS.toString()}`,
     fetcher,
   );
 
-  const tokensPrice: { [address: string]: number } = {};
-  if (data) {
-    for (let i = 0; i < idArray.length; i++) {
-      tokensPrice[addressArray[i]] = data[idArray[i]]?.usd;
-    }
-  }
-
-  return data ? tokensPrice : {};
+  return data ? data : null;
 }

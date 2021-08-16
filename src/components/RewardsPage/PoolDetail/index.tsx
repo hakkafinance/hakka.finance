@@ -1,31 +1,105 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+import { Token, TokenAmount } from '@uniswap/sdk';
 import { useWeb3React } from '@web3-react/core';
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { formatUnits, parseUnits } from '@ethersproject/units';
 import styles from './styles';
+import useTokenPrice from '../../../hooks/useTokenPrice';
+import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
-import NumericalInputCard from '../NumericalInputCard/index';
-import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants/index';
+import NumericalInputCard from '../../NumericalInputCard/index';
+import { HAKKA, BSC_REWARD_POOLS, REWARD_POOLS, VESTING_ADDRESSES } from '../../../constants';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { useApproveCallback } from '../../../hooks/useApproveCallback';
+import { useSingleCallResult } from '../../../state/multicall/hooks';
+import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils';
+import { useRewardsData } from '../../../data/RewardsData';
+import { useVestingContract } from '../../../hooks/useContract';
+import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
+import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
+import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
+import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
 
 const PoolDetail = () => {
   const { account, chainId } = useWeb3React();
+  const pools = { ...BSC_REWARD_POOLS, ...REWARD_POOLS }
 
-  const [stakeInputAmount, setStakeInputAmount] = useState<string>('');
-
-  // wrong balance
-  const hakkaBalance = useTokenBalance(
-    account as string,
-    HAKKA[chainId as ChainId],
+  const pool = useMemo(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    return params.pool;
+  }, []);
+  const rewardData = useRewardsData([pool]);
+  const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
+  const vestingValue = useSingleCallResult(
+    vestingContract,
+    'balanceOf',
+    [account],
+  );
+  const vestingValueAmount = useMemo(
+    () => (vestingValue.result && chainId
+      ? new TokenAmount(HAKKA[chainId || 1], vestingValue.result.toString())
+      : new TokenAmount(HAKKA[chainId || 1], '0')),
+    [vestingValue, chainId],
   );
 
-  // wrong address
+  const hakkaPrice = useTokenPrice('hakka-finance');
+  const tokenPrice = useTokensPrice();
+  const [apy, setApy] = useState('');
+  const [tvl, setTvl] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    try {
+      loadApy()
+    } catch (e) {
+      console.error(e);
+    }
+    return () => { active = false }
+  
+    async function loadApy() {
+      if (!active || !hakkaPrice) { return }
+      const newApy = await pools[pool].getApy(parseUnits(hakkaPrice.toString(), 18));
+      setApy(tryParseAmount(formatUnits(newApy?.mul(100), 18)).toFixed(2));
+    }
+  }, [hakkaPrice]);
+
+  useEffect(() => {
+    let active = true;
+    try {
+      loadTvl()
+    } catch (e) {
+      console.error(e);
+    }
+    return () => { active = false }
+  
+    async function loadTvl() {
+      if (!active || !tokenPrice) { return }
+      const newTvl = await pools[pool].getTvl(tokenPrice);
+      setTvl(tryParseAmount(formatUnits(newTvl?.mul(100), 18)).toFixed(2));
+    }
+  }, [tokenPrice]);
+
+  const [stakeInputAmount, setStakeInputAmount] = useState<string>('');
+  const [withdrawInputAmount, setWithdrawInputAmount] = useState<string>('');
+
+  const token = new Token(1, pools[pool].tokenAddress, 18);
+  const stakedToken = new Token(1, pool, 18);
+  const tokenBalance = useTokenBalance(
+    account as string,
+    token,
+  );
+  const stakedBalance = useTokenBalance(
+    account as string,
+    stakedToken,
+  );
+
   const [approveState, approveCallback] = useApproveCallback(
-    HAKKA[chainId as ChainId],
-    STAKING_ADDRESSES[chainId as ChainId],
-    stakeInputAmount,
+    token,
+    pool,
+    stakeInputAmount > withdrawInputAmount ? stakeInputAmount : withdrawInputAmount,
   );
 
   enum SwitchOption {
@@ -35,45 +109,48 @@ const PoolDetail = () => {
 
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
 
+  const [claimState, claimCallback] = useClaimCallback(pool, account);
+  const [exitState, exitCallback] = useExitCallback(pool, account);
+  const [depositState, depositCallback] = useDepositCallback(pool, stakeInputAmount, account);
+  const [withdrawState, withdrawCallback] = useWithdrawCallback(pool, withdrawInputAmount, account);
+
   return (
     <div>
-      <a sx={styles.btnBack} href='/rewards'>
+      <a sx={styles.btnBack} href='/farms'>
         <img src={images.iconBack} />
         <span>Back</span>
       </a>
       <div sx={styles.title}>
-        <p>BHS-USDC-DAI-HAKKA</p>
+        <p>{pools[pool].name}</p>
         <div sx={styles.infoWrapper}>
           <div sx={styles.infoItem}>
             <span>TVL</span>
-            <span sx={styles.infoValue}> $ 635,481,486 </span>
+            <span sx={styles.infoValue}> ${tvl} </span>
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
-            <span sx={styles.contractAddress}> 0x0E29e5Ab…47dE3bcd </span>
+            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
           </div>
         </div>
-        <img src={images.icon4Tokens} sx={styles.infoIcon} />
+        <img src={pools[pool].icon} sx={styles.infoIcon} />
       </div>
       <div sx={styles.depositInfoContainer}>
         <div sx={styles.depositInfoItem}>
           <p>Deposit</p>
           <div sx={styles.lpTokenLinkContainer}>
-            <span sx={styles.depositInfoValue}>Balancer LP token</span>
-            <div sx={styles.lpTokenLink}>
-              <span> Get LP Token </span>
+            <span sx={styles.depositInfoValue}>{pools[pool].name}</span>
+            <a sx={styles.lpTokenLink} target='_blank' href={pools[pool].url}>
+              <span> Get Token </span>
               <img src={images.iconLinkNormal} />
-            </div>
+            </a>
           </div>
         </div>
         <div sx={styles.depositInfoItem}>
           <p>APY</p>
           <span sx={styles.depositInfoValue}>
-            -
-            {' '}
-            %
+          {apy} %
           </span>
-          <span> (Pool 78.41% + Bonus 47.27%) </span>
+          <span> (Pool {'-'}% + Bonus {'-'}%) </span>
         </div>
       </div>
       <div sx={styles.operateArea}>
@@ -83,8 +160,8 @@ const PoolDetail = () => {
           <span>You deposited</span>
           <div sx={styles.rewardAmountContainer}>
             {/* if amount === 0 sx={styles.amountIsZero} */}
-            <span>0</span>
-            <span>BHS-USDC-DAI-HAKKA LP</span>
+            <span>{account ? rewardData.depositBalances[pool]?.toFixed(4) : '-'}</span>
+            <span>{pools[pool].tokenSymbol}</span>
           </div>
           <div sx={styles.rewardInfoContainer}>
             <div sx={styles.rewardInfoLabelWrapper}>
@@ -92,11 +169,15 @@ const PoolDetail = () => {
               <div>
                 <p>Claimable reward</p>
                 {/* if amount !== 0 sx={styles.rewardAmount} */}
-                <p sx={styles.amountIsZero}>0 HAKKA</p>
+                <p sx={styles.amountIsZero}>{account ? rewardData.earnedBalances[pool]?.toFixed(4) : '-'} HAKKA</p>
               </div>
             </div>
             <div sx={styles.rewardBtn}>
-              <MyButton type="green">
+              <MyButton
+                click={claimCallback}
+                type="green"
+                disabled={claimState === ClaimState.PENDING}
+              >
                 Claim
               </MyButton>
             </div>
@@ -107,19 +188,19 @@ const PoolDetail = () => {
               <div>
                 <p>Vesting balance</p>
                 {/* if amount !== 0 remove the style */}
-                <p sx={styles.amountIsZero}>0 HAKKA</p>
+                <p sx={styles.amountIsZero}>{vestingValueAmount.toFixed(4)} HAKKA</p>
               </div>
             </div>
-            <button sx={styles.viewBtn}>
+            <a sx={styles.viewBtn} href={'/vesting'}>
               <span>View</span>
               <img src={images.iconForward} />
-            </button>
+            </a>
           </div>
           <div sx={styles.learnMoreLinkWrapper}>
             <img src={images.iconInform} />
             <span>
               Claim means your HAKKA rewards will be locked in vesting contract.
-              <span sx={styles.learnMoreLink}>learn more</span>
+              <a sx={styles.learnMoreLink} target='_blank' href='https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76'>learn more</a>
             </span>
           </div>
         </div>
@@ -142,31 +223,53 @@ const PoolDetail = () => {
           </div>
           <div sx={styles.stakeBalanceContainer}>
             <span>Amount</span>
-            <span>Balance: 566.6324</span>
+            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
-            <NumericalInputCard
-              value={stakeInputAmount}
-              onUserInput={setStakeInputAmount}
-              hakkaBalance={hakkaBalance}
-              approveCallback={approveCallback}
-              approveState={approveState}
-            />
+          {switchPick === SwitchOption.DEPOSIT
+            ? (
+              <NumericalInputCard
+                value={stakeInputAmount}
+                onUserInput={setStakeInputAmount}
+                tokenBalance={tokenBalance}
+                approveCallback={approveCallback}
+                approveState={approveState}
+              />
+            ) : (
+              <NumericalInputCard
+                value={withdrawInputAmount}
+                onUserInput={setWithdrawInputAmount}
+                tokenBalance={stakedBalance}
+                approveCallback={approveCallback}
+                approveState={approveState}
+              />
+            )}
           </div>
           {switchPick === SwitchOption.DEPOSIT
             ? (
-              <MyButton type="green">
+              <MyButton
+                click={depositCallback}
+                type="green"
+                disabled={depositState === DepositState.PENDING}
+              >
                 <p sx={styles.depositBtnContent}>Deposit</p>
               </MyButton>
             ) : (
               <div sx={styles.withdrawBtnContainer}>
                 <div>
-                  <MyButton type="green">
+                  <MyButton
+                    click={withdrawCallback}
+                    type="green"
+                    disabled={withdrawState === WithdrawState.PENDING}
+                  >
                     <p sx={styles.withdrawContent}>Withdraw</p>
                   </MyButton>
                 </div>
                 <div>
-                  <MyButton>
+                  <MyButton
+                    click={exitCallback}
+                    disabled={exitState === ExitState.PENDING}
+                  >
                     <div sx={styles.exitBtnContent}>
                       <p>Exit</p>
                       <p className="exitContent">Withdraw all and claim</p>

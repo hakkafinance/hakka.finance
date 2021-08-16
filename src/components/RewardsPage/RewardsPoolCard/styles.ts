@@ -37,6 +37,10 @@ export default {
     },
   },
 
+  icon: {
+    maxHeight: '28px',
+  },
+
   title: {
     margin: '0',
     paddingTop: '28px',

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React, { useState, useMemo, useEffect } from 'react';
+import { useWeb3React } from '@web3-react/core';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
@@ -13,6 +14,7 @@ import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
 
 const RewardsPage = () => {
+  const { account } = useWeb3React();
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
 
@@ -83,8 +85,8 @@ const RewardsPage = () => {
                 depositedTokenSymbol={pools[pool].tokenSymbol}
                 rewardsAddress={pools[pool].rewardsAddress}
                 apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
-                depositedBalance={rewardData.depositBalances[pool]?.toFixed(2)}
-                earnedBalance={rewardData.earnedBalances[pool]?.toFixed(2)}
+                depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : '-'}
+                earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
               />
             )}
           </div>
@@ -109,8 +111,8 @@ const RewardsPage = () => {
                   depositedTokenSymbol={pools[pool].tokenSymbol}
                   rewardsAddress={pools[pool].rewardsAddress}
                   apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
-                  depositedBalance={rewardData.depositBalances[pool]?.toFixed(2)}
-                  earnedBalance={rewardData.earnedBalances[pool]?.toFixed(2)}
+                  depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : ''}
+                  earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
                 />
               )}
             </div>

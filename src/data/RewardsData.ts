@@ -27,7 +27,7 @@ export function useRewardsData(addresses: string[]) {
 
   return useMemo(
     () => {
-      if (!depositBalances || !earnedBalances) {
+      if (!account || !depositBalances || !earnedBalances) {
         return {
           depositBalances: undefined,
           earnedBalances: undefined,
