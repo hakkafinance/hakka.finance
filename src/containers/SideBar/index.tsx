@@ -140,7 +140,7 @@ function SideBar(props) {
             <Box sx={styles.medium_content}>
               <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus(); }} alignItems="center">
                 <img src={images.iconMedium} />
-                <Box sx={styles.bold_text} ml="2">Medium</Box>
+                <Box sx={styles.bold_text} ml="12px">Medium</Box>
               </Flex>
               <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus(); }}>
                 <img src={images.iconLinkSmall} />
