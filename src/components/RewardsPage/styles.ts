@@ -81,7 +81,7 @@ export default {
     flexWrap: 'wrap',
 
     '> div': {
-      marginRight: '30px',
+      marginRight: '18px',
       marginBottom: '15px',
     },
 
