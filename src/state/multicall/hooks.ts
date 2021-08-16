@@ -8,6 +8,7 @@ import { MulticallContext } from './context';
 import {
   Call, parseCallKey, toCallKey, ListenerOptions,
 } from './actions';
+import { ChainId } from '../../constants';
 
 export function useMulticallContext() {
   return useContext(MulticallContext);
@@ -59,8 +60,10 @@ export const NEVER_RELOAD: ListenerOptions = {
 function useCallsData(
   calls: (Call | undefined)[],
   options?: ListenerOptions,
+  specificChainId?: ChainId,
 ): CallResult[] {
-  const { chainId } = useActiveWeb3React();
+  const { chainId: defaultChainId } = useActiveWeb3React();
+  const chainId = specificChainId ?? defaultChainId;
   const {
     state,
     addMulticallListeners,
@@ -317,4 +320,33 @@ export function useSingleCallResult(
     fragment,
     latestBlockNumber,
   ), [result, contract, fragment, latestBlockNumber]);
+}
+
+export function useUniversalMulticall(
+  contracts: Contract[] | null | undefined,
+  methodNames: string[],
+  callInputs: OptionalMethodInputs[],
+  chainId?: ChainId,
+  options?: ListenerOptions,
+): CallState[] {
+  const fragments = useMemo(() => contracts.map((contract, index) => contract?.interface?.getFunction(methodNames[index])), [
+    contracts,
+    methodNames,
+  ]);
+
+  const calls = useMemo(
+    () => (contracts && fragments && callInputs && callInputs.length > 0
+      ? callInputs.map<Call>((inputs, index) => ({
+        address: contracts[index].address,
+        callData: contracts[index].interface.encodeFunctionData(fragments[index], inputs),
+      }))
+      : []),
+    [callInputs, contracts, fragments],
+  );
+
+  const results = useCallsData(calls, options, chainId);
+
+  const latestBlockNumber = useBlockNumber();
+
+  return useMemo(() => results.map((result, index) => toCallState(result, contracts[index]?.interface, fragments[index], latestBlockNumber)), [fragments, contracts, results, latestBlockNumber]);
 }
