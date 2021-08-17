@@ -8,6 +8,7 @@ import { FortmaticConnector } from './Fortmatic';
 import { NetworkConnector } from './NetworkConnector';
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
+const BSC_NETWORK_URL = process.env.REACT_APP_BSC_NETWORK_URL;
 const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY;
 const PORTIS_ID = process.env.REACT_APP_PORTIS_ID;
 
@@ -15,9 +16,9 @@ export const NETWORK_CHAIN_ID: number = parseInt(
   process.env.REACT_APP_CHAIN_ID ?? '1',
 );
 
-if (typeof NETWORK_URL === 'undefined') {
+if (typeof NETWORK_URL === 'undefined' || typeof BSC_NETWORK_URL === 'undefined') {
   throw new Error(
-    'REACT_APP_NETWORK_URL must be a defined environment variable',
+    'REACT_APP_NETWORK_URL and REACT_APP_BSC_NETWORK_URL must be a defined environment variable',
   );
 }
 
@@ -44,7 +45,7 @@ export const walletconnect = new WalletConnectConnector({
 
 export const bscWalletconnect = new WalletConnectConnector({
   supportedChainIds: [56],
-  rpc: { 56: 'https://bsc-dataseed1.ninicoin.io' },
+  rpc: { 56: BSC_NETWORK_URL },
   bridge: 'https://uniswap.bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
