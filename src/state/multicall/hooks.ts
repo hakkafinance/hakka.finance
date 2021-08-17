@@ -60,10 +60,8 @@ export const NEVER_RELOAD: ListenerOptions = {
 function useCallsData(
   calls: (Call | undefined)[],
   options?: ListenerOptions,
-  specificChainId?: ChainId,
 ): CallResult[] {
-  const { chainId: defaultChainId } = useActiveWeb3React();
-  const chainId = specificChainId ?? defaultChainId;
+  const { chainId } = useActiveWeb3React();
   const {
     state,
     addMulticallListeners,
@@ -326,7 +324,6 @@ export function useUniversalMulticall(
   contracts: Contract[] | null | undefined,
   methodNames: string[],
   callInputs: OptionalMethodInputs[],
-  chainId?: ChainId,
   options?: ListenerOptions,
 ): CallState[] {
   const fragments = useMemo(() => contracts.map((contract, index) => contract?.interface?.getFunction(methodNames[index])), [
@@ -344,7 +341,7 @@ export function useUniversalMulticall(
     [callInputs, contracts, fragments],
   );
 
-  const results = useCallsData(calls, options, chainId);
+  const results = useCallsData(calls, options);
 
   const latestBlockNumber = useBlockNumber();
 
