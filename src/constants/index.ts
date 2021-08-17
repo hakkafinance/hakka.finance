@@ -13,14 +13,14 @@ import {
 } from '../connectors';
 import { BigNumber } from '@ethersproject/bignumber';
 import {
-  bhsApy,
-  balancer4tokenApy,
-  balancer2tokenApy,
-  mkrHakkaApy,
-  tftApy,
-  sHakkaApy,
-  bscBhsApy,
-} from '../utils/rewardsApy';
+  bhsApr,
+  balancer4tokenApr,
+  balancer2tokenApr,
+  mkrHakkaApr,
+  tftApr,
+  sHakkaApr,
+  bscBhsApr,
+} from '../utils/rewardsApr';
 import {
   balancer4tokenTvl,
   balancer2tokenTvl,
@@ -231,7 +231,7 @@ export type Pool = {
   rewardsAddress: string;
   rewardsSymbol: string;
   archived: boolean;
-  getApy: (...args: any[]) => Promise<BigNumber>;
+  getApr: (...args: any[]) => Promise<BigNumber>;
   getTvl: (...args: any[]) => Promise<BigNumber>;
 }
 
@@ -246,7 +246,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x6b1ecbbd69eeaf8d089bdce4daaa4165f8c3ff11',
     rewardsSymbol: 'HAKKA',
     archived: true,
-    getApy: bhsApy,
+    getApr: bhsApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
   '0x6EE6683Cb9b44810369C873679f8073bCBE52F27': {
@@ -260,7 +260,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x6EE6683Cb9b44810369C873679f8073bCBE52F27',
     rewardsSymbol: 'HAKKA',
     archived: false,
-    getApy: balancer4tokenApy,
+    getApr: balancer4tokenApr,
     getTvl: balancer4tokenTvl,
   },
   '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF': {
@@ -274,7 +274,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF',
     rewardsSymbol: 'HAKKA',
     archived: false,
-    getApy: balancer2tokenApy,
+    getApr: balancer2tokenApr,
     getTvl: balancer2tokenTvl,
   },
   '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645': {
@@ -288,7 +288,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645',
     rewardsSymbol: 'HAKKA',
     archived: true,
-    getApy: mkrHakkaApy,
+    getApr: mkrHakkaApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
   '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058': {
@@ -301,7 +301,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058',
     rewardsSymbol: 'HAKKA',
     archived: true,
-    getApy: tftApy,
+    getApr: tftApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
   '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977': {
@@ -314,7 +314,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977',
     rewardsSymbol: 'HAKKA',
     archived: false,
-    getApy: sHakkaApy,
+    getApr: sHakkaApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
 }
@@ -330,7 +330,7 @@ export const BSC_REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a',
     rewardsSymbol: 'HAKKA',
     archived: false,
-    getApy: bscBhsApy,
+    getApr: bscBhsApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
 }

@@ -12,7 +12,7 @@ interface RewardsPoolCardProps {
   btnContent: string;
   depositedTokenSymbol: string;
   rewardsAddress: string;
-  apy: string;
+  apr: string;
   depositedBalance: string;
   earnedBalance: string;
 }
@@ -22,7 +22,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => (
     <div sx={styles.illustration} />
     <div sx={styles.header}>
       <p>
-        APY {props.apy} %
+        APR {props.apr} %
       </p>
       <img sx={styles.icon} src={props.tokenImage} />
     </div>

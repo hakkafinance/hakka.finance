@@ -25,11 +25,11 @@ const ethMulticallProvider = new MulticallProvider(ethProvider, 1);
 const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
 const bscMulticallProvider = new MulticallProvider(bscProvider, 56);
 
-export async function bhsApy(hakkaPrice: BigNumber): Promise<BigNumber> {
+export async function bhsApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   return Promise.resolve(Zero);
 }
 
-export async function balancer4tokenApy(hakkaPrice: BigNumber): Promise<BigNumber> { // BHS/USDC/DAI/HAKKA
+export async function balancer4tokenApr(hakkaPrice: BigNumber): Promise<BigNumber> { // BHS/USDC/DAI/HAKKA
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(REWARD_POOLS['0x6EE6683Cb9b44810369C873679f8073bCBE52F27'].rewardsAddress, REWARD_ABI);
   const poolContract = new MulticallContract(REWARD_POOLS['0x6EE6683Cb9b44810369C873679f8073bCBE52F27'].tokenAddress, BPT_ABI);
@@ -74,7 +74,7 @@ export async function balancer4tokenApy(hakkaPrice: BigNumber): Promise<BigNumbe
   return yearlyRewards.mul(WeiPerEther).div(stakedLiquidity);
 }
 
-export async function balancer2tokenApy(hakkaPrice: BigNumber): Promise<BigNumber> { // BHS/HAKKA
+export async function balancer2tokenApr(hakkaPrice: BigNumber): Promise<BigNumber> { // BHS/HAKKA
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(REWARD_POOLS['0x3792ee68E736b8214D4eDC91b1B3340B525e00BF'].rewardsAddress, REWARD_ABI);
   const poolContract = new MulticallContract(REWARD_POOLS['0x3792ee68E736b8214D4eDC91b1B3340B525e00BF'].tokenAddress, BPT_ABI);
@@ -115,15 +115,15 @@ export async function balancer2tokenApy(hakkaPrice: BigNumber): Promise<BigNumbe
   return yearlyRewards.mul(WeiPerEther).div(stakedLiquidity);
 }
 
-export async function mkrHakkaApy(hakkaPrice: BigNumber): Promise<BigNumber> { // Uniswap MKR-HAKKA
+export async function mkrHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> { // Uniswap MKR-HAKKA
   return Promise.resolve(Zero);
 }
 
-export async function tftApy(hakkaPrice: BigNumber): Promise<BigNumber> { // 3fmutual
+export async function tftApr(hakkaPrice: BigNumber): Promise<BigNumber> { // 3fmutual
   return Promise.resolve(Zero);
 }
 
-export async function sHakkaApy(hakkaPrice: BigNumber): Promise<BigNumber> {
+export async function sHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(REWARD_POOLS['0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977'].rewardsAddress, REWARD_ABI);
   const staking = new Contract(REWARD_POOLS['0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977'].tokenAddress, STAKING_ABI, ethProvider);
@@ -148,7 +148,7 @@ export async function sHakkaApy(hakkaPrice: BigNumber): Promise<BigNumber> {
     .div(stakingRate);
 }
 
-export async function bscBhsApy(hakkaPrice: BigNumber): Promise<BigNumber> { 
+export async function bscBhsApr(hakkaPrice: BigNumber): Promise<BigNumber> { 
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(
     BSC_REWARD_POOLS['0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a'].rewardsAddress,

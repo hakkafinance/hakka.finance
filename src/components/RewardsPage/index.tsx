@@ -29,7 +29,7 @@ const RewardsPage = () => {
   const archivedPools = useMemo(() => Object.keys(pools).filter((poolId) => pools[poolId].archived), [pools]);
 
   const hakkaPrice = useTokenPrice('hakka-finance');
-  const [apy, setApy] = useState({});
+  const [apr, setApr] = useState({});
 
   useEffect(() => {
     let active = true;
@@ -41,15 +41,15 @@ const RewardsPage = () => {
     return () => { active = false }
   
     async function load() {
-      setApy({});
+      setApr({});
       const pools = { ...REWARD_POOLS, ...BSC_REWARD_POOLS };
-      const apyList = await Promise.all(Object.keys(pools).map((address) => pools[address].getApy(parseUnits(hakkaPrice.toString(), 18))));
-      const newApy = {}
-      apyList.map((apy, index) => {
-        newApy[pools[Object.keys(pools)[index]].rewardsAddress] = apy
+      const aprList = await Promise.all(Object.keys(pools).map((address) => pools[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
+      const newApr = {}
+      aprList.map((apr, index) => {
+        newApr[pools[Object.keys(pools)[index]].rewardsAddress] = apr
       });
       if (!active) { return }
-      setApy(newApy);
+      setApr(newApr);
     }
   }, [hakkaPrice]);
 
@@ -84,7 +84,7 @@ const RewardsPage = () => {
                 btnContent={'Deposit / Withdraw'}
                 depositedTokenSymbol={pools[pool].tokenSymbol}
                 rewardsAddress={pools[pool].rewardsAddress}
-                apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
+                apr={apr[pool] ? tryParseAmount(formatUnits(apr[pool]?.mul(100), 18)).toFixed(2) : '-'}
                 depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : '-'}
                 earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
               />
@@ -110,7 +110,7 @@ const RewardsPage = () => {
                   btnContent={'Withdraw'}
                   depositedTokenSymbol={pools[pool].tokenSymbol}
                   rewardsAddress={pools[pool].rewardsAddress}
-                  apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
+                  apr={apr[pool] ? tryParseAmount(formatUnits(apr[pool]?.mul(100), 18)).toFixed(2) : '-'}
                   depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : ''}
                   earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
                 />

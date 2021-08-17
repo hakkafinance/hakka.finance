@@ -47,22 +47,22 @@ const PoolDetail = () => {
 
   const hakkaPrice = useTokenPrice('hakka-finance');
   const tokenPrice = useTokensPrice();
-  const [apy, setApy] = useState('');
+  const [apr, setApr] = useState('');
   const [tvl, setTvl] = useState('');
 
   useEffect(() => {
     let active = true;
     try {
-      loadApy()
+      loadApr()
     } catch (e) {
       console.error(e);
     }
     return () => { active = false }
   
-    async function loadApy() {
+    async function loadApr() {
       if (!active || !hakkaPrice) { return }
-      const newApy = await pools[pool].getApy(parseUnits(hakkaPrice.toString(), 18));
-      setApy(tryParseAmount(formatUnits(newApy?.mul(100), 18)).toFixed(2));
+      const newApr = await pools[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
+      setApr(tryParseAmount(formatUnits(newApr?.mul(100), 18)).toFixed(2));
     }
   }, [hakkaPrice]);
 
@@ -146,9 +146,9 @@ const PoolDetail = () => {
           </div>
         </div>
         <div sx={styles.depositInfoItem}>
-          <p>APY</p>
+          <p>APR</p>
           <span sx={styles.depositInfoValue}>
-          {apy} %
+          {apr} %
           </span>
           <span> (Pool {'-'}% + Bonus {'-'}%) </span>
         </div>
