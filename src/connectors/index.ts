@@ -38,7 +38,7 @@ export const injected = new InjectedConnector({
 export const walletconnect = new WalletConnectConnector({
   supportedChainIds: [1],
   rpc: { 1: NETWORK_URL },
-  bridge: 'https://uniswap.bridge.walletconnect.org',
+  bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
 });
@@ -46,7 +46,7 @@ export const walletconnect = new WalletConnectConnector({
 export const bscWalletconnect = new WalletConnectConnector({
   supportedChainIds: [56],
   rpc: { 56: BSC_NETWORK_URL },
-  bridge: 'https://uniswap.bridge.walletconnect.org',
+  bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
 });
