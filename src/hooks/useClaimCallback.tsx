@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useRewardsContract } from './useContract';
-import { useSnackbar } from './useSnackbar';
 import { getEtherscanLink, shortenTxId } from '../utils';
+import { toast } from 'react-toastify';
+import { ExternalLink } from 'react-feather';
 
 export enum ClaimState {
   UNKNOWN,
@@ -15,7 +18,6 @@ export function useClaimCallback(
 ): [ClaimState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
-  const { enqueueSnackbar } = useSnackbar();
 
   const claimState: ClaimState = useMemo(() => {
     if (!spender) return ClaimState.UNKNOWN;
@@ -36,22 +38,19 @@ export function useClaimCallback(
     try {
       const tx = await claimContract.getReward();
       setCurrentTransaction(tx.hash);
-      enqueueSnackbar(
+      toast(
         <a
           target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
           rel="noreferrer"
+          sx={{ textDecoration: 'none', color: '#253e47' }}
         >
-          {shortenTxId(tx.hash)}
-        </a>,
-        tx.hash,
-      );
+        {shortenTxId(tx.hash)} <ExternalLink size={16} />
+        </a>
+      , { containerId: 'tx' });
       await tx.wait();
     } catch (err) {
-      enqueueSnackbar(
-        <div>{err.message}</div>,
-        err.message,
-      );
+       toast.error(<div>{err.message}</div>,  { containerId: 'error' });
     } finally {
       setCurrentTransaction(null);
     }

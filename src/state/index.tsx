@@ -3,7 +3,6 @@ import { useContextSelector } from 'use-context-selector';
 
 import ApplicationContextProvider from './application/context';
 import MulticallContextProvider from './multicall/context';
-import SnackbarProvider from './snackbar/context';
 
 export function useContextStateSelector<
   S,
@@ -15,8 +14,6 @@ export function useContextStateSelector<
 
 export const ContextProviders: React.FC = ({ children }) => (
   <ApplicationContextProvider>
-    <SnackbarProvider>
-      <MulticallContextProvider>{children}</MulticallContextProvider>
-    </SnackbarProvider>
+    <MulticallContextProvider>{children}</MulticallContextProvider>
   </ApplicationContextProvider>
 );

@@ -1,12 +1,15 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import { useState, useCallback, useMemo } from 'react';
 import { MaxUint256 } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
 import { Token } from '@uniswap/sdk';
-import React, { useState, useCallback, useMemo } from 'react';
 import { useTokenAllowance } from '../data/Allowances';
 import { useTokenContract } from './useContract';
-import { useSnackbar } from './useSnackbar';
 import { useActiveWeb3React } from './index';
 import { getEtherscanLink, shortenTxId, tryParseAmount } from '../utils';
+import { toast } from 'react-toastify';
+import { ExternalLink } from 'react-feather';
 
 export enum ApprovalState {
   UNKNOWN,
@@ -22,7 +25,6 @@ export function useApproveCallback(
 ): [ApprovalState, () => Promise<void>] {
   const { account } = useActiveWeb3React();
   const { chainId } = useWeb3React();
-  const { enqueueSnackbar } = useSnackbar();
   const token = tokenToApprove;
   const currentAllowance = useTokenAllowance(
     token,
@@ -67,22 +69,19 @@ export function useApproveCallback(
     try {
       const tx = await tokenContract.approve(spender, MaxUint256);
       setCurrentTransaction(tx.hash);
-      enqueueSnackbar(
+      toast(
         <a
           target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
           rel="noreferrer"
+          sx={{ textDecoration: 'none', color: '#253e47' }}
         >
-          {shortenTxId(tx.hash)}
-        </a>,
-        tx.hash,
-      );
+        {shortenTxId(tx.hash)} <ExternalLink size={16} />
+        </a>
+      , { containerId: 'tx' });
       await tx.wait();
     } catch (err) {
-      enqueueSnackbar(
-        <div>{err.message}</div>,
-        err.message,
-      );
+       toast.error(<div>{err.message}</div>,  { containerId: 'error' });
     } finally {
       setCurrentTransaction(null);
     }
