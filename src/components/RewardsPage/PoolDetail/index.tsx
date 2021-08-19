@@ -10,7 +10,9 @@ import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
 import NumericalInputCard from '../../NumericalInputCard/index';
-import { HAKKA, BSC_REWARD_POOLS, REWARD_POOLS, VESTING_ADDRESSES } from '../../../constants';
+import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
+import { BSC_REWARD_POOLS, REWARD_POOLS } from '../../../constants/rewards';
+import { POOL_ASSETES } from '../../../constants/rewards/assets';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { useApproveCallback } from '../../../hooks/useApproveCallback';
 import { useSingleCallResult } from '../../../state/multicall/hooks';
@@ -22,15 +24,10 @@ import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
 import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
 import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
 
-const PoolDetail = () => {
+const PoolDetail = ({ pool }) => {
   const { account, chainId } = useWeb3React();
   const pools = { ...BSC_REWARD_POOLS, ...REWARD_POOLS }
 
-  const pool = useMemo(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    return params.pool;
-  }, []);
   const rewardData = useRewardsData([pool]);
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -61,7 +58,7 @@ const PoolDetail = () => {
   
     async function loadApr() {
       if (!active || !hakkaPrice) { return }
-      const newApr = await pools[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
+      const newApr = await POOL_ASSETES[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
       setApr(tryParseAmount(formatUnits(newApr?.mul(100), 18)).toFixed(2));
     }
   }, [hakkaPrice]);
@@ -77,7 +74,7 @@ const PoolDetail = () => {
   
     async function loadTvl() {
       if (!active || !tokenPrice) { return }
-      const newTvl = await pools[pool].getTvl(tokenPrice);
+      const newTvl = await POOL_ASSETES[pool].getTvl(tokenPrice);
       setTvl(tryParseAmount(formatUnits(newTvl?.mul(100), 18)).toFixed(2));
     }
   }, [tokenPrice]);
@@ -132,7 +129,7 @@ const PoolDetail = () => {
             <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
           </div>
         </div>
-        <img src={pools[pool].icon} sx={styles.infoIcon} />
+        <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
       </div>
       <div sx={styles.depositInfoContainer}>
         <div sx={styles.depositInfoItem}>

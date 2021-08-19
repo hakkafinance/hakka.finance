@@ -1,15 +1,16 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
 import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
-import PoolDetail from './PoolDetail';
 import Web3Status from '../Web3Status';
-import { BSC_REWARD_POOLS, ChainId, REWARD_POOLS } from '../../constants';
+import { ChainId } from '../../constants';
+import { BSC_REWARD_POOLS, REWARD_POOLS } from '../../constants/rewards';
+import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
 
@@ -43,7 +44,7 @@ const RewardsPage = () => {
     async function load() {
       setApr({});
       const pools = { ...REWARD_POOLS, ...BSC_REWARD_POOLS };
-      const aprList = await Promise.all(Object.keys(pools).map((address) => pools[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
+      const aprList = await Promise.all(Object.keys(pools).map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
       const newApr = {}
       aprList.map((apr, index) => {
         newApr[pools[Object.keys(pools)[index]].rewardsAddress] = apr
@@ -62,11 +63,6 @@ const RewardsPage = () => {
           <p>Farms</p>
           <Web3Status />
         </div>
-
-        {showPool ? <PoolDetail />
-        :
-        <>
-        {/* pool portals  */}
         <div sx={styles.chainSwitch}>
           <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
           <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
@@ -77,7 +73,7 @@ const RewardsPage = () => {
             {activePools.map((pool) =>
               <RewardsPoolCard
                 key={pools[pool].rewardsAddress}
-                tokenImage={pools[pool].icon}
+                tokenImage={POOL_ASSETES[pool].icon}
                 title={pools[pool].name}
                 url={pools[pool].url}
                 linkContent={pools[pool].website}
@@ -103,7 +99,7 @@ const RewardsPage = () => {
               {archivedPools.map((pool) =>
                 <RewardsPoolCard
                   key={pools[pool].rewardsAddress}
-                  tokenImage={pools[pool].icon}
+                  tokenImage={POOL_ASSETES[pool].icon}
                   title={pools[pool].name}
                   url={pools[pool].url}
                   linkContent={pools[pool].website}
@@ -118,9 +114,6 @@ const RewardsPage = () => {
             </div>
           }
         </div>
-        </>
-        }
-
       </div>
     </div>
   );

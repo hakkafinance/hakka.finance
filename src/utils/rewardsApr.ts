@@ -6,7 +6,8 @@ import REWARD_ABI from '../constants/abis/staking_rewards.json';
 import BPT_ABI from '../constants/abis/bpt.json';
 import LP_REWARD_VESTING_ABI from '../constants/abis/lp_reward_vesting.json';
 import STAKING_ABI from '../constants/abis/shakka.json';
-import { HAKKA, ChainId, REWARD_POOLS, BSC_REWARD_POOLS } from '../constants';
+import { HAKKA, ChainId } from '../constants';
+import { REWARD_POOLS, BSC_REWARD_POOLS } from '../constants/rewards';
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
