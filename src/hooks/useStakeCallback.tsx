@@ -53,7 +53,7 @@ export function useStakeCallback(
       , { containerId: 'tx' });
       await tx.wait();
     } catch (err) {
-      toast.error(<div>{err.message}</div>,  { containerId: 'error' });
+      toast.error(<div>{err.data ? JSON.stringify(err.data) : err.message}</div>,  { containerId: 'error' });
     } finally {
       setCurrentTransaction(null);
     }
