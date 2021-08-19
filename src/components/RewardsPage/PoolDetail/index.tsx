@@ -2,8 +2,9 @@
 import { jsx } from 'theme-ui';
 import { Token, TokenAmount } from '@uniswap/sdk';
 import { useWeb3React } from '@web3-react/core';
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { formatUnits, parseUnits } from '@ethersproject/units';
+import { Zero } from '@ethersproject/constants';
 import styles from './styles';
 import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
@@ -119,8 +120,12 @@ const PoolDetail = ({ pool }) => {
         <p>{REWARD_POOLS[pool].name}</p>
         <div sx={styles.infoWrapper}>
           <div sx={styles.infoItem}>
-            <span>TVL</span>
-            <span sx={styles.infoValue}> ${tvl} </span>
+            {tvl && parseUnits(tvl).gt(Zero)
+            ? <>
+              <span>TVL</span>
+              <span sx={styles.infoValue}> ${tvl} </span>
+            </>
+            : <></>}
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
@@ -145,7 +150,6 @@ const PoolDetail = ({ pool }) => {
           <span sx={styles.depositInfoValue}>
           {apr} %
           </span>
-          <span> (Pool {'-'}% + Bonus {'-'}%) </span>
         </div>
       </div>
       <div sx={styles.operateArea}>

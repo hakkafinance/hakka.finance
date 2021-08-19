@@ -73,6 +73,7 @@ export default {
     paddingLeft: '12px',
     fontWeight: '600',
     textDecoration: 'underline',
+    color: '#253e47',
 
     ':hover': {
       color: '#2da287',
@@ -288,6 +289,7 @@ export default {
   learnMoreLink: {
     textDecoration: 'underline',
     paddingLeft: '6px',
+    color: '#253e47',
 
     ':hover': {
       cursor: 'pointer',
