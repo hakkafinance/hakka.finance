@@ -120,11 +120,5 @@ const images = {
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
-
-  // avatars
-  pingChen: require('./avatars/pingChen.png').default,
-  jackLai: require('./avatars/jackLai.png').default,
-  wegoChen: require('./avatars/wegoChen.png').default,
-  ianHsu: require('./avatars/ianHsu.png').default,
 };
 export default images;
