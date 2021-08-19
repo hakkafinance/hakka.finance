@@ -6,6 +6,7 @@ import { useRewardsContract } from './useContract';
 import { getEtherscanLink, shortenTxId } from '../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
+import { REWARD_POOLS } from '../constants/rewards';
 
 export enum ClaimState {
   UNKNOWN,
@@ -32,6 +33,11 @@ export function useClaimCallback(
   const claim = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
+      return;
+    }
+
+    if (REWARD_POOLS[claimAddress].chain !== chainId) {
+      toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
       return;
     }
 

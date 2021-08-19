@@ -11,7 +11,7 @@ import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
 import NumericalInputCard from '../../NumericalInputCard/index';
 import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
-import { BSC_REWARD_POOLS, REWARD_POOLS } from '../../../constants/rewards';
+import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { useApproveCallback } from '../../../hooks/useApproveCallback';
@@ -26,8 +26,6 @@ import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCa
 
 const PoolDetail = ({ pool }) => {
   const { account, chainId } = useWeb3React();
-  const pools = { ...BSC_REWARD_POOLS, ...REWARD_POOLS }
-
   const rewardData = useRewardsData([pool]);
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -82,7 +80,7 @@ const PoolDetail = ({ pool }) => {
   const [stakeInputAmount, setStakeInputAmount] = useState<string>('');
   const [withdrawInputAmount, setWithdrawInputAmount] = useState<string>('');
 
-  const token = new Token(1, pools[pool].tokenAddress, 18);
+  const token = new Token(1, REWARD_POOLS[pool].tokenAddress, 18);
   const stakedToken = new Token(1, pool, 18);
   const tokenBalance = useTokenBalance(
     account as string,
@@ -118,7 +116,7 @@ const PoolDetail = ({ pool }) => {
         <span>Back</span>
       </a>
       <div sx={styles.title}>
-        <p>{pools[pool].name}</p>
+        <p>{REWARD_POOLS[pool].name}</p>
         <div sx={styles.infoWrapper}>
           <div sx={styles.infoItem}>
             <span>TVL</span>
@@ -135,8 +133,8 @@ const PoolDetail = ({ pool }) => {
         <div sx={styles.depositInfoItem}>
           <p>Deposit</p>
           <div sx={styles.lpTokenLinkContainer}>
-            <span sx={styles.depositInfoValue}>{pools[pool].name}</span>
-            <a sx={styles.lpTokenLink} target='_blank' href={pools[pool].url}>
+            <span sx={styles.depositInfoValue}>{REWARD_POOLS[pool].name}</span>
+            <a sx={styles.lpTokenLink} target='_blank' href={REWARD_POOLS[pool].url}>
               <span> Get Token </span>
               <img src={images.iconLinkNormal} />
             </a>
@@ -158,7 +156,7 @@ const PoolDetail = ({ pool }) => {
           <div sx={styles.rewardAmountContainer}>
             {/* if amount === 0 sx={styles.amountIsZero} */}
             <span>{account ? rewardData.depositBalances[pool]?.toFixed(4) : '-'}</span>
-            <span>{pools[pool].tokenSymbol}</span>
+            <span>{REWARD_POOLS[pool].tokenSymbol}</span>
           </div>
           <div sx={styles.rewardInfoContainer}>
             <div sx={styles.rewardInfoLabelWrapper}>

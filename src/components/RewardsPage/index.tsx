@@ -9,7 +9,7 @@ import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
 import Web3Status from '../Web3Status';
 import { ChainId } from '../../constants';
-import { BSC_REWARD_POOLS, REWARD_POOLS } from '../../constants/rewards';
+import { REWARD_POOLS } from '../../constants/rewards';
 import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
@@ -19,15 +19,8 @@ const RewardsPage = () => {
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
 
-  const showPool = useMemo(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    return params.pool;
-  }, []);
-
-  const pools = useMemo(() => currentChain === ChainId.BSC ? BSC_REWARD_POOLS : REWARD_POOLS, [currentChain]);
-  const activePools = useMemo(() => Object.keys(pools).filter((poolId) => !pools[poolId].archived), [pools]);
-  const archivedPools = useMemo(() => Object.keys(pools).filter((poolId) => pools[poolId].archived), [pools]);
+  const activePools = Object.keys(REWARD_POOLS).filter((poolId) => !REWARD_POOLS[poolId].archived);
+  const archivedPools = Object.keys(REWARD_POOLS).filter((poolId) => REWARD_POOLS[poolId].archived);
 
   const hakkaPrice = useTokenPrice('hakka-finance');
   const [apr, setApr] = useState({});
@@ -43,18 +36,17 @@ const RewardsPage = () => {
   
     async function load() {
       setApr({});
-      const pools = { ...REWARD_POOLS, ...BSC_REWARD_POOLS };
-      const aprList = await Promise.all(Object.keys(pools).map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
+      const aprList = await Promise.all(Object.keys(REWARD_POOLS).map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
       const newApr = {}
       aprList.map((apr, index) => {
-        newApr[pools[Object.keys(pools)[index]].rewardsAddress] = apr
+        newApr[REWARD_POOLS[Object.keys(REWARD_POOLS)[index]].rewardsAddress] = apr
       });
       if (!active) { return }
       setApr(newApr);
     }
   }, [hakkaPrice]);
 
-  const rewardData = useRewardsData(Object.keys(pools));
+  const rewardData = useRewardsData(Object.keys(REWARD_POOLS));
 
   return (
     <div sx={styles.container}>
@@ -70,16 +62,16 @@ const RewardsPage = () => {
         <div>
           <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
-            {activePools.map((pool) =>
+            {activePools.filter((pool) => REWARD_POOLS[pool].chain === currentChain).map((pool) =>
               <RewardsPoolCard
-                key={pools[pool].rewardsAddress}
+                key={REWARD_POOLS[pool].rewardsAddress}
                 tokenImage={POOL_ASSETES[pool].icon}
-                title={pools[pool].name}
-                url={pools[pool].url}
-                linkContent={pools[pool].website}
+                title={REWARD_POOLS[pool].name}
+                url={REWARD_POOLS[pool].url}
+                linkContent={REWARD_POOLS[pool].website}
                 btnContent={'Deposit / Withdraw'}
-                depositedTokenSymbol={pools[pool].tokenSymbol}
-                rewardsAddress={pools[pool].rewardsAddress}
+                depositedTokenSymbol={REWARD_POOLS[pool].tokenSymbol}
+                rewardsAddress={REWARD_POOLS[pool].rewardsAddress}
                 apr={apr[pool] ? tryParseAmount(formatUnits(apr[pool]?.mul(100), 18)).toFixed(2) : '-'}
                 depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : '-'}
                 earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
@@ -96,16 +88,16 @@ const RewardsPage = () => {
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              {archivedPools.map((pool) =>
+              {archivedPools.filter((pool) => REWARD_POOLS[pool].chain === currentChain).map((pool) =>
                 <RewardsPoolCard
-                  key={pools[pool].rewardsAddress}
+                  key={REWARD_POOLS[pool].rewardsAddress}
                   tokenImage={POOL_ASSETES[pool].icon}
-                  title={pools[pool].name}
-                  url={pools[pool].url}
-                  linkContent={pools[pool].website}
+                  title={REWARD_POOLS[pool].name}
+                  url={REWARD_POOLS[pool].url}
+                  linkContent={REWARD_POOLS[pool].website}
                   btnContent={'Withdraw'}
-                  depositedTokenSymbol={pools[pool].tokenSymbol}
-                  rewardsAddress={pools[pool].rewardsAddress}
+                  depositedTokenSymbol={REWARD_POOLS[pool].tokenSymbol}
+                  rewardsAddress={REWARD_POOLS[pool].rewardsAddress}
                   apr={apr[pool] ? tryParseAmount(formatUnits(apr[pool]?.mul(100), 18)).toFixed(2) : '-'}
                   depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : ''}
                   earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}

@@ -12,6 +12,7 @@ import REWARDS_ABI from '../constants/abis/staking_rewards.json';
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall';
 import { getContract } from '../utils';
 import { useActiveWeb3React } from './index';
+import isZero from '../utils/isZero';
 
 // returns null on errors
 export function useContract(
@@ -41,35 +42,35 @@ export function useTokenContract(
   tokenAddress?: string,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  return useContract(tokenAddress, ERC20_ABI, withSignerIfPossible);
+  return isZero(tokenAddress) ? null : useContract(tokenAddress, ERC20_ABI, withSignerIfPossible);
 }
 
 export function useBurnContract(
   burnAddress?: string,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  return useContract(burnAddress, BURNER_ABI, withSignerIfPossible);
+  return isZero(burnAddress) ? null : useContract(burnAddress, BURNER_ABI, withSignerIfPossible);
 }
 
 export function useRewardsContract(
   claimAddress?: string,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  return useContract(claimAddress, REWARDS_ABI, withSignerIfPossible);
+  return isZero(claimAddress) ? null : useContract(claimAddress, REWARDS_ABI, withSignerIfPossible);
 }
 
 export function useStakeContract(
   stakeAddress?: string,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  return useContract(stakeAddress, STAKE_ABI, withSignerIfPossible);
+  return isZero(stakeAddress) ? null : useContract(stakeAddress, STAKE_ABI, withSignerIfPossible);
 }
 
 export function useVestingContract(
   vestingAddress?: string,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  return useContract(vestingAddress, VESTING_ABI, withSignerIfPossible);
+  return isZero(vestingAddress) ? null : useContract(vestingAddress, VESTING_ABI, withSignerIfPossible);
 }
 
 export function useENSRegistrarContract(

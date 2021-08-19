@@ -7,7 +7,7 @@ import BPT_ABI from '../constants/abis/bpt.json';
 import LP_REWARD_VESTING_ABI from '../constants/abis/lp_reward_vesting.json';
 import STAKING_ABI from '../constants/abis/shakka.json';
 import { HAKKA, ChainId } from '../constants';
-import { REWARD_POOLS, BSC_REWARD_POOLS } from '../constants/rewards';
+import { REWARD_POOLS } from '../constants/rewards';
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
@@ -152,7 +152,7 @@ export async function sHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> {
 export async function bscBhsApr(hakkaPrice: BigNumber): Promise<BigNumber> { 
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(
-    BSC_REWARD_POOLS['0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a'].rewardsAddress,
+    REWARD_POOLS['0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a'].rewardsAddress,
     LP_REWARD_VESTING_ABI,
   );
 

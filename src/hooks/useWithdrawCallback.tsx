@@ -7,6 +7,7 @@ import { getEtherscanLink, shortenTxId } from '../utils';
 import { parseUnits } from '@ethersproject/units';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
+import { REWARD_POOLS } from '../constants/rewards';
 
 export enum WithdrawState {
   UNKNOWN,
@@ -34,6 +35,11 @@ export function useWithdrawCallback(
   const withdraw = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
+      return;
+    }
+
+    if (REWARD_POOLS[withdrawAddress].chain !== chainId) {
+      toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
       return;
     }
 

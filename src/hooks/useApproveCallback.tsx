@@ -10,6 +10,7 @@ import { useActiveWeb3React } from './index';
 import { getEtherscanLink, shortenTxId, tryParseAmount } from '../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
+import isZero from '../utils/isZero';
 
 export enum ApprovalState {
   UNKNOWN,
@@ -61,7 +62,7 @@ export function useApproveCallback(
       return;
     }
 
-    if (!spender) {
+    if (!spender || isZero(spender)) {
       console.error('no spender');
       return;
     }
