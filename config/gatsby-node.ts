@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-import { REWARD_POOLS, BSC_REWARD_POOLS } from '../src/constants/rewards';
+import { REWARD_POOLS } from '../src/constants/rewards';
 
 module.exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
@@ -25,7 +25,7 @@ module.exports.onCreateWebpackConfig = ({ actions }) => {
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
   const poolTemplate = path.resolve(`./src/templates/pool.tsx`);
-  Object.keys({ ...REWARD_POOLS, ...BSC_REWARD_POOLS }).forEach(pool => {
+  Object.keys(REWARD_POOLS).forEach(pool => {
     createPage({
       path: `/farms/${pool}`,
       component: poolTemplate,
