@@ -159,18 +159,6 @@ const VestingPage = () => {
                 <img src={images.iconLinkNormal} sx={styles.iconLink} />
               </a>
               <div sx={styles.claimBtn}>
-                {/* <MyButton
-                  click={claimCallback}
-                  styleKit="green"
-                  disabled={claimState === VestingState.PENDING || isWaitingCycle}
-                >
-                  {isWaitingCycle ? (
-                    <Countdown
-                      date={parseInt(lastWithdrawalTime?.result?.toString()) * 1000 + 1641600000}
-                      renderer={countdownRenderer}
-                    />
-                  ) : 'Claim'}
-                </MyButton> */}
                 <ClaimButton
                   styleKit={"green"}
                   isDisabledWhenNotPrepared={false}

@@ -26,7 +26,6 @@ import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
 import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
 
-
 import {
   ChainId,
   HAKKA,
@@ -328,24 +327,6 @@ const VaultPage = (props) => {
               newRewardAddressInput={newRewardAddressInput}
             />
             <div>
-              {/* <MyButton
-                styleKit="green"
-                click={
-                  approveState !== ApprovalState.APPROVED
-                    ? approve
-                    : burnCallback
-                }
-                disabled={
-                  approveState === ApprovalState.APPROVED && errorMessage || burnState === BurnState.PENDING
-                }
-              >
-                {approveState !== ApprovalState.APPROVED
-                  ? 'Unlock Token'
-                  : errorMessage && errorMessage.constructor !== Boolean
-                    ? errorMessage
-                    : 'Burn'}
-              </MyButton> */}
-
               <BurnButton
                 styleKit={'green'}
                 isDisabledWhenNotPrepared={false}
@@ -360,18 +341,6 @@ const VaultPage = (props) => {
                   ? errorMessage
                   : 'Burn'}
               </BurnButton>
-              {/* <BurnButton
-                isDisabledWhenNotPrepared={false}
-                onClick={() => console.log('burn')}
-                isConnected={true}
-                connectWallet={() => console.log('Connect Wallet')}
-                isApproved={true}
-                approveToken={() => console.log('Approve Token')}
-                exceptionHandlingDisabled={false}
-                // disabled={true}
-              >
-                Burn
-              </BurnButton> */}
             </div>
           </div>
         </div>

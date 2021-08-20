@@ -15,7 +15,7 @@ import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
 import { useTokenBalance } from '../../../state/wallet/hooks';
-import { useTokenApprove } from '../../../hooks/useTokenApprove';
+import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { useSingleCallResult } from '../../../state/multicall/hooks';
 import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils';
 import { useRewardsData } from '../../../data/RewardsData';
@@ -24,6 +24,9 @@ import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
 import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
 import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
 import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
+import ConnectWalletButtonWrapper from '../../Common/ConnectWalletButtonWrapper';
+import ApproveTokenButtonWrapper from '../../Common/ApproveTokenButtonWrapper';
+import { useWalletModalToggle } from '../../../state/application/hooks';
 
 const PoolDetail = ({ pool }) => {
   const { account, chainId } = useWeb3React();
@@ -54,7 +57,7 @@ const PoolDetail = ({ pool }) => {
       console.error(e);
     }
     return () => { active = false }
-  
+
     async function loadApr() {
       if (!active || !hakkaPrice) { return }
       const newApr = await POOL_ASSETES[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
@@ -70,7 +73,7 @@ const PoolDetail = ({ pool }) => {
       console.error(e);
     }
     return () => { active = false }
-  
+
     async function loadTvl() {
       if (!active || !tokenPrice) { return }
       const newTvl = await POOL_ASSETES[pool].getTvl(tokenPrice);
@@ -110,6 +113,14 @@ const PoolDetail = ({ pool }) => {
   const [depositState, depositCallback] = useDepositCallback(pool, stakeInputAmount, account);
   const [withdrawState, withdrawCallback] = useWithdrawCallback(pool, withdrawInputAmount, account);
 
+  const toggleWalletModal = useWalletModalToggle();
+
+  const DepositButton = ApproveTokenButtonWrapper(
+    ConnectWalletButtonWrapper(MyButton)
+  );
+
+  const ClaimButton = ConnectWalletButtonWrapper(MyButton);
+
   return (
     <div>
       <a sx={styles.btnBack} href='/farms'>
@@ -121,11 +132,11 @@ const PoolDetail = ({ pool }) => {
         <div sx={styles.infoWrapper}>
           <div sx={styles.infoItem}>
             {tvl && parseUnits(tvl).gt(Zero)
-            ? <>
-              <span>TVL</span>
-              <span sx={styles.infoValue}> ${tvl} </span>
-            </>
-            : <></>}
+              ? <>
+                <span>TVL</span>
+                <span sx={styles.infoValue}> ${tvl} </span>
+              </>
+              : <></>}
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
@@ -148,7 +159,7 @@ const PoolDetail = ({ pool }) => {
         <div sx={styles.depositInfoItem}>
           <p>APR</p>
           <span sx={styles.depositInfoValue}>
-          {apr} %
+            {apr} %
           </span>
         </div>
       </div>
@@ -172,13 +183,16 @@ const PoolDetail = ({ pool }) => {
               </div>
             </div>
             <div sx={styles.rewardBtn}>
-              <MyButton
-                click={claimCallback}
-                styleKit="green"
-                disabled={claimState === ClaimState.PENDING}
+              <ClaimButton
+                styleKit={"green"}
+                isDisabledWhenNotPrepared={true}
+                onClick={claimCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                exceptionHandlingDisabled={claimState === ClaimState.PENDING}
               >
                 Claim
-              </MyButton>
+              </ClaimButton>
             </div>
           </div>
           <div sx={styles.rewardInfoContainer}>
@@ -225,58 +239,70 @@ const PoolDetail = ({ pool }) => {
             <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
-          {switchPick === SwitchOption.DEPOSIT
-            ? (
-              <NumericalInputCard
-                value={stakeInputAmount}
-                onUserInput={setStakeInputAmount}
-                tokenBalance={tokenBalance}
-                approve={approve}
-                approveState={approveState}
-              />
-            ) : (
-              <NumericalInputCard
-                value={withdrawInputAmount}
-                onUserInput={setWithdrawInputAmount}
-                tokenBalance={stakedBalance}
-                approve={approve}
-                approveState={approveState}
-              />
-            )}
+            {switchPick === SwitchOption.DEPOSIT
+              ? (
+                <NumericalInputCard
+                  value={stakeInputAmount}
+                  onUserInput={setStakeInputAmount}
+                  tokenBalance={tokenBalance}
+                  approve={approve}
+                  approveState={approveState}
+                />
+              ) : (
+                <NumericalInputCard
+                  value={withdrawInputAmount}
+                  onUserInput={setWithdrawInputAmount}
+                  tokenBalance={stakedBalance}
+                  approve={approve}
+                  approveState={approveState}
+                />
+              )}
           </div>
           {switchPick === SwitchOption.DEPOSIT
             ? (
-              <MyButton
-                click={depositCallback}
-                styleKit="green"
-                disabled={depositState === DepositState.PENDING}
+              <DepositButton
+                styleKit={'green'}
+                isDisabledWhenNotPrepared={false}
+                onClick={depositCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                isApproved={approveState === ApprovalState.APPROVED}
+                approveToken={approve}
+                exceptionHandlingDisabled={depositState === DepositState.PENDING}
               >
-                <p sx={styles.depositBtnContent}>Deposit</p>
-              </MyButton>
-            ) : (
-              <div sx={styles.withdrawBtnContainer}>
-                <div>
-                  <MyButton
-                    click={withdrawCallback}
-                    styleKit="green"
-                    disabled={withdrawState === WithdrawState.PENDING}
-                  >
-                    <p sx={styles.withdrawContent}>Withdraw</p>
-                  </MyButton>
+               Deposit
+              </DepositButton>
+            ) : !!account ? (
+                <div sx={styles.withdrawBtnContainer}>
+                  <div>
+                    <MyButton
+                      click={withdrawCallback}
+                      styleKit="green"
+                      disabled={withdrawState === WithdrawState.PENDING}
+                    >
+                      <p sx={styles.withdrawContent}>Withdraw</p>
+                    </MyButton>
+                  </div>
+                  <div>
+                    <MyButton
+                      click={exitCallback}
+                      disabled={exitState === ExitState.PENDING}
+                    >
+                      <div sx={styles.exitBtnContent}>
+                        <p>Exit</p>
+                        <p className="exitContent">Withdraw all and claim</p>
+                      </div>
+                    </MyButton>
+                  </div>
                 </div>
-                <div>
-                  <MyButton
-                    click={exitCallback}
-                    disabled={exitState === ExitState.PENDING}
-                  >
-                    <div sx={styles.exitBtnContent}>
-                      <p>Exit</p>
-                      <p className="exitContent">Withdraw all and claim</p>
-                    </div>
-                  </MyButton>
-                </div>
-              </div>
-            )}
+              ) : (
+                <MyButton
+                  click={toggleWalletModal}
+                  styleKit={"green"}
+                >
+                  Connect Wallet
+                </MyButton>
+              )}
         </div>
       </div>
     </div>

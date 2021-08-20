@@ -19,6 +19,9 @@ import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
+import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
+import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
+import { useWalletModalToggle } from '../../state/application/hooks';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -65,6 +68,12 @@ const Staking = () => {
     parseUnits(inputAmount || '0'),
     lockTime,
   );
+
+  const toggleWalletModal = useWalletModalToggle();
+
+  const StakeButton = ApproveTokenButtonWrapper(
+    ConnectWalletButtonWrapper(MyButton)
+  )
 
   return (
     <div sx={styles.container}>
@@ -153,19 +162,21 @@ const Staking = () => {
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
-              <MyButton
-                styleKit="green"
-                click={
-                  approveState !== ApprovalState.APPROVED
-                    ? approve
-                    : stakeCallback
+              <StakeButton
+                styleKit={'green'}
+                isDisabledWhenNotPrepared={false}
+                onClick={stakeCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                isApproved={approveState === ApprovalState.APPROVED}
+                approveToken={approve}
+                exceptionHandlingDisabled={
+                  stakeState === StakeState.PENDING 
+                  || approveState === ApprovalState.UNKNOWN
                 }
-                disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}
               >
-                {approveState === ApprovalState.NOT_APPROVED || tokenAllowance?.equalTo('0')
-                  ? 'Unlock Token'
-                  : 'Stake'}
-              </MyButton>
+                Stake
+              </StakeButton>
             </div>
           </div>
         </div>
@@ -183,7 +194,16 @@ const Staking = () => {
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) => <StakePositionItem key={index} sHakkaBalance={sHakkaBalance} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
+          {vaults.map((vault, index) => 
+            <StakePositionItem 
+              key={index} 
+              sHakkaBalance={sHakkaBalance} 
+              index={index} 
+              stakedHakka={vault?.result?.hakkaAmount} 
+              sHakkaReceived={vault?.result?.wAmount} 
+              until={vault?.result?.unlockTime} 
+            />
+          )}
         </div>
       </div>
     </div>
