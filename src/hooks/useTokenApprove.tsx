@@ -15,7 +15,7 @@ export enum ApprovalState {
   APPROVED,
 }
 
-export function useApproveCallback(
+export function useTokenApprove(
   tokenToApprove: Token,
   spender: string,
   requiredAllowance: string,

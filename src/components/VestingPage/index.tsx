@@ -156,7 +156,7 @@ const VestingPage = () => {
               <div sx={styles.claimBtn}>
                 <MyButton
                   click={claimCallback}
-                  type="green"
+                  styleKit="green"
                   disabled={claimState === VestingState.PENDING || isWaitingCycle}
                 >
                   {isWaitingCycle ? (

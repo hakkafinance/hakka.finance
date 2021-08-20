@@ -16,12 +16,16 @@ import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
 import { useActiveWeb3React } from '../../hooks/index';
-import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
+import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback';
 import { useTokenAllowance } from '../../data/Allowances';
 import { shortenAddress, getEtherscanLink } from '../../utils';
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks';
 import { useTotalSupply } from '../../data/TotalSupply';
+import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
+import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
+import { useWalletModalToggle } from '../../state/application/hooks';
+
 
 import {
   ChainId,
@@ -49,7 +53,7 @@ const VaultPage = (props) => {
   const [isShowNewTokenArea, setIsShowNewTokenArea] = useState(false);
   const [newRewardAddressInput, setNewRewardAddressInput] = useState<string>('');
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId],
     inputAmount,
@@ -154,6 +158,11 @@ const VaultPage = (props) => {
     pickedRewardTokensAddress,
   );
 
+  const toggleWalletModal = useWalletModalToggle();
+
+  const TryMixButton1 = ConnectWalletButtonWrapper(MyButton)
+  const TryMixButton2 = ApproveTokenButtonWrapper(TryMixButton1)
+
   // error message
   const noAccountError = useMemo(
     () => (account ? '' : 'Wallet is not connected.'),
@@ -256,7 +265,7 @@ const VaultPage = (props) => {
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
               amountError={amountError}
               totalSupplyError={totalSupplyError}
@@ -318,11 +327,11 @@ const VaultPage = (props) => {
               newRewardAddressInput={newRewardAddressInput}
             />
             <div>
-              <MyButton
-                type="green"
+              {/* <MyButton
+                styleKit="green"
                 click={
                   approveState !== ApprovalState.APPROVED
-                    ? approveCallback
+                    ? approve
                     : burnCallback
                 }
                 disabled={
@@ -334,7 +343,35 @@ const VaultPage = (props) => {
                   : errorMessage && errorMessage.constructor !== Boolean
                     ? errorMessage
                     : 'Burn'}
-              </MyButton>
+              </MyButton> */}
+
+              <TryMixButton2
+                styleKit={'green'}
+                isDisabledWhenNotPrepared={false}
+                onClick={burnCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                isApproved={approveState === ApprovalState.APPROVED}
+                approveToken={approve}
+                exceptionHandlingDisabled={!!errorMessage || burnState === BurnState.PENDING}
+              >
+                {errorMessage && errorMessage.constructor !== Boolean
+                  ? errorMessage
+                  : 'Burn'}
+              </TryMixButton2>
+
+              {/* <TryMixButton2
+                isDisabledWhenNotPrepared={false}
+                onClick={() => console.log('burn')}
+                isConnected={true}
+                connectWallet={() => console.log('Connect Wallet')}
+                isApproved={true}
+                approveToken={() => console.log('Approve Token')}
+                exceptionHandlingDisabled={false}
+                // disabled={true}
+              >
+                Burn
+              </TryMixButton2> */}
             </div>
           </div>
         </div>
