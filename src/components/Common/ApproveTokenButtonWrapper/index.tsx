@@ -11,8 +11,7 @@ export interface HocButtonWrapperPropsInterface extends React.ButtonHTMLAttribut
   styleKit?: 'green' | 'default';
 }
 
-// React.ComponentType
-const ApproveTokenButtonWrapper = (WrappedComponent) => (props:HocButtonWrapperPropsInterface) => {
+const ApproveTokenButtonWrapper = (WrappedComponent: React.ComponentType) => (props:HocButtonWrapperPropsInterface) => {
   const {
     isDisabledWhenNotPrepared,
     isApproved,

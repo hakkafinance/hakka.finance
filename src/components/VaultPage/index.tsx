@@ -160,8 +160,9 @@ const VaultPage = (props) => {
 
   const toggleWalletModal = useWalletModalToggle();
 
-  const TryMixButton1 = ConnectWalletButtonWrapper(MyButton)
-  const TryMixButton2 = ApproveTokenButtonWrapper(TryMixButton1)
+  const BurnButton = ApproveTokenButtonWrapper(
+    ConnectWalletButtonWrapper(MyButton)
+  )
 
   // error message
   const noAccountError = useMemo(
@@ -345,7 +346,7 @@ const VaultPage = (props) => {
                     : 'Burn'}
               </MyButton> */}
 
-              <TryMixButton2
+              <BurnButton
                 styleKit={'green'}
                 isDisabledWhenNotPrepared={false}
                 onClick={burnCallback}
@@ -358,9 +359,8 @@ const VaultPage = (props) => {
                 {errorMessage && errorMessage.constructor !== Boolean
                   ? errorMessage
                   : 'Burn'}
-              </TryMixButton2>
-
-              {/* <TryMixButton2
+              </BurnButton>
+              {/* <BurnButton
                 isDisabledWhenNotPrepared={false}
                 onClick={() => console.log('burn')}
                 isConnected={true}
@@ -371,7 +371,7 @@ const VaultPage = (props) => {
                 // disabled={true}
               >
                 Burn
-              </TryMixButton2> */}
+              </BurnButton> */}
             </div>
           </div>
         </div>

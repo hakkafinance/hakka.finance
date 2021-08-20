@@ -13,7 +13,7 @@ const MyButton = (props) => {
 
 MyButton.propTypes = {
   disabled: types.bool,
-  styleType: 'green' || 'default',
+  styleKit: types.oneOf(['green','default']),
   click: types.func,
 };
 

@@ -1,9 +1,8 @@
 import React from "react";
 import { HocButtonWrapperPropsInterface } from "../ApproveTokenButtonWrapper/index"
 
-// React.ComponentType
-const ConnectWalletButtonWrapper = (WrappedComponent) => (props:HocButtonWrapperPropsInterface) => {
-  const { 
+const ConnectWalletButtonWrapper = (WrappedComponent: React.ComponentType) => (props: HocButtonWrapperPropsInterface) => {
+  const {
     isDisabledWhenNotPrepared, 
     isApproved, 
     isConnected, 
@@ -16,10 +15,10 @@ const ConnectWalletButtonWrapper = (WrappedComponent) => (props:HocButtonWrapper
   } = props;
   
   
-  const disabledProps = disabled || (isDisabledWhenNotPrepared ? !isConnected : false) ;
-  const exceptionHandlingDisabledProps = (typeof(isApproved) === "undefined" ? isConnected : (isConnected && isApproved)) && exceptionHandlingDisabled ;
+  const disabledProps = disabled || (isDisabledWhenNotPrepared ? !isConnected : false);
+  const exceptionHandlingDisabledProps = (typeof(isApproved) === 'undefined' ? isConnected : (isConnected && isApproved)) && exceptionHandlingDisabled;
   const clickProps = !isDisabledWhenNotPrepared && !isConnected ? connectWallet : (click || onClick);
-  const childrenProps = !isDisabledWhenNotPrepared && !isConnected ? 'Connect Wallet'  : children;
+  const childrenProps = !isDisabledWhenNotPrepared && !isConnected ? 'Connect Wallet' : children;
 
   const wrappedComponentProps = {  
     ...props,
