@@ -195,15 +195,20 @@ const VaultPage = (props) => {
         setApproveError('');
       }
 
-      if (parseFloat(hakkaBalance.raw.toString()) < parseFloat(inputAmount)) {
-        console.log(
-          `the amount ${inputAmount} is more than your balance ${hakkaBalance.raw.toString()}`,
-        );
-        setAmountError('Insufficient balance');
-      } else if (parseFloat(inputAmount) > allowance) {
-        setAmountError('Please approve to continue');
-      } else {
-        setAmountError('');
+      if(hakkaBalance){
+        const bigNumberInputAmount = new BigNumber(inputAmount).isNaN() ? new BigNumber(0) : new BigNumber(inputAmount)
+        const bigNumberHakkaBalance = new BigNumber(hakkaBalance.raw.toString()).dividedBy(bignumber1e18)
+
+        if (bigNumberInputAmount.isGreaterThan(bigNumberHakkaBalance)) {
+          console.log(
+            `the amount ${bigNumberInputAmount.toString()} is more than your balance ${bigNumberHakkaBalance.toString()}`,
+          );
+          setAmountError('Insufficient balance');
+        } else if (parseFloat(inputAmount) > allowance) {
+          setAmountError('Please approve to continue');
+        } else {
+          setAmountError('');
+        }
       }
     }
   }, [hakkaBalance, inputAmount, allowance, approveState, chainId]);
@@ -211,7 +216,7 @@ const VaultPage = (props) => {
   // check the input amount is not bigger than total supply
   const [totalSupplyError, setTotalSupplyError] = useState<string>('');
   useEffect(() => {
-    if (parseFloat(inputAmount) > hakkaTotalSupply.div(bignumber1e18).toNumber()) {
+    if (new BigNumber(inputAmount).isGreaterThan(hakkaTotalSupply.div(bignumber1e18))) {
       setTotalSupplyError(
         'The amount is more than HAKKA total supply',
       );
