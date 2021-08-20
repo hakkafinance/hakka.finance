@@ -11,7 +11,7 @@ import Web3Status from '../Web3Status';
 import NumericalInputCard from '../NumericalInputCard';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
-import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
+import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useStakeCallback, StakeState } from '../../hooks/useStakeCallback';
 import { useTokenAllowance } from '../../data/Allowances';
 import StakePositionItem from './StakePositionItem/index';
@@ -39,7 +39,7 @@ const Staking = () => {
     stakingBalance, sHakkaBalance, votingPower, stakingRate, vaults,
   } = useStakingData();
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     STAKING_ADDRESSES[chainId as ChainId],
     inputAmount,
@@ -117,27 +117,30 @@ const Staking = () => {
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
-              //  amountError={amountError}
-              //  totalSupplyError={totalSupplyError}
+            //  amountError={amountError}
+            //  totalSupplyError={totalSupplyError}
             />
-            <p sx={{ margin: '20px 0 8px 0' }}>Lock time (month)</p>
+            <p sx={{ margin: '20px 0 8px 0' }}>Lock time</p>
             <div sx={styles.optionContainer}>
-              <div sx={styles.optionWrapper}>
-                {stakingMonth.map((month) => (
-                  <div
-                    onClick={() => setLockTime(month)}
-                    sx={
-                      lockTime === month
-                        ? styles.optionItemActive
-                        : styles.optionItem
-                    }
-                    key={month}
-                  >
-                    {month}
-                  </div>
-                ))}
+              <div sx={styles.monthSwitch}>
+                <div sx={styles.optionWrapper}>
+                  {stakingMonth.map((month) => (
+                    <div
+                      onClick={() => setLockTime(month)}
+                      sx={
+                        lockTime === month
+                          ? styles.optionItemActive
+                          : styles.optionItem
+                      }
+                      key={month}
+                    >
+                      {month}
+                    </div>
+                  ))}
+                </div>
+                <span>Month(s)</span>
               </div>
               <span sx={styles.lockTimeUntil}>
                 until {lockUntil}
@@ -145,16 +148,16 @@ const Staking = () => {
             </div>
             <div sx={styles.getsHakkaWrapper}>
               <span sx={{ fontWeight: 'normal' }}>
-                Get sHAKKA (voting power)
+                Get sHAKKA (Voting Power)
               </span>
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
               <MyButton
-                type="green"
+                styleKit="green"
                 click={
                   approveState !== ApprovalState.APPROVED
-                    ? approveCallback
+                    ? approve
                     : stakeCallback
                 }
                 disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}

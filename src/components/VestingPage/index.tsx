@@ -23,6 +23,8 @@ import {
   VESTING_ADDRESSES,
 } from '../../constants';
 import { useVestingContract } from '../../hooks/useContract';
+import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
+import { useWalletModalToggle } from '../../state/application/hooks';
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
@@ -91,6 +93,9 @@ const VestingPage = () => {
     </div>
   );
 
+  const toggleWalletModal = useWalletModalToggle();
+  const ClaimButton = ConnectWalletButtonWrapper(MyButton)
+
   return (
     <>
       <div sx={styles.container}>
@@ -103,7 +108,7 @@ const VestingPage = () => {
             <img src={images.iconBack} sx={styles.iconBack} />
             <span>Back</span>
           </div> */}
-          
+
           {/* for temporary change, it should be 'Vesting' */}
           <h3 sx={styles.heading}></h3>
           <div sx={styles.vestingCardWrapper}>
@@ -154,9 +159,9 @@ const VestingPage = () => {
                 <img src={images.iconLinkNormal} sx={styles.iconLink} />
               </a>
               <div sx={styles.claimBtn}>
-                <MyButton
+                {/* <MyButton
                   click={claimCallback}
-                  type="green"
+                  styleKit="green"
                   disabled={claimState === VestingState.PENDING || isWaitingCycle}
                 >
                   {isWaitingCycle ? (
@@ -165,7 +170,22 @@ const VestingPage = () => {
                       renderer={countdownRenderer}
                     />
                   ) : 'Claim'}
-                </MyButton>
+                </MyButton> */}
+                <ClaimButton
+                  styleKit={"green"}
+                  isDisabledWhenNotPrepared={false}
+                  onClick={claimCallback}
+                  isConnected={!!account}
+                  connectWallet={toggleWalletModal}
+                  exceptionHandlingDisabled={claimState === VestingState.PENDING || isWaitingCycle}
+                >
+                  {isWaitingCycle ? (
+                    <Countdown
+                      date={parseInt(lastWithdrawalTime?.result?.toString()) * 1000 + 1641600000}
+                      renderer={countdownRenderer}
+                    />
+                  ) : 'Claim'}
+                </ClaimButton>
               </div>
             </div>
           </div>

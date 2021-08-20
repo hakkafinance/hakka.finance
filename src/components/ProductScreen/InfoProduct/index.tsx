@@ -52,7 +52,7 @@ const InfoProduct = (props) => {
             <Flex sx={styles.btn_section}>
               <MyButton disabled={!dataInfo?.whitepaper} click={() => { window.open(dataInfo?.whitepaper, '_blank').focus(); }}>Whitepaper</MyButton>
               <Box ml="28px" mt="12px" />
-              <MyButton disabled={!dataInfo?.vist} click={() => { window.open(dataInfo?.vist, '_blank').focus(); }} type="green">{dataInfo?.visitButtonContent || 'Visit'}</MyButton>
+              <MyButton disabled={!dataInfo?.vist} click={() => { window.open(dataInfo?.vist, '_blank').focus(); }} styleKit="green">{dataInfo?.visitButtonContent || 'Visit'}</MyButton>
             </Flex>
           </Box>
         </Box>

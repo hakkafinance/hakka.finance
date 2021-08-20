@@ -10,7 +10,7 @@ import styles from './styles';
 import MyButton from '../../Common/MyButton/index';
 import NumericalInputCard from '../../NumericalInputCard';
 import { useActiveWeb3React } from '../../../hooks/index';
-import { useApproveCallback } from '../../../hooks/useApproveCallback';
+import { useTokenApprove } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
 import { tryParseAmount } from '../../../utils';
@@ -34,7 +34,7 @@ const StakePositionItem = (props: StakePositionProps) => {
     [inputAmount, stakedHakka, sHakkaReceived],
   );
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     STAKING_ADDRESSES[chainId as ChainId],
     inputAmount,
@@ -119,7 +119,7 @@ const StakePositionItem = (props: StakePositionProps) => {
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
             />
           </div>
@@ -131,7 +131,7 @@ const StakePositionItem = (props: StakePositionProps) => {
             </div>
           </div>
           <div sx={styles.redeemBtn}>
-            <MyButton type="green" click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING || sHakkaReceived.eq(0)}>Redeem</MyButton>
+            <MyButton styleKit="green" click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING || sHakkaReceived.eq(0)}>Redeem</MyButton>
           </div>
         </div>
         )}

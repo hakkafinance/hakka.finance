@@ -15,7 +15,7 @@ import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
 import { useTokenBalance } from '../../../state/wallet/hooks';
-import { useApproveCallback } from '../../../hooks/useApproveCallback';
+import { useTokenApprove } from '../../../hooks/useTokenApprove';
 import { useSingleCallResult } from '../../../state/multicall/hooks';
 import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils';
 import { useRewardsData } from '../../../data/RewardsData';
@@ -92,7 +92,7 @@ const PoolDetail = ({ pool }) => {
     stakedToken,
   );
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     token,
     pool,
     stakeInputAmount > withdrawInputAmount ? stakeInputAmount : withdrawInputAmount,
@@ -174,7 +174,7 @@ const PoolDetail = ({ pool }) => {
             <div sx={styles.rewardBtn}>
               <MyButton
                 click={claimCallback}
-                type="green"
+                styleKit="green"
                 disabled={claimState === ClaimState.PENDING}
               >
                 Claim
@@ -231,7 +231,7 @@ const PoolDetail = ({ pool }) => {
                 value={stakeInputAmount}
                 onUserInput={setStakeInputAmount}
                 tokenBalance={tokenBalance}
-                approveCallback={approveCallback}
+                approve={approve}
                 approveState={approveState}
               />
             ) : (
@@ -239,7 +239,7 @@ const PoolDetail = ({ pool }) => {
                 value={withdrawInputAmount}
                 onUserInput={setWithdrawInputAmount}
                 tokenBalance={stakedBalance}
-                approveCallback={approveCallback}
+                approve={approve}
                 approveState={approveState}
               />
             )}
@@ -248,7 +248,7 @@ const PoolDetail = ({ pool }) => {
             ? (
               <MyButton
                 click={depositCallback}
-                type="green"
+                styleKit="green"
                 disabled={depositState === DepositState.PENDING}
               >
                 <p sx={styles.depositBtnContent}>Deposit</p>
@@ -258,7 +258,7 @@ const PoolDetail = ({ pool }) => {
                 <div>
                   <MyButton
                     click={withdrawCallback}
-                    type="green"
+                    styleKit="green"
                     disabled={withdrawState === WithdrawState.PENDING}
                   >
                     <p sx={styles.withdrawContent}>Withdraw</p>

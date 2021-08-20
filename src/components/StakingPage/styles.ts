@@ -224,6 +224,20 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
 
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start'
+    },
+  },
+
+  monthSwitch: {
+    display: 'flex',
+    alignItems: 'center',
+
+    'span': {
+      paddingLeft: '12px',
+      fontWeight: 'bold',
+    },
   },
 
   optionWrapper: {
@@ -269,6 +283,10 @@ export default {
     fontWeight: '600',
     lineHeight: '1.5',
     color: '#253e47',
+
+    '@media screen and (max-width: 576px)': {
+      marginTop: "0.5rem",
+    },
   },
 
   getsHakkaWrapper: {
