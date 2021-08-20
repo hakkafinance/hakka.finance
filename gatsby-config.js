@@ -40,6 +40,13 @@ module.exports = {
           families: ['Open Sans', 'Open+Sans:wght@400;600;700', 'Droid Serif']
         }
       }
+    },
+    {
+      resolve: 'gatsby-plugin-tawk.to',
+      options: {
+        tawkId: process.env.TAWK_ID,
+        tawkKey: process.env.TAWK_KEY
+      }
     }
   ]
 }
