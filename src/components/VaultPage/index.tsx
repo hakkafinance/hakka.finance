@@ -25,6 +25,7 @@ import { useTotalSupply } from '../../data/TotalSupply';
 import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
 import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
+import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
 
 import {
   ChainId,
@@ -160,7 +161,9 @@ const VaultPage = (props) => {
   const toggleWalletModal = useWalletModalToggle();
 
   const BurnButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(MyButton)
+    ConnectWalletButtonWrapper(
+      WithWrongNetworkCheckWrapper(MyButton)
+    )
   )
 
   // error message
@@ -341,6 +344,7 @@ const VaultPage = (props) => {
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
                 exceptionHandlingDisabled={!!errorMessage || burnState === BurnState.PENDING}
+                unsupported={BURNER_ADDRESS[chainId as ChainId] === AddressZero}
               >
                 {errorMessage && errorMessage.constructor !== Boolean
                   ? errorMessage

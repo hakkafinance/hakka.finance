@@ -9,6 +9,7 @@ export interface HocButtonWrapperPropsInterface extends React.ButtonHTMLAttribut
   click?: ()=> void;
   exceptionHandlingDisabled?: boolean;
   styleKit?: 'green' | 'default';
+  unsupported?: boolean;
 }
 
 const ApproveTokenButtonWrapper = (WrappedComponent: React.ComponentType) => (props:HocButtonWrapperPropsInterface) => {
