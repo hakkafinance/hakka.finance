@@ -119,7 +119,7 @@ const Staking = () => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toFixed(2)}
+                {hakkaBalance?.toFixed(2) || '0.00'}
               </span>
             </div>
             <NumericalInputCard

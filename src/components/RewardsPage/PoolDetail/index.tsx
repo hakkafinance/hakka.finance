@@ -159,7 +159,7 @@ const PoolDetail = ({ pool }) => {
         <div sx={styles.depositInfoItem}>
           <p>APR</p>
           <span sx={styles.depositInfoValue}>
-            {apr} %
+            {apr}%
           </span>
         </div>
       </div>
@@ -236,7 +236,7 @@ const PoolDetail = ({ pool }) => {
           </div>
           <div sx={styles.stakeBalanceContainer}>
             <span>Amount</span>
-            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? tokenBalance?.toExact() : stakedBalance?.toExact()}</span>
+            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? (tokenBalance?.toExact()|| '0.00') : (stakedBalance?.toExact() || '0.00')}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
             {switchPick === SwitchOption.DEPOSIT

@@ -22,7 +22,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => (
     <div sx={styles.illustration} />
     <div sx={styles.header}>
       <p>
-        APR {props.apr} %
+        APR {props.apr}%
       </p>
       <img sx={styles.icon} src={props.tokenImage} />
     </div>

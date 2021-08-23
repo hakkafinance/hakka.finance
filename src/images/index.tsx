@@ -27,8 +27,8 @@ const images = {
   iconInform: require('./icons/iconInform.svg').default,
 
   // web applications icon
-
   iconMedium: require('./icons/iconMedium.svg').default,
+  iconMediumLarge: require('./icons/iconMediumLarge.svg').default,
   iconTelegram: require('./icons/iconTelegram.svg').default,
   iconTwitter: require('./icons/iconTwitter.svg').default,
   iconDiscord: require('./icons/iconDiscord.svg').default,
