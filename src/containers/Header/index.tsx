@@ -21,7 +21,7 @@ const Header = (props) => {
       href: 'https://discord.com/invite/zYfqpUQ',
     },
     {
-      url: 'iconMedium',
+      url: 'iconMediumLarge',
       href: 'https://medium.com/hakkafinance',
     },
     {
