@@ -263,7 +263,7 @@ const VaultPage = (props) => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toSignificant(10)}
+                {hakkaBalance?.toSignificant(10) || '0.00'}
               </span>
             </div>
             <NumericalInputCard

@@ -114,8 +114,8 @@ const StakePositionItem = (props: StakePositionProps) => {
             <div sx={styles.balance}>
               <span>Burn</span>
               <span>
-                sHAKKA Balance:
-                {sHakkaBalance.toFixed(2)}
+                {'sHAKKA Balance: '}
+                {sHakkaBalance.toFixed(2) || '0.00'}
               </span>
             </div>
             <NumericalInputCard
