@@ -41,7 +41,7 @@ export default function AccountDetails({
       .map((k) => SUPPORTED_WALLETS[k].name)[0];
     return (
       <div sx={styles.walletName}>
-        Connected with
+        {'Connected with '}
         {connector === injected && isMetaMask ? 'MetaMask' : name}
       </div>
     );

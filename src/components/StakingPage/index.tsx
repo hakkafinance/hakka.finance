@@ -186,7 +186,7 @@ const Staking = () => {
           <hr sx={styles.hr} />
           <div sx={styles.sHakkaRewardLinkWrapper}>
             <span>Earn more Hakka</span>
-            <a sx={styles.sHakkaRewardLinkBtn} target="_blank" href="https://rewards.hakka.finance/stake/0xd9958826Bce875A75cc1789D5929459E6ff15040" rel="noreferrer">
+            <a sx={styles.sHakkaRewardLinkBtn} href="/farms/0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977" rel="noreferrer">
               <span>sHAKKA Reward</span>
               <img src={images.iconForwardGreen} />
             </a>

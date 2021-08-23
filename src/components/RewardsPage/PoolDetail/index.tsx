@@ -140,7 +140,7 @@ const PoolDetail = ({ pool }) => {
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
-            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
+            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}>{shortenAddress(pool)}</a>
           </div>
         </div>
         <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
