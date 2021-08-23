@@ -159,7 +159,7 @@ const PoolDetail = ({ pool }) => {
         <div sx={styles.depositInfoItem}>
           <p>APR</p>
           <span sx={styles.depositInfoValue}>
-            {apr} %
+            {apr}%
           </span>
         </div>
       </div>
