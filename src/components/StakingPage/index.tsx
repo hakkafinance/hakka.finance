@@ -22,6 +22,7 @@ import { tryParseAmount } from '../../utils';
 import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
 import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
+import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -72,7 +73,9 @@ const Staking = () => {
   const toggleWalletModal = useWalletModalToggle();
 
   const StakeButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(MyButton)
+    ConnectWalletButtonWrapper(
+      WithWrongNetworkCheckWrapper(MyButton)
+    )
   )
 
   return (
@@ -174,6 +177,7 @@ const Staking = () => {
                   stakeState === StakeState.PENDING 
                   || approveState === ApprovalState.UNKNOWN
                 }
+                unsupported={STAKING_ADDRESSES[chainId as ChainId] === AddressZero}
               >
                 Stake
               </StakeButton>
