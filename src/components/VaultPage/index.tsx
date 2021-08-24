@@ -22,10 +22,11 @@ import { useTokenAllowance } from '../../data/Allowances';
 import { shortenAddress, getEtherscanLink } from '../../utils';
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks';
 import { useTotalSupply } from '../../data/TotalSupply';
-import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
-import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
-import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
+import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
+import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
+
 
 import {
   ChainId,
@@ -160,9 +161,9 @@ const VaultPage = (props) => {
 
   const toggleWalletModal = useWalletModalToggle();
 
-  const BurnButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(
-      WithWrongNetworkCheckWrapper(MyButton)
+  const BurnButton = withApproveTokenCheckWrapper(
+    withWrongNetworkCheckWrapper(
+      withConnectWalletCheckWrapper(MyButton)
     )
   )
 
@@ -198,7 +199,7 @@ const VaultPage = (props) => {
         setApproveError('');
       }
 
-      if(hakkaBalance){
+      if (hakkaBalance) {
         const bigNumberInputAmount = new BigNumber(inputAmount).isNaN() ? new BigNumber(0) : new BigNumber(inputAmount)
         const bigNumberHakkaBalance = new BigNumber(hakkaBalance.raw.toString()).dividedBy(bignumber1e18)
 
@@ -343,8 +344,8 @@ const VaultPage = (props) => {
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
-                exceptionHandlingDisabled={!!errorMessage || burnState === BurnState.PENDING}
-                unsupported={BURNER_ADDRESS[chainId as ChainId] === AddressZero}
+                disabled={!!errorMessage || burnState === BurnState.PENDING}
+                isCorrectNetwork={!!BURNER_ADDRESS[chainId as ChainId] && BURNER_ADDRESS[chainId as ChainId] !== AddressZero}
               >
                 {errorMessage && errorMessage.constructor !== Boolean
                   ? errorMessage

@@ -19,10 +19,10 @@ import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
-import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
-import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
-import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
+import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
+import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -72,9 +72,9 @@ const Staking = () => {
 
   const toggleWalletModal = useWalletModalToggle();
 
-  const StakeButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(
-      WithWrongNetworkCheckWrapper(MyButton)
+  const StakeButton = withApproveTokenCheckWrapper(
+    withWrongNetworkCheckWrapper(
+      withConnectWalletCheckWrapper(MyButton)
     )
   )
 
@@ -173,11 +173,8 @@ const Staking = () => {
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
-                exceptionHandlingDisabled={
-                  stakeState === StakeState.PENDING 
-                  || approveState === ApprovalState.UNKNOWN
-                }
-                unsupported={STAKING_ADDRESSES[chainId as ChainId] === AddressZero}
+                disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}
+                isCorrectNetwork={!!STAKING_ADDRESSES[chainId as ChainId] && STAKING_ADDRESSES[chainId as ChainId] !== AddressZero}
               >
                 Stake
               </StakeButton>
@@ -198,14 +195,14 @@ const Staking = () => {
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) => 
-            <StakePositionItem 
-              key={index} 
-              sHakkaBalance={sHakkaBalance} 
-              index={index} 
-              stakedHakka={vault?.result?.hakkaAmount} 
-              sHakkaReceived={vault?.result?.wAmount} 
-              until={vault?.result?.unlockTime} 
+          {vaults.map((vault, index) =>
+            <StakePositionItem
+              key={index}
+              sHakkaBalance={sHakkaBalance}
+              index={index}
+              stakedHakka={vault?.result?.hakkaAmount}
+              sHakkaReceived={vault?.result?.wAmount}
+              until={vault?.result?.unlockTime}
             />
           )}
         </div>

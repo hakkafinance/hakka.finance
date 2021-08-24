@@ -23,9 +23,9 @@ import {
   VESTING_ADDRESSES,
 } from '../../constants';
 import { useVestingContract } from '../../hooks/useContract';
-import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
-import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
+import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
@@ -95,8 +95,8 @@ const VestingPage = () => {
   );
 
   const toggleWalletModal = useWalletModalToggle();
-  const ClaimButton = ConnectWalletButtonWrapper(
-    WithWrongNetworkCheckWrapper(MyButton)
+  const ClaimButton = withWrongNetworkCheckWrapper(
+    withConnectWalletCheckWrapper(MyButton)
   );
 
   return (
@@ -165,11 +165,11 @@ const VestingPage = () => {
                 <ClaimButton
                   styleKit={"green"}
                   isDisabledWhenNotPrepared={false}
-                  onClick={claimCallback}
                   isConnected={!!account}
                   connectWallet={toggleWalletModal}
-                  exceptionHandlingDisabled={claimState === VestingState.PENDING || isWaitingCycle}
-                  unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero}
+                  isCorrectNetwork={!!VESTING_ADDRESSES[chainId as ChainId] && VESTING_ADDRESSES[chainId as ChainId] !== AddressZero}
+                  onClick={claimCallback}
+                  disabled={claimState === VestingState.PENDING || isWaitingCycle}
                 >
                   {isWaitingCycle ? (
                     <Countdown
@@ -183,7 +183,6 @@ const VestingPage = () => {
           </div>
         </div>
       </div>
-
       <ClaimModal />
     </>
   );

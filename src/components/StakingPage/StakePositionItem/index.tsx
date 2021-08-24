@@ -14,7 +14,7 @@ import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
 import { tryParseAmount } from '../../../utils';
-import ApproveTokenButtonWrapper from '../../Common/ApproveTokenButtonWrapper';
+import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 
 interface StakePositionProps {
   index: number;
@@ -73,7 +73,7 @@ const StakePositionItem = (props: StakePositionProps) => {
     </div>
   );
 
-  const RedeemButton = ApproveTokenButtonWrapper(MyButton)
+  const RedeemButton = withApproveTokenCheckWrapper(MyButton)
 
   return (
     <div sx={styles.positionFormWrapper}>
