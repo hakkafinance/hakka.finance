@@ -47,6 +47,8 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
       } else {
         setAmountError('');
       }
+    } else {
+      setAmountError('');
     }
   }, [tokenBalance, value, approveState, chainId]);
 
