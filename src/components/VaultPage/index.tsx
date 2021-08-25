@@ -11,7 +11,7 @@ import images from '../../images/index';
 import styles from './styles';
 import MyButton from '../Common/MyButton/index';
 import RewardListItem from './RewardListItem/index';
-import NumericalInputCard from '../NumericalInputCard/index';
+import NumericalInputField from '../NumericalInputField/index';
 import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
@@ -168,72 +168,10 @@ const VaultPage = (props) => {
   )
 
   // error message
-  const noAccountError = useMemo(
-    () => (account ? '' : 'Wallet is not connected.'),
-    [account],
-  );
-
   const noAmountError = useMemo(() => !inputAmount, [inputAmount]);
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
 
-  // check amount, balance, allowance
-  const [amountError, setAmountError] = useState<string>('');
-  const [approveError, setApproveError] = useState<string>('');
-
-  const tokenAllowance = useTokenAllowance(
-    HAKKA[chainId as ChainId],
-    account ?? undefined,
-    BURNER_ADDRESS[chainId as ChainId],
-  );
-
-  let allowance: number = 0;
-  if (tokenAllowance) {
-    allowance = new BigNumber(parseFloat(tokenAllowance.raw.toString())).div(bignumber1e18).toNumber();
-  }
-
-  useEffect(() => {
-    if (inputAmount && approveState) {
-      if (approveState !== ApprovalState.APPROVED || allowance === 0) {
-        setApproveError('Please approve to continue');
-      } else {
-        setApproveError('');
-      }
-
-      if (hakkaBalance) {
-        const bigNumberInputAmount = new BigNumber(inputAmount).isNaN() ? new BigNumber(0) : new BigNumber(inputAmount)
-        const bigNumberHakkaBalance = new BigNumber(hakkaBalance.raw.toString()).dividedBy(bignumber1e18)
-
-        if (bigNumberInputAmount.isGreaterThan(bigNumberHakkaBalance)) {
-          console.log(
-            `the amount ${bigNumberInputAmount.toString()} is more than your balance ${bigNumberHakkaBalance.toString()}`,
-          );
-          setAmountError('Insufficient balance');
-        } else if (parseFloat(inputAmount) > allowance) {
-          setAmountError('Please approve to continue');
-        } else {
-          setAmountError('');
-        }
-      }
-    }
-  }, [hakkaBalance, inputAmount, allowance, approveState, chainId]);
-
-  // check the input amount is not bigger than total supply
-  const [totalSupplyError, setTotalSupplyError] = useState<string>('');
-  useEffect(() => {
-    if (new BigNumber(inputAmount).isGreaterThan(hakkaTotalSupply.div(bignumber1e18))) {
-      setTotalSupplyError(
-        'The amount is more than HAKKA total supply',
-      );
-    } else {
-      setTotalSupplyError('');
-    }
-  }, [inputAmount]);
-
-  const errorMessage = noAccountError
-    || approveError
-    || totalSupplyError
-    || amountError
-    || noAmountError
+  const errorMessage = noAmountError
     || noTokenError;
 
   return (
@@ -270,14 +208,12 @@ const VaultPage = (props) => {
                 {hakkaBalance?.toSignificant(10) || '0.00'}
               </span>
             </div>
-            <NumericalInputCard
+            <NumericalInputField
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
-              amountError={amountError}
-              totalSupplyError={totalSupplyError}
             />
           </div>
           <div sx={styles.formContainer}>

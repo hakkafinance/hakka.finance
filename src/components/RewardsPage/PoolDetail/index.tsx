@@ -10,7 +10,7 @@ import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
-import NumericalInputCard from '../../NumericalInputCard/index';
+import NumericalInputField from '../../NumericalInputField/index';
 import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
@@ -38,7 +38,7 @@ const PoolDetail = ({ pool }) => {
     'balanceOf',
     [account],
   );
-  
+
   const vestingValueAmount = useMemo(
     () => (vestingValue.result && chainId
       ? new TokenAmount(HAKKA[chainId || 1], vestingValue.result.toString())
@@ -300,7 +300,7 @@ const PoolDetail = ({ pool }) => {
           <div sx={styles.numericalInputWrapper}>
             {switchPick === SwitchOption.DEPOSIT
               ? (
-                <NumericalInputCard
+                <NumericalInputField
                   value={stakeInputAmount}
                   onUserInput={setStakeInputAmount}
                   tokenBalance={tokenBalance}
@@ -308,7 +308,7 @@ const PoolDetail = ({ pool }) => {
                   approveState={approveState}
                 />
               ) : (
-                <NumericalInputCard
+                <NumericalInputField
                   value={withdrawInputAmount}
                   onUserInput={setWithdrawInputAmount}
                   tokenBalance={stakedBalance}

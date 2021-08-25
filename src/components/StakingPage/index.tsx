@@ -8,12 +8,11 @@ import images from '../../images';
 import styles from './styles';
 import MyButton from '../../components/Common/MyButton/index';
 import Web3Status from '../Web3Status';
-import NumericalInputCard from '../NumericalInputCard';
+import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useStakeCallback, StakeState } from '../../hooks/useStakeCallback';
-import { useTokenAllowance } from '../../data/Allowances';
 import StakePositionItem from './StakePositionItem/index';
 import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
@@ -26,14 +25,7 @@ import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
-
   const [inputAmount, setInputAmount] = useState<string>('0');
-
-  const tokenAllowance = useTokenAllowance(
-    HAKKA[chainId as ChainId],
-    account ?? undefined,
-    STAKING_ADDRESSES[chainId as ChainId],
-  );
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -125,14 +117,12 @@ const Staking = () => {
                 {hakkaBalance?.toFixed(2) || '0.00'}
               </span>
             </div>
-            <NumericalInputCard
+            <NumericalInputField
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
-            //  amountError={amountError}
-            //  totalSupplyError={totalSupplyError}
             />
             <p sx={{ margin: '20px 0 8px 0' }}>Lock time</p>
             <div sx={styles.optionContainer}>

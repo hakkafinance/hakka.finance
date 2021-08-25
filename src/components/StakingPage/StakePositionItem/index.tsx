@@ -8,7 +8,7 @@ import Countdown, { zeroPad } from 'react-countdown';
 import images from '../../../images';
 import styles from './styles';
 import MyButton from '../../Common/MyButton/index';
-import NumericalInputCard from '../../NumericalInputCard';
+import NumericalInputField from '../../NumericalInputField';
 import { useActiveWeb3React } from '../../../hooks/index';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
@@ -118,7 +118,7 @@ const StakePositionItem = (props: StakePositionProps) => {
                 {sHakkaBalance.toFixed(2) || '0.00'}
               </span>
             </div>
-            <NumericalInputCard
+            <NumericalInputField
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
