@@ -70,6 +70,8 @@ const Staking = () => {
     )
   )
 
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
+
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
@@ -123,6 +125,7 @@ const Staking = () => {
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
+              setIsCorrectInput={setIsCorrectInput}
             />
             <p sx={{ margin: '20px 0 8px 0' }}>Lock time</p>
             <div sx={styles.optionContainer}>
@@ -163,7 +166,10 @@ const Staking = () => {
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
-                disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}
+                disabled={stakeState === StakeState.PENDING
+                  || approveState === ApprovalState.UNKNOWN
+                  || !isCorrectInput
+                }
                 isCorrectNetwork={!!STAKING_ADDRESSES[chainId as ChainId] && STAKING_ADDRESSES[chainId as ChainId] !== AddressZero}
               >
                 Stake

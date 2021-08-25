@@ -11,11 +11,12 @@ import { WeiPerEther } from '@ethersproject/constants';
 import { useActiveWeb3React } from '../../hooks/index';
 
 interface NumericalInputFieldProps {
-  value: string | number;
+  value: string ;
   onUserInput: (input: any) => void;
   tokenBalance: CurrencyAmount;
   approve: any;
   approveState: ApprovalState;
+  setIsCorrectInput?: any;
 }
 
 const NumericalInputField = (props: NumericalInputFieldProps) => {
@@ -25,6 +26,7 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
     tokenBalance,
     approve,
     approveState,
+    setIsCorrectInput
   } = props;
   
   // check amount, balance
@@ -47,6 +49,15 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
       }
     }
   }, [tokenBalance, value, approveState, chainId]);
+
+
+  useEffect(()=>{
+    if ( amountError || parseFloat(value) === 0 || !value ) {
+      setIsCorrectInput(false);
+    } else {
+      setIsCorrectInput(true);
+    }
+  },[value, amountError])
 
   return(
     <div sx={amountError ? styles.InputCardErrorWrapper : styles.InputCardWrapper}>

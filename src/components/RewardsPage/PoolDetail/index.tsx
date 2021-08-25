@@ -128,6 +128,8 @@ const PoolDetail = ({ pool }) => {
   const isWrongNetwork = error instanceof UnsupportedChainIdError
     || REWARD_POOLS[pool].chain !== chainId;
 
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
+
   const depositButtonRenderer = () =>
     <CheckWrongNetworkConnectWalletApproveTokenButton
       styleKit={'green'}
@@ -137,7 +139,7 @@ const PoolDetail = ({ pool }) => {
       connectWallet={toggleWalletModal}
       isApproved={approveState === ApprovalState.APPROVED}
       approveToken={approve}
-      disabled={depositState === DepositState.PENDING}
+      disabled={depositState === DepositState.PENDING || !isCorrectInput}
       isCorrectNetwork={!isWrongNetwork}
     >
       Deposit
@@ -149,7 +151,7 @@ const PoolDetail = ({ pool }) => {
         <MyButton
           onClick={withdrawCallback}
           styleKit="green"
-          disabled={withdrawState === WithdrawState.PENDING}
+          disabled={withdrawState === WithdrawState.PENDING || !isCorrectInput}
         >
           <p sx={styles.withdrawContent}>Withdraw</p>
         </MyButton>
@@ -157,7 +159,7 @@ const PoolDetail = ({ pool }) => {
       <div>
         <MyButton
           onClick={exitCallback}
-          disabled={exitState === ExitState.PENDING}
+          disabled={exitState === ExitState.PENDING || !isCorrectInput}
         >
           <div sx={styles.exitBtnContent}>
             <p>Exit</p>
@@ -306,6 +308,7 @@ const PoolDetail = ({ pool }) => {
                   tokenBalance={tokenBalance}
                   approve={approve}
                   approveState={approveState}
+                  setIsCorrectInput={setIsCorrectInput}
                 />
               ) : (
                 <NumericalInputField
@@ -314,6 +317,7 @@ const PoolDetail = ({ pool }) => {
                   tokenBalance={stakedBalance}
                   approve={approve}
                   approveState={approveState}
+                  setIsCorrectInput={setIsCorrectInput}
                 />
               )}
           </div>

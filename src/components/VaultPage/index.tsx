@@ -27,7 +27,6 @@ import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapp
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 
-
 import {
   ChainId,
   HAKKA,
@@ -168,11 +167,11 @@ const VaultPage = (props) => {
   )
 
   // error message
-  const noAmountError = useMemo(() => !inputAmount, [inputAmount]);
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
-  const errorMessage = noAmountError
-    || noTokenError;
+  const errorStatus = noTokenError
+    || !isCorrectInput
 
   return (
     <div sx={styles.container}>
@@ -214,6 +213,7 @@ const VaultPage = (props) => {
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
+              setIsCorrectInput={setIsCorrectInput}
             />
           </div>
           <div sx={styles.formContainer}>
@@ -280,12 +280,10 @@ const VaultPage = (props) => {
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
-                disabled={!!errorMessage || burnState === BurnState.PENDING}
+                disabled={ errorStatus || burnState === BurnState.PENDING}
                 isCorrectNetwork={!!BURNER_ADDRESS[chainId as ChainId] && BURNER_ADDRESS[chainId as ChainId] !== AddressZero}
               >
-                {errorMessage && errorMessage.constructor !== Boolean
-                  ? errorMessage
-                  : 'Burn'}
+                Burn
               </BurnButton>
             </div>
           </div>
