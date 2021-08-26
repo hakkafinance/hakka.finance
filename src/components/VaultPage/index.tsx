@@ -166,6 +166,11 @@ const VaultPage = (props) => {
     )
   )
 
+  let isCorrectNetwork: boolean = true;
+  if(chainId){
+    isCorrectNetwork = BURNER_ADDRESS[chainId as ChainId] !== AddressZero
+  }; 
+
   // error message
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
@@ -178,25 +183,23 @@ const VaultPage = (props) => {
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Web3Status unsupported={BURNER_ADDRESS[chainId as ChainId] === AddressZero} />
+          <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>
             <h3 sx={styles.subTitle}>Burn to get value</h3>
             <div sx={styles.contract}>
               <span>Guild Bank Contract</span>
-              <span
-                sx={styles.contractAddress}
-                onClick={() => {
-                  window
-                    .open(
-                      getEtherscanLink(chainId, GUILDBANK[chainId], 'address'),
-                    )
-                    .focus();
-                }}
+              <a
+                sx={!isCorrectNetwork ? styles.contractAddressDisabled : styles.contractAddress}
+                href={getEtherscanLink(chainId, GUILDBANK[chainId], 'address')}
+                target={"_blank"}
               >
-                {chainId ? shortenAddress(BURNER_ADDRESS[chainId]) : ''}
-              </span>
+                {(!chainId || !isCorrectNetwork)
+                  ? '-'
+                  : shortenAddress(GUILDBANK[chainId]) 
+                }
+              </a>
             </div>
             <p>An interface for Hakka holders to call ragequit() function to burn their HAKKA and draw funds from Guild Bank proportionally.</p>
             <div sx={styles.hakkaBalance}>
@@ -281,7 +284,7 @@ const VaultPage = (props) => {
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
                 disabled={ errorStatus || burnState === BurnState.PENDING}
-                isCorrectNetwork={!!BURNER_ADDRESS[chainId as ChainId] && BURNER_ADDRESS[chainId as ChainId] !== AddressZero}
+                isCorrectNetwork={isCorrectNetwork}
               >
                 Burn
               </BurnButton>
