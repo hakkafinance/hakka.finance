@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import './ReactToastify.css';
 
 const DappLayout = ({ children, title }) => {
+  const TOAST_AUTO_CLOSE_TIME = 8000;
   const [isShowSideBar, setIsShowSideBar] = useState(false);
 
   const toggleSideBar = () => {
@@ -52,7 +53,7 @@ const DappLayout = ({ children, title }) => {
               enableMultiContainer
               containerId={'tx'} 
               position='top-right'
-              autoClose={8000}
+              autoClose={TOAST_AUTO_CLOSE_TIME}
               hideProgressBar={false}
               newestOnTop={true}
               pauseOnFocusLoss
@@ -63,7 +64,7 @@ const DappLayout = ({ children, title }) => {
               enableMultiContainer
               containerId={'error'} 
               position='top-center'
-              autoClose={8000}
+              autoClose={TOAST_AUTO_CLOSE_TIME}
               hideProgressBar={false}
               newestOnTop={true}
               pauseOnFocusLoss
