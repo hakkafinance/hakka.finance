@@ -4,13 +4,13 @@ import { CurrencyAmount } from '@uniswap/sdk';
 import styles from './styles';
 import NumercialInput from '../NumericalInput';
 import images from '../../images/index';
-import { ApprovalState } from '../../hooks/useApproveCallback';
+import { ApprovalState } from '../../hooks/useTokenApprove';
 
 interface NumericalInputCardProps {
   value: string | number;
   onUserInput: (input: any) => void;
   tokenBalance: CurrencyAmount;
-  approveCallback: any;
+  approve: any;
   approveState: ApprovalState;
   amountError?: string;
   totalSupplyError?: string;
@@ -30,7 +30,7 @@ const NumericalInputCard = (props: NumericalInputCardProps) => (
             src={images.iconLock}
             alt="Unlock token to continue"
             sx={styles.iconLock}
-            onClick={() => props.approveCallback()}
+            onClick={() => props.approve()}
           />
         )
         : ''}

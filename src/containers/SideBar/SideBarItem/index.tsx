@@ -12,10 +12,10 @@ const SideBarItem = (props, { location, data }) => {
   } = props;
   const [selectedNavPath, setSelectedNavPath] = useState('');
   const isBrowser = typeof window !== 'undefined';
-  const currentPath = isBrowser ? window.location.pathname.replace(/\//g, '') : '';
+  const currentPath = isBrowser ? window.location.pathname.replace(/\//g, '').split('0',1) : '';
 
   useEffect(() => {
-    setSelectedNavPath(currentPath);
+    setSelectedNavPath(currentPath[0]);
   }, []);
 
   return (

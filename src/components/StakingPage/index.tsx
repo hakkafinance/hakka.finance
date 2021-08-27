@@ -11,7 +11,7 @@ import Web3Status from '../Web3Status';
 import NumericalInputCard from '../NumericalInputCard';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
-import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
+import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useStakeCallback, StakeState } from '../../hooks/useStakeCallback';
 import { useTokenAllowance } from '../../data/Allowances';
 import StakePositionItem from './StakePositionItem/index';
@@ -19,6 +19,9 @@ import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
+import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
+import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
+import { useWalletModalToggle } from '../../state/application/hooks';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -39,7 +42,7 @@ const Staking = () => {
     stakingBalance, sHakkaBalance, votingPower, stakingRate, vaults,
   } = useStakingData();
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     STAKING_ADDRESSES[chainId as ChainId],
     inputAmount,
@@ -65,6 +68,12 @@ const Staking = () => {
     parseUnits(inputAmount || '0'),
     lockTime,
   );
+
+  const toggleWalletModal = useWalletModalToggle();
+
+  const StakeButton = ApproveTokenButtonWrapper(
+    ConnectWalletButtonWrapper(MyButton)
+  )
 
   return (
     <div sx={styles.container}>
@@ -110,14 +119,14 @@ const Staking = () => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toFixed(2)}
+                {hakkaBalance?.toFixed(2) || '0.00'}
               </span>
             </div>
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
             //  amountError={amountError}
             //  totalSupplyError={totalSupplyError}
@@ -153,19 +162,21 @@ const Staking = () => {
               <span>{sHakkaPreview?.toFixed(4)}</span>
             </div>
             <div sx={styles.stakeBtn}>
-              <MyButton
-                type="green"
-                click={
-                  approveState !== ApprovalState.APPROVED
-                    ? approveCallback
-                    : stakeCallback
+              <StakeButton
+                styleKit={'green'}
+                isDisabledWhenNotPrepared={false}
+                onClick={stakeCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                isApproved={approveState === ApprovalState.APPROVED}
+                approveToken={approve}
+                exceptionHandlingDisabled={
+                  stakeState === StakeState.PENDING 
+                  || approveState === ApprovalState.UNKNOWN
                 }
-                disabled={stakeState === StakeState.PENDING || approveState === ApprovalState.UNKNOWN}
               >
-                {approveState === ApprovalState.NOT_APPROVED || tokenAllowance?.equalTo('0')
-                  ? 'Unlock Token'
-                  : 'Stake'}
-              </MyButton>
+                Stake
+              </StakeButton>
             </div>
           </div>
         </div>
@@ -183,7 +194,16 @@ const Staking = () => {
         </div>
         <div sx={styles.positionContainer}>
           <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) => <StakePositionItem key={index} sHakkaBalance={sHakkaBalance} index={index} stakedHakka={vault?.result?.hakkaAmount} sHakkaReceived={vault?.result?.wAmount} until={vault?.result?.unlockTime} />)}
+          {vaults.map((vault, index) => 
+            <StakePositionItem 
+              key={index} 
+              sHakkaBalance={sHakkaBalance} 
+              index={index} 
+              stakedHakka={vault?.result?.hakkaAmount} 
+              sHakkaReceived={vault?.result?.wAmount} 
+              until={vault?.result?.unlockTime} 
+            />
+          )}
         </div>
       </div>
     </div>

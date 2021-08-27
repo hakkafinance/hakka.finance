@@ -27,8 +27,8 @@ const images = {
   iconInform: require('./icons/iconInform.svg').default,
 
   // web applications icon
-
   iconMedium: require('./icons/iconMedium.svg').default,
+  iconMediumLarge: require('./icons/iconMediumLarge.svg').default,
   iconTelegram: require('./icons/iconTelegram.svg').default,
   iconTwitter: require('./icons/iconTwitter.svg').default,
   iconDiscord: require('./icons/iconDiscord.svg').default,
@@ -120,11 +120,5 @@ const images = {
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
-
-  // avatars
-  pingChen: require('./avatars/pingChen.png').default,
-  jackLai: require('./avatars/jackLai.png').default,
-  wegoChen: require('./avatars/wegoChen.png').default,
-  ianHsu: require('./avatars/ianHsu.png').default,
 };
 export default images;

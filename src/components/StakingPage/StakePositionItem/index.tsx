@@ -10,10 +10,11 @@ import styles from './styles';
 import MyButton from '../../Common/MyButton/index';
 import NumericalInputCard from '../../NumericalInputCard';
 import { useActiveWeb3React } from '../../../hooks/index';
-import { useApproveCallback } from '../../../hooks/useApproveCallback';
+import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
 import { tryParseAmount } from '../../../utils';
+import ApproveTokenButtonWrapper from '../../Common/ApproveTokenButtonWrapper';
 
 interface StakePositionProps {
   index: number;
@@ -34,7 +35,7 @@ const StakePositionItem = (props: StakePositionProps) => {
     [inputAmount, stakedHakka, sHakkaReceived],
   );
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     STAKING_ADDRESSES[chainId as ChainId],
     inputAmount,
@@ -71,6 +72,8 @@ const StakePositionItem = (props: StakePositionProps) => {
       </span>
     </div>
   );
+
+  const RedeemButton = ApproveTokenButtonWrapper(MyButton)
 
   return (
     <div sx={styles.positionFormWrapper}>
@@ -111,15 +114,15 @@ const StakePositionItem = (props: StakePositionProps) => {
             <div sx={styles.balance}>
               <span>Burn</span>
               <span>
-                sHAKKA Balance:
-                {sHakkaBalance.toFixed(2)}
+                {'sHAKKA Balance: '}
+                {sHakkaBalance.toFixed(2) || '0.00'}
               </span>
             </div>
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
             />
           </div>
@@ -131,7 +134,20 @@ const StakePositionItem = (props: StakePositionProps) => {
             </div>
           </div>
           <div sx={styles.redeemBtn}>
-            <MyButton type="green" click={unstakeCallback} disabled={Date.now() < until?.mul(1000).toNumber() || unstakeState === UnstakeState.PENDING || sHakkaReceived.eq(0)}>Redeem</MyButton>
+            <RedeemButton
+              styleKit={'green'}
+              isDisabledWhenNotPrepared={false}
+              onClick={unstakeCallback}
+              isApproved={approveState === ApprovalState.APPROVED}
+              approveToken={approve}
+              exceptionHandlingDisabled={
+                Date.now() < until?.mul(1000).toNumber() 
+                || unstakeState === UnstakeState.PENDING 
+                || sHakkaReceived.eq(0)
+              }
+            >
+              Redeem
+            </RedeemButton>
           </div>
         </div>
         )}

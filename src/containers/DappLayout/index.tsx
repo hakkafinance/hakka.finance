@@ -9,8 +9,11 @@ import Footer from '../Footer';
 import styles from './styles';
 import images from '../../images';
 import Web3ReactManager from '../../components/Web3ReactManager';
+import { ToastContainer } from 'react-toastify';
+import './ReactToastify.css';
 
 const DappLayout = ({ children, title }) => {
+  const TOAST_AUTO_CLOSE_TIME = 8000;
   const [isShowSideBar, setIsShowSideBar] = useState(false);
 
   const toggleSideBar = () => {
@@ -46,6 +49,27 @@ const DappLayout = ({ children, title }) => {
           <Box
             sx={styles.content}
           >
+            <ToastContainer
+              enableMultiContainer
+              containerId={'tx'} 
+              position='top-right'
+              autoClose={TOAST_AUTO_CLOSE_TIME}
+              hideProgressBar={false}
+              newestOnTop={true}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover />
+            <ToastContainer
+              style={{ maxWidth: "100vw", width: 'auto' }}
+              enableMultiContainer
+              containerId={'error'} 
+              position='top-center'
+              autoClose={TOAST_AUTO_CLOSE_TIME}
+              hideProgressBar={false}
+              newestOnTop={true}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover />
             <Web3ReactManager>
               {children}
             </Web3ReactManager>

@@ -16,12 +16,15 @@ import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
 import { useActiveWeb3React } from '../../hooks/index';
-import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
+import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback';
 import { useTokenAllowance } from '../../data/Allowances';
 import { shortenAddress, getEtherscanLink } from '../../utils';
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks';
 import { useTotalSupply } from '../../data/TotalSupply';
+import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
+import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
+import { useWalletModalToggle } from '../../state/application/hooks';
 
 import {
   ChainId,
@@ -49,7 +52,7 @@ const VaultPage = (props) => {
   const [isShowNewTokenArea, setIsShowNewTokenArea] = useState(false);
   const [newRewardAddressInput, setNewRewardAddressInput] = useState<string>('');
 
-  const [approveState, approveCallback] = useApproveCallback(
+  const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
     BURNER_ADDRESS[chainId as ChainId],
     inputAmount,
@@ -154,6 +157,12 @@ const VaultPage = (props) => {
     pickedRewardTokensAddress,
   );
 
+  const toggleWalletModal = useWalletModalToggle();
+
+  const BurnButton = ApproveTokenButtonWrapper(
+    ConnectWalletButtonWrapper(MyButton)
+  )
+
   // error message
   const noAccountError = useMemo(
     () => (account ? '' : 'Wallet is not connected.'),
@@ -186,15 +195,20 @@ const VaultPage = (props) => {
         setApproveError('');
       }
 
-      if (parseFloat(hakkaBalance.raw.toString()) < parseFloat(inputAmount)) {
-        console.log(
-          `the amount ${inputAmount} is more than your balance ${hakkaBalance.raw.toString()}`,
-        );
-        setAmountError('Insufficient balance');
-      } else if (parseFloat(inputAmount) > allowance) {
-        setAmountError('Please approve to continue');
-      } else {
-        setAmountError('');
+      if(hakkaBalance){
+        const bigNumberInputAmount = new BigNumber(inputAmount).isNaN() ? new BigNumber(0) : new BigNumber(inputAmount)
+        const bigNumberHakkaBalance = new BigNumber(hakkaBalance.raw.toString()).dividedBy(bignumber1e18)
+
+        if (bigNumberInputAmount.isGreaterThan(bigNumberHakkaBalance)) {
+          console.log(
+            `the amount ${bigNumberInputAmount.toString()} is more than your balance ${bigNumberHakkaBalance.toString()}`,
+          );
+          setAmountError('Insufficient balance');
+        } else if (parseFloat(inputAmount) > allowance) {
+          setAmountError('Please approve to continue');
+        } else {
+          setAmountError('');
+        }
       }
     }
   }, [hakkaBalance, inputAmount, allowance, approveState, chainId]);
@@ -202,7 +216,7 @@ const VaultPage = (props) => {
   // check the input amount is not bigger than total supply
   const [totalSupplyError, setTotalSupplyError] = useState<string>('');
   useEffect(() => {
-    if (parseFloat(inputAmount) > hakkaTotalSupply.div(bignumber1e18).toNumber()) {
+    if (new BigNumber(inputAmount).isGreaterThan(hakkaTotalSupply.div(bignumber1e18))) {
       setTotalSupplyError(
         'The amount is more than HAKKA total supply',
       );
@@ -249,14 +263,14 @@ const VaultPage = (props) => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toSignificant(10)}
+                {hakkaBalance?.toSignificant(10) || '0.00'}
               </span>
             </div>
             <NumericalInputCard
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
-              approveCallback={approveCallback}
+              approve={approve}
               approveState={approveState}
               amountError={amountError}
               totalSupplyError={totalSupplyError}
@@ -318,23 +332,20 @@ const VaultPage = (props) => {
               newRewardAddressInput={newRewardAddressInput}
             />
             <div>
-              <MyButton
-                type="green"
-                click={
-                  approveState !== ApprovalState.APPROVED
-                    ? approveCallback
-                    : burnCallback
-                }
-                disabled={
-                  approveState === ApprovalState.APPROVED && errorMessage || burnState === BurnState.PENDING
-                }
+              <BurnButton
+                styleKit={'green'}
+                isDisabledWhenNotPrepared={false}
+                onClick={burnCallback}
+                isConnected={!!account}
+                connectWallet={toggleWalletModal}
+                isApproved={approveState === ApprovalState.APPROVED}
+                approveToken={approve}
+                exceptionHandlingDisabled={!!errorMessage || burnState === BurnState.PENDING}
               >
-                {approveState !== ApprovalState.APPROVED
-                  ? 'Unlock Token'
-                  : errorMessage && errorMessage.constructor !== Boolean
-                    ? errorMessage
-                    : 'Burn'}
-              </MyButton>
+                {errorMessage && errorMessage.constructor !== Boolean
+                  ? errorMessage
+                  : 'Burn'}
+              </BurnButton>
             </div>
           </div>
         </div>

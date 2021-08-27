@@ -1,59 +1,76 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
 import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
-import PoolDetail from './PoolDetail';
 import Web3Status from '../Web3Status';
-import { BSC_REWARD_POOLS, ChainId, REWARD_POOLS } from '../../constants';
+import { ChainId } from '../../constants';
+import { REWARD_POOLS } from '../../constants/rewards';
+import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
 
 const RewardsPage = () => {
-  const { account } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
+  const poolAddresses = Object.keys(REWARD_POOLS);
 
-  const showPool = useMemo(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    return params.pool;
-  }, []);
-
-  const pools = useMemo(() => currentChain === ChainId.BSC ? BSC_REWARD_POOLS : REWARD_POOLS, [currentChain]);
-  const activePools = useMemo(() => Object.keys(pools).filter((poolId) => !pools[poolId].archived), [pools]);
-  const archivedPools = useMemo(() => Object.keys(pools).filter((poolId) => pools[poolId].archived), [pools]);
+  const activePools = poolAddresses.filter((poolAddress) => !REWARD_POOLS[poolAddress].archived);
+  const archivedPools = poolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived);
 
   const hakkaPrice = useTokenPrice('hakka-finance');
-  const [apy, setApy] = useState({});
+  const rewardData = useRewardsData(poolAddresses);
+  const [apr, setApr] = useState({});
+
+  const currentActivePoolLength = useMemo(() => activePools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain).length, [currentChain])
+  const currentArchivedPoolLength = useMemo(() => archivedPools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain).length, [currentChain])
+
+  useEffect(() => {
+    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC) {
+      setCurrentChain(chainId);
+    }
+  }, [chainId]);
 
   useEffect(() => {
     let active = true;
-    try {
-      load()
-    } catch (e) {
-      console.error(e);
+    if (hakkaPrice) {
+      try {
+        Promise.all(poolAddresses.map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))))
+        .then((aprList) => {
+          const newApr = {}
+          aprList.map((apr, index) => {
+            newApr[REWARD_POOLS[poolAddresses[index]].rewardsAddress] = apr
+          });
+          setApr(newApr);
+        })
+        if (!active) { return }
+      } catch (e) {
+        console.error(e);
+      }
     }
     return () => { active = false }
-  
-    async function load() {
-      setApy({});
-      const pools = { ...REWARD_POOLS, ...BSC_REWARD_POOLS };
-      const apyList = await Promise.all(Object.keys(pools).map((address) => pools[address].getApy(parseUnits(hakkaPrice.toString(), 18))));
-      const newApy = {}
-      apyList.map((apy, index) => {
-        newApy[pools[Object.keys(pools)[index]].rewardsAddress] = apy
-      });
-      if (!active) { return }
-      setApy(newApy);
-    }
   }, [hakkaPrice]);
 
-  const rewardData = useRewardsData(Object.keys(pools));
+  const rewardsPoolRenderer = (pool, active = false) => (
+    <RewardsPoolCard
+      key={pool.rewardsAddress}
+      tokenImage={POOL_ASSETES[pool.rewardsAddress].icon}
+      title={pool.name}
+      url={pool.url}
+      linkContent={pool.website}
+      btnContent={active ? 'Deposit / Withdraw' : 'Withdraw'}
+      depositedTokenSymbol={pool.tokenSymbol}
+      rewardsAddress={pool.rewardsAddress}
+      apr={apr[pool.rewardsAddress] ? tryParseAmount(formatUnits(apr[pool.rewardsAddress]?.mul(100), 18)).toFixed(2) : '-'}
+      depositedBalance={account ? rewardData.depositBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
+      earnedBalance={account ? rewardData.earnedBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
+    />
+  );
 
   return (
     <div sx={styles.container}>
@@ -62,65 +79,33 @@ const RewardsPage = () => {
           <p>Farms</p>
           <Web3Status />
         </div>
-
-        {showPool ? <PoolDetail />
-        :
-        <>
-        {/* pool portals  */}
         <div sx={styles.chainSwitch}>
           <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
           <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
         </div>
         <div>
-          <p sx={styles.activeTitle}>Active ({activePools.length})</p>
+          <p sx={styles.activeTitle}>Active ({currentActivePoolLength})</p>
           <div sx={styles.poolContainer}>
-            {activePools.map((pool) =>
-              <RewardsPoolCard
-                key={pools[pool].rewardsAddress}
-                tokenImage={pools[pool].icon}
-                title={pools[pool].name}
-                url={pools[pool].url}
-                linkContent={pools[pool].website}
-                btnContent={'Deposit / Withdraw'}
-                depositedTokenSymbol={pools[pool].tokenSymbol}
-                rewardsAddress={pools[pool].rewardsAddress}
-                apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
-                depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : '-'}
-                earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
-              />
-            )}
+            {activePools
+              .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
+              .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], true))}
           </div>
         </div>
         <div>
           <div sx={{ display: 'inline-block' }}>
             <div onClick={() => setIsShowArchived(!isShowArchived)} sx={styles.archivedTitle}>
-              <p>Archived ({archivedPools.length})</p>
+              <p>Archived ({currentArchivedPoolLength})</p>
               <img src={isShowArchived ? images.iconUp : images.iconDown} />
             </div>
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              {archivedPools.map((pool) =>
-                <RewardsPoolCard
-                  key={pools[pool].rewardsAddress}
-                  tokenImage={pools[pool].icon}
-                  title={pools[pool].name}
-                  url={pools[pool].url}
-                  linkContent={pools[pool].website}
-                  btnContent={'Withdraw'}
-                  depositedTokenSymbol={pools[pool].tokenSymbol}
-                  rewardsAddress={pools[pool].rewardsAddress}
-                  apy={apy[pool] ? tryParseAmount(formatUnits(apy[pool]?.mul(100), 18)).toFixed(2) : '-'}
-                  depositedBalance={account ? rewardData.depositBalances[pool]?.toFixed(2) : ''}
-                  earnedBalance={account ? rewardData.earnedBalances[pool]?.toFixed(2) : '-'}
-                />
-              )}
+              {archivedPools
+                .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
+                .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress]))}
             </div>
           }
         </div>
-        </>
-        }
-
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useVestingContract } from './useContract';
-import { useSnackbar } from './useSnackbar';
 import { getEtherscanLink, shortenTxId } from '../utils';
+import { toast } from 'react-toastify';
+import { ExternalLink } from 'react-feather';
 
 export enum VestingState {
   UNKNOWN,
@@ -15,7 +18,6 @@ export function useVestingCallback(
 ): [VestingState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
-  const { enqueueSnackbar } = useSnackbar();
 
   const vestingState: VestingState = useMemo(() => {
     if (!spender) return VestingState.UNKNOWN;
@@ -36,22 +38,19 @@ export function useVestingCallback(
     try {
       const tx = await vestingContract.withdraw();
       setCurrentTransaction(tx.hash);
-      enqueueSnackbar(
+      toast(
         <a
           target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
           rel="noreferrer"
+          sx={{ textDecoration: 'none', color: '#253e47' }}
         >
-          {shortenTxId(tx.hash)}
-        </a>,
-        tx.hash,
-      );
+        {shortenTxId(tx.hash)} <ExternalLink size={16} />
+        </a>
+      , { containerId: 'tx' });
       await tx.wait();
     } catch (err) {
-      enqueueSnackbar(
-        <div>{err.message}</div>,
-        err.message,
-      );
+      toast.error(<div>{err.data ? JSON.stringify(err.data) : err.message}</div>,  { containerId: 'error' });
     } finally {
       setCurrentTransaction(null);
     }

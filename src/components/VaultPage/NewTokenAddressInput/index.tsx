@@ -106,7 +106,7 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
       </div>
       <div sx={styles.addButton}>
         <MyButton
-          type="green"
+          styleKit="green"
           disabled={isAddBtnDisabled}
           click={handleAddBtnClick}
         >

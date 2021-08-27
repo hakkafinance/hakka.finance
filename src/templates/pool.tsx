@@ -1,15 +1,14 @@
 import React from 'react';
 import DappLayout from '../containers/DappLayout';
-import RewardsPage from '../components/RewardsPage/index';
+import PoolPage from '../components/RewardsPage/pool';
 
-const Farms = ({ pageContext }) => {
+const Pools = ({ pageContext }) => {
   const { pool } = pageContext
-  console.log(pool)
   return (
   <DappLayout title="farms">
-    <RewardsPage />
+    <PoolPage pool={pool} />
   </DappLayout>
   )
 };
 
-export default Farms;
+export default Pools;
