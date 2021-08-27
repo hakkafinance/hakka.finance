@@ -5,7 +5,7 @@ import VaultPage from '../components/VaultPage';
 
 const GuildBankPage = () => (
   <DappLayout
-    title="guildbank"
+    title="Hakka Finance | Guildbank"
   >
     {/* <BlankScreen
         path = {'guildbank'}

@@ -11,7 +11,7 @@ import images from '../../images/index';
 import styles from './styles';
 import MyButton from '../Common/MyButton/index';
 import RewardListItem from './RewardListItem/index';
-import NumericalInputCard from '../NumericalInputCard/index';
+import NumericalInputField from '../NumericalInputField/index';
 import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
@@ -22,9 +22,10 @@ import { useTokenAllowance } from '../../data/Allowances';
 import { shortenAddress, getEtherscanLink } from '../../utils';
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks';
 import { useTotalSupply } from '../../data/TotalSupply';
-import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
-import ApproveTokenButtonWrapper from '../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
+import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
+import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 
 import {
   ChainId,
@@ -159,103 +160,46 @@ const VaultPage = (props) => {
 
   const toggleWalletModal = useWalletModalToggle();
 
-  const BurnButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(MyButton)
+  const BurnButton = withApproveTokenCheckWrapper(
+    withWrongNetworkCheckWrapper(
+      withConnectWalletCheckWrapper(MyButton)
+    )
   )
 
+  let isCorrectNetwork: boolean = true;
+  if(chainId){
+    isCorrectNetwork = BURNER_ADDRESS[chainId as ChainId] !== AddressZero
+  }; 
+
   // error message
-  const noAccountError = useMemo(
-    () => (account ? '' : 'Wallet is not connected.'),
-    [account],
-  );
-
-  const noAmountError = useMemo(() => !inputAmount, [inputAmount]);
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
-  // check amount, balance, allowance
-  const [amountError, setAmountError] = useState<string>('');
-  const [approveError, setApproveError] = useState<string>('');
-
-  const tokenAllowance = useTokenAllowance(
-    HAKKA[chainId as ChainId],
-    account ?? undefined,
-    BURNER_ADDRESS[chainId as ChainId],
-  );
-
-  let allowance: number = 0;
-  if (tokenAllowance) {
-    allowance = new BigNumber(parseFloat(tokenAllowance.raw.toString())).div(bignumber1e18).toNumber();
-  }
-
-  useEffect(() => {
-    if (inputAmount && approveState) {
-      if (approveState !== ApprovalState.APPROVED || allowance === 0) {
-        setApproveError('Please approve to continue');
-      } else {
-        setApproveError('');
-      }
-
-      if(hakkaBalance){
-        const bigNumberInputAmount = new BigNumber(inputAmount).isNaN() ? new BigNumber(0) : new BigNumber(inputAmount)
-        const bigNumberHakkaBalance = new BigNumber(hakkaBalance.raw.toString()).dividedBy(bignumber1e18)
-
-        if (bigNumberInputAmount.isGreaterThan(bigNumberHakkaBalance)) {
-          console.log(
-            `the amount ${bigNumberInputAmount.toString()} is more than your balance ${bigNumberHakkaBalance.toString()}`,
-          );
-          setAmountError('Insufficient balance');
-        } else if (parseFloat(inputAmount) > allowance) {
-          setAmountError('Please approve to continue');
-        } else {
-          setAmountError('');
-        }
-      }
-    }
-  }, [hakkaBalance, inputAmount, allowance, approveState, chainId]);
-
-  // check the input amount is not bigger than total supply
-  const [totalSupplyError, setTotalSupplyError] = useState<string>('');
-  useEffect(() => {
-    if (new BigNumber(inputAmount).isGreaterThan(hakkaTotalSupply.div(bignumber1e18))) {
-      setTotalSupplyError(
-        'The amount is more than HAKKA total supply',
-      );
-    } else {
-      setTotalSupplyError('');
-    }
-  }, [inputAmount]);
-
-  const errorMessage = noAccountError
-    || approveError
-    || totalSupplyError
-    || amountError
-    || noAmountError
-    || noTokenError;
+  const errorStatus = noTokenError
+    || !isCorrectInput
 
   return (
     <div sx={styles.container}>
       <div sx={styles.vaultPageWrapper}>
         <div sx={styles.header}>
           <h1 sx={styles.title}>Guild Bank</h1>
-          <Web3Status unsupported={BURNER_ADDRESS[chainId as ChainId] === AddressZero} />
+          <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.body}>
           <div sx={styles.infomationContainer}>
             <h3 sx={styles.subTitle}>Burn to get value</h3>
             <div sx={styles.contract}>
               <span>Guild Bank Contract</span>
-              <span
-                sx={styles.contractAddress}
-                onClick={() => {
-                  window
-                    .open(
-                      getEtherscanLink(chainId, GUILDBANK[chainId], 'address'),
-                    )
-                    .focus();
-                }}
+              <a
+                sx={!isCorrectNetwork ? styles.contractAddressDisabled : styles.contractAddress}
+                href={getEtherscanLink(chainId, GUILDBANK[chainId], 'address')}
+                target={"_blank"}
               >
-                {chainId ? shortenAddress(BURNER_ADDRESS[chainId]) : ''}
-              </span>
+                {(!chainId || !isCorrectNetwork)
+                  ? '-'
+                  : shortenAddress(GUILDBANK[chainId]) 
+                }
+              </a>
             </div>
             <p>An interface for Hakka holders to call ragequit() function to burn their HAKKA and draw funds from Guild Bank proportionally.</p>
             <div sx={styles.hakkaBalance}>
@@ -266,14 +210,13 @@ const VaultPage = (props) => {
                 {hakkaBalance?.toSignificant(10) || '0.00'}
               </span>
             </div>
-            <NumericalInputCard
+            <NumericalInputField
               value={inputAmount}
               onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
-              amountError={amountError}
-              totalSupplyError={totalSupplyError}
+              setIsCorrectInput={setIsCorrectInput}
             />
           </div>
           <div sx={styles.formContainer}>
@@ -340,11 +283,10 @@ const VaultPage = (props) => {
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
-                exceptionHandlingDisabled={!!errorMessage || burnState === BurnState.PENDING}
+                disabled={ errorStatus || burnState === BurnState.PENDING}
+                isCorrectNetwork={isCorrectNetwork}
               >
-                {errorMessage && errorMessage.constructor !== Boolean
-                  ? errorMessage
-                  : 'Burn'}
+                Burn
               </BurnButton>
             </div>
           </div>

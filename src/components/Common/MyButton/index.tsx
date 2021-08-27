@@ -5,7 +5,7 @@ import styles from './styles';
 
 const MyButton = (props) => {
   return (
-    <Button disabled={props.disabled} onClick={() => { if (props.click) props.click(); }} sx={props.styleKit === 'green' ? styles.mybutton_green : styles.mybutton}>
+    <Button disabled={props.disabled} onClick={props.onClick} sx={props.styleKit === 'green' ? styles.mybutton_green : styles.mybutton}>
       <Box>{props.children}</Box>
     </Button>
   );
@@ -14,7 +14,7 @@ const MyButton = (props) => {
 MyButton.propTypes = {
   disabled: types.bool,
   styleKit: types.oneOf(['green','default']),
-  click: types.func,
+  onClick: types.func,
 };
 
 export default MyButton;

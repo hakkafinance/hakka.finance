@@ -41,7 +41,7 @@ export default function AccountDetails({
       .map((k) => SUPPORTED_WALLETS[k].name)[0];
     return (
       <div sx={styles.walletName}>
-        Connected with
+        {'Connected with '}
         {connector === injected && isMetaMask ? 'MetaMask' : name}
       </div>
     );
@@ -83,7 +83,7 @@ export default function AccountDetails({
               <div sx={styles.buttonSection}>
                 {connector !== injected && connector !== walletlink ? (
                   <MyButton
-                    click={() => {
+                    onClick={() => {
                       (connector as any).close();
                     }}
                   >
@@ -91,7 +91,7 @@ export default function AccountDetails({
                   </MyButton>
                 ) : (
                   <MyButton
-                    click={() => {
+                    onClick={() => {
                       openOptions();
                     }}
                   >

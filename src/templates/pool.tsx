@@ -5,7 +5,7 @@ import PoolPage from '../components/RewardsPage/pool';
 const Pools = ({ pageContext }) => {
   const { pool } = pageContext
   return (
-  <DappLayout title="farms">
+  <DappLayout title="Hakka Finance | Farms">
     <PoolPage pool={pool} />
   </DappLayout>
   )

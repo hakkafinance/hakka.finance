@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Token, TokenAmount } from '@uniswap/sdk';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import React, { useState, useMemo, useEffect } from 'react';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { Zero } from '@ethersproject/constants';
@@ -10,7 +10,7 @@ import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import MyButton from '../../Common/MyButton';
-import NumericalInputCard from '../../NumericalInputCard/index';
+import NumericalInputField from '../../NumericalInputField/index';
 import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
@@ -24,12 +24,13 @@ import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
 import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
 import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
 import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
-import ConnectWalletButtonWrapper from '../../Common/ConnectWalletButtonWrapper';
-import ApproveTokenButtonWrapper from '../../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../../state/application/hooks';
+import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
+import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
+import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
 
 const PoolDetail = ({ pool }) => {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, error } = useWeb3React();
   const rewardData = useRewardsData([pool]);
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -37,6 +38,7 @@ const PoolDetail = ({ pool }) => {
     'balanceOf',
     [account],
   );
+
   const vestingValueAmount = useMemo(
     () => (vestingValue.result && chainId
       ? new TokenAmount(HAKKA[chainId || 1], vestingValue.result.toString())
@@ -107,19 +109,77 @@ const PoolDetail = ({ pool }) => {
   }
 
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
-
   const [claimState, claimCallback] = useClaimCallback(pool, account);
   const [exitState, exitCallback] = useExitCallback(pool, account);
   const [depositState, depositCallback] = useDepositCallback(pool, stakeInputAmount, account);
   const [withdrawState, withdrawCallback] = useWithdrawCallback(pool, withdrawInputAmount, account);
-
   const toggleWalletModal = useWalletModalToggle();
 
-  const DepositButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(MyButton)
+  const CheckWrongNetworkConnectWalletApproveTokenButton = withApproveTokenCheckWrapper(
+    withWrongNetworkCheckWrapper(
+      withConnectWalletCheckWrapper(MyButton)
+    )
   );
 
-  const ClaimButton = ConnectWalletButtonWrapper(MyButton);
+  const CheckWrongNetworkAndConnectWalletButton = withWrongNetworkCheckWrapper(
+    withConnectWalletCheckWrapper(MyButton)
+  );
+
+  const isWrongNetwork = error instanceof UnsupportedChainIdError
+    || REWARD_POOLS[pool].chain !== chainId;
+
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
+
+  const depositButtonRenderer = () =>
+    <CheckWrongNetworkConnectWalletApproveTokenButton
+      styleKit={'green'}
+      isDisabledWhenNotPrepared={false}
+      onClick={depositCallback}
+      isConnected={!!account}
+      connectWallet={toggleWalletModal}
+      isApproved={approveState === ApprovalState.APPROVED}
+      approveToken={approve}
+      disabled={depositState === DepositState.PENDING || !isCorrectInput}
+      isCorrectNetwork={!isWrongNetwork}
+    >
+      Deposit
+    </CheckWrongNetworkConnectWalletApproveTokenButton>
+
+  const withdrawButtonRenderer = () => (
+    <div sx={styles.withdrawBtnContainer}>
+      <div>
+        <MyButton
+          onClick={withdrawCallback}
+          styleKit="green"
+          disabled={withdrawState === WithdrawState.PENDING || !isCorrectInput}
+        >
+          <p sx={styles.withdrawContent}>Withdraw</p>
+        </MyButton>
+      </div>
+      <div>
+        <MyButton
+          onClick={exitCallback}
+          disabled={exitState === ExitState.PENDING || !isCorrectInput}
+        >
+          <div sx={styles.exitBtnContent}>
+            <p>Exit</p>
+            <p className="exitContent">Withdraw all and claim</p>
+          </div>
+        </MyButton>
+      </div>
+    </div>
+  );
+
+  const withdrawButtonContainerRenderer = () =>
+    (!account || isWrongNetwork) ? (
+      <CheckWrongNetworkAndConnectWalletButton
+        styleKit={"green"}
+        isDisabledWhenNotPrepared={false}
+        isConnected={!!account}
+        connectWallet={toggleWalletModal}
+        isCorrectNetwork={!isWrongNetwork}
+      />
+    ) : withdrawButtonRenderer();
 
   return (
     <div>
@@ -140,7 +200,7 @@ const PoolDetail = ({ pool }) => {
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
-            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
+            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}>{shortenAddress(pool)}</a>
           </div>
         </div>
         <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
@@ -183,16 +243,17 @@ const PoolDetail = ({ pool }) => {
               </div>
             </div>
             <div sx={styles.rewardBtn}>
-              <ClaimButton
+              <CheckWrongNetworkAndConnectWalletButton
                 styleKit={"green"}
                 isDisabledWhenNotPrepared={true}
                 onClick={claimCallback}
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
-                exceptionHandlingDisabled={claimState === ClaimState.PENDING}
+                disabled={claimState === ClaimState.PENDING}
+                isCorrectNetwork={!isWrongNetwork}
               >
                 Claim
-              </ClaimButton>
+              </CheckWrongNetworkAndConnectWalletButton>
             </div>
           </div>
           <div sx={styles.rewardInfoContainer}>
@@ -236,73 +297,34 @@ const PoolDetail = ({ pool }) => {
           </div>
           <div sx={styles.stakeBalanceContainer}>
             <span>Amount</span>
-            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? (tokenBalance?.toExact()|| '0.00') : (stakedBalance?.toExact() || '0.00')}</span>
+            <span>Balance:{' '}{switchPick === SwitchOption.DEPOSIT ? (tokenBalance?.toExact() || '0.00') : (stakedBalance?.toExact() || '0.00')}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
             {switchPick === SwitchOption.DEPOSIT
               ? (
-                <NumericalInputCard
+                <NumericalInputField
                   value={stakeInputAmount}
                   onUserInput={setStakeInputAmount}
                   tokenBalance={tokenBalance}
                   approve={approve}
                   approveState={approveState}
+                  setIsCorrectInput={setIsCorrectInput}
                 />
               ) : (
-                <NumericalInputCard
+                <NumericalInputField
                   value={withdrawInputAmount}
                   onUserInput={setWithdrawInputAmount}
                   tokenBalance={stakedBalance}
                   approve={approve}
                   approveState={approveState}
+                  setIsCorrectInput={setIsCorrectInput}
                 />
               )}
           </div>
           {switchPick === SwitchOption.DEPOSIT
-            ? (
-              <DepositButton
-                styleKit={'green'}
-                isDisabledWhenNotPrepared={false}
-                onClick={depositCallback}
-                isConnected={!!account}
-                connectWallet={toggleWalletModal}
-                isApproved={approveState === ApprovalState.APPROVED}
-                approveToken={approve}
-                exceptionHandlingDisabled={depositState === DepositState.PENDING}
-              >
-               Deposit
-              </DepositButton>
-            ) : !!account ? (
-                <div sx={styles.withdrawBtnContainer}>
-                  <div>
-                    <MyButton
-                      click={withdrawCallback}
-                      styleKit="green"
-                      disabled={withdrawState === WithdrawState.PENDING}
-                    >
-                      <p sx={styles.withdrawContent}>Withdraw</p>
-                    </MyButton>
-                  </div>
-                  <div>
-                    <MyButton
-                      click={exitCallback}
-                      disabled={exitState === ExitState.PENDING}
-                    >
-                      <div sx={styles.exitBtnContent}>
-                        <p>Exit</p>
-                        <p className="exitContent">Withdraw all and claim</p>
-                      </div>
-                    </MyButton>
-                  </div>
-                </div>
-              ) : (
-                <MyButton
-                  click={toggleWalletModal}
-                  styleKit={"green"}
-                >
-                  Connect Wallet
-                </MyButton>
-              )}
+            ? depositButtonRenderer()
+            : withdrawButtonContainerRenderer()
+          }
         </div>
       </div>
     </div>

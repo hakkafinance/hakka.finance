@@ -32,7 +32,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
           <div sx={styles.loginButtonWrapper}>
             <MyButton
               id={account ? 'web3-status-connected' : 'connect-wallet'}
-              click={toggleWalletModal}
+              onClick={toggleWalletModal}
             >
               {account ? ENSName || shortenAddress(account) : 'Connect'}
             </MyButton>

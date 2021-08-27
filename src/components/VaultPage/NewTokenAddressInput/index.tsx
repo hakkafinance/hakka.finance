@@ -108,7 +108,7 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
         <MyButton
           styleKit="green"
           disabled={isAddBtnDisabled}
-          click={handleAddBtnClick}
+          onClick={handleAddBtnClick}
         >
           Add
         </MyButton>

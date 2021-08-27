@@ -77,11 +77,17 @@ export default {
 
   contractAddress: {
     fontWeight: 'bold',
-    textDecoration: 'underline',
+    color: '#253E47',
 
     ':hover': {
       cursor: 'pointer',
     },
+  },
+
+  contractAddressDisabled: {
+    pointerEvents: 'none',
+    textDecoration: 'none',
+    color: '#253E47'
   },
 
   hakkaBalance: {
