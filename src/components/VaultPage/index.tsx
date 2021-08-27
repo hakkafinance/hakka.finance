@@ -207,7 +207,9 @@ const VaultPage = (props) => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toSignificant(10) || '0.00'}
+                {isCorrectNetwork 
+                  ? (hakkaBalance?.toSignificant(10) || '0.00')
+                  : '-'}
               </span>
             </div>
             <NumericalInputField
