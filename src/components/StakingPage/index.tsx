@@ -72,10 +72,12 @@ const Staking = () => {
 
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
-  let isCorrectNetwork: boolean = true;
-  if(chainId){
-    isCorrectNetwork = STAKING_ADDRESSES[chainId as ChainId] !== AddressZero
-  }; 
+  const isCorrectNetwork = useMemo<boolean>(() => {
+    if(chainId){
+      return STAKING_ADDRESSES[chainId as ChainId] !== AddressZero;
+    }
+    return true;
+  }, [chainId]);  
 
   return (
     <div sx={styles.container}>
