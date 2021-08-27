@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Token, TokenAmount } from '@uniswap/sdk';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import React, { useState, useMemo, useEffect } from 'react';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { Zero } from '@ethersproject/constants';
@@ -27,9 +27,10 @@ import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCa
 import ConnectWalletButtonWrapper from '../../Common/ConnectWalletButtonWrapper';
 import ApproveTokenButtonWrapper from '../../Common/ApproveTokenButtonWrapper';
 import { useWalletModalToggle } from '../../../state/application/hooks';
+import WithWrongNetworkCheckWrapper from '../../Common/WithWrongNetworkCheckWrapper';
 
 const PoolDetail = ({ pool }) => {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, error } = useWeb3React();
   const rewardData = useRewardsData([pool]);
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -116,10 +117,17 @@ const PoolDetail = ({ pool }) => {
   const toggleWalletModal = useWalletModalToggle();
 
   const DepositButton = ApproveTokenButtonWrapper(
-    ConnectWalletButtonWrapper(MyButton)
+    ConnectWalletButtonWrapper(
+      WithWrongNetworkCheckWrapper(MyButton)
+    )
   );
 
-  const ClaimButton = ConnectWalletButtonWrapper(MyButton);
+  const ClaimButton = ConnectWalletButtonWrapper(
+    WithWrongNetworkCheckWrapper(MyButton)
+  );
+
+  const isWrongNetwork = error instanceof UnsupportedChainIdError 
+    || REWARD_POOLS[pool].chain !== chainId;
 
   return (
     <div>
@@ -140,7 +148,7 @@ const PoolDetail = ({ pool }) => {
           </div>
           <div sx={styles.infoItem}>
             <span>Contract</span>
-            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}> {shortenAddress(pool)} </a>
+            <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}>{shortenAddress(pool)}</a>
           </div>
         </div>
         <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
@@ -190,6 +198,7 @@ const PoolDetail = ({ pool }) => {
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
                 exceptionHandlingDisabled={claimState === ClaimState.PENDING}
+                unsupported={REWARD_POOLS[pool].chain !== chainId}
               >
                 Claim
               </ClaimButton>
@@ -269,10 +278,22 @@ const PoolDetail = ({ pool }) => {
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}
                 exceptionHandlingDisabled={depositState === DepositState.PENDING}
+                unsupported={REWARD_POOLS[pool].chain !== chainId}
               >
                Deposit
               </DepositButton>
-            ) : !!account ? (
+            ) : (!account || isWrongNetwork) ? (
+                <MyButton
+                  click={toggleWalletModal}
+                  styleKit={"green"}
+                  disabled={isWrongNetwork}
+                >
+                  { isWrongNetwork 
+                    ? 'Wrong Network' 
+                    : 'Connect Wallet' 
+                  }
+                </MyButton>
+              ) : (
                 <div sx={styles.withdrawBtnContainer}>
                   <div>
                     <MyButton
@@ -295,14 +316,8 @@ const PoolDetail = ({ pool }) => {
                     </MyButton>
                   </div>
                 </div>
-              ) : (
-                <MyButton
-                  click={toggleWalletModal}
-                  styleKit={"green"}
-                >
-                  Connect Wallet
-                </MyButton>
-              )}
+              )
+            }
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import {
 import { useVestingContract } from '../../hooks/useContract';
 import ConnectWalletButtonWrapper from '../Common/ConnectWalletButtonWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
+import WithWrongNetworkCheckWrapper from '../Common/WithWrongNetworkCheckWrapper';
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
@@ -94,7 +95,9 @@ const VestingPage = () => {
   );
 
   const toggleWalletModal = useWalletModalToggle();
-  const ClaimButton = ConnectWalletButtonWrapper(MyButton)
+  const ClaimButton = ConnectWalletButtonWrapper(
+    WithWrongNetworkCheckWrapper(MyButton)
+  );
 
   return (
     <>
@@ -166,6 +169,7 @@ const VestingPage = () => {
                   isConnected={!!account}
                   connectWallet={toggleWalletModal}
                   exceptionHandlingDisabled={claimState === VestingState.PENDING || isWaitingCycle}
+                  unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero}
                 >
                   {isWaitingCycle ? (
                     <Countdown

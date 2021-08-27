@@ -24,7 +24,7 @@ export default {
       maxWidth: '460px',
       maxHeight: '90vh',
       display: 'flex',
-      borderRadius: '1px',
+      borderRadius: '8px',
 
       '@media (max-width: 960px)': {
         width: '65vw',
