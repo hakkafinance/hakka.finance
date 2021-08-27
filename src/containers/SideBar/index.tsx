@@ -152,7 +152,7 @@ function SideBar(props) {
         <Box>
           <Box sx={styles.hl} mt="2" pr="0" />
           <Box p="12px">
-            <MyButton click={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus(); }}>
+            <MyButton onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus(); }}>
               <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>
             </MyButton>
           </Box>

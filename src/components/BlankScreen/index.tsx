@@ -27,7 +27,7 @@ const BlankScreen = (props) => {
         for temporary
       </p>
       <div sx={styles.buttonSection}>
-        <MyButton click={() => { window.open(productInfo.href, '_blank').focus(); }} styleKit="green">{productInfo.name}</MyButton>
+        <MyButton onClick={() => { window.open(productInfo.href, '_blank').focus(); }} styleKit="green">{productInfo.name}</MyButton>
       </div>
     </Box>
   );

@@ -83,7 +83,7 @@ export default function AccountDetails({
               <div sx={styles.buttonSection}>
                 {connector !== injected && connector !== walletlink ? (
                   <MyButton
-                    click={() => {
+                    onClick={() => {
                       (connector as any).close();
                     }}
                   >
@@ -91,7 +91,7 @@ export default function AccountDetails({
                   </MyButton>
                 ) : (
                   <MyButton
-                    click={() => {
+                    onClick={() => {
                       openOptions();
                     }}
                   >
