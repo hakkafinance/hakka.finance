@@ -72,12 +72,19 @@ const Staking = () => {
 
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
+  const isCorrectNetwork = useMemo<boolean>(() => {
+    if(chainId){
+      return STAKING_ADDRESSES[chainId as ChainId] !== AddressZero;
+    }
+    return true;
+  }, [chainId]);  
+
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
         <div sx={styles.heading}>
           <h1>Staking</h1>
-          <Web3Status unsupported={STAKING_ADDRESSES[chainId as ChainId] === AddressZero} />
+          <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.body}>
           {/* infoPart */}
@@ -116,7 +123,10 @@ const Staking = () => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toFixed(2) || '0.00'}
+                {isCorrectNetwork 
+                  ? (hakkaBalance?.toFixed(2) || '0.00')
+                  : '-'
+                }
               </span>
             </div>
             <NumericalInputField
@@ -170,7 +180,7 @@ const Staking = () => {
                   || approveState === ApprovalState.UNKNOWN
                   || !isCorrectInput
                 }
-                isCorrectNetwork={!!STAKING_ADDRESSES[chainId as ChainId] && STAKING_ADDRESSES[chainId as ChainId] !== AddressZero}
+                isCorrectNetwork={isCorrectNetwork}
               >
                 Stake
               </StakeButton>

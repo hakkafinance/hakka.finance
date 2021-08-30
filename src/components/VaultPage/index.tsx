@@ -166,10 +166,12 @@ const VaultPage = (props) => {
     )
   )
 
-  let isCorrectNetwork: boolean = true;
-  if(chainId){
-    isCorrectNetwork = BURNER_ADDRESS[chainId as ChainId] !== AddressZero
-  }; 
+  const isCorrectNetwork = useMemo<boolean>(() => {
+    if(chainId) { 
+      return BURNER_ADDRESS[chainId as ChainId] !== AddressZero;
+    }
+    return true;
+  }, [chainId])
 
   // error message
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
@@ -207,7 +209,9 @@ const VaultPage = (props) => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {hakkaBalance?.toSignificant(10) || '0.00'}
+                {isCorrectNetwork 
+                  ? (hakkaBalance?.toSignificant(10) || '0.00')
+                  : '-'}
               </span>
             </div>
             <NumericalInputField
