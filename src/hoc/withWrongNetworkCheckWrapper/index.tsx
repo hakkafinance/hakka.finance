@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface WrongNetworkCheckWrapperInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabledWhenNotPrepared?: boolean;
