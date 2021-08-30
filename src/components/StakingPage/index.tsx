@@ -12,7 +12,7 @@ import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useStakeCallback, StakeState } from '../../hooks/useStakeCallback';
+import { useHakkaStake, StakeState } from '../../hooks/staking/useHakkaStake';
 import StakePositionItem from './StakePositionItem/index';
 import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
@@ -55,7 +55,7 @@ const Staking = () => {
   const sHakkaPreview = useMemo(() => (stakingRate && inputAmount ? tryParseAmount(stakingRate[stakingMonth.indexOf(lockTime)]).multiply(tryParseAmount(inputAmount)).divide(1e18.toString()) : 0),
     [lockTime, stakingRate, inputAmount]);
 
-  const [stakeState, stakeCallback] = useStakeCallback(
+  const [stakeState, stake] = useHakkaStake(
     STAKING_ADDRESSES[chainId as ChainId],
     account,
     parseUnits(inputAmount || '0'),
@@ -171,7 +171,7 @@ const Staking = () => {
               <StakeButton
                 styleKit={'green'}
                 isDisabledWhenNotPrepared={false}
-                onClick={stakeCallback}
+                onClick={stake}
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}

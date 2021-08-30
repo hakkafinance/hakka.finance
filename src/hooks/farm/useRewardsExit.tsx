@@ -2,41 +2,47 @@
 import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { useVestingContract } from './useContract';
-import { getEtherscanLink, shortenTxId } from '../utils';
+import { useRewardsContract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
+import { REWARD_POOLS } from '../../constants/rewards';
 
-export enum VestingState {
+export enum ExitState {
   UNKNOWN,
-  PENDING,
+  PENDING
 }
 
-export function useVestingCallback(
-  vestingAddress?: string,
+export function useRewardsExit(
+  exitAddress?: string,
   spender?: string,
-): [VestingState, () => Promise<void>] {
+): [ExitState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const vestingState: VestingState = useMemo(() => {
-    if (!spender) return VestingState.UNKNOWN;
+  const exitState: ExitState = useMemo(() => {
+    if (!spender) return ExitState.UNKNOWN;
 
     return currentTransaction
-      ? VestingState.PENDING
-      : VestingState.UNKNOWN;
+      ? ExitState.PENDING
+      : ExitState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const vestingContract = useVestingContract(vestingAddress);
+  const exitContract = useRewardsContract(exitAddress);
 
-  const vesting = useCallback(async (): Promise<void> => {
+  const exit = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
     }
 
+    if (REWARD_POOLS[exitAddress].chain !== chainId) {
+      toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
+      return;
+    }
+
     try {
-      const tx = await vestingContract.withdraw();
+      const tx = await exitContract.exit();
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -55,9 +61,9 @@ export function useVestingCallback(
       setCurrentTransaction(null);
     }
   }, [
-    vestingContract,
+    exitContract,
     spender,
   ]);
 
-  return [vestingState, vesting];
+  return [exitState, exit];
 }

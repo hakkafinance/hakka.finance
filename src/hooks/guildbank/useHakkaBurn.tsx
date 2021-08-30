@@ -3,43 +3,43 @@ import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
-import { useStakeContract } from './useContract';
-import { getEtherscanLink, shortenTxId } from '../utils';
+import { useBurnContract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
 
-export enum StakeState {
+export enum BurnState {
   UNKNOWN,
   PENDING
 }
 
-export function useStakeCallback(
-  stakeAddress: string,
-  spender: string,
-  amountParsed: BigNumber,
-  lockMonth: number,
-): [StakeState, () => Promise<void>] {
+export function useHakkaBurn(
+  burnAddress?: string,
+  spender?: string,
+  amountParsed?: BigNumber,
+  pickedRewardTokensAddress?: string[],
+): [BurnState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const stakeState: StakeState = useMemo(() => {
-    if (!spender) return StakeState.UNKNOWN;
+  const burnState: BurnState = useMemo(() => {
+    if (!spender) return BurnState.UNKNOWN;
 
     return currentTransaction
-      ? StakeState.PENDING
-      : StakeState.UNKNOWN;
+      ? BurnState.PENDING
+      : BurnState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const stakeContract = useStakeContract(stakeAddress);
+  const burnContract = useBurnContract(burnAddress);
 
-  const stake = useCallback(async (): Promise<void> => {
+  const burn = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
     }
 
     try {
-      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 60 * 60 * 24 * 30);
+      const tx = await burnContract.ragequit(pickedRewardTokensAddress, amountParsed);
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -58,11 +58,11 @@ export function useStakeCallback(
       setCurrentTransaction(null);
     }
   }, [
-    stakeContract,
+    burnContract,
     spender,
     amountParsed,
-    lockMonth,
+    pickedRewardTokensAddress,
   ]);
 
-  return [stakeState, stake];
+  return [burnState, burn];
 }

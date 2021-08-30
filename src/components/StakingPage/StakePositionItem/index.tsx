@@ -12,7 +12,7 @@ import NumericalInputField from '../../NumericalInputField';
 import { useActiveWeb3React } from '../../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
-import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';
+import { useHakkaUnstake, UnstakeState } from '../../../hooks/staking/useHakkaUnstake';
 import { tryParseAmount } from '../../../utils';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 
@@ -56,7 +56,7 @@ const StakePositionItem = (props: StakePositionProps) => {
 
   const [isShowRedeem, setIsShowRedeem] = useState<boolean>(false);
 
-  const [unstakeState, unstakeCallback] = useUnstakeCallback(
+  const [unstakeState, unstake] = useHakkaUnstake(
     STAKING_ADDRESSES[chainId as ChainId],
     account,
     index,
@@ -137,7 +137,7 @@ const StakePositionItem = (props: StakePositionProps) => {
             <RedeemButton
               styleKit={'green'}
               isDisabledWhenNotPrepared={false}
-              onClick={unstakeCallback}
+              onClick={unstake}
               isApproved={approveState === ApprovalState.APPROVED}
               approveToken={approve}
               exceptionHandlingDisabled={

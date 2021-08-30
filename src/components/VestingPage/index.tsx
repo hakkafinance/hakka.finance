@@ -16,7 +16,7 @@ import ClaimModal from '../ClaimModal';
 import { useClaimModalToggle } from '../../state/application/hooks';
 import { useSingleCallResult } from '../../state/multicall/hooks';
 import useTokenPrice from '../../hooks/useTokenPrice';
-import { useVestingCallback, VestingState } from '../../hooks/useVestingCallback';
+import { useVestingWithdraw, VestingState } from '../../hooks/vesting/useVestingWithdraw';
 import {
   ChainId,
   HAKKA,
@@ -31,7 +31,7 @@ const VestingPage = () => {
   const { chainId, account } = useWeb3React();
   const toggleClaimModal = useClaimModalToggle();
   const hakkaPrice = useTokenPrice('hakka-finance');
-  const [claimState, claimCallback] = useVestingCallback(VESTING_ADDRESSES[chainId], account);
+  const [claimState, claim] = useVestingWithdraw(VESTING_ADDRESSES[chainId], account);
 
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -168,7 +168,7 @@ const VestingPage = () => {
                   isConnected={!!account}
                   connectWallet={toggleWalletModal}
                   isCorrectNetwork={!!VESTING_ADDRESSES[chainId as ChainId] && VESTING_ADDRESSES[chainId as ChainId] !== AddressZero}
-                  onClick={claimCallback}
+                  onClick={claim}
                   disabled={claimState === VestingState.PENDING || isWaitingCycle}
                 >
                   {isWaitingCycle ? (

@@ -2,47 +2,41 @@
 import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { useRewardsContract } from './useContract';
-import { getEtherscanLink, shortenTxId } from '../utils';
+import { useVestingContract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-import { REWARD_POOLS } from '../constants/rewards';
 
-export enum ClaimState {
+export enum VestingState {
   UNKNOWN,
-  PENDING
+  PENDING,
 }
 
-export function useClaimCallback(
-  claimAddress?: string,
+export function useVestingWithdraw(
+  vestingAddress?: string,
   spender?: string,
-): [ClaimState, () => Promise<void>] {
+): [VestingState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const claimState: ClaimState = useMemo(() => {
-    if (!spender) return ClaimState.UNKNOWN;
+  const vestingState: VestingState = useMemo(() => {
+    if (!spender) return VestingState.UNKNOWN;
 
     return currentTransaction
-      ? ClaimState.PENDING
-      : ClaimState.UNKNOWN;
+      ? VestingState.PENDING
+      : VestingState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const claimContract = useRewardsContract(claimAddress);
+  const vestingContract = useVestingContract(vestingAddress);
 
-  const claim = useCallback(async (): Promise<void> => {
+  const withdraw = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
     }
 
-    if (REWARD_POOLS[claimAddress].chain !== chainId) {
-      toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
-      return;
-    }
-
     try {
-      const tx = await claimContract.getReward();
+      const tx = await vestingContract.withdraw();
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -61,9 +55,9 @@ export function useClaimCallback(
       setCurrentTransaction(null);
     }
   }, [
-    claimContract,
+    vestingContract,
     spender,
   ]);
 
-  return [claimState, claim];
+  return [vestingState, withdraw];
 }
