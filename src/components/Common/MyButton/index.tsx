@@ -4,9 +4,22 @@ import types from 'prop-types';
 import styles from './styles';
 
 const MyButton = (props) => {
+  const {
+    disabled,
+    onClick,
+    styleKit,
+    children
+  } = props;
+  
   return (
-    <Button disabled={props.disabled} onClick={props.onClick} sx={props.styleKit === 'green' ? styles.mybutton_green : styles.mybutton}>
-      <Box>{props.children}</Box>
+    <Button 
+      disabled={disabled} 
+      onClick={onClick} 
+      sx={styleKit === 'green' 
+          ? styles.mybutton_green 
+          : styles.mybutton
+      }>
+      <Box>{children}</Box>
     </Button>
   );
 };

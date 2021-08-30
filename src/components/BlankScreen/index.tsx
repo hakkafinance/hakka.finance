@@ -7,10 +7,11 @@ import styles from './styles';
 import { botSideBarItems } from '../../containers/SideBar/index';
 
 const BlankScreen = (props) => {
+  const { path:currentPath } = props;
   const productInfo = {};
   botSideBarItems.forEach((item) => {
-    if (item.path === props.path) {
-      productInfo.name = props.path === 'guildbank' ? 'Token Burner V1' : `${item.name.charAt(0).toUpperCase() + item.name.slice(1)} V1`;
+    if (item.path === currentPath) {
+      productInfo.name = currentPath === 'guildbank' ? 'Token Burner V1' : `${item.name.charAt(0).toUpperCase() + item.name.slice(1)} V1`;
       productInfo.href = item.href;
     }
   });

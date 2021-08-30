@@ -9,16 +9,17 @@ export default function CopyHelper(props: {
   toCopy: string;
   children?: React.ReactNode;
 }) {
+  const { toCopy, children } = props;
   const [isCopied, setCopied] = useCopyClipboard();
 
   return (
-    <button sx={styles.copyIcon} onClick={() => setCopied(props.toCopy)}>
+    <button sx={styles.copyIcon} onClick={() => setCopied(toCopy)}>
       {isCopied ? (
         <CheckCircle size="16" />
       ) : (
         <Copy size="18" />
       )}
-      {isCopied ? <span style={{ marginLeft: '4px' }}>Copied</span> : props.children}
+      {isCopied ? <span style={{ marginLeft: '4px' }}>Copied</span> : children}
     </button>
   );
 }
