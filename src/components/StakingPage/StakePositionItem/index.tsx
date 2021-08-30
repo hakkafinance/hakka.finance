@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { CurrencyAmount } from '@uniswap/sdk';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { BigNumber } from 'ethers';
 import Countdown, { zeroPad } from 'react-countdown';
 import images from '../../../images';
 import styles from './styles';
-import MyButton from '../../Common/MyButton/index';
+import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
 import { useActiveWeb3React } from '../../../hooks/index';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';

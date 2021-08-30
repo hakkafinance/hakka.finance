@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui';
 import styles from './styles';
 import images from '../../../images/index';
-import MyButton from '../../Common/MyButton';
+import { MyButton } from '../../Common';
 
 interface RewardsPoolCardProps {
   tokenImage: string;

@@ -9,7 +9,7 @@ import styles from './styles';
 import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
-import MyButton from '../../Common/MyButton';
+import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField/index';
 import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';

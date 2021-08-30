@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Box } from 'rebass';
-import images from 'src/images';
-import MyButton from 'src/components/Common/MyButton';
+import images from '../../images';
+import { MyButton } from '../../components/Common';
 import styles from './styles';
 import { botSideBarItems } from '../../containers/SideBar/index';
 

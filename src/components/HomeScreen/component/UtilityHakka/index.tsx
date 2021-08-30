@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui';
 import React from 'react';
 import { Flex, Box } from 'rebass';
-import images from 'src/images';
+import images from '../../../../images';
 import styles from './styles';
 
 function UtilityHakka() {

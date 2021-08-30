@@ -11,7 +11,7 @@ import { AddressZero } from '@ethersproject/constants';
 import Web3Status from '../Web3Status';
 import images from '../../images';
 import styles from './styles';
-import MyButton from '../../components/Common/MyButton/index';
+import { MyButton } from '../../components/Common';
 import ClaimModal from '../ClaimModal';
 import { useClaimModalToggle } from '../../state/application/hooks';
 import { useSingleCallResult } from '../../state/multicall/hooks';

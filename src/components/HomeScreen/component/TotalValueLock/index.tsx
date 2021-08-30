@@ -1,10 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
-import {
-  Box, Flex, Heading, Text,
-} from 'rebass';
-import images from 'src/images';
+import { useState } from 'react';
+import { Box, Flex } from 'rebass';
+import images from '../../../../images';
 import fetch from 'cross-fetch';
 import styles from './styles';
 import FlagshipProduct from '../FlagshipProduct';

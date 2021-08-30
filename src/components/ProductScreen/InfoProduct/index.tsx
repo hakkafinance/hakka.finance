@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from 'theme-ui';
-import { Box, Flex, Text } from 'rebass';
-import images from 'src/images';
-import MyButton from 'src/components/Common/MyButton';
+import { Box, Flex } from 'rebass';
+import images from '../../../images';
+import { MyButton } from '../../../components/Common';
 import types from 'prop-types';
 import styles from './styles';
 

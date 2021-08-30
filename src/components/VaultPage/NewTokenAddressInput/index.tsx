@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui';
 import { useEffect, useState } from 'react';
 import styles from './styles';
-import MyButton from '../../Common/MyButton/index';
+import { MyButton } from '../../Common';
 import { useActiveWeb3React } from '../../../hooks/index';
 import {
   isAddress,

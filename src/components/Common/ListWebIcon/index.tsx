@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react';
 import { Box, Flex } from 'rebass';
-import images from 'src/images';
+import images from '../../../images';
 import styles from './styles';
 
 const ListWebIcon = (props) => (

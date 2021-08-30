@@ -12,7 +12,7 @@ import {
   injected,
   walletlink,
 } from '../../connectors';
-import MyButton from '../Common/MyButton';
+import { MyButton } from '../Common';
 import styles from './styles';
 
 interface AccountDetailsProps {

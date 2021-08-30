@@ -6,7 +6,7 @@ import { NetworkContextName } from '../../constants';
 import useENSName from '../../hooks/useENSName';
 import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
 import { shortenAddress } from '../../utils';
-import MyButton from '../../components/Common/MyButton';
+import { MyButton } from '../../components/Common';
 import WalletModal from '../WalletModal';
 import InfoModal from '../InfoModal';
 import CurrentNetwork from '../CurrentNetwork';

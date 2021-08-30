@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core';
 import { AddressZero } from '@ethersproject/constants';
 import images from '../../images';
 import styles from './styles';
-import MyButton from '../../components/Common/MyButton/index';
+import { MyButton } from '../../components/Common';
 import Web3Status from '../Web3Status';
 import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';

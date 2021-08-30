@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react';
 import { Box, Flex, Link } from 'rebass';
-import images from 'src/images';
+import images from '../../../images';
 import styles from './styles';
 
 function CoinComponent(props) {
-  const { item, i, whatHakka } = props;
+  const { item } = props;
   return (
     <Link sx={styles.custom_link} href={item.link} target="_blank">
       <Flex

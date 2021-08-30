@@ -2,10 +2,10 @@
 import { jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import {
-  Box, Flex, Heading, Link,
+  Box, Flex, Link,
 } from 'rebass';
-import images from 'src/images';
-import CoinComponent from 'src/components/Common/CoinComponent';
+import images from '../../../../images';
+import { CoinComponent } from '../../../../components/Common';
 import styles from './styles';
 
 const TokenMetricContent = (props) => {
