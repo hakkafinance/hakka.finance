@@ -16,7 +16,7 @@ interface NumericalInputFieldProps {
   tokenBalance: CurrencyAmount;
   approve: any;
   approveState: ApprovalState;
-  setIsCorrectInput?: any;
+  setIsCorrectInput: any;
 }
 
 const NumericalInputField = (props: NumericalInputFieldProps) => {
@@ -54,7 +54,7 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
 
 
   useEffect(()=>{
-    if ( amountError || parseFloat(value) === 0 || !value ) {
+    if (amountError || parseFloat(value) === 0 || !value) {
       setIsCorrectInput(false);
     } else {
       setIsCorrectInput(true);

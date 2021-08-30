@@ -55,6 +55,7 @@ const StakePositionItem = (props: StakePositionProps) => {
   ), [until]);
 
   const [isShowRedeem, setIsShowRedeem] = useState<boolean>(false);
+  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
   const [unstakeState, unstakeCallback] = useUnstakeCallback(
     STAKING_ADDRESSES[chainId as ChainId],
@@ -124,6 +125,7 @@ const StakePositionItem = (props: StakePositionProps) => {
               tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
               approve={approve}
               approveState={approveState}
+              setIsCorrectInput={setIsCorrectInput}
             />
           </div>
           <div sx={styles.receiveAmountWrapper}>
@@ -140,10 +142,11 @@ const StakePositionItem = (props: StakePositionProps) => {
               onClick={unstakeCallback}
               isApproved={approveState === ApprovalState.APPROVED}
               approveToken={approve}
-              exceptionHandlingDisabled={
+              disabled={
                 Date.now() < until?.mul(1000).toNumber() 
                 || unstakeState === UnstakeState.PENDING 
                 || sHakkaReceived.eq(0)
+                || !isCorrectInput
               }
             >
               Redeem
