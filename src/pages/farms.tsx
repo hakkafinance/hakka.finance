@@ -4,7 +4,6 @@ import RewardsPage from '../components/RewardsPage/index';
 
 const Farms = ({ pageContext }) => {
   const { pool } = pageContext
-  console.log(pool)
   return (
   <DappLayout title="Hakka Finance | Farms">
     <RewardsPage />

@@ -62,8 +62,16 @@ const PoolDetail = ({ pool }) => {
 
     async function loadApr() {
       if (!active || !hakkaPrice) { return }
-      const newApr = await POOL_ASSETES[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
-      setApr(tryParseAmount(formatUnits(newApr?.mul(100), 18)).toFixed(2));
+      try {
+        const newApr = await POOL_ASSETES[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
+        setApr(tryParseAmount(formatUnits(newApr?.mul(100), 18)).toFixed(2));
+      } catch (e) {
+        console.error(e);
+
+        setTimeout(() => {
+          loadApr();
+        }, 1000);
+      }
     }
   }, [hakkaPrice]);
 

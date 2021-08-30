@@ -39,20 +39,28 @@ const RewardsPage = () => {
   useEffect(() => {
     let active = true;
     if (hakkaPrice) {
+      loadApr();
+    }
+
+    async function loadApr() {
       try {
-        Promise.all(poolAddresses.map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))))
-        .then((aprList) => {
-          const newApr = {}
-          aprList.map((apr, index) => {
-            newApr[REWARD_POOLS[poolAddresses[index]].rewardsAddress] = apr
-          });
-          setApr(newApr);
-        })
+        setApr({});
+        const aprList = await Promise.all(Object.keys(REWARD_POOLS).map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
+        const newApr = {}
+        aprList.map((apr, index) => {
+          newApr[REWARD_POOLS[Object.keys(REWARD_POOLS)[index]].rewardsAddress] = apr;
+        });
         if (!active) { return }
+        setApr(newApr);
       } catch (e) {
         console.error(e);
+
+        setTimeout(() => {
+          loadApr();
+        }, 1000);
       }
     }
+    
     return () => { active = false }
   }, [hakkaPrice]);
 
