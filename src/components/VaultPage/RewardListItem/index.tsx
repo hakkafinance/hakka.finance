@@ -6,10 +6,22 @@ import images from '../../../images/index';
 import styles from './styles';
 
 const RewardItem = (props) => {
+  const {
+    rewardTokens,
+    tokenAddress,
+    setRewardTokens,
+    onChange,
+    checked,
+    tokenName,
+    isDefaultToken,
+    receiveAmount,
+    bankBalance,
+
+  } = props;
   const handleTokenDeleteClick = () => {
-    const newObj = JSON.parse(JSON.stringify(props.rewardTokens));
-    delete newObj[props.tokenAddress];
-    props.setRewardTokens(newObj);
+    const newObj = JSON.parse(JSON.stringify(rewardTokens));
+    delete newObj[tokenAddress];
+    setRewardTokens(newObj);
   };
 
   return (
@@ -22,21 +34,21 @@ const RewardItem = (props) => {
             // id={label}
             // name={label}
             // checked={checked}
-            onChange={props.onChange}
+            onChange={onChange}
           />
-          {props.checked ? <img src={images.iconChekBoxChecked} /> : <img src={images.iconChekBoxUnchecked} />}
-          <span sx={styles.tokenName}>{props.tokenName}</span>
+          {checked ? <img src={images.iconChekBoxChecked} /> : <img src={images.iconChekBoxUnchecked} />}
+          <span sx={styles.tokenName}>{tokenName}</span>
         </label>
-        {props.isDefaultToken
+        {isDefaultToken
           || <img sx={styles.iconTrash} src={images.iconTrash} onClick={() => handleTokenDeleteClick()} alt="delete this reward" />}
 
       </div>
-      {props.checked
+      {checked
         ? (
           <div>
-            <span sx={styles.receiveAmount}>{props.receiveAmount?.isEqualTo(new BigNumber(0)) ? '0' : props.receiveAmount?.toFixed(4) }</span>
+            <span sx={styles.receiveAmount}>{receiveAmount?.isEqualTo(new BigNumber(0)) ? '0' : receiveAmount?.toFixed(4) }</span>
             /
-            <span sx={styles.bankBalance}>{props.bankBalance}</span>
+            <span sx={styles.bankBalance}>{bankBalance}</span>
           </div>
         )
         : <span sx={styles.unselectedReward}>Unselected Reward</span>}

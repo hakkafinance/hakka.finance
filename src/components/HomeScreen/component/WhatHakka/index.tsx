@@ -6,6 +6,7 @@ import fetch from 'cross-fetch';
 import styles from './styles';
 
 function WhatHakka(props) {
+  const { renderCoin } = props;
   const [circulatingSupplyValue, setCirculatingSupplyValue] = useState(0);
   fetch('https://api.hakka.finance/').then((res) => res.text()).then((res) => {
     const value = Math.floor(res * 10000) / 10000;
@@ -23,7 +24,7 @@ function WhatHakka(props) {
         <span>{circulatingSupplyValue}</span>
       </Box>
       <Flex sx={styles.listCoinHakka} mt="20px" alignItems="center">
-        {props.renderCoin()}
+        {renderCoin()}
       </Flex>
     </>
   );

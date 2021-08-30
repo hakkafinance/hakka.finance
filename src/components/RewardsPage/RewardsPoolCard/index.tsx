@@ -17,36 +17,51 @@ interface RewardsPoolCardProps {
   earnedBalance: string;
 }
 
-const RewardsPoolCard = (props: RewardsPoolCardProps) => (
-  <div sx={styles.container}>
-    <div sx={styles.illustration} />
-    <div sx={styles.header}>
-      <p>
-        APR {props.apr}%
-      </p>
-      <img sx={styles.icon} src={props.tokenImage} />
-    </div>
-    <p sx={styles.title}>{props.title}</p>
-    <a sx={styles.link} target='_blank' href={props.url}>
-      <span>{props.linkContent}</span>
-      <img src={images.iconLinkNormal} />
-    </a>
-    <div sx={styles.rewardInfo}>
-      <p>You deposited</p>
-      <div sx={styles.amountWrapper}>
-        <span sx={styles.amount}> {props.depositedBalance} </span>
-        <span>{props.depositedTokenSymbol}</span>
+const RewardsPoolCard = (props: RewardsPoolCardProps) => {
+  const {
+    apr,
+    tokenImage,
+    title,
+    url,
+    linkContent,
+    depositedBalance,
+    depositedTokenSymbol,
+    earnedBalance,
+    btnContent,
+    rewardsAddress
+  } = props;
+
+  return(
+    <div sx={styles.container}>
+      <div sx={styles.illustration} />
+      <div sx={styles.header}>
+        <p>
+          APR {apr}%
+        </p>
+        <img sx={styles.icon} src={tokenImage} />
       </div>
-      <p>Earned</p>
-      <div sx={styles.amountWrapper}>
-        <span sx={styles.amount}> {props.earnedBalance} </span>
-        <span>HAKKA</span>
+      <p sx={styles.title}>{title}</p>
+      <a sx={styles.link} target='_blank' href={url}>
+        <span>{linkContent}</span>
+        <img src={images.iconLinkNormal} />
+      </a>
+      <div sx={styles.rewardInfo}>
+        <p>You deposited</p>
+        <div sx={styles.amountWrapper}>
+          <span sx={styles.amount}> {depositedBalance} </span>
+          <span>{depositedTokenSymbol}</span>
+        </div>
+        <p>Earned</p>
+        <div sx={styles.amountWrapper}>
+          <span sx={styles.amount}> {earnedBalance} </span>
+          <span>HAKKA</span>
+        </div>
       </div>
+      <MyButton onClick={() => { location.href = `/farms/${rewardsAddress}`; }}>
+        {btnContent}
+      </MyButton>
     </div>
-    <MyButton onClick={() => { location.href = `/farms/${props.rewardsAddress}`; }}>
-      {props.btnContent}
-    </MyButton>
-  </div>
-);
+  )
+} ;
 
 export default RewardsPoolCard;

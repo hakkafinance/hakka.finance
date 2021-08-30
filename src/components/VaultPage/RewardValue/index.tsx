@@ -15,14 +15,20 @@ interface RewardValueProps {
 }
 
 const RewardValue = (props: RewardValueProps) => {
+  const {
+    newRewardAddressInput,
+    pickedRewardTokensAddress,
+    localRewardAmount,
+    inputAmount,
+  } = props;
   const [tokensId, setTokensId] = useState(DEFAULT_TOKENS_COIN_GECKO_ID_BOOK);
-  const newTokenId = useCoingeckoTokenId(props.newRewardAddressInput);
+  const newTokenId = useCoingeckoTokenId(newRewardAddressInput);
 
   useEffect(() => {
-    if (props.newRewardAddressInput && newTokenId) {
+    if (newRewardAddressInput && newTokenId) {
       setTokensId((prevState: any) => ({
         ...prevState,
-        [props.newRewardAddressInput]: newTokenId.id,
+        [newRewardAddressInput]: newTokenId.id,
       }));
     }
   }, [newTokenId.id]);
@@ -32,14 +38,14 @@ const RewardValue = (props: RewardValueProps) => {
 
   useEffect(() => {
     let rewardValueSum = new BigNumber(0);
-    props.pickedRewardTokensAddress.map((address) => {
-      if (props.localRewardAmount && tokensPrice) {
-        const value = props.localRewardAmount[address]?.multipliedBy(new BigNumber(tokensPrice[address] ? tokensPrice[address] : 0));
+    pickedRewardTokensAddress.map((address) => {
+      if (localRewardAmount && tokensPrice) {
+        const value = localRewardAmount[address]?.multipliedBy(new BigNumber(tokensPrice[address] ? tokensPrice[address] : 0));
         rewardValueSum = rewardValueSum.plus(value);
       }
     });
     setRewardValue(rewardValueSum);
-  }, [props.inputAmount, props.pickedRewardTokensAddress]);
+  }, [inputAmount, pickedRewardTokensAddress]);
 
   return (
     <div sx={styles.totalValueWrapper}>
