@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import { useEffect, useState } from 'react';
 import styles from './styles';
 import { MyButton } from '../../Common';
-import { useActiveWeb3React } from '../../../hooks/index';
+import { useActiveWeb3React } from '../../../hooks/web3Manager';
 import {
   isAddress,
   isERC20Contract,

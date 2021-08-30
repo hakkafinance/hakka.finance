@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { JSBI, TokenAmount, Token } from '@uniswap/sdk';
 import { Interface } from '@ethersproject/abi';
-import { useActiveWeb3React } from '../hooks';
+import { useActiveWeb3React } from '../hooks/web3Manager';
 import ERC20_ABI from '../constants/abis/erc20.json';
 import { useMultipleContractSingleData } from '../state/multicall/hooks';
 

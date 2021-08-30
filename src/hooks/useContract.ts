@@ -11,7 +11,7 @@ import STAKE_ABI from '../constants/abis/shakka.json';
 import REWARDS_ABI from '../constants/abis/staking_rewards.json';
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall';
 import { getContract } from '../utils';
-import { useActiveWeb3React } from './index';
+import { useActiveWeb3React } from './web3Manager';
 import isZero from '../utils/isZero';
 
 // returns null on errors

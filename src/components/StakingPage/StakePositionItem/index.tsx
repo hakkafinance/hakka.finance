@@ -9,7 +9,7 @@ import images from '../../../images';
 import styles from './styles';
 import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
-import { useActiveWeb3React } from '../../../hooks/index';
+import { useActiveWeb3React } from '../../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
 import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
 import { useUnstakeCallback, UnstakeState } from '../../../hooks/useUnstakeCallback';

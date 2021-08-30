@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React from 'react';
-import { useActiveWeb3React } from '../../hooks';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { shortenAddress } from '../../utils';
 import Copy from './Copy';
 

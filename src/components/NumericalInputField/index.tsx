@@ -8,7 +8,7 @@ import images from '../../images/index';
 import { ApprovalState } from '../../hooks/useTokenApprove';
 import BigNumber from 'bignumber.js';
 import { WeiPerEther } from '@ethersproject/constants';
-import { useActiveWeb3React } from '../../hooks/index';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 
 interface NumericalInputFieldProps {
   value: string ;

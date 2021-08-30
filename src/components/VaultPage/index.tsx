@@ -15,7 +15,7 @@ import NumericalInputField from '../NumericalInputField/index';
 import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
-import { useActiveWeb3React } from '../../hooks/index';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback';
 import { shortenAddress, getEtherscanLink } from '../../utils';

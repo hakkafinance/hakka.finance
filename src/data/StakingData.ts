@@ -1,7 +1,7 @@
 import { JSBI, CurrencyAmount } from '@uniswap/sdk';
 import { useMemo } from 'react';
 import { formatUnits } from '@ethersproject/units';
-import { useActiveWeb3React } from '../hooks';
+import { useActiveWeb3React } from '../hooks/web3Manager';
 
 import { getContract, tryParseAmount } from '../utils';
 import { useSingleCallResult, useSingleContractMultipleData } from '../state/multicall/hooks';
