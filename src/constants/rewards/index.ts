@@ -43,7 +43,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     tokenSymbol: 'BPT',
     rewardsAddress: BHS_USDC_DAI_HAKKA_POOL,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [BHS_HAKKA_POOL]: {
     name: 'BHS/HAKKA',
@@ -55,7 +55,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     tokenSymbol: 'BPT',
     rewardsAddress: BHS_HAKKA_POOL,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [MKR_HAKKA_POOL]: {
     name: 'MKR/HAKKA',
@@ -100,6 +100,6 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     tokenSymbol: 'BHSc$',
     rewardsAddress: BSC_BHS_POOL,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
 }
