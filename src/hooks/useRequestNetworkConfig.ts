@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { ChainId } from '../constants';
 
-export default function useNetworkSwitcher(): any {
+export default function useRequestNetworkConfig(): any {
   const { chainId } = useWeb3React();
   const switchMethod = useMemo(() => {
     if (chainId === ChainId.MAINNET) {
