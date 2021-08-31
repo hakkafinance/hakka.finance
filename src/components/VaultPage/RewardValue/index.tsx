@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import styles from './styles';
-import useTokensPriceAddress from '../../../hooks/useTokensPriceAddress';
+import useTokensPriceByAddress from '../../../hooks/useTokensPriceByAddress';
 import { useCoingeckoTokenId } from '../../../hooks/useCoingeckoTokenId';
 import { DEFAULT_TOKENS_COIN_GECKO_ID_BOOK } from '../../../constants/index';
 
@@ -33,7 +33,7 @@ const RewardValue = (props: RewardValueProps) => {
     }
   }, [newTokenId.id]);
 
-  const tokensPrice = useTokensPriceAddress(tokensId);
+  const tokensPrice = useTokensPriceByAddress(tokensId);
   const [rewardValue, setRewardValue] = useState<BigNumber>(new BigNumber(0));
 
   useEffect(() => {

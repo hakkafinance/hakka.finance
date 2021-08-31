@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 import { network } from '../../connectors';
-import { useEagerConnect, useInactiveListener } from '../../hooks';
+import { useEagerConnect, useInactiveListener } from '../../hooks/web3Manager';
 import { NetworkContextName } from '../../constants';
 import styles from './styles';
 

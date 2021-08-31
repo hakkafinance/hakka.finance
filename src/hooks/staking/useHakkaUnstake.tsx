@@ -2,50 +2,44 @@
 import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { useRewardsContract } from './useContract';
-import { getEtherscanLink, shortenTxId } from '../utils';
-import { parseUnits } from '@ethersproject/units';
+import { BigNumber } from 'ethers';
+import { useStakeContract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-import { REWARD_POOLS } from '../constants/rewards';
 
-export enum DepositState {
+export enum UnstakeState {
   UNKNOWN,
   PENDING
 }
 
-export function useDepositCallback(
-  depositAddress?: string,
-  amount?: string,
-  spender?: string,
-): [DepositState, () => Promise<void>] {
+export function useHakkaUnstake(
+  unstakeAddress: string,
+  spender: string,
+  index: number,
+  amountParsed: BigNumber,
+): [UnstakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const depositState: DepositState = useMemo(() => {
-    if (!spender) return DepositState.UNKNOWN;
+  const unstakeState: UnstakeState = useMemo(() => {
+    if (!spender) return UnstakeState.UNKNOWN;
 
     return currentTransaction
-      ? DepositState.PENDING
-      : DepositState.UNKNOWN;
+      ? UnstakeState.PENDING
+      : UnstakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const depositContract = useRewardsContract(depositAddress);
+  const unstakeContract = useStakeContract(unstakeAddress);
 
-  const deposit = useCallback(async (): Promise<void> => {
+  const unstake = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
     }
 
-    if (REWARD_POOLS[depositAddress].chain !== chainId) {
-      toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
-      return;
-    }
-
     try {
-      const amountParsed = parseUnits(amount || '0', 18);
-      const tx = await depositContract.stake(amountParsed);
+      const tx = await unstakeContract.unstake(spender, index, amountParsed);
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -64,10 +58,11 @@ export function useDepositCallback(
       setCurrentTransaction(null);
     }
   }, [
-    depositContract,
-    amount,
+    unstakeContract,
     spender,
+    index,
+    amountParsed,
   ]);
 
-  return [depositState, deposit];
+  return [unstakeState, unstake];
 }

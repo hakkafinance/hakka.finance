@@ -9,7 +9,7 @@ import styles from './styles';
 import useTokenPrice from '../../../hooks/useTokenPrice';
 import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
-import MyButton from '../../Common/MyButton';
+import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField/index';
 import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
@@ -20,10 +20,10 @@ import { useSingleCallResult } from '../../../state/multicall/hooks';
 import { tryParseAmount, shortenAddress, getEtherscanLink } from '../../../utils';
 import { useRewardsData } from '../../../data/RewardsData';
 import { useVestingContract } from '../../../hooks/useContract';
-import { useClaimCallback, ClaimState } from '../../../hooks/useClaimCallback';
-import { useExitCallback, ExitState } from '../../../hooks/useExitCallback';
-import { useDepositCallback, DepositState } from '../../../hooks/useDepositCallback';
-import { useWithdrawCallback, WithdrawState } from '../../../hooks/useWithdrawCallback';
+import { useRewardsClaim, ClaimState } from '../../../hooks/farm/useRewardsClaim';
+import { useRewardsExit, ExitState } from '../../../hooks/farm/useRewardsExit';
+import { useRewardsDeposit, DepositState } from '../../../hooks/farm/useRewardsDeposit';
+import { useRewardsWithdraw, WithdrawState } from '../../../hooks/farm/useRewardsWithdraw';
 import { useWalletModalToggle } from '../../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
@@ -117,10 +117,10 @@ const PoolDetail = ({ pool }) => {
   }
 
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
-  const [claimState, claimCallback] = useClaimCallback(pool, account);
-  const [exitState, exitCallback] = useExitCallback(pool, account);
-  const [depositState, depositCallback] = useDepositCallback(pool, stakeInputAmount, account);
-  const [withdrawState, withdrawCallback] = useWithdrawCallback(pool, withdrawInputAmount, account);
+  const [claimState, claim] = useRewardsClaim(pool, account);
+  const [exitState, exit] = useRewardsExit(pool, account);
+  const [depositState, deposit] = useRewardsDeposit(pool, stakeInputAmount, account);
+  const [withdrawState, withdraw] = useRewardsWithdraw(pool, withdrawInputAmount, account);
   const toggleWalletModal = useWalletModalToggle();
 
   const CheckWrongNetworkConnectWalletApproveTokenButton = withApproveTokenCheckWrapper(
@@ -142,7 +142,7 @@ const PoolDetail = ({ pool }) => {
     <CheckWrongNetworkConnectWalletApproveTokenButton
       styleKit={'green'}
       isDisabledWhenNotPrepared={false}
-      onClick={depositCallback}
+      onClick={deposit}
       isConnected={!!account}
       connectWallet={toggleWalletModal}
       isApproved={approveState === ApprovalState.APPROVED}
@@ -157,7 +157,7 @@ const PoolDetail = ({ pool }) => {
     <div sx={styles.withdrawBtnContainer}>
       <div>
         <MyButton
-          onClick={withdrawCallback}
+          onClick={withdraw}
           styleKit="green"
           disabled={withdrawState === WithdrawState.PENDING || !isCorrectInput}
         >
@@ -166,7 +166,7 @@ const PoolDetail = ({ pool }) => {
       </div>
       <div>
         <MyButton
-          onClick={exitCallback}
+          onClick={exit}
           disabled={exitState === ExitState.PENDING || !isCorrectInput}
         >
           <div sx={styles.exitBtnContent}>
@@ -254,7 +254,7 @@ const PoolDetail = ({ pool }) => {
               <CheckWrongNetworkAndConnectWalletButton
                 styleKit={"green"}
                 isDisabledWhenNotPrepared={true}
-                onClick={claimCallback}
+                onClick={claim}
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
                 disabled={claimState === ClaimState.PENDING}

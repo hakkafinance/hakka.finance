@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import useRequestNetworkConfig from '../../hooks/useRequestNetworkConfig';
 
 export interface WrongNetworkCheckWrapperInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabledWhenNotPrepared?: boolean;
@@ -14,13 +15,9 @@ const withWrongNetworkCheckWrapper = <T extends object>(WrappedComponent: React.
     children,
   } = props;
 
+  const networkConfig = useRequestNetworkConfig();
   const isDisabled = isCorrectNetwork ? disabled : isDisabledWhenNotPrepared;
-  const handleClick = isCorrectNetwork ? onClick : () => window.ethereum.request({
-    method: 'wallet_switchEthereumChain',
-    params: [{
-      chainId: '0x1'
-    }]
-  });
+  const handleClick = isCorrectNetwork ? onClick : () => window.ethereum.request(networkConfig);
   const childrenElement = !isCorrectNetwork && !isDisabledWhenNotPrepared ? 'Change Network' : children;
 
   const wrappedComponentProps = {

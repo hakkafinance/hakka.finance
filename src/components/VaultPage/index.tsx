@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import {
-  useEffect, useState, useCallback, useMemo,
+  useEffect, useState, useMemo,
 } from 'react';
 import { Token } from '@uniswap/sdk';
 import { AddressZero, WeiPerEther } from '@ethersproject/constants';
@@ -9,16 +9,15 @@ import { parseUnits } from '@ethersproject/units';
 import BigNumber from 'bignumber.js';
 import images from '../../images/index';
 import styles from './styles';
-import MyButton from '../Common/MyButton/index';
+import { MyButton } from '../Common';
 import RewardListItem from './RewardListItem/index';
 import NumericalInputField from '../NumericalInputField/index';
 import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
-import { useActiveWeb3React } from '../../hooks/index';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useBurnCallback, BurnState } from '../../hooks/useBurnCallback';
-import { useTokenAllowance } from '../../data/Allowances';
+import { useHakkaBurn, BurnState } from '../../hooks/guildbank/useHakkaBurn';
 import { shortenAddress, getEtherscanLink } from '../../utils';
 import { useTokenBalance, useTokenBalances, useETHBalances } from '../../state/wallet/hooks';
 import { useTotalSupply } from '../../data/TotalSupply';
@@ -151,7 +150,7 @@ const VaultPage = (props) => {
     return null;
   }, [inputAmount]);
 
-  const [burnState, burnCallback] = useBurnCallback(
+  const [burnState, burn] = useHakkaBurn(
     BURNER_ADDRESS[chainId as ChainId],
     account,
     amountParsed,
@@ -282,7 +281,7 @@ const VaultPage = (props) => {
               <BurnButton
                 styleKit={'green'}
                 isDisabledWhenNotPrepared={false}
-                onClick={burnCallback}
+                onClick={burn}
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}

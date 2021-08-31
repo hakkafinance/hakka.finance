@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-export default function useTokensPriceAddress(tokensId:{[address:string]:string}) {
+export default function useTokensPriceByAddress(tokensId:{[address:string]:string}) {
   const addressArray = Object.keys(tokensId);
   const idArray = Object.values(tokensId);
 

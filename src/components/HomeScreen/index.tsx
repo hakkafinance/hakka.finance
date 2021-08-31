@@ -1,17 +1,15 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
-import { Box, Flex, Heading } from 'rebass';
-import Layout from 'src/containers/Layout';
-import images from 'src/images';
+import React from 'react';
+import { Box, Flex } from 'rebass';
+import images from '../../images';
 import styles from './styles';
 import CardInfo from './component/CardInfo';
 import TotalValueLock from './component/TotalValueLock';
-import CoinComponent from '../Common/CoinComponent';
+import { CoinComponent } from '../Common';
 import WhatHakka from './component/WhatHakka';
 import TokenMetrics from './component/TokenMetrics';
 import UtilityHakka from './component/UtilityHakka';
-import HakkaTeam from './component/HakkaTeam';
 
 const HomeScreen = (props) => {
   const coins = [
@@ -26,21 +24,6 @@ const HomeScreen = (props) => {
       link: 'https://coinmarketcap.com/en/currencies/hakka-finance/',
     },
   ];
-
-  // const chainTokens = [
-  //   {
-  //     imageCoin: 'iconInch',
-  //     coinName: '1inch'
-  //   },
-  //   {
-  //     imageCoin: 'iconUniswap',
-  //     coinName: 'Uniswap'
-  //   },
-  //   {
-  //     imageCoin: 'iconBalancer',
-  //     coinName: 'Balancer'
-  //   }
-  // ]
 
   const partnersImg = [
     {
@@ -160,7 +143,6 @@ const HomeScreen = (props) => {
           <Box sx={styles.blur_img_blue_section_mobile}>
             <Box sx={styles.blur_img_blue_mobile} />
           </Box>
-          {/* <Box ><HakkaTeam /></Box> */}
         </Box>
       </Box>
     </>

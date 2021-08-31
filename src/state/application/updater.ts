@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useActiveWeb3React } from '../../hooks';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import useDebounce from '../../hooks/useDebounce';
 import { useApplicationContext } from './hooks';
 

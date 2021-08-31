@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core';
 import { Token } from '@uniswap/sdk';
 import { useTokenAllowance } from '../data/Allowances';
 import { useTokenContract } from './useContract';
-import { useActiveWeb3React } from './index';
+import { useActiveWeb3React } from './web3Manager';
 import { getEtherscanLink, shortenTxId, tryParseAmount } from '../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';

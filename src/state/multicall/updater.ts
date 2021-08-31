@@ -1,6 +1,6 @@
 import { Contract } from '@ethersproject/contracts';
 import { useEffect, useMemo, useRef } from 'react';
-import { useActiveWeb3React } from '../../hooks';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { useMulticallContract } from '../../hooks/useContract';
 import useDebounce from '../../hooks/useDebounce';
 import chunkArray from '../../utils/chunkArray';

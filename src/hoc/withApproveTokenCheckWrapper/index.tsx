@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface ApproveTokenCheckWrapperInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabledWhenNotPrepared?: boolean;

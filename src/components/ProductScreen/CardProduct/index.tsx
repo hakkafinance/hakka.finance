@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { jsx } from 'theme-ui';
 import { Box, Flex, Text } from 'rebass';
-import images from 'src/images';
+import images from '../../../images';
 import types from 'prop-types';
 import styles from './styles';
 

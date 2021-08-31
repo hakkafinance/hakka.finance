@@ -1,5 +1,5 @@
 import { useCallback, useContext, useMemo } from 'react';
-import { useActiveWeb3React } from '../../hooks';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { ApplicationContext } from './context';
 import { PopupContent } from './actions';
 import { PopupList, ApplicationState } from './reducer';

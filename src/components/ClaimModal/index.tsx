@@ -7,7 +7,7 @@ import {
 import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
-import MyButton from '../Common/MyButton';
+import { MyButton } from '../Common';
 
 export default function ClaimModal() {
   const claimModalOpen = useClaimModalOpen();

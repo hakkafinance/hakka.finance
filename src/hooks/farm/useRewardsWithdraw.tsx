@@ -2,47 +2,50 @@
 import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { useRewardsContract } from './useContract';
-import { getEtherscanLink, shortenTxId } from '../utils';
+import { useRewardsContract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
+import { parseUnits } from '@ethersproject/units';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-import { REWARD_POOLS } from '../constants/rewards';
+import { REWARD_POOLS } from '../../constants/rewards';
 
-export enum ExitState {
+export enum WithdrawState {
   UNKNOWN,
   PENDING
 }
 
-export function useExitCallback(
-  exitAddress?: string,
+export function useRewardsWithdraw(
+  withdrawAddress?: string,
+  amount?: string,
   spender?: string,
-): [ExitState, () => Promise<void>] {
+): [WithdrawState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const exitState: ExitState = useMemo(() => {
-    if (!spender) return ExitState.UNKNOWN;
+  const withdrawState: WithdrawState = useMemo(() => {
+    if (!spender) return WithdrawState.UNKNOWN;
 
     return currentTransaction
-      ? ExitState.PENDING
-      : ExitState.UNKNOWN;
+      ? WithdrawState.PENDING
+      : WithdrawState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const exitContract = useRewardsContract(exitAddress);
+  const withdrawContract = useRewardsContract(withdrawAddress);
 
-  const exit = useCallback(async (): Promise<void> => {
+  const withdraw = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
     }
 
-    if (REWARD_POOLS[exitAddress].chain !== chainId) {
+    if (REWARD_POOLS[withdrawAddress].chain !== chainId) {
       toast.error(<div>Wrong Network</div>,  { containerId: 'error' });
       return;
     }
 
     try {
-      const tx = await exitContract.exit();
+      const amountParsed = parseUnits(amount || '0', 18);
+      const tx = await withdrawContract.withdraw(amountParsed);
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -61,9 +64,10 @@ export function useExitCallback(
       setCurrentTransaction(null);
     }
   }, [
-    exitContract,
+    withdrawContract,
+    amount,
     spender,
   ]);
 
-  return [exitState, exit];
+  return [withdrawState, withdraw];
 }

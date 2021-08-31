@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { formatUnits } from '@ethersproject/units';
 import { Interface } from '@ethersproject/abi';
-import { useActiveWeb3React } from '../hooks';
+import { useActiveWeb3React } from '../hooks/web3Manager';
 
 import { tryParseAmount } from '../utils';
 import { useMultipleContractSingleData } from '../state/multicall/hooks';

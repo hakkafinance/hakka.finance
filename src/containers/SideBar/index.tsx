@@ -9,7 +9,7 @@ import { get } from 'lodash';
 import styles from './styles';
 import images from '../../images';
 import SideBarItem from './SideBarItem';
-import MyButton from '../../components/Common/MyButton';
+import { MyButton } from '../../components/Common';
 
 const topSideBarItems = [
   {

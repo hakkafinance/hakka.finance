@@ -2,7 +2,7 @@ import { useEffect, useContext, useMemo } from 'react';
 import { Interface, FunctionFragment } from '@ethersproject/abi';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
-import { useActiveWeb3React } from '../../hooks';
+import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { useBlockNumber } from '../application/hooks';
 import { MulticallContext } from './context';
 import {
