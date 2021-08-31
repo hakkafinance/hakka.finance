@@ -10,12 +10,12 @@ import styles from './styles';
 import { MyButton } from '../Common';
 
 interface ClaimModalInterface {
-  claimCallback: ()=> void
+  claim: ()=> void
   claimableReward: string
 }
 
 const ClaimModal = (props:ClaimModalInterface) => {
-  const { claimCallback, claimableReward } = props;
+  const { claim, claimableReward } = props;
   const claimModalOpen = useClaimModalOpen();
   const toggleClaimModal = useClaimModalToggle();
 
@@ -61,7 +61,7 @@ const ClaimModal = (props:ClaimModalInterface) => {
           </a>
         </div>
         <div sx={styles.confirmBtn}>
-          <MyButton onClick={claimCallback}>
+          <MyButton onClick={claim}>
             Confirm
           </MyButton>
         </div>

@@ -341,7 +341,7 @@ const PoolDetail = ({ pool }) => {
         </div>
       </div>
       <ClaimModal 
-        claimCallback={claim}
+        claim={claim}
         claimableReward={account ? rewardData.earnedBalances[pool]?.toFixed(4) : '-'}
       />
     </>
