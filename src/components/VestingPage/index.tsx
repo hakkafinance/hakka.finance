@@ -103,12 +103,6 @@ const VestingPage = () => {
           <h1 sx={styles.title}>Vesting</h1>
           <Web3Status unsupported={VESTING_ADDRESSES[chainId as ChainId] === AddressZero} />
         </div>
-        {/* <div sx={styles.backBtn}>
-            <img src={images.iconBack} sx={styles.iconBack} />
-            <span>Back</span>
-          </div> */}
-
-        {/* for temporary change, it should be 'Vesting' */}
         <h3 sx={styles.heading}></h3>
         <div sx={styles.vestingCardWrapper}>
           <div sx={styles.vestingCard}>
