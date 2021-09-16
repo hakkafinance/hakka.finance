@@ -64,12 +64,10 @@ const StakePositionItem = (props: StakePositionProps) => {
     parseUnits(inputAmount || '0'),
   );
 
-  const countdownRenderer = ({ days }) => (
+  const countdownRenderer = ({ days, hours, minutes }) => (
     <div sx={styles.redeemToggleCountdown}>
       <span>
-        {zeroPad(days)}
-        {' '}
-        Days Left
+        {days ? zeroPad(days) + ' Days Left' : zeroPad(hours) + 'h ' + zeroPad(minutes) + 'm Left'}
       </span>
     </div>
   );
