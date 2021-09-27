@@ -101,52 +101,18 @@ export default {
     marginTop: '36px',
   },
 
-  ringStyle: {
-    height: '20px',
-    width: '20px',
-    border: '1px solid #2da287',
-    borderRadius: '50%',
-    backgroundColor: '#ebf8f4',
-    fontSize: [1],
-    color: '#2da287',
-    fontWeight: '600',
-    paddingLeft: '5.5px',
-
-    '@media screen and (max-width: 576px)': {
-      paddingLeft: '5px',
-    }
-  },
-
   activeRing: {
-    position: 'relative',
-    zIndex: '1',
-    height: '20px',
-    width: '20px',
     boxShadow: '0 0 0 5px rgba(62, 189, 147, 0.25)',
-    border: '1px solid #2da287',
-    borderRadius: '50%',
-    backgroundColor: '#ebf8f4',
-    fontSize: [1],
-    color: '#2da287',
-    fontWeight: '600',
-    paddingLeft: '5.5px',
-
-    'p' : {
-      marginTop: '-7px',
-
-      '@media screen and (max-width: 576px)': {
-        marginTop: '-3.5px',
-      }
-    },
+    borderRadius: '50%'
   },
 
   lineStyle: {
-    position: 'relative',
-    zIndex: '2',
     width: '1px',
-    height: '55px',
+    height: '56px',
     borderRight: '1px solid #2da287',
-    paddingRight: '10px',
+    paddingRight: '9px',
   },
+
+  
 
 };

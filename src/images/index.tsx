@@ -25,6 +25,9 @@ const images = {
   iconTop: require('./icons/iconTop.svg').default,
   iconClaimableReward: require('./icons/iconClaimableReward.svg').default,
   iconInform: require('./icons/iconInform.svg').default,
+  iconStep1: require('./icons/icon-step1.svg').default,
+  iconStep2: require('./icons/icon-step2.svg').default,
+  iconStep3: require('./icons/icon-step3.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,

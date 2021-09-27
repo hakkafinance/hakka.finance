@@ -28,12 +28,14 @@ const ClaimModal = (props:ClaimModalInterface) => {
           <img src={images.iconDeleteRound} onClick={toggleClaimModal} />
         </div>
         <div sx={styles.stateCard}>
-          <div>
-            <div sx={styles.ringStyle}>1</div>
+          <div sx={{fontSize: "0px"}}>
+            <img src={images.iconStep1} />
             <div sx={styles.lineStyle} />
-            <div sx={styles.activeRing}> <p>2</p></div>
+            <div sx={styles.activeRing}>
+              <img src={images.iconStep2} />
+            </div>
             <div sx={styles.lineStyle} />
-            <div sx={styles.ringStyle}>3</div>
+            <img src={images.iconStep3} />
           </div>
           <div sx={styles.stateInfo}>
             <h4>Staked</h4>
