@@ -2,7 +2,7 @@ export default {
   dialogOverlay: {
     '&[data-reach-dialog-overlay]': {
       zIndex: '2',
-      backgroundColor: 'transparent',
+      backgroundColor: 'rgba(37, 62, 71, 0.25)',
       overflow: 'hidden',
       display: 'flex',
       alignItems: 'center',
