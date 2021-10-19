@@ -74,6 +74,8 @@ const StakePositionItem = (props: StakePositionProps) => {
 
   const RedeemButton = withApproveTokenCheckWrapper(MyButton)
 
+  const sHakkaBalanceForDisplay = sHakkaBalance.greaterThan(tryParseAmount(formatUnits(sHakkaReceived || 0))) ? tryParseAmount(formatUnits(sHakkaReceived || 0, 18)) : sHakkaBalance || tryParseAmount('0');
+
   return (
     <div sx={styles.positionFormWrapper}>
       <span sx={styles.positionNumber}>{index + 1}</span>
@@ -113,14 +115,13 @@ const StakePositionItem = (props: StakePositionProps) => {
             <div sx={styles.balance}>
               <span>Burn</span>
               <span>
-                {'sHAKKA Balance: '}
-                {sHakkaBalance.toFixed(2) || '0.00'}
+                {`sHAKKA Balance: ${parseFloat(sHakkaBalanceForDisplay.toSignificant()) !== 0 ? sHakkaBalanceForDisplay.toFixed(4) : 0}`}
               </span>
             </div>
             <NumericalInputField
               value={inputAmount}
               onUserInput={setInputAmount}
-              tokenBalance={tryParseAmount(formatUnits(sHakkaReceived || 0, 18))}
+              tokenBalance={sHakkaBalanceForDisplay}
               approve={approve}
               approveState={approveState}
               setIsCorrectInput={setIsCorrectInput}
