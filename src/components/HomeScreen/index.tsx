@@ -69,7 +69,7 @@ const HomeScreen = (props) => {
     <>
       <Box>
         <Box sx={styles.homescreenContainer}>
-          <Flex alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://pelith.teamdoor.io/', '_blank').focus(); }}>
+          <Flex alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://www.cakeresume.com/companies/pelith/jobs', '_blank').focus(); }}>
             <img src={images.iconFlower} alt="" />
             <span>
               Hakka Finance is
