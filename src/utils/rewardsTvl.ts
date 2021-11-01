@@ -17,10 +17,17 @@ import {
   BHS_USDC_DAI_HAKKA_POOL,
   BHS_HAKKA_BPT,
   BHS_HAKKA_POOL,
+  IGAIN_TEST_POOL,
 } from '../constants'
+
+import REWARD_ABI from '../constants/abis/staking_rewards.json';
+import IGAIN_ABI from '../constants/abis/iGainV1.json';
+import { REWARD_POOLS } from '../constants/rewards'
 
 const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL)
 const ethMulticallProvider = new MulticallProvider(ethProvider, 1)
+const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+const kovanMulticallProvider = new MulticallProvider(kovanProvider, ChainId.KOVAN);
 // const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL)
 // const bscMulticallProvider = new MulticallProvider(bscProvider, 56)
 
@@ -88,4 +95,20 @@ export async function balancer2tokenTvl(tokenPrice: any) {
 
   // console.log(formatUnits(pricePerBpt.mul(poolBpt).div(WeiPerEther)))
   return pricePerBpt.mul(poolBpt).div(WeiPerEther)
+}
+
+export function getGainTvlFunc(iGainAddress: string): (tokenPrice: any) => Promise<BigNumber> {
+  return async function (tokenPrice: any): Promise<BigNumber> {
+    const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
+    const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
+
+    const [stakedTotalSupply, poolA, poolB, totalSupply] = await kovanMulticallProvider.all([
+      rewardsContract.totalSupply(),
+      igainContract.poolA(),
+      igainContract.poolB(),
+      igainContract.totalSupply(),
+    ]);
+    const perLpPrice = poolA.mul(poolB).mul(BigNumber.from(2)).div(poolA.add(poolB)).mul(WeiPerEther).div(totalSupply);
+    return perLpPrice.mul(stakedTotalSupply).div(WeiPerEther);
+  }
 }

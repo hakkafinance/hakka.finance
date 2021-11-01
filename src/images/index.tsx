@@ -28,6 +28,7 @@ const images = {
   iconStep1: require('./icons/icon-step1.svg').default,
   iconStep2: require('./icons/icon-step2.svg').default,
   iconStep3: require('./icons/icon-step3.svg').default,
+  iconIgainLp: require('./icons/icon-igain-lp.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
