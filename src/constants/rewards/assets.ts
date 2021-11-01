@@ -9,11 +9,14 @@ import {
   tftApr,
   sHakkaApr,
   bscBhsApr,
+  getGainAprFunc,
 } from '../../utils/rewardsApr';
 import {
   balancer4tokenTvl,
   balancer2tokenTvl,
+  getGainTvlFunc,
 } from '../../utils/rewardsTvl';
+import { IGAIN_TEST_POOL } from '..';
 
 export type PoolAssets = {
   icon: any;
@@ -56,5 +59,10 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     icon: images.iconBSC_BHS,
     getApr: bscBhsApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
+  },
+  [IGAIN_TEST_POOL]: {
+    icon: images.iconIgainLp,
+    getApr: getGainAprFunc(IGAIN_TEST_POOL),
+    getTvl: getGainTvlFunc(IGAIN_TEST_POOL),
   },
 }

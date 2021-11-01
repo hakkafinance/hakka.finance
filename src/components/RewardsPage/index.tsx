@@ -95,7 +95,7 @@ const RewardsPage = () => {
           <p sx={styles.activeTitle}>Active ({currentActivePoolLength})</p>
           <div sx={styles.poolContainer}>
             {activePools
-              .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
+              .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
               .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], true))}
           </div>
         </div>
