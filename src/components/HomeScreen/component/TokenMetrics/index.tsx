@@ -58,20 +58,17 @@ const TokenMetricContent = (props) => {
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Box>
               <CoinComponent
-                whatHakka
-                item={{ imageCoin: 'iconInch', coinName: '1inch', link: 'https://1inch.exchange/#/HAKKA/ETH?network=1' }}
+                item={{ imageCoin: 'iconInch', coinName: '1inch', link: 'https://app.1inch.io/#/1/swap/ETH/HAKKA' }}
               />
             </Box>
             <Flex>
               <Box className="left-bot-token">
                 <CoinComponent
-                  whatHakka
                   item={{ imageCoin: 'iconUniswap', coinName: 'Uniswap', link: 'https://app.uniswap.org/#/swap?outputCurrency=0x0e29e5abbb5fd88e28b2d355774e73bd47de3bcd' }}
                 />
               </Box>
               <Box className="right-bot-token">
                 <CoinComponent
-                  whatHakka
                   item={{ imageCoin: 'iconBalancer', coinName: 'Balancer', link: 'https://app.balancer.fi/#/trade/ether/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd' }}
                 />
               </Box>
@@ -80,12 +77,18 @@ const TokenMetricContent = (props) => {
         )
         : (
           <Flex sx={styles.token_metric_responsive} mt="2">
-            <Box>
-              <CoinComponent
-                whatHakka
-                item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC' }}
-              />
-            </Box>
+            <Flex>
+              <Box className="left-bot-token">
+                <CoinComponent
+                  item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC' }}
+                />
+              </Box>
+              <Box className="right-bot-token">
+                <CoinComponent
+                  item={{ imageCoin: 'iconInch', coinName: '1inch', link: 'https://app.1inch.io/#/56/swap/BNB/HAKKA' }}
+                />
+              </Box>
+            </Flex>
           </Flex>
         )}
     </Box>
