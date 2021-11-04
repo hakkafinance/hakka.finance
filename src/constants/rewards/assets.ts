@@ -16,7 +16,7 @@ import {
   balancer2tokenTvl,
   getGainTvlFunc,
 } from '../../utils/rewardsTvl';
-import { IGAIN_TEST_POOL } from '..';
+import { IGAIN_BNB_BUSD_POOL } from '..';
 
 export type PoolAssets = {
   icon: any;
@@ -60,9 +60,9 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     getApr: bscBhsApr,
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
-  [IGAIN_TEST_POOL]: {
+  [IGAIN_BNB_BUSD_POOL]: {
     icon: images.iconIgainLp,
-    getApr: getGainAprFunc(IGAIN_TEST_POOL),
-    getTvl: getGainTvlFunc(IGAIN_TEST_POOL),
+    getApr: getGainAprFunc(IGAIN_BNB_BUSD_POOL),
+    getTvl: getGainTvlFunc(IGAIN_BNB_BUSD_POOL),
   },
 }

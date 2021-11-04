@@ -26,10 +26,16 @@ import { REWARD_POOLS } from '../constants/rewards'
 
 const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL)
 const ethMulticallProvider = new MulticallProvider(ethProvider, 1)
-const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
-const kovanMulticallProvider = new MulticallProvider(kovanProvider, ChainId.KOVAN);
-// const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL)
-// const bscMulticallProvider = new MulticallProvider(bscProvider, 56)
+const getKovanMulticallProvider = () => {
+  if(process.env.NODE_ENV !== 'development'){
+    return null;
+  }
+  const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+  return new MulticallProvider(kovanProvider, ChainId.KOVAN);
+}
+const kovanMulticallProvider = getKovanMulticallProvider();
+const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL)
+const bscMulticallProvider = new MulticallProvider(bscProvider, 56)
 
 function getTokenPrice(source: any, tokenSlug: string): BigNumber {
   return parseEther(source[tokenSlug] ? source[tokenSlug].usd.toString() : '0')
@@ -102,7 +108,7 @@ export function getGainTvlFunc(iGainAddress: string): (tokenPrice: any) => Promi
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
 
-    const [stakedTotalSupply, poolA, poolB, totalSupply] = await kovanMulticallProvider.all([
+    const [stakedTotalSupply, poolA, poolB, totalSupply] = await bscMulticallProvider.all([
       rewardsContract.totalSupply(),
       igainContract.poolA(),
       igainContract.poolB(),

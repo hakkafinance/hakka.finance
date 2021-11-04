@@ -18,10 +18,17 @@ const SECONDS_IN_YEAR = BigNumber.from(
 
 const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL);
 const ethMulticallProvider = new MulticallProvider(ethProvider, 1);
-const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
-const kovanMulticallProvider = new MulticallProvider(kovanProvider, ChainId.KOVAN);
+
+const getKovanMulticallProvider = () => {
+  if(process.env.NODE_ENV !== 'development'){
+    return null;
+  }
+  const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+  return new MulticallProvider(kovanProvider, ChainId.KOVAN);
+}
+const kovanMulticallProvider = getKovanMulticallProvider();
 const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
-// const bscMulticallProvider = new MulticallProvider(bscProvider, 56);
+const bscMulticallProvider = new MulticallProvider(bscProvider, 56);
 
 export async function bhsApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   return Promise.resolve(Zero);
@@ -73,7 +80,7 @@ export function getGainAprFunc(iGainAddress: string): (hakkaPrice: BigNumber) =>
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
 
-    const [stakedTotalSupply, rewardRate, periodFinish, poolA, poolB, totalSupply] = await kovanMulticallProvider.all([
+    const [stakedTotalSupply, rewardRate, periodFinish, poolA, poolB, totalSupply] = await bscMulticallProvider.all([
       rewardsContract.totalSupply(),
       rewardsContract.rewardRate(),
       rewardsContract.periodFinish(),
