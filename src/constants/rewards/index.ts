@@ -104,9 +104,9 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     archived: true,
   },
   [IGAIN_BNB_BUSD_POOL]: { // example, should be delete after prod released
-    name: 'IGain',
+    name: 'iGain',
     chain: ChainId.BSC,
-    website: 'BNB - BUSD pair on IGain',
+    website: 'BNB - BUSD pair on iGain',
     url: 'https://igain.finance/markets/bnb-busd/0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenAddress: '0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenSymbol: 'LP',
