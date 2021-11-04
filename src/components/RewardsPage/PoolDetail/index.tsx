@@ -90,7 +90,7 @@ const PoolDetail = ({ pool }) => {
     async function loadTvl() {
       if (!active || !tokenPrice) { return }
       const newTvl = await POOL_ASSETES[pool].getTvl(tokenPrice);
-      setTvl(tryParseAmount(formatUnits(newTvl?.mul(100), 18)).toFixed(2));
+      setTvl(tryParseAmount(formatUnits(newTvl, 18)).toFixed(2));
     }
   }, [tokenPrice]);
 
