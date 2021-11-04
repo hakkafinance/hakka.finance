@@ -1,7 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { WeiPerEther } from '@ethersproject/constants'
 import { parseEther } from '@ethersproject/units'
-import { BigNumber } from '@ethersproject/bigNumber'
+import { BigNumber } from '@ethersproject/bignumber'
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
