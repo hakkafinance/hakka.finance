@@ -7,7 +7,7 @@ import {
   TFT_POOL,
   SHAKKA_POOL,
   BSC_BHS_POOL,
-  IGAIN_TEST_POOL,
+  IGAIN_BNB_BUSD_POOL,
 } from '../../constants';
 
 export type Pool = {
@@ -103,14 +103,14 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsSymbol: 'HAKKA',
     archived: true,
   },
-  [IGAIN_TEST_POOL]: { // example, should be delete after prod released
+  [IGAIN_BNB_BUSD_POOL]: { // example, should be delete after prod released
     name: 'IGain',
-    chain: ChainId.KOVAN,
-    website: 'BTC - DAI IGain',
-    url: 'https://igaindev.netlify.app/',
-    tokenAddress: '0x4C140200c669F309351f66b410F08238C4B1f86b',
+    chain: ChainId.BSC,
+    website: 'BNB - BUSD pair on IGain',
+    url: 'https://igain.finance/markets/bnb-busd/0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
+    tokenAddress: '0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenSymbol: 'LP',
-    rewardsAddress: IGAIN_TEST_POOL,
+    rewardsAddress: IGAIN_BNB_BUSD_POOL,
     rewardsSymbol: 'HAKKA',
     archived: false,
   },
