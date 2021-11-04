@@ -33,10 +33,10 @@ const ProductScreen = (props) => {
       cardName: 'iGain',
       info: 'iGain is a decentralized financial instrument protocol that provides the options for investors to hedge/profit/speculate on certain targeting underlying assets with a synthetic, tokenized position.',
       whitepaper: 'https://hakkafinance.gitbook.io/igain/',
-      vist: 'http://igain.hakka.finance/',
+      vist: 'https://igain.finance/',
       id: 3,
       infoTag: ['Options', 'PredictionMarket'],
-      visitButtonContent: 'Visit Sheety DApp',
+      visitButtonContent: 'Visit',
     },
     {
       icon: images.iconHakkaIntel,
