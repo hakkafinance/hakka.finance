@@ -7,6 +7,7 @@ import {
 import images from '../../../../images';
 import { CoinComponent } from '../../../../components/Common';
 import styles from './styles';
+import AddToMetamaskBtn from '../../../AddToMetamaskBtn';
 
 const TokenMetricContent = (props) => {
   const { tokenMetrics } = props;
@@ -16,11 +17,12 @@ const TokenMetricContent = (props) => {
 
       <Box sx={styles.tokenMetricsInfoContainer} mt="20px">
         <Box sx={styles.tokenMetricsInfo}>
-          NAME:
-          {' '}
-          <span sx={styles.info}>{tokenMetrics.name}</span>
+          <Flex sx={{ alignItems: 'center' }}>
+            <span sx={styles.info}>{`NAME: ${tokenMetrics.name}`}</span>
+            <AddToMetamaskBtn />
+          </Flex>
         </Box>
-        <Box sx={styles.tokenMetricsInfo} mt="2">
+        <Box sx={styles.tokenMetricsInfo} mt="1">
           TYPE:
           {' '}
           <span sx={styles.info}>{tokenMetrics.type}</span>

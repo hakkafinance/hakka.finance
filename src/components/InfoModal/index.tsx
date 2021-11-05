@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useCallback } from 'react';
 import {
   JSBI,
   TokenAmount,
@@ -21,10 +20,10 @@ import {
 } from '../../state/application/hooks';
 import { useMultipleContractMultipleData } from '../../state/multicall/hooks';
 import useTokenPrice from '../../hooks/useTokenPrice';
-
 import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
+import AddToMetamaskBtn from '../AddToMetamaskBtn'
 
 export default function WalletModal() {
   const { chainId, account } = useWeb3React();
@@ -54,23 +53,6 @@ export default function WalletModal() {
   const infoModalOpen = useInfoModalOpen();
   const toggleInfoModal = useInfoModalToggle();
 
-  const addToMetamask = useCallback(() => {
-    const _ethereum = window.ethereum;
-    _ethereum.request({
-      method: 'wallet_watchAsset',
-      params: {
-        type: 'ERC20',
-        options: {
-          address: HAKKA[chainId].address,
-          symbol: 'HAKKA',
-          decimals: 18,
-          image:
-            'https://assets.coingecko.com/coins/images/12163/small/Hakka-icon.png?1597746776',
-        },
-      },
-    });
-  }, [chainId]);
-
   function getModalContent() {
     return (
       <div sx={styles.upperSection}>
@@ -86,13 +68,7 @@ export default function WalletModal() {
           <div sx={styles.balance}>
             <img sx={styles.hakkaIcon} src={images.hakkaAccount} />
             <div sx={styles.hakkaValue}>{hakkaValueAmount?.toFixed(2) || '-'}</div>
-            <button
-              onClick={addToMetamask}
-              sx={styles.addMetamaskBtn}
-            >
-              <img src={images.iconAdd} sx={styles.iconAdd} />
-              <img src={images.iconMetamask} />
-            </button>
+            <AddToMetamaskBtn />
           </div>
           <div sx={styles.displayBetween}>
             <div sx={styles.label}>Price</div>

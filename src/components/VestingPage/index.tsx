@@ -5,7 +5,7 @@ import {
   JSBI,
   TokenAmount,
 } from '@uniswap/sdk';
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
 import { AddressZero } from '@ethersproject/constants';
 import Web3Status from '../Web3Status';
@@ -24,6 +24,7 @@ import { useVestingContract } from '../../hooks/useContract';
 import { useWalletModalToggle } from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
+import AddToMetamaskBtn from '../AddToMetamaskBtn';
 
 const VestingPage = () => {
   const { chainId, account } = useWeb3React();
@@ -65,23 +66,6 @@ const VestingPage = () => {
       : new TokenAmount(HAKKA[chainId || 1], '0')),
     [vestingProportion, chainId],
   );
-
-  const addToMetamask = useCallback(() => {
-    const _ethereum = window.ethereum;
-    _ethereum.request({
-      method: 'wallet_watchAsset',
-      params: {
-        type: 'ERC20',
-        options: {
-          address: HAKKA[chainId].address,
-          symbol: 'HAKKA',
-          decimals: 18,
-          image:
-            'https://assets.coingecko.com/coins/images/12163/small/Hakka-icon.png?1597746776',
-        },
-      },
-    });
-  }, [chainId]);
 
   const countdownRenderer = ({
     days, hours, minutes, seconds,
@@ -136,13 +120,7 @@ const VestingPage = () => {
                   {' '}
                   HAKKA
                 </span>
-                <button
-                  onClick={addToMetamask}
-                  sx={styles.addMetamaskBtn}
-                >
-                  <img src={images.iconAdd} sx={styles.iconAdd} />
-                  <img src={images.iconMetamask} />
-                </button>
+                <AddToMetamaskBtn />
               </div>
             </div>
           </div>
