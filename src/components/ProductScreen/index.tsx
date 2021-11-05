@@ -39,7 +39,7 @@ const ProductScreen = (props) => {
       visitButtonContent: 'Visit',
     },
     {
-      icon: images.iconHakkaIntel,
+      icon: images.iconIntelligence,
       cardName: 'Hakka Intelligence',
       info: 'Hakka Intelligence is a prediction market platform with different mechanisms from general options. There will be no call and put options in this platform but requires the submission of predictions. The payoff is based on the accuracy of the prediction.',
       whitepaper: 'https://medium.com/hakkafinance/hakka-intelligence-handbook-d77a80f44ac6',
