@@ -11,7 +11,7 @@ import useTokensPrice from '../../../hooks/useTokensPrice';
 import images from '../../../images/index';
 import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField/index';
-import { HAKKA, VESTING_ADDRESSES } from '../../../constants';
+import { ChainId, HAKKA, VESTING_ADDRESSES } from '../../../constants';
 import { REWARD_POOLS } from '../../../constants/rewards';
 import { POOL_ASSETES } from '../../../constants/rewards/assets';
 import { useTokenBalance } from '../../../state/wallet/hooks';
@@ -212,7 +212,7 @@ const PoolDetail = ({ pool }) => {
             </div>
             <div sx={styles.infoItem}>
               <span>Contract</span>
-              <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(chainId, pool, 'address')}>{shortenAddress(pool)}</a>
+              <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(REWARD_POOLS[pool]?.chain || ChainId.MAINNET, pool, 'address')}>{shortenAddress(pool)}</a>
             </div>
           </div>
           <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
