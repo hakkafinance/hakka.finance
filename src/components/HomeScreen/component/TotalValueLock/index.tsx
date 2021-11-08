@@ -10,6 +10,16 @@ import FlagshipProduct from '../FlagshipProduct';
 function TotalValueLock() {
   const products = [
     {
+      title: 'iGain',
+      image: 'iconIgain',
+      link: 'https://igain.finance/',
+    },
+    {
+      title: 'Hakka Intelligence',
+      image: 'iconIntelligence',
+      link: 'https://intelligence.hakka.finance/',
+    },
+    {
       title: '3F Mutual',
       image: 'iconMutual',
       link: 'https://3fmutual.com/',
@@ -18,11 +28,6 @@ function TotalValueLock() {
       title: 'Harvester',
       image: 'iconHarvester',
       link: 'https://harvesters.hakka.finance/pools',
-    },
-    {
-      title: 'Hakka Intelligence',
-      image: 'iconIntelligence',
-      link: 'https://intelligence.hakka.finance/',
     },
   ];
 

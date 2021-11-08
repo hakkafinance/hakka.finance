@@ -89,24 +89,6 @@ export default {
     marginTop: '20px',
     marginBottom: '20px',
   },
-  addMetamaskBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '4px 6px',
-    height: '28px',
-    borderRadius: '8px',
-    backgroundColor: '#f7fbfc',
-    border: 'none',
-
-    ':hover': {
-      cursor: 'pointer',
-      backgroundColor: 'rgba(62, 189, 147, 0.1)',
-    },
-
-    ':focus': {
-      outline: 'none',
-    },
-  },
   pageBtn: {
     fontSize: '16px',
     fontWeight: '600',
@@ -129,10 +111,6 @@ export default {
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
     },
-  },
-  iconAdd: {
-    width: '16px',
-    marginRight: '2px',
   },
   divider: {
     height: '1px',
