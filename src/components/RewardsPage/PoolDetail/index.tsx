@@ -195,9 +195,11 @@ const PoolDetail = ({ pool }) => {
   return (
     <>
       <div>
-        <a sx={styles.btnBack} href='/farms'>
-          <img src={images.iconBack} />
-          <span>Back</span>
+        <a sx={{ display: 'inline-block', textDecoration: 'none', }} href='/farms'>
+          <div sx={styles.btnBack}>
+            <img src={images.iconBack} />
+            <span>Back</span>
+          </div>
         </a>
         <div sx={styles.title}>
           <p>{REWARD_POOLS[pool].name}</p>
