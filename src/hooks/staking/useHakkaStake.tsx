@@ -39,6 +39,7 @@ export function useHakkaStake(
     }
 
     try {
+      // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
       const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 60 * 60 * 24 * 30);
       setCurrentTransaction(tx.hash);
       toast(

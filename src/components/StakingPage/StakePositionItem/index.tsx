@@ -15,6 +15,7 @@ import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
 import { useHakkaUnstake, UnstakeState } from '../../../hooks/staking/useHakkaUnstake';
 import { tryParseAmount } from '../../../utils';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
+import { Zero } from '@ethersproject/constants';
 
 interface StakePositionProps {
   index: number;
@@ -79,30 +80,35 @@ const StakePositionItem = (props: StakePositionProps) => {
     ? sHakkaReceivedCurrencyAmount 
     : sHakkaBalance || tryParseAmount('0');
 
+  const isRedeemed = stakedHakka?.eq(Zero);
+  const valueColor = isRedeemed ? '' : '#253e47';
+
   return (
     <div sx={styles.positionFormWrapper}>
-      <span sx={styles.positionNumber}>{index + 1}</span>
       <div sx={styles.positionCard}>
         <div sx={styles.positionItem}>
           <div sx={styles.stackedHakkaWrapper}>
             <p>Staked HAKKA</p>
-            <p sx={styles.amountFontColor}>{(+formatUnits(stakedHakka || 0)).toFixed(4)}</p>
+            <p sx={{ color: valueColor }}>{(+formatUnits(stakedHakka || 0)).toFixed(4)}</p>
           </div>
           <div sx={styles.stackedHakkaWrapper}>
             <p>Get sHAKKA</p>
-            <p sx={styles.amountFontColor}>{(+formatUnits(sHakkaReceived || 0)).toFixed(4)}</p>
+            <p sx={{ color: valueColor }}>{(+formatUnits(sHakkaReceived || 0)).toFixed(4)}</p>
           </div>
           <div sx={styles.stackedHakkaWrapper}>
             <p>Until</p>
-            <p sx={styles.amountFontColor}>{lockUntil}</p>
+            <p sx={{ color: valueColor }}>{lockUntil}</p>
           </div>
-          {Date.now() < until?.mul(1000).toNumber() ? (
+          {Date.now() < until?.mul(1000).toNumber() ? 
             <Countdown
               date={new Date(until?.mul(1000).toNumber())}
               renderer={countdownRenderer}
             />
-          )
-            : (
+            : isRedeemed ? (
+              <div sx={styles.redeemed}>
+                <span>Redeemed</span>
+              </div>
+              ) : (
               <div
                 sx={styles.redeemToggleBtn}
                 onClick={() => setIsShowRedeem(!isShowRedeem)}
