@@ -44,12 +44,27 @@ export default {
   },
 
   stackedHakkaWrapper: {
-    width: '25%',
+    width: '20%',
+
     '@media screen and (max-width: 576px)': {
       width: '100%',
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
+    },
+  },
+
+  redeemBtnWrapper: {
+    width: '20%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   },
 

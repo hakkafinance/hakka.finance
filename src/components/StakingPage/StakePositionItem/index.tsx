@@ -99,24 +99,26 @@ const StakePositionItem = (props: StakePositionProps) => {
             <p>Until</p>
             <p sx={{ color: valueColor }}>{lockUntil}</p>
           </div>
-          {Date.now() < until?.mul(1000).toNumber() ? 
-            <Countdown
-              date={new Date(until?.mul(1000).toNumber())}
-              renderer={countdownRenderer}
-            />
-            : isRedeemed ? (
-              <div sx={styles.redeemed}>
-                <span>Redeemed</span>
-              </div>
-              ) : (
-              <div
-                sx={styles.redeemToggleBtn}
-                onClick={() => setIsShowRedeem(!isShowRedeem)}
-              >
-                <span>Redeem</span>
-                <img src={isShowRedeem ? images.iconTop : images.iconDown} />
-              </div>
+          <div sx={styles.redeemBtnWrapper}>
+            {Date.now() < until?.mul(1000).toNumber() ? 
+              <Countdown
+                date={new Date(until?.mul(1000).toNumber())}
+                renderer={countdownRenderer}
+              />
+              : isRedeemed ? (
+                <div sx={styles.redeemed}>
+                  <span>Redeemed</span>
+                </div>
+                ) : (
+                <div
+                  sx={styles.redeemToggleBtn}
+                  onClick={() => setIsShowRedeem(!isShowRedeem)}
+                >
+                  <span>Redeem</span>
+                  <img src={isShowRedeem ? images.iconTop : images.iconDown} />
+                </div>
             )}
+          </div>
         </div>
         {isShowRedeem && (
         <div sx={styles.redeemContainer}>
