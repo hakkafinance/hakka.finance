@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { parseUnits } from '@ethersproject/units';
 import { useWeb3React } from '@web3-react/core';
 import { AddressZero } from '@ethersproject/constants';
@@ -81,7 +81,7 @@ const Staking = () => {
     return true;
   }, [chainId]);  
 
-  const sortedPosition = useMemo(() => {
+  const [unarchivePosition, archivedPosition] = useMemo(() => {
     let archivedPosition = [];
     let unarchivePosition = [];
     
@@ -94,20 +94,24 @@ const Staking = () => {
     });
     
     archivedPosition = archivedPosition.reverse();
-    unarchivePosition = unarchivePosition.reverse();
-    
+    return [unarchivePosition, archivedPosition];
+  }, [vaults])
+
+  const sortedUnarchivePosition = useMemo(() => {    
     if (isSortByUnlockTime) {
       unarchivePosition.sort(function (a, b) {
         return a?.result?.unlockTime - b?.result?.unlockTime
       });
-      return [unarchivePosition, archivedPosition]
+      return unarchivePosition;
     } else {
       unarchivePosition.sort(function (a, b) {
         return b?.index - a?.index
       });
-      return [unarchivePosition, archivedPosition]
+      return unarchivePosition;
     }
-  }, [isSortByUnlockTime, vaults]);
+  }, [isSortByUnlockTime, unarchivePosition]);
+
+  const handleSortBtnClick = useCallback(() => setIsSortByUnlockTime(!isSortByUnlockTime), [isSortByUnlockTime]);
 
   return (
     <div sx={styles.container}>
@@ -234,13 +238,13 @@ const Staking = () => {
             <h2 sx={styles.positionTitle}>Stake position</h2>
             <button 
               sx={isSortByUnlockTime ? {...styles.sortBtn, ...styles.activeSortBtn} : {...styles.sortBtn, ...styles.inactiveSortBtn}} 
-              onClick={() => setIsSortByUnlockTime(!isSortByUnlockTime)}
+              onClick={handleSortBtnClick}
             >
               <img sx={!isSortByUnlockTime ? styles.inactiveSVG : {}}  src={images.iconSort}/>
               <span>Sort by expiry date</span>
             </button>
           </div>
-          {sortedPosition[0]?.map((vault, index) => {
+          {sortedUnarchivePosition.map((vault, index) => {
             return <StakePositionItem
             key={index}
             sHakkaBalance={sHakkaBalance}
@@ -256,7 +260,7 @@ const Staking = () => {
               <img src={isShowArchived ? images.iconUp : images.iconDown} />
             </div>
           </div>
-          { isShowArchived && sortedPosition[1]?.map((vault, index) => {
+          { isShowArchived && archivedPosition.map((vault, index) => {
             return <StakePositionItem
             key={index}
             sHakkaBalance={sHakkaBalance}
