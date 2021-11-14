@@ -70,8 +70,8 @@ export async function sHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   return yearlyRewards
     .mul(WeiPerEther)
     .div(stakedTotalSupply)
-    .mul(WeiPerEther)
-    .div(stakingRate);
+    .mul(stakingRate)
+    .div(WeiPerEther);
 }
 
 export function getGainAprFunc(iGainAddress: string): (hakkaPrice: BigNumber) => Promise<BigNumber> {
