@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { parseUnits } from '@ethersproject/units';
 import { useWeb3React } from '@web3-react/core';
 import { AddressZero } from '@ethersproject/constants';
@@ -26,6 +26,8 @@ import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper
 const Staking = () => {
   const { account, chainId } = useWeb3React();
   const [inputAmount, setInputAmount] = useState<string>('0');
+  const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
+  const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -78,6 +80,38 @@ const Staking = () => {
     }
     return true;
   }, [chainId]);  
+
+  const [unarchivePosition, archivedPosition] = useMemo(() => {
+    let archivedPosition = [];
+    let unarchivePosition = [];
+    
+    vaults.forEach((vault, index) => {
+      if(vault?.result?.hakkaAmount.isZero()) {
+        archivedPosition.push({...vault, 'index': index});
+      } else {
+        unarchivePosition.push({...vault, 'index': index});
+      }
+    });
+    
+    archivedPosition = archivedPosition.reverse();
+    return [unarchivePosition, archivedPosition];
+  }, [vaults])
+
+  const sortedUnarchivePosition = useMemo(() => {    
+    if (isSortByUnlockTime) {
+      unarchivePosition.sort(function (a, b) {
+        return a?.result?.unlockTime - b?.result?.unlockTime
+      });
+      return unarchivePosition;
+    } else {
+      unarchivePosition.sort(function (a, b) {
+        return b?.index - a?.index
+      });
+      return unarchivePosition;
+    }
+  }, [isSortByUnlockTime, unarchivePosition]);
+
+  const handleSortBtnClick = useCallback(() => setIsSortByUnlockTime(!isSortByUnlockTime), [isSortByUnlockTime]);
 
   return (
     <div sx={styles.container}>
@@ -200,17 +234,42 @@ const Staking = () => {
           </div>
         </div>
         <div sx={styles.positionContainer}>
-          <h2 sx={styles.positionHeading}>Stake position</h2>
-          {vaults.map((vault, index) =>
-            <StakePositionItem
-              key={index}
-              sHakkaBalance={sHakkaBalance}
-              index={index}
-              stakedHakka={vault?.result?.hakkaAmount}
-              sHakkaReceived={vault?.result?.wAmount}
-              until={vault?.result?.unlockTime}
+          <div sx={styles.positionHeader}>
+            <h2 sx={styles.positionTitle}>Stake position</h2>
+            <button 
+              sx={isSortByUnlockTime ? {...styles.sortBtn, ...styles.activeSortBtn} : {...styles.sortBtn, ...styles.inactiveSortBtn}} 
+              onClick={handleSortBtnClick}
+            >
+              <img sx={!isSortByUnlockTime ? styles.inactiveSVG : {}}  src={images.iconSort}/>
+              <span>Sort by expiry date</span>
+            </button>
+          </div>
+          {sortedUnarchivePosition.map((vault, index) => {
+            return <StakePositionItem
+            key={index}
+            sHakkaBalance={sHakkaBalance}
+            index={vault.index}
+            stakedHakka={vault?.result?.hakkaAmount}
+            sHakkaReceived={vault?.result?.wAmount}
+            until={vault?.result?.unlockTime}
             />
-          )}
+          })}
+          <div sx={{ display: 'inline-block' }}>
+            <div onClick={() => setIsShowArchived(!isShowArchived)} sx={styles.archivedTitle}>
+              <p>Archived</p>
+              <img src={isShowArchived ? images.iconUp : images.iconDown} />
+            </div>
+          </div>
+          { isShowArchived && archivedPosition.map((vault, index) => {
+            return <StakePositionItem
+            key={index}
+            sHakkaBalance={sHakkaBalance}
+            index={vault.index}
+            stakedHakka={vault?.result?.hakkaAmount}
+            sHakkaReceived={vault?.result?.wAmount}
+            until={vault?.result?.unlockTime}
+            />
+          })}
         </div>
       </div>
     </div>

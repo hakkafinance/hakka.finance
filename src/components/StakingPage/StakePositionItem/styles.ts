@@ -1,19 +1,7 @@
 export default {
-  amountFontColor: {
-    color: '#253e47',
-  },
-
   positionFormWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-
-    '@media screen and (max-width: 576px)': {
-      maxWidth: '370px',
-    },
-
-    '@media screen and (max-width: 400px)': {
-      maxWidth: 'none',
-    },
   },
 
   positionNumber: {
@@ -25,7 +13,8 @@ export default {
   },
 
   positionCard: {
-    width: '800px',
+    width: '100%',
+    maxWidth: '860px',
     padding: '20px',
     marginBottom: '24px',
     border: '1px solid #dae1e3',
@@ -35,7 +24,6 @@ export default {
     fontSize: [1],
 
     '@media screen and (max-width: 576px)': {
-      width: '307px',
       marginBottom: '12px',
     },
   },
@@ -56,12 +44,27 @@ export default {
   },
 
   stackedHakkaWrapper: {
-    width: '25%',
+    width: '20%',
+
     '@media screen and (max-width: 576px)': {
       width: '100%',
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: '16px',
+    },
+  },
+
+  redeemBtnWrapper: {
+    width: '20%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   },
 
@@ -89,6 +92,18 @@ export default {
 
     span: {
       paddingRight: '4px',
+    },
+  },
+
+  redeemed: {
+    display: 'flex', 
+    alignItems: 'center', 
+    padding: '0 20px 0 20px',
+    fontSize: [2],
+
+    '@media screen and (max-width: 576px)': {
+      padding: '0',
+      justifyContent: 'center',
     },
   },
 

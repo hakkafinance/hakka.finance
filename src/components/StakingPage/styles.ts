@@ -314,12 +314,74 @@ export default {
     },
   },
 
-  positionHeading: {
+  positionHeader:{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: '0 0 36px 0',
 
     '@media screen and (max-width: 576px)': {
-      fontSize: [3],
       margin: '60px 0 36px 0',
+    },
+  },
+
+  positionTitle: {
+    margin: '0',
+
+    '@media screen and (max-width: 576px)': {
+      fontSize: [3],
+    },
+  },
+
+  sortBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    border: '0',
+    borderRadius: '0.5rem',
+    padding: '0.5rem 0.75rem',
+    fontSize: [1],
+    fontWeight: 'bold',
+    cursor: 'pointer',
+
+    span: {
+      paddingLeft: '0.25rem',
+    },
+  },
+
+  activeSortBtn: {
+    backgroundColor: 'rgba(62, 189, 147, 0.1)',
+    color: '#2da287',
+  },
+
+  inactiveSortBtn: {
+    backgroundColor: '#f7fbfc',
+    color: 'rgba(37, 62, 71, 0.25)',
+  },
+
+  inactiveSVG: {
+    filter: 'grayscale(100%)',
+    opacity: 0.6,
+  },
+
+  archivedTitle: {
+    display: 'flex',
+    fontSize: '0.875rem',
+    color: 'rgba(37, 62, 71, 0.5)',
+    fontWeight: '600',
+    lineHeight: '1.71',
+    opacity: 0.8,
+    filter: 'grayscale(100%)',
+    transition: 'all 0.25s ease-out',
+
+    ':hover': {
+      cursor: 'pointer',
+      opacity: 1,
+      filter: 'grayscale(0)',
+      color: '#2da287',
+    },
+
+    p: {
+      paddingRight: '4px',
     },
   },
 };
