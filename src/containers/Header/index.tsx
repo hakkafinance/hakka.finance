@@ -18,7 +18,7 @@ const Header = (props) => {
     },
     {
       url: 'iconDiscord',
-      href: 'https://discord.com/invite/zYfqpUQ',
+      href: 'https://discord.com/invite/cU4D2a8',
     },
     {
       url: 'iconMediumLarge',
