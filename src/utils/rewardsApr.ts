@@ -28,7 +28,9 @@ const getKovanMulticallProvider = () => {
 }
 const kovanMulticallProvider = getKovanMulticallProvider();
 const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
-const bscMulticallProvider = new MulticallProvider(bscProvider, 56);
+const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL)
+const bscMulticallProvider = new MulticallProvider(bscProvider, ChainId.BSC);
+const polygonMulticallProvider = new MulticallProvider(polygonProvider, ChainId.POLYGON);
 
 export async function bhsApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   return Promise.resolve(Zero);
