@@ -9,7 +9,6 @@ import styles from './styles';
 const AddToMetamaskBtn = ({ address = null }) => {
   const { chainId } = useWeb3React();
   const addToMetamask = useCallback(() => {
-    console.log('address', address);
     const _ethereum = window.ethereum;
     _ethereum.request({
       method: 'wallet_watchAsset',
