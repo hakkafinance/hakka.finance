@@ -45,6 +45,8 @@ const images = {
   iconBlackhole: require('./icons/iconBlackhole.svg').default,
   icon3FMutual: require('./icons/icon3FMutual.jpg').default,
   iconIgain: require('./icons/iconIgain.svg').default,
+  iconIgainIG: require('./icons/iconIgainIG.svg').default,
+  iconIgainIRS: require('./icons/iconIgainIRS.svg').default,
   iconHakkaIntel: require('./icons/iconHakkaIntel.svg').default,
   iconDefiHandbook: require('./icons/iconDefiHandbook.jpg').default,
   iconCryptoStructure: require('./icons/iconCryptoStructure.png').default,
@@ -113,6 +115,7 @@ const images = {
   iconEthereumDark: require('./icons/icon-logo-ethereum-dark.png').default,
   iconBinanceGray: require('./icons/iconBinanceGray.png').default,
   iconBinanceGold: require('./icons/iconBinanceGold.png').default,
+  iconPolygon: require('./icons/iconPolygon.png').default,
 
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
