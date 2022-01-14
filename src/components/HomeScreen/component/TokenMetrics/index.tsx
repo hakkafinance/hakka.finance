@@ -19,7 +19,7 @@ const TokenMetricContent = (props) => {
         <Box sx={styles.tokenMetricsInfo}>
           <Flex sx={{ alignItems: 'center' }}>
             <span sx={styles.info}>{`NAME: ${tokenMetrics.name}`}</span>
-            <AddToMetamaskBtn />
+            <AddToMetamaskBtn address={tokenMetrics.address} />
           </Flex>
         </Box>
         <Box sx={styles.tokenMetricsInfo} mt="1">
