@@ -19,7 +19,7 @@ const TokenMetricContent = (props) => {
         <Box sx={styles.tokenMetricsInfo}>
           <Flex sx={{ alignItems: 'center' }}>
             <span sx={styles.info}>{`NAME: ${tokenMetrics.name}`}</span>
-            <AddToMetamaskBtn />
+            <AddToMetamaskBtn address={tokenMetrics.address} />
           </Flex>
         </Box>
         <Box sx={styles.tokenMetricsInfo} mt="1">
@@ -48,15 +48,31 @@ const TokenMetricContent = (props) => {
 
         </Box>
       </Box>
-
+      { tokenMetrics.id !== 'polygon' &&
       <Box sx={styles.tokenMetricsChainList} mt="20px">
         Get HAKKA Token on
         {' '}
         {tokenMetrics.shortName}
         :
-      </Box>
-      { tokenMetrics.id === 'eth'
+      </Box>}
+      { tokenMetrics.id === 'bsc'
         ? (
+          <Flex sx={styles.token_metric_responsive} mt="2">
+            <Flex>
+              <Box className="left-bot-token">
+                <CoinComponent
+                  item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC' }}
+                />
+              </Box>
+              <Box className="right-bot-token">
+                <CoinComponent
+                  item={{ imageCoin: 'iconInch', coinName: '1inch', link: 'https://app.1inch.io/#/56/swap/BNB/HAKKA' }}
+                />
+              </Box>
+            </Flex>
+          </Flex>
+        ) : tokenMetrics.id === 'polygon'
+        ? <></> : (
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Box>
               <CoinComponent
@@ -72,22 +88,6 @@ const TokenMetricContent = (props) => {
               <Box className="right-bot-token">
                 <CoinComponent
                   item={{ imageCoin: 'iconBalancer', coinName: 'Balancer', link: 'https://app.balancer.fi/#/trade/ether/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd' }}
-                />
-              </Box>
-            </Flex>
-          </Flex>
-        )
-        : (
-          <Flex sx={styles.token_metric_responsive} mt="2">
-            <Flex>
-              <Box className="left-bot-token">
-                <CoinComponent
-                  item={{ imageCoin: 'iconPancakeSwap', coinName: 'PancakeSwap', link: 'https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC' }}
-                />
-              </Box>
-              <Box className="right-bot-token">
-                <CoinComponent
-                  item={{ imageCoin: 'iconInch', coinName: '1inch', link: 'https://app.1inch.io/#/56/swap/BNB/HAKKA' }}
                 />
               </Box>
             </Flex>
@@ -111,6 +111,12 @@ function TokenMetrics(props) {
       chainName: 'Binance Smart Chain',
       imgBg: '#fcf7de',
     },
+    {
+      id: 'polygon',
+      imgChain: 'iconPolygon',
+      chainName: 'Polygon Netwrok',
+      imgBg: '#f2ebff',
+    },
   ];
 
   const tokenMetrics = [
@@ -131,6 +137,15 @@ function TokenMetrics(props) {
       address: '0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
       addressLink: 'https://bscscan.com/token/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
       addressIcon: images.iconBSCScan,
+    },
+    {
+      id: 'polygon',
+      shortName: 'Polygon',
+      name: ' Hakka Finance (HAKKA)',
+      type: 'ERC-20',
+      address: '0x978338A9d2d0aa2fF388d3dc98b9bF25bfF5efB4',
+      addressLink: 'https://polygonscan.com/token/0x978338A9d2d0aa2fF388d3dc98b9bF25bfF5efB4',
+      addressIcon: images.iconPolygon,
     },
   ];
 

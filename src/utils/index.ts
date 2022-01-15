@@ -24,6 +24,7 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   1: '',
   42: 'kovan.',
   56: '',
+  137: '',
 };
 
 export function getEtherscanLink(
@@ -33,6 +34,8 @@ export function getEtherscanLink(
 ): string {
   const prefix = chainId === ChainId.BSC
     ? 'https://bscscan.com'
+    : chainId === ChainId.POLYGON
+    ? 'https://polygonscan.com'
     : `https://${
       ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
     }etherscan.io`;

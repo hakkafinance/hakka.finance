@@ -6,7 +6,7 @@ import images from '../../images';
 import { HAKKA } from '../../constants';
 import styles from './styles';
 
-const AddToMetamaskBtn = (props) => {
+const AddToMetamaskBtn = ({ address = null }) => {
   const { chainId } = useWeb3React();
   const addToMetamask = useCallback(() => {
     const _ethereum = window.ethereum;
@@ -15,7 +15,7 @@ const AddToMetamaskBtn = (props) => {
       params: {
         type: 'ERC20',
         options: {
-          address: HAKKA[chainId].address,
+          address: address || HAKKA[chainId || 1].address,
           symbol: 'HAKKA',
           decimals: 18,
           image:
@@ -23,7 +23,7 @@ const AddToMetamaskBtn = (props) => {
         },
       },
     });
-  }, [chainId]);
+  }, [address, chainId]);
 
   return (
     <button

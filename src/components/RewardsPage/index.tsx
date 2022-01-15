@@ -31,7 +31,7 @@ const RewardsPage = () => {
   const currentArchivedPoolLength = useMemo(() => archivedPools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain).length, [currentChain])
 
   useEffect(() => {
-    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC) {
+    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
       setCurrentChain(chainId);
     }
   }, [chainId]);
@@ -90,6 +90,7 @@ const RewardsPage = () => {
         <div sx={styles.chainSwitch}>
           <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
           <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
+          <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
         </div>
         <div>
           <p sx={styles.activeTitle}>Active ({currentActivePoolLength})</p>
