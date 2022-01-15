@@ -8,6 +8,7 @@ import {
   SHAKKA_POOL,
   BSC_BHS_POOL,
   IGAIN_BNB_BUSD_POOL,
+  IGAIN_POLYGON_DEV_POOL,
 } from '../../constants';
 
 export type Pool = {
@@ -111,6 +112,17 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     tokenAddress: '0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenSymbol: 'LP',
     rewardsAddress: IGAIN_BNB_BUSD_POOL,
+    rewardsSymbol: 'HAKKA',
+    archived: true,
+  },
+  [IGAIN_POLYGON_DEV_POOL]: {
+    name: 'iGain Dev',
+    chain: ChainId.POLYGON,
+    website: 'Polygon Dev iGain',
+    url: '',
+    tokenAddress: '0x069C46A7CA72Ea31aB3E7d1858754390a23593f9',
+    tokenSymbol: 'LP',
+    rewardsAddress: IGAIN_POLYGON_DEV_POOL,
     rewardsSymbol: 'HAKKA',
     archived: false,
   },

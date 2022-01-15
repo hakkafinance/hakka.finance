@@ -16,7 +16,7 @@ import {
   balancer2tokenTvl,
   getGainTvlFunc,
 } from '../../utils/rewardsTvl';
-import { IGAIN_BNB_BUSD_POOL } from '..';
+import { ChainId, IGAIN_BNB_BUSD_POOL, IGAIN_POLYGON_DEV_POOL } from '..';
 
 export type PoolAssets = {
   icon: any;
@@ -62,7 +62,12 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
   },
   [IGAIN_BNB_BUSD_POOL]: {
     icon: images.iconIgainLp,
-    getApr: getGainAprFunc(IGAIN_BNB_BUSD_POOL),
-    getTvl: getGainTvlFunc(IGAIN_BNB_BUSD_POOL),
+    getApr: getGainAprFunc(IGAIN_BNB_BUSD_POOL, ChainId.BSC),
+    getTvl: getGainTvlFunc(IGAIN_BNB_BUSD_POOL, ChainId.BSC),
+  },
+  [IGAIN_POLYGON_DEV_POOL]: {
+    icon: images.iconIgainLp,
+    getApr: getGainAprFunc(IGAIN_POLYGON_DEV_POOL, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_DEV_POOL, ChainId.POLYGON),
   },
 }

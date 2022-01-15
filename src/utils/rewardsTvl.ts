@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { WeiPerEther } from '@ethersproject/constants'
-import { parseEther } from '@ethersproject/units'
+import { parseEther, parseUnits } from '@ethersproject/units'
 import { BigNumber } from '@ethersproject/bignumber'
 import {
   Contract as MulticallContract,
@@ -105,18 +105,21 @@ export async function balancer2tokenTvl(tokenPrice: any) {
   return pricePerBpt.mul(poolBpt).div(WeiPerEther)
 }
 
-export function getGainTvlFunc(iGainAddress: string): (tokenPrice: any) => Promise<BigNumber> {
+export function getGainTvlFunc(iGainAddress: string, chainId: ChainId): (tokenPrice: any) => Promise<BigNumber> {
   return async function (tokenPrice: any): Promise<BigNumber> {
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
+    const multicallProvider = chainId === ChainId.BSC ? bscMulticallProvider : chainId === ChainId.POLYGON ? polygonMulticallProvider : ethMulticallProvider;
 
-    const [stakedTotalSupply, poolA, poolB, totalSupply] = await bscMulticallProvider.all([
+    const [stakedTotalSupply, poolA, poolB, totalSupply, decimals] = await multicallProvider.all([
       rewardsContract.totalSupply(),
       igainContract.poolA(),
       igainContract.poolB(),
       igainContract.totalSupply(),
+      igainContract.decimals(),
     ]);
-    const perLpPrice = poolA.mul(poolB).mul(BigNumber.from(2)).div(poolA.add(poolB)).mul(WeiPerEther).div(totalSupply);
-    return perLpPrice.mul(stakedTotalSupply).div(WeiPerEther);
+    const decimalBNUnit = parseUnits('1', decimals);
+    const perLpPrice = poolA.mul(poolB).mul(BigNumber.from(2)).div(poolA.add(poolB)).mul(decimalBNUnit).div(totalSupply);
+    return perLpPrice.mul(stakedTotalSupply).div(decimalBNUnit);
   }
 }
