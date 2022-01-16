@@ -18,6 +18,7 @@ export type Pool = {
   url: string;
   tokenAddress: string;
   tokenSymbol: string;
+  decimal?: number;
   rewardsAddress: string;
   rewardsSymbol: string;
   archived: boolean;
@@ -122,6 +123,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: '',
     tokenAddress: '0x069C46A7CA72Ea31aB3E7d1858754390a23593f9',
     tokenSymbol: 'LP',
+    decimal: 6,
     rewardsAddress: IGAIN_POLYGON_DEV_POOL,
     rewardsSymbol: 'HAKKA',
     archived: false,
