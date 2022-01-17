@@ -97,8 +97,8 @@ const PoolDetail = ({ pool }) => {
   const [stakeInputAmount, setStakeInputAmount] = useState<string>('');
   const [withdrawInputAmount, setWithdrawInputAmount] = useState<string>('');
 
-  const token = new Token(1, REWARD_POOLS[pool].tokenAddress, 18);
-  const stakedToken = new Token(1, pool, 18);
+  const token = new Token(1, REWARD_POOLS[pool].tokenAddress, REWARD_POOLS[pool]?.decimal || 18);
+  const stakedToken = new Token(1, pool, REWARD_POOLS[pool]?.decimal || 18);
   const tokenBalance = useTokenBalance(
     account as string,
     token,

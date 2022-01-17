@@ -1,5 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { WeiPerEther, Zero } from '@ethersproject/constants';
+import { parseUnits } from '@ethersproject/units';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 import REWARD_ABI from '../constants/abis/staking_rewards.json';
@@ -76,30 +77,32 @@ export async function sHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> {
     .div(WeiPerEther);
 }
 
-export function getGainAprFunc(iGainAddress: string): (hakkaPrice: BigNumber) => Promise<BigNumber> {
+export function getGainAprFunc(iGainAddress: string, chainId: ChainId): (hakkaPrice: BigNumber) => Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
   return async function (hakkaPrice: BigNumber): Promise<BigNumber> {
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
+    const multicallProvider = chainId === ChainId.BSC ? bscMulticallProvider : chainId === ChainId.POLYGON ? polygonMulticallProvider : ethMulticallProvider;
 
-    const [stakedTotalSupply, rewardRate, periodFinish, poolA, poolB, totalSupply] = await bscMulticallProvider.all([
+    const [stakedTotalSupply, rewardRate, periodFinish, poolA, poolB, totalSupply, decimals] = await multicallProvider.all([
       rewardsContract.totalSupply(),
       rewardsContract.rewardRate(),
       rewardsContract.periodFinish(),
       igainContract.poolA(),
       igainContract.poolB(),
       igainContract.totalSupply(),
+      igainContract.decimals(),
     ]);
-    const perLpPrice = poolA.mul(poolB).mul(BigNumber.from(2)).div(poolA.add(poolB)).mul(WeiPerEther).div(totalSupply);
+    const decimalBNUnit = parseUnits('1', decimals);
+    const perLpPrice = poolA.mul(poolB).mul(BigNumber.from(2)).div(poolA.add(poolB)).mul(decimalBNUnit).div(totalSupply);
 
-    const stakedTotalValue = perLpPrice.mul(stakedTotalSupply).div(WeiPerEther);
+    const stakedTotalValue = perLpPrice.mul(stakedTotalSupply.isZero() ? perLpPrice : stakedTotalSupply).div(decimalBNUnit);
     if (periodFinish.lt(now)) {
       return Zero;
     }
 
-    const yearlyUsdRewards = rewardRate.mul(SECONDS_IN_YEAR).mul(hakkaPrice);
-    return yearlyUsdRewards
-      .div(stakedTotalValue)
+    const yearlyUsdRewards = rewardRate.mul(SECONDS_IN_YEAR).mul(hakkaPrice).div(WeiPerEther);
+    return yearlyUsdRewards.mul(decimalBNUnit).div(stakedTotalValue)
   }
 }
 

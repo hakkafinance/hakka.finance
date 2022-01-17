@@ -37,7 +37,7 @@ export const injected = new InjectedConnector({
 });
 
 export const walletconnect = new WalletConnectConnector({
-  supportedChainIds: [1],
+  supportedChainIds: [1, 56, 137],
   rpc: { 1: NETWORK_URL, 56: BSC_NETWORK_URL, 137: POLYGON_NETWORK_URL },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
