@@ -20,6 +20,7 @@ import { ChainId, IGAIN_BNB_BUSD_POOL, IGAIN_POLYGON_DAI_POOL_1, IGAIN_POLYGON_U
 
 export type PoolAssets = {
   icon: any;
+  decimal?: number;
   getApr: (...args: any[]) => Promise<BigNumber>;
   getTvl: (...args: any[]) => Promise<BigNumber>;
 }
@@ -72,6 +73,7 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
   },
   [IGAIN_POLYGON_USDC_POOL_1]: {
     icon: images.iconIgainLp,
+    decimal: 6,
     getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_1, ChainId.POLYGON),
     getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_1, ChainId.POLYGON),
   },

@@ -17,6 +17,7 @@ interface NumericalInputFieldProps {
   approve: any;
   approveState: ApprovalState;
   setIsCorrectInput: any;
+  decimal?: number;
 }
 
 const NumericalInputField = (props: NumericalInputFieldProps) => {
@@ -26,18 +27,19 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
     tokenBalance,
     approve,
     approveState,
-    setIsCorrectInput
+    setIsCorrectInput,
+    decimal,
   } = props;
   
   // check amount, balance
   const { chainId } = useActiveWeb3React();
-  const bignumber1e18 = new BigNumber(WeiPerEther.toString());
+  const tokenDecimal = new BigNumber(decimal ? 10 ** decimal : WeiPerEther.toString());
   const [amountError, setAmountError] = useState<string>('');
 
   useEffect(() => {
     if (value && tokenBalance) {
       const bigNumberInputAmount = new BigNumber(new BigNumber(value).isNaN() ? 0 : value)
-      const bigNumberHakkaBalance = new BigNumber(tokenBalance.raw.toString()).dividedBy(bignumber1e18)
+      const bigNumberHakkaBalance = new BigNumber(tokenBalance.raw.toString()).dividedBy(tokenDecimal)
 
       if (bigNumberInputAmount.isGreaterThan(bigNumberHakkaBalance)) {
         console.log(

@@ -17,6 +17,7 @@ export enum DepositState {
 export function useRewardsDeposit(
   depositAddress?: string,
   amount?: string,
+  decimal?: number,
   spender?: string,
 ): [DepositState, () => Promise<void>] {
   const { chainId } = useWeb3React();
@@ -44,7 +45,7 @@ export function useRewardsDeposit(
     }
 
     try {
-      const amountParsed = parseUnits(amount || '0', 18);
+      const amountParsed = parseUnits(amount || '0', decimal);
       const tx = await depositContract.stake(amountParsed);
       setCurrentTransaction(tx.hash);
       toast(

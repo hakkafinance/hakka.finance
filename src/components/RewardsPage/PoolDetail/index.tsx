@@ -33,7 +33,7 @@ import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrap
 
 const PoolDetail = ({ pool }) => {
   const { account, chainId, error } = useWeb3React();
-  const rewardData = useRewardsData([pool]);
+  const rewardData = useRewardsData([pool], [POOL_ASSETES[pool]?.decimal || 18]);
   const toggleClaimModal = useClaimModalToggle();
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
   const vestingValue = useSingleCallResult(
@@ -122,8 +122,8 @@ const PoolDetail = ({ pool }) => {
   const [switchPick, setSwitchPick] = useState<SwitchOption>(SwitchOption.DEPOSIT);
   const [claimState, claim] = useRewardsClaim(pool, account);
   const [exitState, exit] = useRewardsExit(pool, account);
-  const [depositState, deposit] = useRewardsDeposit(pool, stakeInputAmount, account);
-  const [withdrawState, withdraw] = useRewardsWithdraw(pool, withdrawInputAmount, account);
+  const [depositState, deposit] = useRewardsDeposit(pool, stakeInputAmount, POOL_ASSETES[pool]?.decimal || 18, account);
+  const [withdrawState, withdraw] = useRewardsWithdraw(pool, withdrawInputAmount, POOL_ASSETES[pool]?.decimal || 18, account);
   const toggleWalletModal = useWalletModalToggle();
 
   const CheckWrongNetworkConnectWalletApproveTokenButton = withApproveTokenCheckWrapper(
@@ -326,6 +326,7 @@ const PoolDetail = ({ pool }) => {
                     approve={approve}
                     approveState={approveState}
                     setIsCorrectInput={setIsCorrectInput}
+                    decimal={POOL_ASSETES[pool]?.decimal}
                   />
                 ) : (
                   <NumericalInputField
@@ -335,6 +336,7 @@ const PoolDetail = ({ pool }) => {
                     approve={approve}
                     approveState={approveState}
                     setIsCorrectInput={setIsCorrectInput}
+                    decimal={POOL_ASSETES[pool]?.decimal}
                   />
                 )}
             </div>

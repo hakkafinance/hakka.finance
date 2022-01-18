@@ -17,6 +17,7 @@ export enum WithdrawState {
 export function useRewardsWithdraw(
   withdrawAddress?: string,
   amount?: string,
+  decimal?: number,
   spender?: string,
 ): [WithdrawState, () => Promise<void>] {
   const { chainId } = useWeb3React();
@@ -44,7 +45,7 @@ export function useRewardsWithdraw(
     }
 
     try {
-      const amountParsed = parseUnits(amount || '0', 18);
+      const amountParsed = parseUnits(amount || '0', decimal);
       const tx = await withdrawContract.withdraw(amountParsed);
       setCurrentTransaction(tx.hash);
       toast(

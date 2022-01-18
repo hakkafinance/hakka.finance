@@ -18,17 +18,14 @@ const RewardsPage = () => {
   const { account, chainId } = useWeb3React();
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
-  const poolAddresses = Object.keys(REWARD_POOLS);
-
-  const activePools = poolAddresses.filter((poolAddress) => !REWARD_POOLS[poolAddress].archived);
-  const archivedPools = poolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived);
+  const currentPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain), [currentChain]);
+  const activePools = useMemo(() => currentPoolAddresses.filter((poolAddress) => !REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
+  const archivedPools = useMemo(() => currentPoolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
+  const decimals = useMemo(() => currentPoolAddresses.map((pool) => POOL_ASSETES[pool]?.decimal || 18), [currentPoolAddresses])
 
   const hakkaPrice = useTokenPrice('hakka-finance');
-  const rewardData = useRewardsData(poolAddresses);
+  const rewardData = useRewardsData(currentPoolAddresses, decimals);
   const [apr, setApr] = useState({});
-
-  const currentActivePoolLength = useMemo(() => activePools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain).length, [currentChain])
-  const currentArchivedPoolLength = useMemo(() => archivedPools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain).length, [currentChain])
 
   useEffect(() => {
     if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
@@ -93,7 +90,7 @@ const RewardsPage = () => {
           <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
         </div>
         <div>
-          <p sx={styles.activeTitle}>Active ({currentActivePoolLength})</p>
+          <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
             {activePools
               .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
@@ -103,7 +100,7 @@ const RewardsPage = () => {
         <div>
           <div sx={{ display: 'inline-block' }}>
             <div onClick={() => setIsShowArchived(!isShowArchived)} sx={styles.archivedTitle}>
-              <p>Archived ({currentArchivedPoolLength})</p>
+              <p>Archived ({archivedPools.length})</p>
               <img src={isShowArchived ? images.iconUp : images.iconDown} />
             </div>
           </div>

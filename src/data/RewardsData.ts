@@ -7,7 +7,7 @@ import { tryParseAmount } from '../utils';
 import { useMultipleContractSingleData } from '../state/multicall/hooks';
 import STAKING_REWARDS_ABI from '../constants/abis/staking_rewards.json';
 
-export function useRewardsData(addresses: string[]) {
+export function useRewardsData(addresses: string[], decimals: number[]) {
   const { chainId, account } = useActiveWeb3React();
   const REWARDS_INTERFACE = new Interface(STAKING_REWARDS_ABI);
 
@@ -37,7 +37,7 @@ export function useRewardsData(addresses: string[]) {
       const balance = {}
       const earned = {}
       addresses.map((address) => {
-        balance[address] = tryParseAmount(formatUnits(depositBalances[addresses.indexOf(address)].result?.[0] ?? 0))
+        balance[address] = tryParseAmount(formatUnits(depositBalances[addresses.indexOf(address)].result?.[0] ?? 0, decimals[addresses.indexOf(address)]))
         earned[address] = tryParseAmount(formatUnits(earnedBalances[addresses.indexOf(address)].result?.[0] ?? 0))
       })
       return {
@@ -45,6 +45,6 @@ export function useRewardsData(addresses: string[]) {
         earnedBalances: earned,
       }
     },
-    [chainId, depositBalances, earnedBalances],
+    [chainId, depositBalances, earnedBalances, addresses, decimals],
   );
 }
