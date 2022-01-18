@@ -2,10 +2,9 @@ import { useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { ChainId } from '../constants';
 
-export default function useRequestNetworkConfig(): any {
-  const { chainId } = useWeb3React();
+export default function useRequestNetworkConfig(targetNetwork: ChainId): any {
   const switchMethod = useMemo(() => {
-    if (chainId === ChainId.MAINNET) {
+    if (targetNetwork === ChainId.BSC) {
       return {
         method: 'wallet_addEthereumChain',
         params: [{
@@ -20,6 +19,23 @@ export default function useRequestNetworkConfig(): any {
           blockExplorerUrls: ['https://bscscan.com/'],
         }],
       }
+    } else if (targetNetwork === ChainId.POLYGON) {
+      return {
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: '0x89',
+            chainName: 'Polygon Network',
+            nativeCurrency: {
+              name: 'Matic',
+              symbol: 'Matic',
+              decimals: 18,
+            },
+            rpcUrls: ['https://rpc-mainnet.matic.network'],
+            blockExplorerUrls: ['https://polygonscan.com/'],
+          },
+        ],
+      };
     } else {
       return {
         method: 'wallet_switchEthereumChain',
@@ -28,7 +44,7 @@ export default function useRequestNetworkConfig(): any {
         }]
       }
     }
-  }, [chainId]);
+  }, [targetNetwork]);
 
   return switchMethod;
 }

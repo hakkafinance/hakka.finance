@@ -215,6 +215,7 @@ const Staking = () => {
                   || !isCorrectInput
                 }
                 isCorrectNetwork={isCorrectNetwork}
+                targetNetwork={ChainId.MAINNET}
               >
                 Stake
               </StakeButton>

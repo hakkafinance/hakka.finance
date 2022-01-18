@@ -288,6 +288,7 @@ const VaultPage = (props) => {
                 approveToken={approve}
                 disabled={ errorStatus || burnState === BurnState.PENDING}
                 isCorrectNetwork={isCorrectNetwork}
+                targetNetwork={ChainId.MAINNET}
               >
                 Burn
               </BurnButton>

@@ -152,6 +152,7 @@ const PoolDetail = ({ pool }) => {
       approveToken={approve}
       disabled={depositState === DepositState.PENDING || !isCorrectInput}
       isCorrectNetwork={!isWrongNetwork}
+      targetNetwork={REWARD_POOLS[pool].chain}
     >
       Deposit
     </CheckWrongNetworkConnectWalletApproveTokenButton>
@@ -189,6 +190,7 @@ const PoolDetail = ({ pool }) => {
         isConnected={!!account}
         connectWallet={toggleWalletModal}
         isCorrectNetwork={!isWrongNetwork}
+        targetNetwork={REWARD_POOLS[pool].chain}
       />
     ) : withdrawButtonRenderer();
 
@@ -265,6 +267,7 @@ const PoolDetail = ({ pool }) => {
                   connectWallet={toggleWalletModal}
                   disabled={claimState === ClaimState.PENDING}
                   isCorrectNetwork={!isWrongNetwork}
+                  targetNetwork={REWARD_POOLS[pool].chain}
                 >
                   Claim
                 </CheckWrongNetworkAndConnectWalletButton>

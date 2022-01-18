@@ -136,6 +136,7 @@ const VestingPage = () => {
                 isConnected={!!account}
                 connectWallet={toggleWalletModal}
                 isCorrectNetwork={!!VESTING_ADDRESSES[chainId as ChainId] && VESTING_ADDRESSES[chainId as ChainId] !== AddressZero}
+                targetNetwork={ChainId.MAINNET}
                 onClick={claim}
                 disabled={claimState === VestingState.PENDING || isWaitingCycle}
               >
