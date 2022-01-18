@@ -23,7 +23,7 @@ export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
-  137: 'Polygon Netwrok',
+  137: 'Polygon Network',
 };
 
 export interface WalletInfo {

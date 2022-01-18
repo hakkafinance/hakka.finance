@@ -114,7 +114,7 @@ function TokenMetrics(props) {
     {
       id: 'polygon',
       imgChain: 'iconPolygon',
-      chainName: 'Polygon Netwrok',
+      chainName: 'Polygon Network',
       imgBg: '#f2ebff',
     },
   ];
