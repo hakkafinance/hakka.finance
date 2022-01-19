@@ -90,7 +90,7 @@ const PoolDetail = ({ pool }) => {
     async function loadTvl() {
       if (!active || !tokenPrice) { return }
       const newTvl = await POOL_ASSETES[pool].getTvl(tokenPrice);
-      setTvl(tryParseAmount(formatUnits(newTvl, 18)).toFixed(2));
+      setTvl(tryParseAmount(formatUnits(newTvl, POOL_ASSETES[pool]?.decimal || 18)).toFixed(2));
     }
   }, [tokenPrice]);
 
@@ -207,7 +207,7 @@ const PoolDetail = ({ pool }) => {
           <p>{REWARD_POOLS[pool].name}</p>
           <div sx={styles.infoWrapper}>
             <div sx={styles.infoItem}>
-              {tvl && parseUnits(tvl).gt(Zero)
+              {tvl && parseUnits(tvl, REWARD_POOLS[pool]?.decimal || 18).gt(Zero)
                 ? <>
                   <span>TVL</span>
                   <span sx={styles.infoValue}> ${tvl} </span>
