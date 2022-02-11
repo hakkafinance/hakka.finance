@@ -120,9 +120,9 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     archived: true,
   },
   [IGAIN_IG_POLYGON_ETH_USDC_POOL_1]: {
-    name: 'iGain',
+    name: 'iGain IG ETH-USDC',
     chain: ChainId.POLYGON,
-    website: 'iGain IG ETH-USDC',
+    website: 'iGain IG',
     url: 'https://igain.finance/ig/markets/eth-usdc/0xe69cB8e21D20b196717072364718812DC0Bf38BB',
     tokenAddress: '0xe69cB8e21D20b196717072364718812DC0Bf38BB',
     tokenSymbol: 'LP',
