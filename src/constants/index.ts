@@ -40,6 +40,12 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     iconName: 'metamask',
     description: 'Injected web3 provider.',
   },
+  INJECTED_IMTOKEN: {
+    connector: injected,
+    name: 'imToken',
+    iconName: 'imToken',
+    description: 'Injected imToken provider.',
+  },
   WALLET_CONNECT: {
     connector: walletconnect,
     name: 'WalletConnect',
