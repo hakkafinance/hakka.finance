@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Flex } from 'rebass';
 import images from '../../images';
 import styles from './styles';
@@ -53,6 +53,24 @@ const HomeScreen = (props) => {
     {
       img: 'imageDelta',
     },
+    {
+      img: 'imageHashCloak',
+    },
+    {
+      img: 'imageBinanceSmartChain',
+    },
+    {
+      img: 'imagePolygon',
+    },
+    {
+      img: 'imageAave',
+    },
+    {
+      img: 'imageEns',
+    },
+    {
+      img: 'imageGelato',
+    },
   ];
 
   const renderCoin = () => coins.map((item, i) => <CoinComponent key={item.coinName} item={item} i={i} />);
@@ -64,6 +82,8 @@ const HomeScreen = (props) => {
         : <img sx={styles.imgPartner} src={images[item.img]} alt="" />}
     </Flex>
   ));
+
+  const [subscribeEmailAddress, setSubscribeEmailAddress] = useState('');
 
   return (
     <>
@@ -134,6 +154,32 @@ const HomeScreen = (props) => {
             <Box sx={styles.partnersHead}>Partners &amp; Integrators</Box>
 
             <Flex sx={styles.img_partners_responsive} flexWrap="wrap">{renderPartnersImg()}</Flex>
+          </Box>
+
+          <Box>
+            <h3 sx={styles.subscribeTitle}>Sign Up To The Hakka Newsletter</h3>
+            <p sx={styles.subscribeSubtitle}>Don't Miss Out On The Future of DeFi & Get $HAKKA Rewards Before Everyone</p>
+            {/* Begin Mailchimp Signup Form */}
+            <form action="https://finance.us2.list-manage.com/subscribe/post?u=95f3e0652dfcf25540fb560b5&amp;id=944615c8c1" method="post" name="mc-embedded-subscribe-form" target="_blank" noValidate>
+              <div sx={styles.subscribeInputArea}>
+            	  <input 
+                  value={subscribeEmailAddress}
+                  onChange={(event) => setSubscribeEmailAddress(event.target.value)}
+                  type="email" 
+                  name="EMAIL" 
+                  placeholder="Your Email" 
+                  required 
+                  sx={styles.emailInput}
+                />
+                {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */}
+                <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                  <input type="text" name="b_95f3e0652dfcf25540fb560b5_944615c8c1" tabIndex={-1} value="" />
+                </div>
+                {/* ----------end---------- */}
+                <button sx={styles.subscribeButton} type="submit" value="Subscribe">Subscribe</button>
+              </div>
+            </form>
+            {/* End mc_embed_signup */}
           </Box>
 
           <Box sx={styles.blur_img_green_section}>
