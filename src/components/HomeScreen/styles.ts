@@ -186,4 +186,74 @@ export default {
       zIndex: '-1',
     },
   },
+  subscribeInputArea: {
+    display: 'flex',
+    paddingBottom: '100px',
+    maxWidth: '740px',
+    '@media screen and (max-width: 768px)': {
+      display: 'block',
+    },
+  },
+  subscribeTitle: {
+    marginBottom: '36px',
+    marginTop: '0',
+    fontSize: '32px',
+    color: '#253e47',
+  },
+  subscribeSubtitle: {
+    marginBottom: '24px',
+    fontSize: '16px',
+    color: '#253e47',
+  },
+  subscribeButton: {
+    padding: '18px 0px',
+    marginLeft: '12px',
+    minWidth: '184px',
+    border: 'solid 1px #3ebd93',
+    backgroundColor: '#3ebd93',
+    color: '#fff',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    fontWeight: '600',
+    transition: 'all 0.25s ease-out',
+    textAlign: 'center',
+
+    '@media screen and (max-width: 768px)': {
+      marginLeft: '0',
+      marginTop: '12px',
+      width: '100%',
+    },
+
+    ':hover': {
+      borderColor: '#2da287',
+      backgroundColor: '#6ad7a8',
+    },
+
+    ':active': {
+      transform: 'scale(0.98)',
+      outline: 'none',
+    },
+
+    ':disabled': {
+      color: '#9D9D9D',
+      cursor: 'not-allowed',
+      backgroundColor: '#ebf0f2',
+      border: 'none',
+    },
+  },
+  emailInput: {
+    width: '100%',
+    height: '60px',
+    padding: '0 18px',
+    border: '1px solid #dae1e3',
+    backgroundColor: '#f7fbfc',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600',
+    
+    ':focus': {
+      outline: 'none',
+    },
+  },
 };

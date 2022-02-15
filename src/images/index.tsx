@@ -109,6 +109,12 @@ const images = {
   imageKyberNetwork: require('./icons/kyberNetwork.png').default,
   imageMaker: require('./icons/maker.png').default,
   imageTrustWallet: require('./icons/trustWallet.png').default,
+  imageHashCloak: require('./icons/imageHashCloak.png').default,
+  imageBinanceSmartChain: require('./icons/imageBinanceSmartChain.png').default,
+  imagePolygon: require('./icons/imagePolygon.png').default,
+  imageAave: require('./icons/imageAave.png').default,
+  imageEns: require('./icons/imageEns.png').default,
+  imageGelato: require('./icons/imageGelato.png').default,
 
   // icon chain
   iconEthereum: require('./icons/iconEthereum.png').default,
