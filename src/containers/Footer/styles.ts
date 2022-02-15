@@ -56,4 +56,30 @@ export default {
       opacity: 1,
     },
   },
+  linkArea: {
+    alignItems: 'center',
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+    },
+
+  },
+  auditReportsLink: {
+    position: 'relative',
+    top: '-3px',
+    marginRight: '12px',
+    fontSize: '14px', 
+    textDecoration: 'none',
+    color: '#929ea3',
+    fontWeight: '600',
+
+    ':hover': {
+      color: '#253E47',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      marginRight: '0',
+      marginBottom: '12px',
+    },
+  },
 };
