@@ -42,7 +42,10 @@ function Footer() {
         sx={styles.footerContent}
       >
         <Box><img sx={styles.logoFooter} src={images.logoGray} alt="" /></Box>
-        <Flex sx={styles.footer_icons}>{renderListIcon()}</Flex>
+        <Flex sx={styles.linkArea}>
+          <a sx={styles.auditReportsLink} href='https://github.com/hakkafinance/audit-reports' target='_blank' rel='noreferrer'>Audit Reports</a>  
+          <Flex sx={styles.footer_icons}>{renderListIcon()}</Flex>
+        </Flex>
       </Flex>
 
       <Text sx={styles.textCopy}>© Copyright 2021 HAKKA FINANCE</Text>
