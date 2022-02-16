@@ -21,7 +21,7 @@ export type Pool = {
   url: string;
   tokenAddress: string;
   tokenSymbol: string;
-  decimal?: number;
+  decimal: number;
   rewardsAddress: string;
   rewardsSymbol: string;
   archived: boolean;
@@ -35,6 +35,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://blackholeswap.com/deposit',
     tokenAddress: '0x35101c731b1548B5e48bb23F99eDBc2f5c341935',
     tokenSymbol: 'BHSc$',
+    decimal: 18,
     rewardsAddress: BHS_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -47,6 +48,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
       'https://pools.balancer.exchange/#/pool/0x1b8874baceaafba9ea194a625d12e8b270d77016',
     tokenAddress: '0x1b8874baceaafba9ea194a625d12e8b270d77016',
     tokenSymbol: 'BPT',
+    decimal: 18,
     rewardsAddress: BHS_USDC_DAI_HAKKA_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -59,6 +61,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
       'https://pools.balancer.exchange/#/pool/0xae95d3198d602acfb18f9188d733d710e14a27dd',
     tokenAddress: '0xae95d3198d602acfb18f9188d733d710e14a27dd',
     tokenSymbol: 'BPT',
+    decimal: 18,
     rewardsAddress: BHS_HAKKA_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -71,6 +74,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
       'https://app.uniswap.org/#/add/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/0x0E29e5AbbB5FD88e28b2d355774e73BD47dE3bcd',
     tokenAddress: '0xB8b84Ce0CAde916988BD129EaFd7934ADE5Fa6a9',
     tokenSymbol: 'UNI-V2',
+    decimal: 18,
     rewardsAddress: MKR_HAKKA_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -82,6 +86,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'http://3fmutual.com',
     tokenAddress: '0xBdDa9670Bc2a672c36ccE0102ce8C69B12E9deE3',
     tokenSymbol: 'TFT',
+    decimal: 18,
     rewardsAddress: TFT_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -93,6 +98,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://hakka.finance/staking',
     tokenAddress: '0xd9958826Bce875A75cc1789D5929459E6ff15040',
     tokenSymbol: 'sHAKKA',
+    decimal: 18,
     rewardsAddress: SHAKKA_POOL,
     rewardsSymbol: 'HAKKA',
     archived: false,
@@ -104,6 +110,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://bsc.blackholeswap.com/deposit',
     tokenAddress: '0x75192D6f3d51554CC2eE7B40C3aAc5f97934ce7E',
     tokenSymbol: 'BHSc$',
+    decimal: 18,
     rewardsAddress: BSC_BHS_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -115,6 +122,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://igain.finance/markets/bnb-busd/0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenAddress: '0xc9d710CdE965521944BCB4D4eF73ADA6113FAE27',
     tokenSymbol: 'LP',
+    decimal: 18,
     rewardsAddress: IGAIN_BNB_BUSD_POOL,
     rewardsSymbol: 'HAKKA',
     archived: true,
@@ -126,6 +134,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://igain.finance/ig/markets/eth-usdc/0xe69cB8e21D20b196717072364718812DC0Bf38BB',
     tokenAddress: '0xe69cB8e21D20b196717072364718812DC0Bf38BB',
     tokenSymbol: 'LP',
+    decimal: 6,
     rewardsAddress: IGAIN_IG_POLYGON_ETH_USDC_POOL_1,
     rewardsSymbol: 'HAKKA',
     archived: false,
@@ -137,6 +146,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0x6ac0Ad00A7002047c49d289Ac9E87Cf087CE5529',
     tokenAddress: '0x6ac0Ad00A7002047c49d289Ac9E87Cf087CE5529',
     tokenSymbol: 'LP',
+    decimal: 18,
     rewardsAddress: IGAIN_POLYGON_DAI_POOL_1,
     rewardsSymbol: 'HAKKA',
     archived: false,
