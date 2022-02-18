@@ -23,6 +23,9 @@ import {
   IGAIN_POLYGON_DAI_POOL_1,
   IGAIN_POLYGON_USDC_POOL_1,
   IGAIN_POLYGON_USDT_POOL_1,
+  IGAIN_POLYGON_DAI_POOL_2,
+  IGAIN_POLYGON_USDC_POOL_2,
+  IGAIN_POLYGON_USDT_POOL_2,
 } from '..';
 
 export type PoolAssets = {
@@ -104,5 +107,23 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     decimal: 6,
     getApr: getGainAprFunc(IGAIN_POLYGON_USDT_POOL_1, ChainId.POLYGON),
     getTvl: getGainTvlFunc(IGAIN_POLYGON_USDT_POOL_1, ChainId.POLYGON),
+  },
+  [IGAIN_POLYGON_DAI_POOL_2]: {
+    icon: images.iconIgainLp,
+    decimal: 18,
+    getApr: getGainAprFunc(IGAIN_POLYGON_DAI_POOL_2, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_DAI_POOL_2, ChainId.POLYGON),
+  },
+  [IGAIN_POLYGON_USDC_POOL_2]: {
+    icon: images.iconIgainLp,
+    decimal: 6,
+    getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_2, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_2, ChainId.POLYGON),
+  },
+  [IGAIN_POLYGON_USDT_POOL_2]: {
+    icon: images.iconIgainLp,
+    decimal: 6,
+    getApr: getGainAprFunc(IGAIN_POLYGON_USDT_POOL_2, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_USDT_POOL_2, ChainId.POLYGON),
   },
 }

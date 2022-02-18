@@ -15,12 +15,14 @@ interface RewardsPoolCardProps {
   apr: string;
   depositedBalance: string;
   earnedBalance: string;
+  subtitle?: string;
 }
 
 const RewardsPoolCard = (props: RewardsPoolCardProps) => {
   const {
     apr,
     tokenImage,
+    subtitle,
     title,
     url,
     linkContent,
@@ -41,6 +43,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => {
         <img sx={styles.icon} src={tokenImage} />
       </div>
       <p sx={styles.title}>{title}</p>
+      {subtitle && <p sx={styles.subtitle}>{subtitle}</p>}
       <a sx={styles.link} target='_blank' href={url}>
         <span>{linkContent}</span>
         <img src={images.iconLinkNormal} />

@@ -49,6 +49,11 @@ export default {
     lineHeight: '1.33',
   },
 
+  subtitle: {
+    margin: '0',
+    fontWeight: '600',
+  },
+
   link: {
     display: 'flex',
     paddingTop: '12px',
