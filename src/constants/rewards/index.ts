@@ -19,6 +19,7 @@ import {
 
 export type Pool = {
   name: string;
+  subtitle?: string;
   chain: ChainId;
   website: string;
   url: string;
@@ -29,6 +30,12 @@ export type Pool = {
   rewardsSymbol: string;
   archived: boolean;
 }
+
+const timeOption: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+};
 
 export const REWARD_POOLS: { [key: string]: Pool } = {
   [BHS_POOL]: {
@@ -132,6 +139,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_IG_POLYGON_ETH_USDC_POOL_1]: {
     name: 'iGain IG ETH-USDC',
+    subtitle: new Date(1652347832000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IG',
     url: 'https://igain.finance/ig/markets/eth-usdc/0xe69cB8e21D20b196717072364718812DC0Bf38BB',
@@ -144,6 +155,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_DAI_POOL_1]: {
     name: 'iGain IRS DAI',
+    subtitle: new Date(1656578065000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0x6ac0Ad00A7002047c49d289Ac9E87Cf087CE5529',
@@ -156,6 +171,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_USDC_POOL_1]: {
     name: 'iGain IRS USDC',
+    subtitle: new Date(1656575394000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0x11bafFebd829B490Cf077Ce7eF7700dd3cB1e534',
@@ -168,6 +187,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_USDT_POOL_1]: {
     name: 'iGain IRS USDT',
+    subtitle: new Date(1656548685000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0xc6183a902FD287CC47b525a75C8d3381C6eae42f',
@@ -180,6 +203,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_DAI_POOL_2]: {
     name: 'iGain IRS DAI',
+    subtitle: new Date(1648754430000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0x3Eb8286b22C35174Faf02b4E4293cFb5e8652079',
@@ -192,6 +219,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_USDC_POOL_2]: {
     name: 'iGain IRS USDC',
+    subtitle: new Date(1648753240000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0xC6A3CCaaBACC6e6a5A2903B0500a1A5285f442c1',
@@ -204,6 +235,10 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   [IGAIN_POLYGON_USDT_POOL_2]: {
     name: 'iGain IRS USDT',
+    subtitle: new Date(1648755529000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
     chain: ChainId.POLYGON,
     website: 'iGain IRS',
     url: 'https://igain.finance/irs/apy-trade-pools/detail/0xC1C194D4c8E9ddc69396BCCfEf811e72113695Cc',

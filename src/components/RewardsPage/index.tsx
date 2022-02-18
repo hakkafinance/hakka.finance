@@ -66,6 +66,7 @@ const RewardsPage = () => {
       key={pool.rewardsAddress}
       tokenImage={POOL_ASSETES[pool.rewardsAddress].icon}
       title={pool.name}
+      subtitle={pool.subtitle}
       url={pool.url}
       linkContent={pool.website}
       btnContent={active ? 'Deposit / Withdraw' : 'Withdraw'}
