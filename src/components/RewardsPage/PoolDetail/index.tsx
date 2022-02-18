@@ -204,7 +204,11 @@ const PoolDetail = ({ pool }) => {
           </div>
         </a>
         <div sx={styles.title}>
-          <p>{REWARD_POOLS[pool].name}</p>
+          <div sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <p>{REWARD_POOLS[pool].name}</p>
+            {REWARD_POOLS[pool]?.subtitle && <b sx={{ marginLeft: '16px', paddingBottom: '2px' }}>{REWARD_POOLS[pool]?.subtitle}</b>}
+          </div>
+
           <div sx={styles.infoWrapper}>
             <div sx={styles.infoItem}>
               {tvl && parseUnits(tvl, REWARD_POOLS[pool]?.decimal || 18).gt(Zero)
