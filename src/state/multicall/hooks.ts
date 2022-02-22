@@ -1,5 +1,6 @@
 import { useEffect, useContext, useMemo } from 'react';
 import { Interface, FunctionFragment } from '@ethersproject/abi';
+import { AddressZero } from '@ethersproject/constants';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { useActiveWeb3React } from '../../hooks/web3Manager';
@@ -197,7 +198,7 @@ export function useSingleContractMultipleData(
   ]);
 
   const calls = useMemo(
-    () => (contract && fragment && callInputs && callInputs.length > 0
+    () => (contract && contract.address !== AddressZero && fragment && callInputs && callInputs.length > 0
       ? callInputs.map<Call>((inputs) => ({
         address: contract.address,
         callData: contract.interface.encodeFunctionData(fragment, inputs),
@@ -233,7 +234,7 @@ export function useMultipleContractSingleData(
 
   const calls = useMemo(
     () => (fragment && addresses && addresses.length > 0 && callData
-      ? addresses.map<Call | undefined>((address) => (address && callData
+      ? addresses.map<Call | undefined>((address) => (address && address !== AddressZero && callData
         ? {
           address,
           callData,
@@ -266,6 +267,7 @@ export function useMultipleContractMultipleData(
     () => (fragment
       && addresses
       && addresses.length > 0
+      && addresses.indexOf(AddressZero) === -1
       && callInputs
       && callInputs.length > 0
       && addresses.length === callInputs.length
@@ -300,7 +302,7 @@ export function useSingleCallResult(
     methodName,
   ]);
 
-  const calls = useMemo<Call[]>(() => (contract && fragment && isValidMethodArgs(inputs)
+  const calls = useMemo<Call[]>(() => (contract && contract.address !== AddressZero && fragment && isValidMethodArgs(inputs)
     ? [
       {
         address: contract.address,

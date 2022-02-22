@@ -11,7 +11,7 @@ import { REWARD_POOLS } from '../constants/rewards';
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
-} from './stateless-multicall'
+} from '@pelith/ethers-multicall'
 
 const SECONDS_IN_YEAR = BigNumber.from(
   (365.25 * 24 * 60 * 60).toString(),
