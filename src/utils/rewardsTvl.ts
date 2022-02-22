@@ -5,7 +5,7 @@ import { BigNumber } from '@ethersproject/bignumber'
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
-} from './stateless-multicall'
+} from '@pelith/ethers-multicall'
 import ERC20_ABI from '../constants/abis/erc20.json'
 import {
   HAKKA,
