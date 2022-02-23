@@ -353,6 +353,7 @@ const PoolDetail = ({ pool }) => {
       </div>
       <ClaimModal 
         claim={claim}
+        claimState={claimState}
         claimableReward={account ? rewardData.earnedBalances[pool]?.toFixed(4) : '-'}
       />
     </>

@@ -8,14 +8,16 @@ import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
 import { MyButton } from '../Common';
+import { ClaimState } from '../../hooks/farm/useRewardsClaim';
 
 interface ClaimModalInterface {
   claim: ()=> void
+  claimState: ClaimState
   claimableReward: string
 }
 
 const ClaimModal = (props:ClaimModalInterface) => {
-  const { claim, claimableReward } = props;
+  const { claim, claimState, claimableReward } = props;
   const claimModalOpen = useClaimModalOpen();
   const toggleClaimModal = useClaimModalToggle();
 
@@ -63,8 +65,8 @@ const ClaimModal = (props:ClaimModalInterface) => {
           </a>
         </div>
         <div sx={styles.confirmBtn}>
-          <MyButton onClick={claim}>
-            Confirm
+          <MyButton onClick={claim} disabled={claimState === ClaimState.PENDING}>
+            {claimState === ClaimState.PENDING ? 'Pending' : 'Confirm'}
           </MyButton>
         </div>
       </div>
