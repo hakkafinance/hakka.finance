@@ -48,13 +48,12 @@ const TokenMetricContent = (props) => {
 
         </Box>
       </Box>
-      { tokenMetrics.id !== 'polygon' &&
       <Box sx={styles.tokenMetricsChainList} mt="20px">
         Get HAKKA Token on
         {' '}
         {tokenMetrics.shortName}
         :
-      </Box>}
+      </Box>
       { tokenMetrics.id === 'bsc'
         ? (
           <Flex sx={styles.token_metric_responsive} mt="2">
@@ -72,7 +71,15 @@ const TokenMetricContent = (props) => {
             </Flex>
           </Flex>
         ) : tokenMetrics.id === 'polygon'
-        ? <></> : (
+        ? (
+          <Flex sx={styles.token_metric_responsive} mt="2">
+            <Box>
+              <CoinComponent
+                item={{ imageCoin: 'quickswap', coinName: 'Quickswap', link: 'https://quickswap.exchange/#/swap?outputCurrency=0x978338A9d2d0aa2fF388d3dc98b9bF25bfF5efB4' }}
+              />
+            </Box>
+          </Flex>
+        ) : (
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Box>
               <CoinComponent

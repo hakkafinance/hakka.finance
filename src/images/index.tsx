@@ -86,6 +86,7 @@ const images = {
   iconCoingecko: require('./icons/iconCoingecko.png').default,
   iconCoinmarketcap: require('./icons/iconCoinmarketcap.png').default,
   iconInch: require('./icons/iconInch.png').default,
+  quickswap: require('./icons/quickswap.png').default,
   iconBalancer: require('./icons/iconBalancer.png').default,
   iconUniswap: require('./icons/iconUniswap.png').default,
   iconPancakeSwap: require('./icons/iconPancakeSwap.png').default,
