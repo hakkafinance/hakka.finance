@@ -49,10 +49,21 @@ export default {
 
   },
 
+  displayOption: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+
   chainSwitch: {
     display: 'flex',
     color: 'rgba(37, 62, 71, 0.5)',
-    paddingBottom: '20px',
     fontWeight: '600',
 
     div: {
@@ -63,6 +74,39 @@ export default {
         cursor: 'pointer',
         color: '#253e47',
       },
+    },
+  },
+
+  sortController: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    color: 'rgba(37, 62, 71, 0.5)',
+    fontWeight: '600',
+
+    '@media screen and (max-width: 576px)': {
+      paddingTop: '10px',
+    },
+  },
+ 
+  checkBox: {
+    display: 'none',
+  },
+
+  checkBoxLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '20px',
+
+    ':hover': {
+      cursor: 'pointer',
+      color: '#253e47',
+    },
+  },
+
+  menu: {
+    ':hover': {
+      cursor: 'pointer',
     },
   },
 

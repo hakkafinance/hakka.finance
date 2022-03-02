@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
@@ -18,6 +18,23 @@ const RewardsPage = () => {
   const { account, chainId } = useWeb3React();
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
+  
+  enum SortOptions {
+    LATEST = 'latest',
+    APR = 'apr',
+  }
+  const [sortBy, setSortBy] = useState(SortOptions.LATEST);
+  const SORT_OPTIONS = [
+    {
+      label: "Latest",
+      value: SortOptions.LATEST,
+    },
+    {
+      label: "APR",
+      value: SortOptions.APR,
+    },
+  ]; 
+  
   const currentPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain), [currentChain]);
   const activePools = useMemo(() => currentPoolAddresses.filter((poolAddress) => !REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
   const archivedPools = useMemo(() => currentPoolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
@@ -26,6 +43,63 @@ const RewardsPage = () => {
   const hakkaPrice = useTokenPrice('hakka-finance');
   const rewardData = useRewardsData(currentPoolAddresses, decimals);
   const [apr, setApr] = useState({});
+  const [isShowStackedOnly, setIsShowStackedOnly] = useState(false);
+
+  const stackedPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => rewardData.depositBalances[poolAddress]?.toSignificant() > 0), [rewardData]);
+  const stackedActivePools = useMemo(() => activePools.filter((poolAddress) => stackedPoolAddresses.indexOf(poolAddress) > -1), [activePools, stackedPoolAddresses]);
+  const stackedArchivedPools = useMemo(() => archivedPools.filter((poolAddress) => stackedPoolAddresses.indexOf(poolAddress) > -1), [archivedPools, stackedPoolAddresses]);
+
+  const sortedByAprActivePools = useMemo(()=>{
+    const copyActivePools = [...activePools];
+    if (Object.keys(apr).length > 0) {
+      return copyActivePools.sort((a, b)=> {
+        return apr[b].sub(apr[a])
+      })
+    } else {
+      return activePools;
+    }
+  }, [activePools, apr]);
+
+  const sortedByAprStackedActivePools = useMemo(()=>{
+    const copyStackedActivePools = [...stackedActivePools];
+    if (Object.keys(apr).length > 0) {
+      return copyStackedActivePools.sort((a, b)=> {
+        return apr[b].sub(apr[a])
+      })
+    } else {
+      return stackedActivePools;
+    }
+  }, [stackedActivePools, apr]);
+
+  const sortedActivePools = useMemo(() => {
+    let sortedActivePools = [];
+    switch (sortBy) {
+      case SortOptions.LATEST : {
+        sortedActivePools = activePools
+        break;
+      }
+      case SortOptions.APR: {
+        sortedActivePools = sortedByAprActivePools;
+        break;
+      }
+    }
+    return sortedActivePools;
+  } ,[activePools, sortedByAprActivePools, sortBy]);
+  
+  const sortedStackedActivePools = useMemo(() => {
+    let sortedStackedActivePools = [];
+    switch (sortBy) {
+      case SortOptions.LATEST : {
+        sortedStackedActivePools = stackedActivePools;
+        break;
+      }
+      case SortOptions.APR: {
+        sortedStackedActivePools = sortedByAprStackedActivePools
+        break;
+      }
+    }
+    return sortedStackedActivePools;
+  } ,[stackedActivePools, sortedByAprStackedActivePools, sortBy]);
 
   useEffect(() => {
     if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
@@ -78,6 +152,20 @@ const RewardsPage = () => {
     />
   );
 
+  interface RewardsPoolsContainerProps {
+    pools: string[];
+    active?: boolean;
+  }
+
+  const RewardsPoolsContainer = ({ pools, active}: RewardsPoolsContainerProps) => {
+    return(
+      <>
+        {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
+        .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], active))}
+      </>
+    )
+  }
+
   return (
     <div sx={styles.container}>
       <div sx={styles.rewardsPageWrapper}>
@@ -85,17 +173,36 @@ const RewardsPage = () => {
           <p>Farms</p>
           <Web3Status />
         </div>
-        <div sx={styles.chainSwitch}>
-          <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
-          <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
-          <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
+        <div sx={styles.displayOption}>
+          <div sx={styles.chainSwitch}>
+            <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
+            <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
+            <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
+          </div>
+          <div sx={styles.sortController}>
+            <label sx={styles.checkBoxLabel}>
+              <input
+                sx={styles.checkBox}
+                type="checkbox"
+                onChange={()=>setIsShowStackedOnly(!isShowStackedOnly)}
+              />
+              {isShowStackedOnly ? <img src={images.iconChekBoxChecked} /> : <img src={images.iconChekBoxUnchecked} />}
+              <span>Stacked Only</span>
+            </label>
+            <div>
+              <span>Sort by: </span>
+              <select sx={styles.menu} onChange={(e)=> setSortBy(e.target.value)}>
+                {SORT_OPTIONS.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
         <div>
           <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
-            {activePools
-              .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
-              .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], true))}
+            <RewardsPoolsContainer pools={isShowStackedOnly ? sortedStackedActivePools : sortedActivePools } active />
           </div>
         </div>
         <div>
@@ -107,9 +214,7 @@ const RewardsPage = () => {
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              {archivedPools
-                .filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
-                .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress]))}
+              <RewardsPoolsContainer pools={isShowStackedOnly ? stackedArchivedPools : archivedPools } />
             </div>
           }
         </div>
