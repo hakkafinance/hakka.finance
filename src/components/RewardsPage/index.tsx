@@ -43,11 +43,11 @@ const RewardsPage = () => {
   const hakkaPrice = useTokenPrice('hakka-finance');
   const rewardData = useRewardsData(currentPoolAddresses, decimals);
   const [apr, setApr] = useState({});
-  const [isShowStackedOnly, setIsShowStackedOnly] = useState(false);
+  const [isShowStakedOnly, setIsShowStakedOnly] = useState(false);
 
-  const stackedPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => rewardData.depositBalances[poolAddress]?.toSignificant() > 0), [rewardData]);
-  const stackedActivePools = useMemo(() => activePools.filter((poolAddress) => stackedPoolAddresses.indexOf(poolAddress) > -1), [activePools, stackedPoolAddresses]);
-  const stackedArchivedPools = useMemo(() => archivedPools.filter((poolAddress) => stackedPoolAddresses.indexOf(poolAddress) > -1), [archivedPools, stackedPoolAddresses]);
+  const stakedPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => !!rewardData.depositBalances && rewardData.depositBalances[poolAddress]?.toSignificant() > 0), [rewardData]);
+  const stakedActivePools = useMemo(() => activePools.filter((poolAddress) => stakedPoolAddresses.indexOf(poolAddress) > -1), [activePools, stakedPoolAddresses]);
+  const stakedArchivedPools = useMemo(() => archivedPools.filter((poolAddress) => stakedPoolAddresses.indexOf(poolAddress) > -1), [archivedPools, stakedPoolAddresses]);
 
   const sortedByAprActivePools = useMemo(()=>{
     const copyActivePools = [...activePools];
@@ -60,16 +60,16 @@ const RewardsPage = () => {
     }
   }, [activePools, apr]);
 
-  const sortedByAprStackedActivePools = useMemo(()=>{
-    const copyStackedActivePools = [...stackedActivePools];
+  const sortedByAprStakedActivePools = useMemo(()=>{
+    const copyStakedActivePools = [...stakedActivePools];
     if (Object.keys(apr).length > 0) {
-      return copyStackedActivePools.sort((a, b)=> {
+      return copyStakedActivePools.sort((a, b)=> {
         return apr[b].sub(apr[a])
       })
     } else {
-      return stackedActivePools;
+      return stakedActivePools;
     }
-  }, [stackedActivePools, apr]);
+  }, [stakedActivePools, apr]);
 
   const sortedActivePools = useMemo(() => {
     let sortedActivePools = [];
@@ -86,20 +86,20 @@ const RewardsPage = () => {
     return sortedActivePools;
   } ,[activePools, sortedByAprActivePools, sortBy]);
   
-  const sortedStackedActivePools = useMemo(() => {
-    let sortedStackedActivePools = [];
+  const sortedStakedActivePools = useMemo(() => {
+    let sortedStakedActivePools = [];
     switch (sortBy) {
       case SortOptions.LATEST : {
-        sortedStackedActivePools = stackedActivePools;
+        sortedStakedActivePools = stakedActivePools;
         break;
       }
       case SortOptions.APR: {
-        sortedStackedActivePools = sortedByAprStackedActivePools
+        sortedStakedActivePools = sortedByAprStakedActivePools
         break;
       }
     }
-    return sortedStackedActivePools;
-  } ,[stackedActivePools, sortedByAprStackedActivePools, sortBy]);
+    return sortedStakedActivePools;
+  } ,[stakedActivePools, sortedByAprStakedActivePools, sortBy]);
 
   useEffect(() => {
     if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
@@ -184,10 +184,10 @@ const RewardsPage = () => {
               <input
                 sx={styles.checkBox}
                 type="checkbox"
-                onChange={()=>setIsShowStackedOnly(!isShowStackedOnly)}
+                onChange={()=>setIsShowStakedOnly(!isShowStakedOnly)}
               />
-              {isShowStackedOnly ? <img src={images.iconChekBoxChecked} /> : <img src={images.iconChekBoxUnchecked} />}
-              <span>Stacked Only</span>
+              {isShowStakedOnly ? <img src={images.iconChekBoxChecked} /> : <img src={images.iconChekBoxUnchecked} />}
+              <span>Staked Only</span>
             </label>
             <div>
               <span>Sort by: </span>
@@ -202,7 +202,7 @@ const RewardsPage = () => {
         <div>
           <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
-            <RewardsPoolsContainer pools={isShowStackedOnly ? sortedStackedActivePools : sortedActivePools } active />
+            <RewardsPoolsContainer pools={isShowStakedOnly ? sortedStakedActivePools : sortedActivePools } active />
           </div>
         </div>
         <div>
@@ -214,7 +214,7 @@ const RewardsPage = () => {
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              <RewardsPoolsContainer pools={isShowStackedOnly ? stackedArchivedPools : archivedPools } />
+              <RewardsPoolsContainer pools={isShowStakedOnly ? stakedArchivedPools : archivedPools } />
             </div>
           }
         </div>
