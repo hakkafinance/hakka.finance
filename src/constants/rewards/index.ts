@@ -240,7 +240,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 18,
     rewardsAddress: IGAIN_POLYGON_DAI_POOL_1,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [IGAIN_POLYGON_USDC_POOL_1]: {
     name: 'iGain IRS USDC',
@@ -257,6 +257,6 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 6,
     rewardsAddress: IGAIN_POLYGON_USDC_POOL_1,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
 }
