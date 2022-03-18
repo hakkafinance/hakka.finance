@@ -47,6 +47,15 @@ module.exports = {
         tawkId: process.env.TAWK_ID,
         tawkKey: process.env.TAWK_KEY
       }
+    },
+    {
+      resolve: 'gatsby-plugin-google-tagmanager',
+      options: {
+        id: 'GTM-5RNGTLZ',
+        includeInDevelopment: false,
+        enableWebVitalsTracking: true,
+        routeChangeEventName: 'routeChangeEvent'
+      }
     }
   ]
 }

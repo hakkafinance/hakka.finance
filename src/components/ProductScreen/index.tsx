@@ -86,13 +86,6 @@ const ProductScreen = (props) => {
       infoTag: ['Futures', 'Fund'],
       visitButtonContent: 'Visit Alpha CSF',
     },
-    {
-      icon: images.iconTcdp,
-      cardName: 'tCDP',
-      info: 'tCDP is tokenized CDP (Collateral Debt Position) that is fungible and tradable on exchanges.',
-      comingProductId: 2,
-      infoTag: ['Collateral', 'Tool'],
-    },
   ];
 
   const [screenWidth, setScreenWidth] = useState(null);

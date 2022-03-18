@@ -50,7 +50,6 @@ const images = {
   iconHakkaIntel: require('./icons/iconHakkaIntel.svg').default,
   iconDefiHandbook: require('./icons/iconDefiHandbook.jpg').default,
   iconCryptoStructure: require('./icons/iconCryptoStructure.png').default,
-  iconTcdp: require('./icons/iconTcdp.svg').default,
 
   // action icons
   iconDown: require('./icons/iconDown.svg').default,
