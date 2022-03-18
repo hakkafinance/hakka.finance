@@ -56,3 +56,5 @@ Thumbs.db
 .vercel
 
 public/
+
+.vscode/settings.json
