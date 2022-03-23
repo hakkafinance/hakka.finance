@@ -39,6 +39,8 @@ const images = {
   iconDiscord: require('./icons/iconDiscord.svg').default,
   iconGithub: require('./icons/iconGithub.svg').default,
   hakkaAccount: require('./icons/hakkaAccount.svg').default,
+  iconYoutube: require('./icons/iconYoutube.svg').default,
+  iconReddit: require('./icons/iconReddit.svg').default,
 
   // Product icons
 

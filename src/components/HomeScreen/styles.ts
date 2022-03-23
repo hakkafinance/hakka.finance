@@ -14,7 +14,7 @@ export default {
     fontSize: [1, 1, 2, 3],
     fontWeight: '600',
     cursor: 'pointer',
-    paddingTop: '12px',
+    marginTop: '12px',
   },
 
   spanLink: {

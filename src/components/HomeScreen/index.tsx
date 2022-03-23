@@ -89,16 +89,18 @@ const HomeScreen = (props) => {
     <>
       <Box>
         <Box sx={styles.homescreenContainer}>
-          <Flex alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://www.cakeresume.com/companies/pelith/jobs', '_blank').focus(); }}>
-            <img src={images.iconFlower} alt="" />
-            <span>
-              Hakka Finance is
-              {' '}
-              <span sx={{ textDecoration: 'underline' }}>hiring</span>
-              . Come join
-              us!
-            </span>
-          </Flex>
+          <Box sx={{ display: 'inline-block' }} > 
+            <Flex  alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://www.cakeresume.com/companies/pelith/jobs', '_blank').focus(); }}>
+              <img src={images.iconFlower} alt="" />
+              <span>
+                Hakka Finance is
+                {' '}
+                <span sx={{ textDecoration: 'underline' }}>hiring</span>
+                . Come join
+                us!
+              </span>
+            </Flex>
+          </Box>
 
           <Box sx={styles.homeHeading}>
             The Most Diversified Decentralized
