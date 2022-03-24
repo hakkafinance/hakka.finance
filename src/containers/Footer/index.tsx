@@ -27,6 +27,14 @@ function Footer() {
       url: 'iconGithub',
       href: 'https://github.com/hakkafinance',
     },
+    {
+      url: 'iconYoutube',
+      href: 'https://www.youtube.com/channel/UCFa7O8tfvZfMhHjgYcssFtw/featured',
+    },
+    {
+      url: 'iconReddit',
+      href: 'https://www.reddit.com/r/hakkafinance/',
+    },
   ];
 
   const renderListIcon = () => listIcon.map((item, i) => (
