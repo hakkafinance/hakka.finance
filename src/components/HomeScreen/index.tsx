@@ -93,8 +93,7 @@ const HomeScreen = (props) => {
             <Flex  alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://www.cakeresume.com/companies/pelith/jobs', '_blank').focus(); }}>
               <img src={images.iconFlower} alt="" />
               <span>
-                Hakka Finance is
-                {' '}
+                Hakka Finance is &nbsp;
                 <span sx={{ textDecoration: 'underline' }}>hiring</span>
                 . Come join
                 us!
@@ -104,9 +103,7 @@ const HomeScreen = (props) => {
 
           <Box sx={styles.homeHeading}>
             The Most Diversified Decentralized
-            {' '}
             <br />
-            {' '}
             Finance Ecosystem
           </Box>
 
