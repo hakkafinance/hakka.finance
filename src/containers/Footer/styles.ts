@@ -64,7 +64,7 @@ export default {
     },
 
   },
-  auditReportsLink: {
+  wordLink: {
     position: 'relative',
     top: '-3px',
     marginRight: '12px',
@@ -79,7 +79,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       marginRight: '0',
-      marginBottom: '12px',
+      margin: '0 12px 12px 12px',
     },
   },
 };
