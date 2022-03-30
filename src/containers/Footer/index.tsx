@@ -51,7 +51,10 @@ function Footer() {
       >
         <Box><img sx={styles.logoFooter} src={images.logoGray} alt="" /></Box>
         <Flex sx={styles.linkArea}>
-          <a sx={styles.auditReportsLink} href='https://github.com/hakkafinance/audit-reports' target='_blank' rel='noreferrer'>Audit Reports</a>  
+          <Flex>
+            <a sx={styles.wordLink} href='https://github.com/hakkafinance/audit-reports' target='_blank' rel='noreferrer'>Audit Reports</a>  
+            <a sx={styles.wordLink} href='https://immunefi.com/bounty/hakkafinance/' target='_blank' rel='noreferrer'>Bug Bounty</a>  
+          </Flex>
           <Flex sx={styles.footer_icons}>{renderListIcon()}</Flex>
         </Flex>
       </Flex>
