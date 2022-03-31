@@ -72,6 +72,10 @@ export default {
     paddingBottom: ['100px', '160px', '160px', '160px'],
   },
 
+  securitySection: {
+    paddingBottom: ['100px', '160px', '160px', '160px'],
+  },
+
   // partners and intergrator
   partners: {
     paddingBottom: ['100px', '160px', '160px', '160px'],

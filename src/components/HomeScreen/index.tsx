@@ -10,6 +10,7 @@ import { CoinComponent } from '../Common';
 import WhatHakka from './component/WhatHakka';
 import TokenMetrics from './component/TokenMetrics';
 import UtilityHakka from './component/UtilityHakka';
+import SecuritySection from './component/Security';
 
 const HomeScreen = (props) => {
   const coins = [
@@ -70,6 +71,12 @@ const HomeScreen = (props) => {
     },
     {
       img: 'imageGelato',
+    },
+    {
+      img: 'imageImmunefiGray',
+    },
+    {
+      img: 'imageProjectGalaxy',
     },
   ];
 
@@ -147,6 +154,10 @@ const HomeScreen = (props) => {
 
           <Box sx={styles.utilityHakka}>
             <UtilityHakka />
+          </Box>
+
+          <Box sx={styles.securitySection}>
+            <SecuritySection />
           </Box>
 
           <Box sx={styles.partners}>

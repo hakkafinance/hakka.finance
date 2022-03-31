@@ -30,6 +30,7 @@ const images = {
   iconStep3: require('./icons/icon-step3.svg').default,
   iconIgainLp: require('./icons/icon-igain-lp.svg').default,
   iconSort: require('./icons/iconSort.svg').default,
+  iconBug: require('./icons/iconBug.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -82,6 +83,8 @@ const images = {
   iconLinkSmallGreen: require('./icons/iconLinkSmallGreen.svg').default,
   iconMenu: require('./icons/iconMenu.svg').default,
   iconSnapshot: require('./icons/iconSnapshot.svg').default,
+  iconImmunefi: require('./icons/iconImmunefi.png').default,
+  iconHashCloak: require('./icons/iconHashCloak.png').default,
 
   /// icon token
   iconCoingecko: require('./icons/iconCoingecko.png').default,
@@ -117,6 +120,9 @@ const images = {
   imageAave: require('./icons/imageAave.png').default,
   imageEns: require('./icons/imageEns.png').default,
   imageGelato: require('./icons/imageGelato.png').default,
+  imageImmunefiGray: require('./icons/iconImmunefiGray.png').default,
+  imageProjectGalaxy: require('./icons/iconProjectGalaxy.png').default,
+  
 
   // icon chain
   iconEthereum: require('./icons/iconEthereum.png').default,

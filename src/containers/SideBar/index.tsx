@@ -76,6 +76,15 @@ export const botSideBarItems = [
     connectOutsideWebsite: false,
     underConstruction: true,
   },
+  {
+    name: 'Bug Bounty',
+    icon: images.iconBug,
+    href: 'https://immunefi.com/bounty/hakkafinance/',
+    path: 'bugbounty',
+    connectOutsideWebsite: true,
+    underConstruction: false,
+    subIcon: images.iconLinkSmall,
+  },
 ];
 
 function SideBar(props) {
