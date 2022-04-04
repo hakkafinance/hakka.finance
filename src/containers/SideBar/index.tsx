@@ -123,19 +123,13 @@ function SideBar(props) {
     </Box>
   ));
 
-  const hakkaLogo = useMemo(() => {
-    const dateNow = new Date()
-    const dateString = (dateNow.getMonth() + 1) + '/' + dateNow.getDate() + '/' + dateNow.getFullYear()
-    return dateString === '4/1/2022' ? images.hakkaDogLogo : images.hakkaLogo
-  }, [])
-
   return (
     <Box sx={isShowSideBar ? styles.sidebar_responsive_show : styles.sidebar_responsive}>
       <Flex flexDirection="column" justifyContent="space-between" sx={styles.sidebar}>
         <Box>
           <Box sx={styles.custom_padding}>
             <Box sx={styles.sidebar_header}>
-              <img src={hakkaLogo} onClick={()=>navigate(`/`)}/>
+              <img src={images.hakkaLogo} onClick={()=>navigate(`/`)}/>
               <img onClick={handleCloseSideBar} sx={styles.sidebar_closeBtn} src={images.iconDeleteRound} />
             </Box>
             <Box mt="3">{renderTopSideBar()}</Box>
