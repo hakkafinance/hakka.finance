@@ -171,7 +171,7 @@ const PoolDetail = ({ pool }) => {
       <div>
         <MyButton
           onClick={exit}
-          disabled={exitState === ExitState.PENDING}
+          disabled={exitState === ExitState.PENDING || !(parseFloat(stakedBalance.toExact()) > 0)}
         >
           <div sx={styles.exitBtnContent}>
             <p>Exit</p>

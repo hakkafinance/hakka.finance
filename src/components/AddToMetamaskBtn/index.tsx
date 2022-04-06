@@ -29,7 +29,7 @@ const AddToMetamaskBtn = ({ address = null, selectedChainId }) => {
     <button
       onClick={addToMetamask}
       sx={styles.addMetamaskBtn}
-      disabled={selectedChainId && selectedChainId !== chainId}
+      disabled={(selectedChainId && selectedChainId !== chainId) || !HAKKA[chainId]}
     >
       <img src={images.iconAdd} sx={styles.iconAdd} />
       <img src={images.iconMetamask} />

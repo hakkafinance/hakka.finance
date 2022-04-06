@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box, Flex, Link,
 } from 'rebass';
@@ -8,6 +8,7 @@ import images from '../../../../images';
 import { CoinComponent } from '../../../../components/Common';
 import styles from './styles';
 import AddToMetamaskBtn from '../../../AddToMetamaskBtn';
+import { useWeb3React } from '@web3-react/core';
 
 const TokenMetricContent = (props) => {
   const { tokenMetrics } = props;
@@ -105,21 +106,25 @@ const TokenMetricContent = (props) => {
 };
 
 function TokenMetrics(props) {
+  const { chainId } = useWeb3React();
   const chains = [
     {
       id: 'eth',
+      chainId: 1,
       imgChain: 'iconEthereum',
       chainName: 'Ethereum Mainnet',
       imgBg: '#f2f2f2',
     },
     {
       id: 'bsc',
+      chainId: 56,
       imgChain: 'iconBinanceGold',
       chainName: 'Binance Smart Chain',
       imgBg: '#fcf7de',
     },
     {
       id: 'polygon',
+      chainId: 137,
       imgChain: 'iconPolygon',
       chainName: 'Polygon Network',
       imgBg: '#f2ebff',
@@ -168,8 +173,16 @@ function TokenMetrics(props) {
     const obj = tokenMetrics.find((it) => it.id === value);
     setSelectedTokenMetric(obj);
   };
+
+  useEffect(() => {
+    const currentChain = chains.find((chain) => 
+      chain.chainId === chainId
+    )
+    handleSelectCoin(currentChain.id)();
+  }, [chainId]);
+
   // render
-  const renderChain = () => chains.map((chain, i) => (
+  const renderChain = () => chains.map((chain) => (
     <Flex
       sx={selectedCoin === chain.id ? styles.chainContent_active : styles.chainContent}
       className="border-top-active"
