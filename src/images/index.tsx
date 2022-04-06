@@ -1,6 +1,5 @@
 const images = {
   hakkaLogo: require('./logos/hakkaLogo.svg').default,
-  hakkaDogLogo: require('./logos/hakkaDoge.svg').default,
   logoGray: require('./logos/logoGray.svg').default,
   iconHome: require('./icons/iconHome.svg').default,
   iconProduct: require('./icons/iconProduct.svg').default,

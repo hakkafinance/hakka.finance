@@ -6,7 +6,7 @@ import images from '../../images';
 import { HAKKA } from '../../constants';
 import styles from './styles';
 
-const AddToMetamaskBtn = ({ address = null }) => {
+const AddToMetamaskBtn = ({ address = null, selectedChainId }) => {
   const { chainId } = useWeb3React();
   const addToMetamask = useCallback(() => {
     const _ethereum = window.ethereum;
@@ -29,6 +29,7 @@ const AddToMetamaskBtn = ({ address = null }) => {
     <button
       onClick={addToMetamask}
       sx={styles.addMetamaskBtn}
+      disabled={selectedChainId && selectedChainId !== chainId}
     >
       <img src={images.iconAdd} sx={styles.iconAdd} />
       <img src={images.iconMetamask} />

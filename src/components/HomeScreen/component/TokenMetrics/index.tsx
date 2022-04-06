@@ -19,7 +19,7 @@ const TokenMetricContent = (props) => {
         <Box sx={styles.tokenMetricsInfo}>
           <Flex sx={{ alignItems: 'center' }}>
             <span sx={styles.info}>{`NAME: ${tokenMetrics.name}`}</span>
-            <AddToMetamaskBtn address={tokenMetrics.address} />
+            <AddToMetamaskBtn selectedChainId={tokenMetrics.chainId} />
           </Flex>
         </Box>
         <Box sx={styles.tokenMetricsInfo} mt="1">
@@ -129,6 +129,7 @@ function TokenMetrics(props) {
   const tokenMetrics = [
     {
       id: 'eth',
+      chainId: 1,
       shortName: 'Ethereum',
       name: 'Hakka Finance (HAKKA)',
       type: 'ERC-20',
@@ -138,6 +139,7 @@ function TokenMetrics(props) {
     },
     {
       id: 'bsc',
+      chainId: 56,
       shortName: 'BSC',
       name: ' Hakka Finance on xDai on BSC (HAKKA)',
       type: 'BEP-20',
@@ -147,6 +149,7 @@ function TokenMetrics(props) {
     },
     {
       id: 'polygon',
+      chainId: 137,
       shortName: 'Polygon',
       name: ' Hakka Finance (HAKKA)',
       type: 'ERC-20',
