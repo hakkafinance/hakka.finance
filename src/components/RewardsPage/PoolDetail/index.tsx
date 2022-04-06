@@ -171,7 +171,7 @@ const PoolDetail = ({ pool }) => {
       <div>
         <MyButton
           onClick={exit}
-          disabled={exitState === ExitState.PENDING || !isCorrectInput}
+          disabled={exitState === ExitState.PENDING}
         >
           <div sx={styles.exitBtnContent}>
             <p>Exit</p>
