@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui';
 import React from 'react';
 import { Flex, Box } from 'rebass';
+import { navigate } from 'gatsby';
 import images from '../../../../images';
 import styles from './styles';
 
@@ -41,15 +42,14 @@ function UtilityHakka() {
         <Flex sx={styles.utilityText}>
           <p>Stake HAKKA to get sHAKKA and bestowed below rights.</p>
         </Flex>
-        <a sx={{ textDecoration: 'none' }} target="_blank" href="https://staking.hakka.finance/" rel="noreferrer">
-          <Flex
-            sx={styles.utilityLink}
-            alignItems="center"
-          >
-            <Box>Stake Portal</Box>
-            <Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex>
-          </Flex>
-        </a>
+        <Flex
+          sx={styles.utilityLink}
+          alignItems="center"
+          onClick={() => navigate(`/staking`)}
+        >
+          <Box>Stake Portal</Box>
+          <Flex ml="1" mt="1px"><img sx={styles.imgForward} src={images.iconForwardGreen} alt="" /></Flex>
+        </Flex>
       </Flex>
       <Flex sx={styles.detailsInfo} mt="4">{renderDetailsInfo()}</Flex>
     </>

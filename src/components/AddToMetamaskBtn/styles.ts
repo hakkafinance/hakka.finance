@@ -13,6 +13,11 @@ export default {
         cursor: 'pointer',
         backgroundColor: 'rgba(62, 189, 147, 0.1)',
       },
+
+      ':disabled': {
+        cursor: 'not-allowed',
+        opacity: '0.3',
+      },
     },
   
     iconAdd: {
