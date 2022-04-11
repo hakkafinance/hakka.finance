@@ -97,10 +97,10 @@ const HomeScreen = (props) => {
       <Box>
         <Box sx={styles.homescreenContainer}>
           <Box sx={{ display: 'inline-block' }} > 
-            <Flex  alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://www.cakeresume.com/companies/pelith/jobs', '_blank').focus(); }}>
+            <Flex  alignItems="center" sx={styles.homescreenSubTitle} onClick={() => { window.open('https://pelith.notion.site/pelith/Hakka-Finance-Pelith-is-hiring-27bfdd1991bc46019f69f5c7926b69fb', '_blank').focus(); }}>
               <img src={images.iconFlower} alt="" />
               <span>
-                Hakka Finance is &nbsp;
+                Hakka Finance is&nbsp;
                 <span sx={{ textDecoration: 'underline' }}>hiring</span>
                 . Come join
                 us!
