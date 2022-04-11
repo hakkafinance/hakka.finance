@@ -122,6 +122,10 @@ function TokenMetrics(props) {
     const currentChain = chainsInfo.find((chain) => 
       chain.chainId === chainId
     )
+    if (!currentChain?.id) {
+      return;
+    }
+
     handleSelectCoin(currentChain.id)();
   }, [chainId]);
 
