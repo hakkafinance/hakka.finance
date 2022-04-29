@@ -3,7 +3,14 @@ import { Button, Box } from 'rebass';
 import types from 'prop-types';
 import styles from './styles';
 
-const MyButton = (props) => {
+interface IProps {
+  disabled?: boolean;
+  onClick: () => void;
+  styleKit?: 'green' | 'default';
+  children?: React.ReactNode;
+}
+
+const MyButton = (props: IProps) => {
   const {
     disabled,
     onClick,
