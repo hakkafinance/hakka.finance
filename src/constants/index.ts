@@ -190,6 +190,14 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
   },
 };
 
+// TODO: check this address
+export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: AddressZero,
+  [ChainId.KOVAN]: AddressZero,
+  [ChainId.BSC]: AddressZero,
+  [ChainId.POLYGON]: AddressZero,
+};
+
 export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } = {
   '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE': 'ethereum',
   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48': 'usd-coin',
