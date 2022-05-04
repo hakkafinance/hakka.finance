@@ -67,13 +67,7 @@ export default {
   },
 
   body: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-
-    '@media screen and (max-width: 1190px)': {
-      display: 'block',
-    },
+    display: 'block',
   },
 
   normalButton: NormalButton,
