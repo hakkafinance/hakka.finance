@@ -6,7 +6,7 @@ import styles from './styles';
 interface IProps {
   disabled?: boolean;
   onClick: () => void;
-  styleKit?: 'green' | 'default';
+  styleKit?: string;
   children?: React.ReactNode;
 }
 
