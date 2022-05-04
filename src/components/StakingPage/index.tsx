@@ -22,6 +22,7 @@ import { useWalletModalToggle } from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
+import VotingPowerArea from './VotingPower';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -119,6 +120,12 @@ const Staking = () => {
         <div sx={styles.heading}>
           <h1>Staking</h1>
           <Web3Status unsupported={!isCorrectNetwork} />
+        </div>
+        <div sx={styles.votingPowerArea}>
+          {/* TODO: check the fake data */}
+          <VotingPowerArea totalVotingPower={'100.00'} v1VotingPower={'66'} v2VotingPower={'34'} ethProportion={'33.33'} bscProportion={'33.33'} polygonProportion={'33.33'} />
+          {/* TODO: replace this switch version btn */}
+          <button>switch V1</button>
         </div>
         <div sx={styles.body}>
           {/* infoPart */}
