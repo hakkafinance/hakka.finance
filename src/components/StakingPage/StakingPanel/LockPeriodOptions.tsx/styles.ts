@@ -40,9 +40,8 @@ export default {
     },
   },
 
-  wrapperLabel: {},
-
-  optionItem: {},
-
-  optionItemActive: {},
+  title: {
+    color: '#253e47',
+    fontSize: '14px',
+  }
 } as Record<string, ThemeUICSSObject>;

@@ -4,7 +4,7 @@ import { memo } from 'react';
 import styles from './styles';
 import { useState } from 'react';
 import { useMemo } from 'react';
-import { dateRangeCal } from '../../../../utils/dateRangeCal';
+import { dateRangeCal, getExpectedDay } from '../../../../utils/dateRangeCal';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 interface IProps {
@@ -43,20 +43,24 @@ const minimumDuration = 30 * 60;
 
 const monthlyTimeStampTransfer = (month: number) => month * 30 * 24 * 60 * 60;
 export default function LockPeriodOptions(props: IProps) {
-  const { onChange, timeLeft } = props;
+  const { onChange, timeLeft = 0 } = props;
   const [lockYear, setLockYear] = useState(4);
   const [lockMonth, setLockMonth] = useState(0);
 
   const firstMount = useRef(true);
 
+  const timeStamp = useMemo(() => {
+    return (
+      monthlyTimeStampTransfer(lockMonth) +
+      monthlyTimeStampTransfer(lockYear * 12)
+    );
+  }, [lockMonth, lockYear]);
+
   useEffect(() => {
     if (firstMount.current) return;
     // transfer to seconds
-    const timeStamp =
-      monthlyTimeStampTransfer(lockMonth) +
-      monthlyTimeStampTransfer(lockYear * 12);
     onChange(timeStamp);
-  }, [lockYear, lockMonth]);
+  }, [timeStamp]);
 
   const { yearOptions, monthOptions } = useMemo(() => {
     // block timestamp
@@ -88,34 +92,43 @@ export default function LockPeriodOptions(props: IProps) {
     return { yearOptions, monthOptions };
   }, [lockYear, lockMonth, timeLeft]);
 
+  const until = useMemo(() => {
+    return getExpectedDay(new Date(), (timeLeft + timeStamp) * 1000);
+  }, [timeLeft, timeStamp]);
+
   return (
-    <div sx={styles.optionContainer}>
-      <div sx={styles.wrapper} className="option-block" data-label="Year(s)">
-        {yearOptions.map((option) => (
-          <LockPeriod
-            key={option.value}
-            onClick={setLockYear}
-            disabled={option.disabled}
-            active={option.active}
-            value={option.value}
-            label={option.label}
-          />
-        ))}
-      </div>
-      <div sx={styles.wrapper} data-label="" style={{ margin: '0 8px' }}>
-        +
-      </div>
-      <div sx={styles.wrapper} className="option-block" data-label="Month(s)">
-        {monthOptions.map((option) => (
-          <LockPeriod
-            key={option.value}
-            onClick={setLockMonth}
-            disabled={option.disabled}
-            active={option.active}
-            value={option.value}
-            label={option.label}
-          />
-        ))}
+    <div>
+      <p sx={styles.title}>
+        Locked period until <strong>{until}</strong>
+      </p>
+      <div sx={styles.optionContainer}>
+        <div sx={styles.wrapper} className="option-block" data-label="Year(s)">
+          {yearOptions.map((option) => (
+            <LockPeriod
+              key={option.value}
+              onClick={setLockYear}
+              disabled={option.disabled}
+              active={option.active}
+              value={option.value}
+              label={option.label}
+            />
+          ))}
+        </div>
+        <div sx={styles.wrapper} data-label="" style={{ margin: '0 8px' }}>
+          +
+        </div>
+        <div sx={styles.wrapper} className="option-block" data-label="Month(s)">
+          {monthOptions.map((option) => (
+            <LockPeriod
+              key={option.value}
+              onClick={setLockMonth}
+              disabled={option.disabled}
+              active={option.active}
+              value={option.value}
+              label={option.label}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
