@@ -18,11 +18,12 @@ import {
   ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
-import { useWalletModalToggle } from '../../state/application/hooks';
+import { useWalletModalToggle, useRedeemModalToggle } from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import VotingPowerArea from './VotingPower';
+import RedeemModal from '../RedeemModal';
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -66,6 +67,7 @@ const Staking = () => {
   );
 
   const toggleWalletModal = useWalletModalToggle();
+  const toggleRedeemModal = useRedeemModalToggle();
 
   const StakeButton = withApproveTokenCheckWrapper(
     withWrongNetworkCheckWrapper(
@@ -278,7 +280,13 @@ const Staking = () => {
             until={vault?.result?.unlockTime}
             />
           })}
+          {/* TODO: modal trigger for dev. need to be removed */}
+          <button onClick={toggleRedeemModal}>REDEEM MODAL BUTTON FOR DEV</button>
         </div>
+        <RedeemModal 
+          redeem={() => {}}
+          // redeemState={redeemState}
+        />
       </div>
     </div>
   );
