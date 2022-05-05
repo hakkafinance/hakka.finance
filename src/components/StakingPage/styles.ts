@@ -50,6 +50,14 @@ export default {
     },
   },
 
+  votingPowerArea: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: '40px',
+    marginBottom: '60px',
+  },
+
   body: {
     display: 'flex',
     justifyContent: 'space-between',
