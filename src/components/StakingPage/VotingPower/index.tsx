@@ -6,8 +6,8 @@ import ReactTooltip from 'react-tooltip';
 
 interface VotingPowerAreaProps {
   totalVotingPower?: string;
-  v1VotingPower?: string;
-  v2VotingPower?: string;
+  v1VotingPowerProportion?: string;
+  v2VotingPowerProportion?: string;
   ethProportion?: string;
   bscProportion?: string;
   polygonProportion?: string;
@@ -28,7 +28,7 @@ const ProportionItem = ({ proportionValue, img }: ProportionItemProps) => {
 };
 
 const VotingPowerArea = (props: VotingPowerAreaProps) => {
-  const { totalVotingPower, v1VotingPower, v2VotingPower, ethProportion, bscProportion, polygonProportion } = props;
+  const { totalVotingPower, v1VotingPowerProportion, v2VotingPowerProportion, ethProportion, bscProportion, polygonProportion } = props;
 
   return(
     <div sx={styles.main}>
@@ -44,16 +44,16 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           <p>{totalVotingPower ? totalVotingPower : '-'}</p>
           <img src={images.iconProportion} data-tip data-for='votingPowerValue' />
           <ReactTooltip id='votingPowerValue' place='bottom' effect='solid' backgroundColor='#253E47'>
-            <span>proportion V1:{v1VotingPower ? v1VotingPower : '-'}% V2:{v2VotingPower ? v2VotingPower : '-'}%</span>
+            <span>proportion V1:{v1VotingPowerProportion || 0}% V2:{v2VotingPowerProportion || 0}%</span>
           </ReactTooltip>
         </div>
       </div>
       <div>
         <p>Proportion</p>
         <div sx={styles.proportionItemContainer}>
-          <ProportionItem proportionValue={ethProportion ? ethProportion : '-'} img={images.iconEthereumDarkBg} />
-          <ProportionItem proportionValue={bscProportion ? bscProportion : '-'} img={images.iconBSCDarkBg} />
-          <ProportionItem proportionValue={polygonProportion ? polygonProportion : '-'} img={images.iconPolygonDarkBg} />
+          <ProportionItem proportionValue={ethProportion || '-'} img={images.iconEthereumDarkBg} />
+          <ProportionItem proportionValue={bscProportion || '-'} img={images.iconBSCDarkBg} />
+          <ProportionItem proportionValue={polygonProportion || '-'} img={images.iconPolygonDarkBg} />
         </div>
       </div>
     </div>
