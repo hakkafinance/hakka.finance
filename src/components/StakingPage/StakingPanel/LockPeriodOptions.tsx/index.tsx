@@ -57,7 +57,10 @@ export default function LockPeriodOptions(props: IProps) {
   }, [lockMonth, lockYear]);
 
   useEffect(() => {
-    if (firstMount.current) return;
+    if (firstMount.current) {
+      firstMount.current = false;
+      return;
+    };
     // transfer to seconds
     onChange(timeStamp);
   }, [timeStamp]);

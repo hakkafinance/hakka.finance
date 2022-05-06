@@ -19,11 +19,12 @@ interface IProps {
   isCorrectNetwork: boolean;
   toggleWalletModal: () => void;
   stakeState: StakeState;
+  chainId: ChainId;
 }
 
 export default function StakingPanel(props: IProps) {
-  const { isCorrectNetwork, toggleWalletModal, stakeState } = props;
-  const { account, chainId } = useWeb3React();
+  const { isCorrectNetwork, toggleWalletModal, stakeState, chainId } = props;
+  const { account } = useWeb3React();
 
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
 
@@ -40,9 +41,7 @@ export default function StakingPanel(props: IProps) {
     withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
   );
 
-  const [secondTimer, setSecondTimer] = useState<number>(
-    4 * 12 * 30 * 24 * 60 * 60
-  );
+  const [secondTimer, setSecondTimer] = useState<number>(124416000);
 
   function mockStake() {}
 
@@ -84,7 +83,7 @@ export default function StakingPanel(props: IProps) {
             !isCorrectInput
           }
           isCorrectNetwork={isCorrectNetwork}
-          targetNetwork={ChainId.MAINNET}
+          targetNetwork={chainId}
         >
           Stake
         </StakeButton>

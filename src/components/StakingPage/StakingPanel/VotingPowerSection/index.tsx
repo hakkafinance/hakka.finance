@@ -11,10 +11,10 @@ interface IProps {
 export default function VotingPowerSection(props: IProps) {
   const { value, prefixSymbol, total } = props;
   const hasTotal = total !== undefined;
-  const displayValue = `${prefixSymbol ? '+ ' : ''}${props.value.toFixed(4)}`;
+  const displayValue = `${prefixSymbol ? '+ ' : ''}${value.toFixed(4)}`;
 
   const className = value > 0 ? 'positive' : '';
-  console.log(total)
+
   return (
     <div sx={styles.wrapper}>
       <img sx={styles.img} src={images.iconSealedHakka} />
