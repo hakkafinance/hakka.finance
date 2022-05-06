@@ -53,6 +53,7 @@
     "node-fetch": "^2.6.1",
     "os-browserify": "^0.3.0",
     "prop-types": "^15.7.2",
+    "rc-table": "^7.24.1",
     "react": "^17.0.1",
     "react-countdown": "^2.3.2",
     "react-device-detect": "^1.17.0",
