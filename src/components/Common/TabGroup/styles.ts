@@ -5,7 +5,7 @@ const tabActive: ThemeUICSSObject = {
   color: '#253e47',
 }
 
-export const TabsGroup: ThemeUICSSObject = {
+export default {
   display: 'flex',
   color: 'rgba(37, 62, 71, 0.5)',
   fontWeight: '600',

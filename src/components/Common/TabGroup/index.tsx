@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { TabsGroup } from './styles';
+import styles from './styles';
 
 interface IProps {
   list: { icon: string; title: string }[];
@@ -11,7 +11,7 @@ interface IProps {
 export const TabGroup = (props: IProps) => {
   const { list, active } = props;
   return (
-    <div sx={TabsGroup}>
+    <div sx={styles}>
       {list.map((item, index) => (
         <div
           key={index}
