@@ -32,6 +32,7 @@ import SVGIcon from '../../images/icons/iconBSC.svg';
 import PolygonIcon from '../../images/icons/iconPolygon.svg';
 import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
+import StakePositionTable from './StakePositionTable';
 
 const TabsMocking = [
   { icon: EthIcon, title: 'Ethereum' },
@@ -39,6 +40,28 @@ const TabsMocking = [
   { icon: PolygonIcon, title: 'Polygon' },
 ];
 
+import { BigNumber } from 'ethers';
+
+const mockingData = [
+  {
+    index: 0,
+    stakedHakka: BigNumber.from('1'),
+    sHakkaReceived: BigNumber.from('1'),
+    until: BigNumber.from(`${~~(Date.now() / 1000) + 5000}`),
+  },
+  {
+    index: 1,
+    stakedHakka: BigNumber.from('2'),
+    sHakkaReceived: BigNumber.from('2'),
+    until: BigNumber.from(`${~~(Date.now() / 1000) - 5000}`),
+  },
+  {
+    index: 2,
+    stakedHakka: BigNumber.from('0'),
+    sHakkaReceived: BigNumber.from('0'),
+    until: BigNumber.from(`${~~(Date.now() / 1000)}`),
+  },
+];
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -158,7 +181,14 @@ const Staking = () => {
         </div>
         <div sx={styles.votingPowerArea}>
           {/* TODO: check the fake data */}
-          <VotingPowerArea totalVotingPower={'100.00'} v1VotingPower={'66'} v2VotingPower={'34'} ethProportion={'33.33'} bscProportion={'33.33'} polygonProportion={'33.33'} />
+          <VotingPowerArea
+            totalVotingPower={'100.00'}
+            v1VotingPower={'66'}
+            v2VotingPower={'34'}
+            ethProportion={'33.33'}
+            bscProportion={'33.33'}
+            polygonProportion={'33.33'}
+          />
           {/* TODO: replace this switch version btn */}
           <button>switch V1</button>
         </div>
@@ -188,6 +218,30 @@ const Staking = () => {
         <RedeemModal 
           redeem={() => {}}
           // redeemState={redeemState}
+          />
+          {/* infoPart */}
+          
+
+        {/* link area */}
+        <div sx={styles.sHakkaRewardLinkArea}>
+          <hr sx={styles.hr} />
+          <div sx={styles.sHakkaRewardLinkWrapper}>
+            <span>Earn more Hakka</span>
+            <a
+              sx={styles.sHakkaRewardLinkBtn}
+              href="/farms/0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977"
+              rel="noreferrer"
+            >
+              <span>sHAKKA Reward</span>
+              <img src={images.iconForwardGreen} />
+            </a>
+          </div>
+        </div>
+        {/* table */}
+        <StakePositionTable
+          data={mockingData}
+          onRedeem={() => {}}
+          onRestake={() => {}}
         />
       </div>
     </div>
