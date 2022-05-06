@@ -30,7 +30,7 @@ import { TabGroup } from '../Common/TabGroup';
 import EthIcon from '../../images/icons/iconEthereum.svg';
 import SVGIcon from '../../images/icons/iconBSC.svg';
 import PolygonIcon from '../../images/icons/iconPolygon.svg';
-
+import VotingPowerArea from './VotingPower';
 const TabsMocking = [
   { icon: EthIcon, title: 'Ethereum' },
   { icon: SVGIcon, title: 'BSC' },
@@ -151,6 +151,12 @@ const Staking = () => {
         <div sx={styles.heading}>
           <h1>Staking</h1>
           <Web3Status unsupported={!isCorrectNetwork} />
+        </div>
+        <div sx={styles.votingPowerArea}>
+          {/* TODO: check the fake data */}
+          <VotingPowerArea totalVotingPower={'100.00'} v1VotingPower={'66'} v2VotingPower={'34'} ethProportion={'33.33'} bscProportion={'33.33'} polygonProportion={'33.33'} />
+          {/* TODO: replace this switch version btn */}
+          <button>switch V1</button>
         </div>
         <div sx={styles.body}>
           {/* voting power */}

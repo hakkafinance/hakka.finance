@@ -31,6 +31,8 @@ const images = {
   iconIgainLp: require('./icons/icon-igain-lp.svg').default,
   iconSort: require('./icons/iconSort.svg').default,
   iconBug: require('./icons/iconBug.svg').default,
+  iconQuestion: require('./icons/iconQuestion.svg').default,
+  iconProportion: require('./icons/iconProportion.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -130,6 +132,9 @@ const images = {
   iconBinanceGray: require('./icons/iconBinanceGray.png').default,
   iconBinanceGold: require('./icons/iconBinanceGold.png').default,
   iconPolygon: require('./icons/iconPolygon.png').default,
+  iconEthereumDarkBg: require('./icons/iconEthereumDark.svg').default,
+  iconBSCDarkBg: require('./icons/iconBSCDark.svg').default,
+  iconPolygonDarkBg: require('./icons/iconPolygonDark.svg').default,
 
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
