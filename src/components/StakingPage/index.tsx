@@ -47,13 +47,13 @@ const mockingData = [
     index: 0,
     stakedHakka: BigNumber.from('1'),
     sHakkaReceived: BigNumber.from('1'),
-    until: BigNumber.from(`${~~(Date.now() / 1000) + 5000}`),
+    until: BigNumber.from(`${~~(Date.now() / 1000) + 1036800}`),
   },
   {
     index: 1,
     stakedHakka: BigNumber.from('2'),
     sHakkaReceived: BigNumber.from('2'),
-    until: BigNumber.from(`${~~(Date.now() / 1000) - 5000}`),
+    until: BigNumber.from(`${~~(Date.now() / 1000) - 1036800}`),
   },
   {
     index: 2,

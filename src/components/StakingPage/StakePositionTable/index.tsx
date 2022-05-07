@@ -75,7 +75,7 @@ export default function StakePositionTable(props: IProps) {
       })
       .sort((a, b) => b.until.sub(a.until).toNumber());
 
-    return showArchive ? result : result.filter((item) => item.state === 0);
+    return showArchive ? result : result.filter((item) => item.state !== 0);
   }, [showArchive, data]);
 
   const actionButtonRender = useCallback(
@@ -109,12 +109,12 @@ export default function StakePositionTable(props: IProps) {
             dataIndex="icon"
             render={(_, record) => {
               if (record.state === 2) {
-                return <img src={images.iconVault} alt="vault" />;
+                return <img src={images.iconRedeem} alt="vault" />;
               }
               if (record.state === 1) {
                 return <img alt="staking" src={images.iconStaking} />;
               }
-              return <img alt="" src={images.iconRedeem} />;
+              return <img alt="" src={images.iconVaultArchive} />;
             }}
           ></Column>
 
