@@ -1,12 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { memo } from 'react';
+import { memo, useState, useMemo, useEffect, useRef } from 'react';
 import styles from './styles';
-import { useState } from 'react';
-import { useMemo } from 'react';
 import { dateRangeCal, getExpectedDay } from '../../../../utils/dateRangeCal';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 interface IProps {
   onChange(sec: number): void;
   timeLeft?: number;
