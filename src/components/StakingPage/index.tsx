@@ -21,7 +21,7 @@ import {
   stakingMonth,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
-import { useWalletModalToggle } from '../../state/application/hooks';
+import { useWalletModalToggle, useRedeemModalToggle } from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
@@ -31,11 +31,14 @@ import EthIcon from '../../images/icons/iconEthereum.svg';
 import SVGIcon from '../../images/icons/iconBSC.svg';
 import PolygonIcon from '../../images/icons/iconPolygon.svg';
 import VotingPowerArea from './VotingPower';
+import RedeemModal from '../RedeemModal';
+
 const TabsMocking = [
   { icon: EthIcon, title: 'Ethereum' },
   { icon: SVGIcon, title: 'BSC' },
   { icon: PolygonIcon, title: 'Polygon' },
 ];
+
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -94,6 +97,7 @@ const Staking = () => {
   );
 
   const toggleWalletModal = useWalletModalToggle();
+  const toggleRedeemModal = useRedeemModalToggle();
 
   const StakeButton = withApproveTokenCheckWrapper(
     withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
@@ -175,11 +179,16 @@ const Staking = () => {
               onChange={setActiveChainTab}
             ></TabGroup>
           </div>
-
+          {/* TODO: modal trigger for dev. need to be removed */}
+          <button onClick={toggleRedeemModal}>REDEEM MODAL BUTTON FOR DEV</button>
           {/* info-panel */}
           {/* stake-panel */}
           <div>{/* Stake position component */}</div>
         </div>
+        <RedeemModal 
+          redeem={() => {}}
+          // redeemState={redeemState}
+        />
       </div>
     </div>
   );

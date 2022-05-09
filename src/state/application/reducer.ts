@@ -5,12 +5,14 @@ import {
   ToggleWalletModalAction,
   ToggleInfoModalAction,
   ToggleClaimModalAction,
+  ToggleRedeemModalAction,
   AddPopupAction,
   RemovePopupAction,
   UPDATE_BLOCK_NUMBER,
   TOGGLE_WALLET_MODAL,
   TOGGLE_INFO_MODAL,
   TOGGLE_CLAIM_MODAL,
+  TOGGLE_REDEEM_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
 } from './actions';
@@ -30,6 +32,7 @@ export interface ApplicationState {
   readonly walletModalOpen: boolean;
   readonly infoModalOpen: boolean;
   readonly claimModalOpen: boolean;
+  readonly redeemModalOpen: boolean;
 }
 
 export const initialApplicationState: ApplicationState = {
@@ -38,6 +41,7 @@ export const initialApplicationState: ApplicationState = {
   walletModalOpen: false,
   infoModalOpen: false,
   claimModalOpen: false,
+  redeemModalOpen: false,
 };
 
 type ApplicationAction =
@@ -45,6 +49,7 @@ type ApplicationAction =
   | ToggleWalletModalAction
   | ToggleInfoModalAction
   | ToggleClaimModalAction
+  | ToggleRedeemModalAction
   | AddPopupAction
   | RemovePopupAction;
 
@@ -88,6 +93,12 @@ export default function reducer(
       return {
         ..._state,
         claimModalOpen: !state.claimModalOpen,
+      };
+    }
+    case TOGGLE_REDEEM_MODAL: {
+      return {
+        ..._state,
+        redeemModalOpen: !state.redeemModalOpen,
       };
     }
     case ADD_POPUP: {

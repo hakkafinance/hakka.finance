@@ -33,6 +33,7 @@ const images = {
   iconBug: require('./icons/iconBug.svg').default,
   iconQuestion: require('./icons/iconQuestion.svg').default,
   iconProportion: require('./icons/iconProportion.svg').default,
+  iconArrowRight: require('./icons/iconArrowRight.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -96,6 +97,7 @@ const images = {
   iconBalancer: require('./icons/iconBalancer.png').default,
   iconUniswap: require('./icons/iconUniswap.png').default,
   iconPancakeSwap: require('./icons/iconPancakeSwap.png').default,
+  iconHakkaCoin: require('./icons/iconHakkaCoin.svg').default,
 
   // rewards
   icon4Tokens: require('./rewards/icon4Tokens.png').default,
