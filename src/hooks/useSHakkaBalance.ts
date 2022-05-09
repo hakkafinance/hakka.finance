@@ -1,6 +1,6 @@
 import { Contract as MulticallContract, Provider as MulticallProvider } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
-import { NEW_SHAKKA_ADDRESSES } from '../constants';
+import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
 import debounce from 'lodash.debounce';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
@@ -9,16 +9,11 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 
-enum ChainDataFetchingState {
-  LOADING,
-  SUCCESS,
-}
-
 export type SHakkaBalanceType = {
     [chainId in ChainId]: BigNumber; 
   };
 
-export default function useRoundKeeperRegisteredInfo(): {
+export default function useSHakkaBalance(): {
   sHakkaBalanceInfo: SHakkaBalanceType;
   fetchDataState: ChainDataFetchingState;
   } {

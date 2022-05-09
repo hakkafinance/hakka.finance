@@ -17,6 +17,11 @@ export enum ChainId {
   POLYGON = 137,
 }
 
+export enum ChainDataFetchingState { 
+  LOADING,
+  SUCCESS,
+}
+
 export const stakingMonth = [1, 3, 6, 12];
 
 export const ChainName: { [chainId in ChainId]: string } = {
