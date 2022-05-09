@@ -1,3 +1,17 @@
+const colorsLinear = [
+  '#D9FbE3',
+  '#B5F8CE',
+  '#8CEB89',
+  '#6AD7A8',
+  '#3EBD93',
+  '#2DA287',
+  '#1F887A',
+  '#136D6A',
+  '#0B555A',
+].reduce((target, curr, i) => {
+  return { ...target, [`primary-${i}00`]: curr };
+}, {} as { [key: string]: string });
+
 export default {
   breakpoints: ['576px', '1560px', '1680px', '1900px'],
   colors: {
@@ -13,6 +27,7 @@ export default {
     light_green: '#dae1e3',
     text_grey: '#929EA3',
     active_green: '#ebf0f2',
+    ...colorsLinear
   },
   background_linears: {
     backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
@@ -50,9 +65,7 @@ export default {
         lineHeight: [1, 1, 2, 2],
       },
     },
-
   },
-
 };
 
 /* description :
