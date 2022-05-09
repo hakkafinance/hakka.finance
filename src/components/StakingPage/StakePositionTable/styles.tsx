@@ -7,13 +7,14 @@ const imgWrapper: ThemeUIStyleObject = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '8px',
-  icon: {
+  '.icon': {
     size: '20px',
   },
 };
 
 const button: ThemeUIStyleObject = {
   border: '1px solid #dae1e3',
+  borderRadius: '8px',
   py: '12px',
   width: '112px',
   color: '#2DA287',
@@ -21,7 +22,8 @@ const button: ThemeUIStyleObject = {
   cursor: 'pointer',
   background: 'white',
   fontWeight: 'bold',
-  ':nth-child(1)': {
+  transition: 'all .2s',
+  ':nth-of-type(1)': {
     mr: '8px',
   },
   ':only-child': {
@@ -35,23 +37,68 @@ const button: ThemeUIStyleObject = {
     color: 'white',
     borderColor: '#2DA287',
   },
+  ':not(:disabled):active': {
+    opacity: '0.8',
+  },
+};
+
+const tableWrapper: ThemeUIStyleObject = {
+  width: '100%',
+  mb: '100px',
+  '.rc-table-thead > tr > th': {
+    borderBottom: 'solid 1px #dae1e3',
+    textAlign: 'left',
+    fontWeight: '400',
+    fontSize: '14px',
+    pb: '12px',
+  },
+  '.rc-table-row': {
+    height: '78px',
+  },
+};
+
+const headerWrapper: ThemeUIStyleObject = {
+  '--theme-ui-colors-primary': '#3EBD93',
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  '& h2': {
+    mr: 'auto',
+    mb: '36px',
+  },
+  '.switch': {
+    transform: 'scale(0.7)',
+  },
+  '& .switch ~ span': {
+    fontWeight: '600',
+    fontSize: '14px',
+    color: '#52666D',
+  },
 };
 
 const valueWrapper: ThemeUIStyleObject = {
   textAlign: 'left',
+  color: '#253E47',
   '.title': {
-    color: '#253E47',
+    display: 'block',
     fontSize: '16px',
     lineHeight: '24px',
   },
   '.sub-title': {
+    display: 'block',
     color: 'rgba(37, 62, 71, 0.5)',
     fontSize: '14px',
     lineHeight: '24px',
+  },
+  '&.disabled': {
+    color: 'rgba(37, 62, 71, 0.5)',
   },
 };
 
 export default {
   valueWrapper,
   button,
+  imgWrapper,
+  tableWrapper,
+  headerWrapper,
 };
