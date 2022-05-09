@@ -41,18 +41,18 @@ const TabsMocking = [
 ];
 
 import { BigNumber } from 'ethers';
-
+import { WeiPerEther } from '@ethersproject/constants';
 const mockingData = [
   {
     index: 0,
-    stakedHakka: BigNumber.from('1'),
-    sHakkaReceived: BigNumber.from('1'),
+    stakedHakka: WeiPerEther,
+    sHakkaReceived: WeiPerEther,
     until: BigNumber.from(`${~~(Date.now() / 1000) + 1036800}`),
   },
   {
     index: 1,
-    stakedHakka: BigNumber.from('2'),
-    sHakkaReceived: BigNumber.from('2'),
+    stakedHakka: WeiPerEther.mul(2),
+    sHakkaReceived: WeiPerEther.mul(2),
     until: BigNumber.from(`${~~(Date.now() / 1000) - 1036800}`),
   },
   {
