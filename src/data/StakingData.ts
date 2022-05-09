@@ -5,7 +5,7 @@ import { useActiveWeb3React } from '../hooks/web3Manager';
 
 import { getContract, tryParseAmount } from '../utils';
 import { useSingleCallResult, useSingleContractMultipleData } from '../state/multicall/hooks';
-import STAKING_ABI from '../constants/abis/shakka.json';
+import STAKING_ABI from '../constants/abis/shakka_v1.json';
 import {
   ChainId,
   HAKKA,

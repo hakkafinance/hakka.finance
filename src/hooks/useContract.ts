@@ -7,7 +7,7 @@ import ERC20_BYTES32_ABI from '../constants/abis/erc20.json';
 import ERC20_ABI from '../constants/abis/erc20.json';
 import VESTING_ABI from '../constants/abis/vesting.json';
 import BURNER_ABI from '../constants/abis/burner.json';
-import STAKE_ABI from '../constants/abis/shakka.json';
+import STAKE_ABI from '../constants/abis/shakka_v1.json';
 import REWARDS_ABI from '../constants/abis/staking_rewards.json';
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall';
 import { getContract } from '../utils';

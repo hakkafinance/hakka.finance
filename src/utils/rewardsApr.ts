@@ -4,7 +4,7 @@ import { parseUnits } from '@ethersproject/units';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 import REWARD_ABI from '../constants/abis/staking_rewards.json';
-import STAKING_ABI from '../constants/abis/shakka.json';
+import STAKING_ABI from '../constants/abis/shakka_v1.json';
 import IGAIN_ABI from '../constants/abis/iGainV1.json';
 import { SHAKKA_POOL, ChainId } from '../constants';
 import { REWARD_POOLS } from '../constants/rewards';
