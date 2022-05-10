@@ -44,10 +44,12 @@ export default function useSHakkaBalance(): {
     const fetchSHakkaBalance = async () => {
       setTransactionSuccess(false);
       try {
-        const ethSHakkaBalance = await getSHakkaBalance(ChainId.MAINNET);
-        const bscSHakkaBalance = await getSHakkaBalance(ChainId.BSC);
-        const polygonSHakkaBalance = await getSHakkaBalance(ChainId.POLYGON);
-        const kovanSHakkaBalance = await getSHakkaBalance(ChainId.KOVAN);
+        const [ethSHakkaBalance, bscSHakkaBalance, polygonSHakkaBalance, kovanSHakkaBalance] = await Promise.all([
+          getSHakkaBalance(ChainId.MAINNET),
+          getSHakkaBalance(ChainId.BSC),
+          getSHakkaBalance(ChainId.POLYGON),
+          getSHakkaBalance(ChainId.KOVAN),
+        ]);
         
         setSHakkaBalanceInfo({
           [ChainId.MAINNET]: ethSHakkaBalance,
