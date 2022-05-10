@@ -5,7 +5,7 @@ import { useActiveWeb3React } from '../hooks/web3Manager';
 
 import { getContract, tryParseAmount } from '../utils';
 import { useSingleCallResult, useSingleContractMultipleData } from '../state/multicall/hooks';
-import STAKING_ABI from '../constants/abis/shakka_v1.json';
+import STAKING_V1_ABI from '../constants/abis/shakka_v1.json';
 import {
   ChainId,
   HAKKA,
@@ -18,7 +18,7 @@ export function useStakingData(): { stakingBalance: CurrencyAmount, sHakkaBalanc
 
   const contract = getContract(
     STAKING_ADDRESSES[chainId || 1 as ChainId],
-    STAKING_ABI,
+    STAKING_V1_ABI,
     library,
     account,
   );

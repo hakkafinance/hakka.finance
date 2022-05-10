@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
-import { useStakeContract } from '../useContract';
+import { useStakeV1Contract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
@@ -30,7 +30,7 @@ export function useHakkaUnstake(
       : UnstakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const unstakeContract = useStakeContract(unstakeAddress);
+  const unstakeContract = useStakeV1Contract(unstakeAddress);
 
   const unstake = useCallback(async (): Promise<void> => {
     if (!spender) {
