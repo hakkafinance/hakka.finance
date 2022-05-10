@@ -25,29 +25,29 @@ export default function useSHakkaBalance(): {
     const fetchDataState: ChainDataFetchingState = useMemo(() => {
       return transactionSuccess ? ChainDataFetchingState.SUCCESS : ChainDataFetchingState.LOADING;
     }, [transactionSuccess]);
-  
-    const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL);
-    const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
-    const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL);
-    const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+
+    const providers = useMemo(() => {
+      const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL);
+      const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
+      const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL);
+      const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+      return {[ChainId.MAINNET]: ethProvider, [ChainId.BSC]: bscProvider, [ChainId.POLYGON]: polygonProvider, [ChainId.KOVAN]: kovanProvider};
+    }, [])
+
+    const getSHakkaBalance = async (chainId: ChainId) => {
+      const multicallProvider = new MulticallProvider(providers[chainId], chainId);
+      const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
+      const [ sHakkaBalance ] = await multicallProvider.all([sHakkaContract.balanceOf(account)]);
+      return sHakkaBalance;
+    };
 
     const fetchSHakkaBalance = async () => {
       setTransactionSuccess(false);
-      const ethMulticallProvider = new MulticallProvider(ethProvider, ChainId.MAINNET);
-      const bscMulticallProvider = new MulticallProvider(bscProvider, ChainId.BSC);
-      const polygonMulticallProvider = new MulticallProvider(polygonProvider, ChainId.POLYGON);
-      const kovanMulticallProvider = new MulticallProvider(kovanProvider, ChainId.KOVAN);
-
-      const ethSHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[ChainId.MAINNET], STAKING_ABI);
-      const bscSHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[ChainId.BSC], STAKING_ABI);
-      const polygonSHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[ChainId.POLYGON], STAKING_ABI);
-      const kovanSHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[ChainId.KOVAN], STAKING_ABI);
-
       try {
-        const [ ethSHakkaBalance ] = await ethMulticallProvider.all([ethSHakkaContract.balanceOf(account)]);
-        const [ bscSHakkaBalance ] = await bscMulticallProvider.all([bscSHakkaContract.balanceOf(account)]);
-        const [ polygonSHakkaBalance ] = await polygonMulticallProvider.all([polygonSHakkaContract.balanceOf(account)]);
-        const [ kovanSHakkaBalance ] = await kovanMulticallProvider.all([kovanSHakkaContract.balanceOf(account)]);
+        const ethSHakkaBalance = await getSHakkaBalance(ChainId.MAINNET);
+        const bscSHakkaBalance = await getSHakkaBalance(ChainId.BSC);
+        const polygonSHakkaBalance = await getSHakkaBalance(ChainId.POLYGON);
+        const kovanSHakkaBalance = await getSHakkaBalance(ChainId.KOVAN);
         
         setSHakkaBalanceInfo({
           [ChainId.MAINNET]: ethSHakkaBalance,
@@ -65,7 +65,7 @@ export default function useSHakkaBalance(): {
   
     useEffect(() => {
       debouncedFetchSHakkaBalance();
-    }, [ethProvider, bscProvider, polygonProvider, kovanProvider, latestBlockNumber]);
+    }, [latestBlockNumber]);
   
     return { sHakkaBalanceInfo, fetchDataState };
   }
