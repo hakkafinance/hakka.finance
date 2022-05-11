@@ -21,7 +21,10 @@ import {
   SHAKKA_POOL,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
-import { useWalletModalToggle, useRedeemModalToggle } from '../../state/application/hooks';
+import {
+  useWalletModalToggle,
+  useRedeemModalToggle,
+} from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
@@ -34,14 +37,14 @@ import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
 import StakePositionTable from './StakePositionTable';
 
+import { BigNumber } from 'ethers';
+import { WeiPerEther } from '@ethersproject/constants';
+import StakingPanel from './StakingPanel';
 const TabsMocking = [
   { icon: EthIcon, title: 'Ethereum' },
   { icon: SVGIcon, title: 'BSC' },
   { icon: PolygonIcon, title: 'Polygon' },
 ];
-
-import { BigNumber } from 'ethers';
-import { WeiPerEther } from '@ethersproject/constants';
 const mockingData = [
   {
     index: 0,
@@ -182,44 +185,49 @@ const Staking = () => {
           {/* TODO: check the fake data */}
           <VotingPowerArea
             totalVotingPower={'100.00'}
-            v1VotingPower={'66'}
-            v2VotingPower={'34'}
+            v1VotingPowerProportion={'66'}
+            v2VotingPowerProportion={'34'}
             ethProportion={'33.33'}
             bscProportion={'33.33'}
             polygonProportion={'33.33'}
           />
           {/* TODO: replace this switch version btn */}
-          <button>switch V1</button>
+
+          {/* governance navigation */}
+          <button className="ml-auto" sx={styles.governanceButton}>
+            test
+          </button>
+          <a href="/staking-v1" sx={styles.normalButton}>
+            Switch to v1
+          </a>
         </div>
         <div sx={styles.body}>
           {/* voting power */}
-          <div sx={styles.votingPowerHeader}>
-            <span className="voting-power">header</span>
-            <button sx={styles.normalButton}>test</button>
-            <a href="/staking-v1" sx={styles.normalButton}>
-              Switch to v1
-            </a>
-          </div>
           {/* tab group */}
-          <div>
-            <TabGroup
-              list={TabsMocking}
-              active={activeChainTab}
-              onChange={setActiveChainTab}
-            ></TabGroup>
-          </div>
+          <TabGroup
+            list={TabsMocking}
+            active={activeChainTab}
+            onChange={setActiveChainTab}
+          ></TabGroup>
           {/* TODO: modal trigger for dev. need to be removed */}
-          <button onClick={toggleRedeemModal}>REDEEM MODAL BUTTON FOR DEV</button>
+          <div sx={styles.gridBlock}>
+            <div>{/* staking number */}</div>
+            <StakingPanel
+              isCorrectNetwork={isCorrectNetwork}
+              chainId={ChainId.KOVAN}
+              toggleWalletModal={toggleWalletModal}
+              stakeState={stakeState}
+            ></StakingPanel>
+          </div>
           {/* info-panel */}
           {/* stake-panel */}
           <div>{/* Stake position component */}</div>
         </div>
-        <RedeemModal 
+        <RedeemModal
           redeem={() => {}}
           // redeemState={redeemState}
-          />
-          {/* infoPart */}
-          
+        />
+        {/* infoPart */}
 
         {/* link area */}
         <div sx={styles.sHakkaRewardLinkArea}>

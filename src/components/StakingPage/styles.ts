@@ -1,21 +1,6 @@
-import { ThemeUICSSObject } from 'theme-ui';
 import merge from 'lodash/merge';
+import { ThemeUICSSObject } from 'theme-ui';
 import { NormalButton } from './StakePositionItem/buttonStyle';
-const VotingPowerHeader = {
-  display: 'flex',
-  alignItems: 'center',
-  flexWrap: 'nowrap',
-  width: '100%',
-  mt: 41,
-  mb: 60,
-  '.voting-power': {
-    mr: 'auto',
-  },
-  '> button': {
-    ml: '1rem'
-  }
-} as ThemeUICSSObject;
-
 export default {
   container: {
     display: 'flex',
@@ -68,7 +53,6 @@ export default {
 
   votingPowerArea: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: '40px',
     marginBottom: '60px',
@@ -80,5 +64,57 @@ export default {
 
   normalButton: NormalButton,
 
-  votingPowerHeader: VotingPowerHeader,
+  governanceButton: merge(NormalButton, {ml: 'auto', mr: '1rem'}),
+
+  gridBlock: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+  },
+
+  hr: {
+    backgroundColor: '#dae1e3',
+    border: 'none',
+    height: '1px',
+    margin: '0 0 11px 0',
+  },
+
+  sHakkaRewardLinkArea: {
+    width: '300px',
+    position: 'relative',
+    marginBottom: '24px',
+    fontSize: [1],
+    fontWeight: '600',
+    lineHeight: '1.71',
+    color: 'rgba(37, 62, 71, 0.5)',
+
+    '@media screen and (max-width: 1190px)': {
+      position: 'static',
+      width: '460px',
+      marginTop: '28px',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+    },
+  },
+
+  sHakkaRewardLinkWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  sHakkaRewardLinkBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    color: '#2da287',
+    textDecoration: 'none',
+
+    ':hover': {
+      cursor: 'pointer',
+    },
+
+    img: {
+      marginLeft: '4px',
+    },
+  },
 };
