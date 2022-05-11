@@ -22,7 +22,7 @@ const button: ThemeUIStyleObject = {
   cursor: 'pointer',
   background: 'white',
   fontWeight: 'bold',
-  transition: 'all .2s',
+  transition: 'all .1s linear',
   ':nth-of-type(1)': {
     mr: '8px',
   },
@@ -33,12 +33,10 @@ const button: ThemeUIStyleObject = {
     color: 'rgba(37, 62, 71, 0.25)',
   },
   ':not(:disabled):hover': {
-    background: '#2DA287',
-    color: 'white',
     borderColor: '#2DA287',
   },
   ':not(:disabled):active': {
-    opacity: '0.8',
+    transform: 'scale(0.97)',
   },
 };
 

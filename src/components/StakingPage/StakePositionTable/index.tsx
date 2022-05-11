@@ -7,6 +7,7 @@ import styles from './styles';
 import type { ITableData, IStakePositionItem, HakkaVaultState } from './types';
 import { createRenderValue, renderExpiryDate, renderVaultIcon } from './TableComponent';
 import { formatUnits } from 'ethers/lib/utils';
+import { createBigNumberSort } from '../../../utils/sort';
 const { Column } = Table;
 
 interface IProps {
@@ -43,8 +44,8 @@ export default memo(function StakePositionTable(props: IProps) {
           archiveList.push(_tmpRaw);
         }
       });
-    archiveList.sort((a, b) => a.until.sub(b.until).toNumber());
-    nonArchiveList.sort((a, b) => a.until.sub(b.until).toNumber());
+    archiveList.sort(createBigNumberSort('until', 'asc'));
+    nonArchiveList.sort(createBigNumberSort('until', 'asc'));
 
     return showArchive ? nonArchiveList.concat(archiveList) : nonArchiveList;
   }, [showArchive, data]);
