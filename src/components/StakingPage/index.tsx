@@ -13,7 +13,6 @@ import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useHakkaStake, StakeState } from '../../hooks/staking/useHakkaStake';
-import StakePositionItem from './StakePositionItem/index';
 import {
   ChainId,
   HAKKA,

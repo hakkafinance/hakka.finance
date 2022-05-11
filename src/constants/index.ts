@@ -22,6 +22,11 @@ export enum ChainDataFetchingState {
   SUCCESS,
 }
 
+export enum UnstakeState {
+  UNKNOWN,
+  PENDING
+}
+
 export const stakingMonth = [1, 3, 6, 12];
 
 export const ChainName: { [chainId in ChainId]: string } = {
