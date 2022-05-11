@@ -65,6 +65,9 @@ const images = {
   iconDelete: require('./icons/iconDelete.svg').default,
   iconDeleteRound: require('./icons/iconDeleteRound.svg').default,
   iconAdd: require('./icons/iconAdd.svg').default,
+  iconRedeem: require('./icons/iconRedeem.svg').default,
+  iconStaking: require('./icons/iconStaking.svg').default,
+  iconVaultArchive: require('./icons/iconVaultArchive.svg').default,
 
   /// home icon
   iconLight: require('./icons/iconLight.svg').default,
