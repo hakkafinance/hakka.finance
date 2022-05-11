@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { Box, Flex, jsx, Switch, Label } from 'theme-ui';
+import { Box, Flex, jsx, Switch } from 'theme-ui';
+import { memo } from 'react';
 import Table from 'rc-table';
 import { useCallback, useState, useMemo } from 'react';
 import styles from './styles';
-import type { ITableData, IStakePositionItem } from './types';
-import { createValueRenderer, expiryDateRenderer, vaultIconsRenderer } from './TableComponent';
+import type { ITableData, IStakePositionItem, HakkaVaultState } from './types';
+import { createRenderValue, renderExpiryDate, renderVaultIcon } from './TableComponent';
 import { formatUnits } from 'ethers/lib/utils';
 const { Column } = Table;
 
@@ -14,7 +15,7 @@ interface IProps {
   onRestake: (index: number) => void;
 }
 
-export default function StakePositionTable(props: IProps) {
+export default memo(function StakePositionTable(props: IProps) {
   const { data, onRedeem, onRestake } = props;
 
   const [showArchive, setShowArchive] = useState(false);
@@ -28,7 +29,7 @@ export default function StakePositionTable(props: IProps) {
     const nonArchiveList: ITableData[] = [];
     data
       .forEach((raw) => {
-        const state =
+        const state: HakkaVaultState =
           +(raw.until.mul(1000).lte(Date.now()) && !raw.stakedHakka.isZero()) +
           +!raw.stakedHakka.isZero();
         const _tmpRaw = {
@@ -74,9 +75,9 @@ export default function StakePositionTable(props: IProps) {
     [onRedeem, onRestake]
   );
 
-  const stakedHakkaRenderer = useCallback(createValueRenderer('HAKKA', 'stakedHakkaStr'), []);
+  const stakedHakkaRenderer = useCallback(createRenderValue('HAKKA', 'stakedHakkaStr'), []);
 
-  const sHakkaObtainedRenderer = useCallback(createValueRenderer('sHAKKA', 'sHakkaReceivedStr'), []);
+  const sHakkaObtainedRenderer = useCallback(createRenderValue('sHAKKA', 'sHakkaReceivedStr'), []);
 
   return (
     <div>
@@ -91,14 +92,14 @@ export default function StakePositionTable(props: IProps) {
           <Column<ITableData>
             title=""
             dataIndex="icon"
-            render={vaultIconsRenderer}
+            render={renderVaultIcon}
             width={72}
           ></Column>
 
           <Column<ITableData>
             title="Expiry date"
             dataIndex="index"
-            render={expiryDateRenderer}
+            render={renderExpiryDate}
             width={180}
           />
 
@@ -120,4 +121,4 @@ export default function StakePositionTable(props: IProps) {
       </div>
     </div>
   );
-}
+});

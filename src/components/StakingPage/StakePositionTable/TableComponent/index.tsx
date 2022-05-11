@@ -10,7 +10,7 @@ const vaultImage = [
   images.iconRedeem,
 ];
 
-export function vaultIconsRenderer(_: unknown, record: ITableData) {
+export function renderVaultIcon(_: unknown, record: ITableData) {
   return (
     <div sx={styles.imgWrapper}>
       <img
@@ -22,7 +22,7 @@ export function vaultIconsRenderer(_: unknown, record: ITableData) {
   );
 }
 
-export function expiryDateRenderer(_: unknown, record: ITableData) {
+export function renderExpiryDate(_: unknown, record: ITableData) {
   const isExpired = record.until.mul(1000).lt(Date.now());
 
   const text = isExpired
@@ -30,7 +30,7 @@ export function expiryDateRenderer(_: unknown, record: ITableData) {
     : `Left ${record.until
         .mul(1000)
         .sub(Date.now())
-        .div(24 * 60 * 60 * 1000)
+        .div(86400000)
         .toNumber()
         .toString()} days`;
   const date = new Date(record.until.mul(1000).toNumber()).toLocaleString(
@@ -51,8 +51,8 @@ export function expiryDateRenderer(_: unknown, record: ITableData) {
   );
 }
 
-export function createValueRenderer(title: string, propsKey: keyof ITableData) {
-  return function valueRenderer(_: unknown, record: ITableData) {
+export function createRenderValue(title: string, propsKey: keyof ITableData) {
+  return function renderValue(_: unknown, record: ITableData) {
     return (
       <div sx={styles.valueWrapper} className={!record.state ? 'disabled' : ''}>
         <strong className="title">{record[propsKey]}</strong>

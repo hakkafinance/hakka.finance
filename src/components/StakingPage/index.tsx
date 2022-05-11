@@ -13,12 +13,12 @@ import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useHakkaStake, StakeState } from '../../hooks/staking/useHakkaStake';
-import StakePositionItem from './StakePositionItem/index';
 import {
   ChainId,
   HAKKA,
   STAKING_ADDRESSES,
   stakingMonth,
+  SHAKKA_POOL,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
 import { useWalletModalToggle, useRedeemModalToggle } from '../../state/application/hooks';
@@ -66,7 +66,6 @@ const mockingData = [
 const Staking = () => {
   const { account, chainId } = useWeb3React();
   const [inputAmount, setInputAmount] = useState<string>('0');
-  const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
   const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
 
   const hakkaBalance = useTokenBalance(
@@ -229,7 +228,7 @@ const Staking = () => {
             <span>Earn more Hakka</span>
             <a
               sx={styles.sHakkaRewardLinkBtn}
-              href="/farms/0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977"
+              href={`/farms/${SHAKKA_POOL}`}
               rel="noreferrer"
             >
               <span>sHAKKA Reward</span>

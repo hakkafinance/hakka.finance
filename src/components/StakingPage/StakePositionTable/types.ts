@@ -16,3 +16,9 @@ export interface ITableData extends IStakePositionItem {
   stakedHakkaStr: string;
   sHakkaReceivedStr: string;
 }
+
+export enum HakkaVaultState {
+  ARCHIVE = 0,
+  STAKING = 1,
+  REDEEM = 2,
+}
