@@ -4,7 +4,7 @@ import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
 import debounce from 'lodash.debounce';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
@@ -34,14 +34,14 @@ export default function useVotingPower(): {
       return {[ChainId.MAINNET]: ethProvider, [ChainId.BSC]: bscProvider, [ChainId.POLYGON]: polygonProvider, [ChainId.KOVAN]: kovanProvider};
     }, [])
 
-    const getVotingPower = async (chainId: ChainId) => {
+    const getVotingPower = useCallback(async (chainId: ChainId) => {
       const multicallProvider = new MulticallProvider(providers[chainId], chainId);
       const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
       const [ votingPower ] = await multicallProvider.all([sHakkaContract.votingPower(account)]);
       return votingPower;
-    };
+    }, []);
 
-    const fetchVotingPower = async () => {
+    const fetchVotingPower = useCallback(async () => {
       setTransactionSuccess(false);
       try {
         const [ethVotingPower, bscVotingPower, polygonVotingPower, kovanVotingPower] = await Promise.all([
@@ -61,9 +61,9 @@ export default function useVotingPower(): {
         console.log(e);
         console.log('fetch user voting power error');
       }
-    };
+    }, []);
   
-    const debouncedFetchVotingPower = useMemo(() => debounce(fetchVotingPower, 200), [fetchVotingPower]);
+    const debouncedFetchVotingPower = useMemo(() => debounce(fetchVotingPower, 200), []);
   
     useEffect(() => {
         debouncedFetchVotingPower();

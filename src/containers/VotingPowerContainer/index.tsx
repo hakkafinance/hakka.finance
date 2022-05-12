@@ -20,7 +20,7 @@ const VotingPowerContainer = () => {
       const v2PolygonProportion = (parseFloat(formatUnits(votingPowerInfo[ChainId.POLYGON])) / v2VotingPower * 100).toFixed(2);
       return [totalVotingPower?.toFixed(2), v1Proportion, v2Proportion, v2EthProportion, v2BscProportion, v2PolygonProportion];
     }
-    return [undefined, undefined, undefined, undefined, undefined, undefined];
+    return [];
   }, [votingPowerInfo, votingPower]);
 
   return (
