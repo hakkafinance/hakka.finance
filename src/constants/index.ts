@@ -39,19 +39,19 @@ export const ChainName: { [chainId in ChainId]: string } = {
 export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}> = {
   [ChainId.MAINNET]: {
     iconName: 'iconTabEthereum',
-    name: 'Ethereum Mainnet',
+    name: 'Ethereum',
   },
   [ChainId.KOVAN]: {
     iconName: 'iconTabKovan',
-    name: 'Kovan Testnet',
+    name: 'Kovan',
   },
   [ChainId.BSC]: {
     iconName: 'iconTabBinance',
-    name: 'Binance Smart Chain',
+    name: 'BSC',
   },
   [ChainId.POLYGON]: {
     iconName: 'iconTabPolygon',
-    name: 'Polygon Network',
+    name: 'Polygon',
   },
 }
 

@@ -14,8 +14,9 @@ export default {
   fontWeight: '600',
 
   div: {
-    padding: '12px 24px',
+    padding: '10px 12px',
     borderRadius: '8px',
+    fontSize: '14px',
 
     ':hover': {
       cursor: 'pointer',
@@ -29,7 +30,7 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     img: {
-      mr: '1rem',
+      mr: '8px',
       opacity: '0.5',
     }
   },

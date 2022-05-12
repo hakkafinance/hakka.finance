@@ -10,7 +10,7 @@ const button: ThemeUICSSObject = {
   border: '0',
   padding: '0.5rem 0.75rem',
   cursor: 'pointer',
-  fontsSize: '14px',
+  fontSize: '14px',
   color: 'var(--neutral-900)',
   textDecoration: 'unset',
   fontWeight: '400',

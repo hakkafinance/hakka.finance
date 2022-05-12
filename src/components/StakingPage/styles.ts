@@ -64,7 +64,9 @@ export default {
 
   normalButton: NormalButton,
 
-  governanceButton: merge(NormalButton, {ml: 'auto', mr: '1rem'}),
+  governanceButton: {
+    ...NormalButton, ml: 'auto', mr: '1rem',
+  },
 
   gridBlock: {
     display: 'grid',

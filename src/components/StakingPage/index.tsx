@@ -204,6 +204,7 @@ const Staking = () => {
           </button>
           <a href="/staking-v1" sx={styles.normalButton}>
             Switch to v1
+            <img src={images.iconArrowRight} />
           </a>
         </div>
         <div sx={styles.body}>
