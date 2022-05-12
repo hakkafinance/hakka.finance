@@ -3,18 +3,17 @@ import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
+import { useStakeV1Contract } from '../useContract';
+import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-
-import { useStakeContract } from '../useContract';
-import { getEtherscanLink, shortenTxId } from '../../utils';
 
 export enum StakeState {
   UNKNOWN,
   PENDING
 }
 
-export function useHakkaStake(
+export function useHakkaStakeV1(
   stakeAddress: string,
   spender: string,
   amountParsed: BigNumber,
@@ -31,7 +30,7 @@ export function useHakkaStake(
       : StakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const stakeContract = useStakeContract(stakeAddress);
+  const stakeContract = useStakeV1Contract(stakeAddress);
 
   const stake = useCallback(async (): Promise<void> => {
     if (!spender) {
@@ -41,7 +40,7 @@ export function useHakkaStake(
 
     try {
       // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
-      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 2592000);
+      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 60 * 60 * 24 * 30);
       setCurrentTransaction(tx.hash);
       toast(
         <a

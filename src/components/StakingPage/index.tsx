@@ -12,7 +12,7 @@ import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useHakkaStake, StakeState } from '../../hooks/staking/useHakkaStake';
+import { useHakkaStakeV1, StakeState } from '../../hooks/staking/useHakkaStakeV1';
 import {
   ChainId,
   HAKKA,
@@ -71,6 +71,7 @@ const Staking = () => {
   const [inputAmount, setInputAmount] = useState<string>('0');
   const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
 
+  // TODO: use new token balance
   const hakkaBalance = useTokenBalance(
     account as string,
     HAKKA[chainId as ChainId]
@@ -114,7 +115,7 @@ const Staking = () => {
     [lockTime, stakingRate, inputAmount]
   );
 
-  const [stakeState, stake] = useHakkaStake(
+  const [stakeState, stake] = useHakkaStakeV1(
     STAKING_ADDRESSES[chainId as ChainId],
     account,
     parseUnits(inputAmount || '0'),

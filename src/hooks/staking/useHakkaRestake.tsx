@@ -6,7 +6,7 @@ import { BigNumber } from 'ethers';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
 
-import { useStakeContract } from '../useContract';
+import { useStakeV1Contract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 
 export enum StakeState {
@@ -31,7 +31,7 @@ export function useHakkaStake(
       : StakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
-  const stakeContract = useStakeContract(stakeAddress);
+  const stakeContract = useStakeV1Contract(stakeAddress);
 
   const stake = useCallback(async (): Promise<void> => {
     if (!spender) {
@@ -41,7 +41,7 @@ export function useHakkaStake(
 
     try {
       // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
-      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 2592000);
+      const tx = await stakeContract.restake(spender, amountParsed, lockMonth * 2592000);
       setCurrentTransaction(tx.hash);
       toast(
         <a
