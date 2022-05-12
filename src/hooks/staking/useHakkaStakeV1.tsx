@@ -13,7 +13,7 @@ export enum StakeState {
   PENDING
 }
 
-export function useHakkaStake(
+export function useHakkaStakeV1(
   stakeAddress: string,
   spender: string,
   amountParsed: BigNumber,

@@ -6,7 +6,7 @@ import { HAKKA, STAKING_ADDRESSES, ChainId } from '../../../constants';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
-import { StakeState } from '../../../hooks/staking/useHakkaStake';
+import { StakeState } from '../../../hooks/staking/useHakkaStakeV1';
 import { ApprovalState, useTokenApprove } from '../../../hooks/useTokenApprove';
 import { useTokenBalance } from '../../../state/wallet/hooks';
 import { MyButton } from '../../Common';
