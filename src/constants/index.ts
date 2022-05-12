@@ -36,6 +36,25 @@ export const ChainName: { [chainId in ChainId]: string } = {
   137: 'Polygon Network',
 };
 
+export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}> = {
+  [ChainId.MAINNET]: {
+    iconName: 'iconTabEthereum',
+    name: 'Ethereum Mainnet',
+  },
+  [ChainId.KOVAN]: {
+    iconName: 'iconTabKovan',
+    name: 'Kovan Testnet',
+  },
+  [ChainId.BSC]: {
+    iconName: 'iconTabBinance',
+    name: 'Binance Smart Chain',
+  },
+  [ChainId.POLYGON]: {
+    iconName: 'iconTabPolygon',
+    name: 'Polygon Network',
+  },
+}
+
 export interface WalletInfo {
   connector?: AbstractConnector;
   name: string;

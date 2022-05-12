@@ -3,6 +3,9 @@ import type { ThemeUICSSObject } from 'theme-ui';
 const tabActive: ThemeUICSSObject = {
   backgroundColor: '#ebf0f2',
   color: '#253e47',
+  '& img': {
+    opacity: '1',
+  }
 }
 
 export default {
@@ -17,6 +20,9 @@ export default {
     ':hover': {
       cursor: 'pointer',
       color: '#253e47',
+      '& img': {
+        opacity: '0.8',
+      }
     },
 
     display: 'flex',
@@ -24,6 +30,7 @@ export default {
     alignItems: 'center',
     img: {
       mr: '1rem',
+      opacity: '0.5',
     }
   },
 

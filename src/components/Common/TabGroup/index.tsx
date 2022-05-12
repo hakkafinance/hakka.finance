@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+import { ChainId } from '../../../constants';
 import styles from './styles';
-
+import images from '../../../images';
 interface IProps {
-  list: { icon: string; title: string }[];
-  active: string;
-  onChange: (tab: string) => void;
+  list: { icon: string; title: string, value: ChainId }[];
+  active: ChainId;
+  onChange: (value: ChainId) => void;
 }
 
 export const TabGroup = (props: IProps) => {
@@ -15,10 +16,10 @@ export const TabGroup = (props: IProps) => {
       {list.map((item, index) => (
         <div
           key={index}
-          onClick={() => props.onChange(item.title)}
-          className={`tab-item ${active === item.title ? 'active' : ''}`}
+          onClick={() => props.onChange(item.value)}
+          className={`tab-item ${active === item.value ? 'active' : ''}`}
         >
-          <img src={item.icon} />
+          <img src={images[item.icon]} />
           <span className="tab-title">{item.title}</span>
         </div>
       ))}

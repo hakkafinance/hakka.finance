@@ -68,6 +68,7 @@ const images = {
   iconRedeem: require('./icons/iconRedeem.svg').default,
   iconStaking: require('./icons/iconStaking.svg').default,
   iconVaultArchive: require('./icons/iconVaultArchive.svg').default,
+  iconToGovernance: require('./icons/iconToGovernance.svg').default,
 
   /// home icon
   iconLight: require('./icons/iconLight.svg').default,
@@ -141,6 +142,9 @@ const images = {
   iconBSCDarkBg: require('./icons/iconBSCDark.svg').default,
   iconPolygonDarkBg: require('./icons/iconPolygonDark.svg').default,
 
+  iconTabEthereum: require('./icons/iconTabEthereum.svg').default,
+  iconTabBinance: require('./icons/iconTabBinance.svg').default,
+  iconTabPolygon: require('./icons/iconTabPolygon.svg').default,
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
   iconUnderConstruction: require('./icons/underConstruction.svg').default,
