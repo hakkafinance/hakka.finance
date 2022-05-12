@@ -1,11 +1,10 @@
 import { Contract as MulticallContract, Provider as MulticallProvider } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
-import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
-import debounce from 'lodash.debounce';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId } from '../constants';
-import { useEffect, useMemo, useState } from 'react';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { useEffect, useMemo, useState } from 'react';
+import debounce from 'lodash.debounce';
+import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../constants';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 
@@ -37,8 +36,8 @@ export default function useStakedHakka(): {
     const getStakedHakka = async (chainId: ChainId) => {
       const multicallProvider = new MulticallProvider(providers[chainId], chainId);
       const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
-      const [ sHakkaBalance ] = await multicallProvider.all([sHakkaContract.stakedHakka(account)]);
-      return sHakkaBalance;
+      const [ stakedHakka ] = await multicallProvider.all([sHakkaContract.stakedHakka(account)]);
+      return stakedHakka;
     };
 
     const fetchStakedHakka = async () => {
