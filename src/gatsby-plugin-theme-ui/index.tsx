@@ -27,6 +27,11 @@ export default {
     light_green: '#dae1e3',
     text_grey: '#929EA3',
     active_green: '#ebf0f2',
+    'neutral-100': '#F7FBFC',
+    'neutral-200': '#EBF0F2',
+    'neutral-300': '#DAE1E3',
+    'neutral-600': '#52666D',
+    'neutral-900': '#253E47',
     ...colorsLinear
   },
   background_linears: {

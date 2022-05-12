@@ -13,7 +13,7 @@ const button: ThemeUICSSObject = {
   fontSize: '14px',
   color: 'var(--neutral-900)',
   textDecoration: 'unset',
-  fontWeight: '400',
+  fontWeight: '600',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

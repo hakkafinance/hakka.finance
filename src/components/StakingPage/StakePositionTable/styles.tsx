@@ -40,9 +40,19 @@ const button: ThemeUIStyleObject = {
   },
 };
 
+const emptySection: ThemeUIStyleObject = {
+  height: '96px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '8px',
+  border: 'solid 1px var(--theme-ui-colors-neutral-300)',
+  fontWeight: 'bold',
+  color: 'rgba(37, 62, 71, 0.5)',
+}
+
 const tableWrapper: ThemeUIStyleObject = {
   width: '100%',
-  mb: '100px',
   '.rc-table-thead > tr > th': {
     borderBottom: 'solid 1px #dae1e3',
     textAlign: 'left',
@@ -99,4 +109,5 @@ export default {
   imgWrapper,
   tableWrapper,
   headerWrapper,
+  emptySection,
 };

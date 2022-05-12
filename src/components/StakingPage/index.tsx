@@ -12,7 +12,10 @@ import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useHakkaStakeV1, StakeState } from '../../hooks/staking/useHakkaStakeV1';
+import {
+  useHakkaStakeV1,
+  StakeState,
+} from '../../hooks/staking/useHakkaStakeV1';
 import {
   ChainId,
   HAKKA,
@@ -39,16 +42,20 @@ import { BigNumber } from 'ethers';
 import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
 
-import _omit from 'lodash/omit'
+import _omit from 'lodash/omit';
+import ReactTooltip from 'react-tooltip';
+import VotingPowerSection from './StakingPanel/VotingPowerSection';
+import { botSideBarItems } from '../../containers/SideBar';
 
-const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, ChainId.KOVAN))
-  .map(key => {
-    return {
-      value: +key as ChainId,
-      title: ChainNameWithIcon[+key as ChainId].name,
-      icon: ChainNameWithIcon[+key as ChainId].iconName,
-    }
-  })
+const hakkaSupportChain = Object.keys(
+  _omit(ChainNameWithIcon, ChainId.KOVAN)
+).map((key) => {
+  return {
+    value: +key as ChainId,
+    title: ChainNameWithIcon[+key as ChainId].name,
+    icon: ChainNameWithIcon[+key as ChainId].iconName,
+  };
+});
 const mockingData = [
   {
     index: 0,
@@ -179,6 +186,10 @@ const Staking = () => {
 
   const [activeChainTab, setActiveChainTab] = useState(ChainId.MAINNET);
 
+  const governanceLink = useMemo(() => {
+    return botSideBarItems.find((ele) => ele.name === 'governance').href!;
+  }, []);
+
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
@@ -196,15 +207,30 @@ const Staking = () => {
             bscProportion={'33.33'}
             polygonProportion={'33.33'}
           />
-          {/* TODO: replace this switch version btn */}
 
           {/* governance navigation */}
-          <button className="ml-auto" sx={styles.governanceButton}>
+          <a
+            data-tip
+            data-for="governance"
+            className="ml-auto"
+            href={governanceLink}
+            rel="noreferrer"
+            target="_blank"
+            sx={styles.governanceButton}
+          >
             <img src={images.iconToGovernance} />
-          </button>
+          </a>
+          <ReactTooltip
+            place="bottom"
+            id="governance"
+            effect="solid"
+            backgroundColor="#253E47"
+          >
+            <span>Go to governance</span>
+          </ReactTooltip>
           <a href="/staking-v1" sx={styles.normalButton}>
             Switch to v1
-            <img src={images.iconArrowRight} />
+            <img className="icon" src={images.iconArrowRight} />
           </a>
         </div>
         <div sx={styles.body}>
