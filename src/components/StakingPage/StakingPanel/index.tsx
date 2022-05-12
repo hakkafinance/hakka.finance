@@ -2,7 +2,7 @@
 import { useWeb3React } from '@web3-react/core';
 import { useState } from 'react';
 import { jsx } from 'theme-ui';
-import { HAKKA, STAKING_ADDRESSES, ChainId } from '../../../constants';
+import { HAKKA, NEW_SHAKKA_ADDRESSES, ChainId } from '../../../constants';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
@@ -33,7 +33,7 @@ export default function StakingPanel(props: IProps) {
 
   const [approveState, approve] = useTokenApprove(
     HAKKA[chainId],
-    STAKING_ADDRESSES[chainId],
+    NEW_SHAKKA_ADDRESSES[chainId],
     inputAmount
   );
 
@@ -41,6 +41,7 @@ export default function StakingPanel(props: IProps) {
     withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
   );
 
+  // TODO, use on staking
   const [secondTimer, setSecondTimer] = useState<number>(124416000);
 
   function mockStake() {}

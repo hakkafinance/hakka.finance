@@ -45,6 +45,7 @@ const Staking = () => {
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
   const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
 
+  // TODO: use new token balance
   const hakkaBalance = useTokenBalance(
     account as string,
     HAKKA[chainId as ChainId]
