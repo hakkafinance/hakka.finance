@@ -33,7 +33,6 @@ import { TabGroup } from '../Common/TabGroup';
 import EthIcon from '../../images/icons/iconEthereum.svg';
 import SVGIcon from '../../images/icons/iconBSC.svg';
 import PolygonIcon from '../../images/icons/iconPolygon.svg';
-import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
 import StakePositionTable from './StakePositionTable';
 

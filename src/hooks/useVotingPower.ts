@@ -15,7 +15,7 @@ export type VotingPowerType = {
 
 export default function useVotingPower(): {
   votingPowerInfo: VotingPowerType;
-  fetchDataState: ChainDataFetchingState;
+  fetchVotingPowerState: ChainDataFetchingState;
   } {
     const { account } = useWeb3React();
     const latestBlockNumber = useBlockNumber();
@@ -44,10 +44,12 @@ export default function useVotingPower(): {
     const fetchVotingPower = async () => {
       setTransactionSuccess(false);
       try {
-        const ethVotingPower = await getVotingPower(ChainId.MAINNET);
-        const bscVotingPower = await getVotingPower(ChainId.BSC);
-        const polygonVotingPower = await getVotingPower(ChainId.POLYGON);
-        const kovanVotingPower = await getVotingPower(ChainId.KOVAN);
+        const [ethVotingPower, bscVotingPower, polygonVotingPower, kovanVotingPower] = await Promise.all([
+          getVotingPower(ChainId.MAINNET),
+          getVotingPower(ChainId.BSC),
+          getVotingPower(ChainId.POLYGON),
+          getVotingPower(ChainId.KOVAN),
+        ]);
         
         setVotingPowerInfo({
           [ChainId.MAINNET]: ethVotingPower,
@@ -67,5 +69,5 @@ export default function useVotingPower(): {
         debouncedFetchVotingPower();
     }, [latestBlockNumber]);
   
-    return { votingPowerInfo, fetchDataState };
+    return { votingPowerInfo, fetchVotingPowerState: fetchDataState };
   }
