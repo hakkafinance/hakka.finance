@@ -12,13 +12,17 @@ import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useHakkaStakeV1, StakeState } from '../../hooks/staking/useHakkaStakeV1';
+import {
+  useHakkaStakeV1,
+  StakeState,
+} from '../../hooks/staking/useHakkaStakeV1';
 import {
   ChainId,
   HAKKA,
-  STAKING_ADDRESSES,
+  NEW_SHAKKA_ADDRESSES,
   stakingMonth,
   SHAKKA_POOL,
+  ChainNameWithIcon,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
 import {
@@ -30,20 +34,28 @@ import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import { TabGroup } from '../Common/TabGroup';
 
-import EthIcon from '../../images/icons/iconEthereum.svg';
-import SVGIcon from '../../images/icons/iconBSC.svg';
-import PolygonIcon from '../../images/icons/iconPolygon.svg';
+import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
 import StakePositionTable from './StakePositionTable';
 
 import { BigNumber } from 'ethers';
 import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
-const TabsMocking = [
-  { icon: EthIcon, title: 'Ethereum' },
-  { icon: SVGIcon, title: 'BSC' },
-  { icon: PolygonIcon, title: 'Polygon' },
-];
+
+import _omit from 'lodash/omit';
+import ReactTooltip from 'react-tooltip';
+import VotingPowerSection from './StakingPanel/VotingPowerSection';
+import { botSideBarItems } from '../../containers/SideBar';
+
+const hakkaSupportChain = Object.keys(
+  _omit(ChainNameWithIcon, ChainId.KOVAN)
+).map((key) => {
+  return {
+    value: +key as ChainId,
+    title: ChainNameWithIcon[+key as ChainId].name,
+    icon: ChainNameWithIcon[+key as ChainId].iconName,
+  };
+});
 const mockingData = [
   {
     index: 0,
@@ -66,7 +78,7 @@ const mockingData = [
 ];
 
 const Staking = () => {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, connector } = useWeb3React();
   const [inputAmount, setInputAmount] = useState<string>('0');
   const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
 
@@ -85,7 +97,7 @@ const Staking = () => {
 
   const [approveState, approve] = useTokenApprove(
     HAKKA[chainId as ChainId],
-    STAKING_ADDRESSES[chainId as ChainId],
+    NEW_SHAKKA_ADDRESSES[chainId as ChainId],
     inputAmount
   );
 
@@ -115,7 +127,7 @@ const Staking = () => {
   );
 
   const [stakeState, stake] = useHakkaStakeV1(
-    STAKING_ADDRESSES[chainId as ChainId],
+    NEW_SHAKKA_ADDRESSES[chainId as ChainId],
     account,
     parseUnits(inputAmount || '0'),
     lockTime
@@ -132,7 +144,7 @@ const Staking = () => {
 
   const isCorrectNetwork = useMemo<boolean>(() => {
     if (chainId) {
-      return STAKING_ADDRESSES[chainId as ChainId] !== AddressZero;
+      return NEW_SHAKKA_ADDRESSES[chainId as ChainId] !== AddressZero;
     }
     return true;
   }, [chainId]);
@@ -172,7 +184,11 @@ const Staking = () => {
     [isSortByUnlockTime]
   );
 
-  const [activeChainTab, setActiveChainTab] = useState(TabsMocking[0].title);
+  const [activeChainTab, setActiveChainTab] = useState(ChainId.MAINNET);
+
+  const governanceLink = useMemo(() => {
+    return botSideBarItems.find((ele) => ele.name === 'governance').href!;
+  }, []);
 
   return (
     <div sx={styles.container}>
@@ -191,21 +207,37 @@ const Staking = () => {
             bscProportion={'33.33'}
             polygonProportion={'33.33'}
           />
-          {/* TODO: replace this switch version btn */}
 
           {/* governance navigation */}
-          <button className="ml-auto" sx={styles.governanceButton}>
-            test
-          </button>
+          <a
+            data-tip
+            data-for="governance"
+            className="ml-auto"
+            href={governanceLink}
+            rel="noreferrer"
+            target="_blank"
+            sx={styles.governanceButton}
+          >
+            <img src={images.iconToGovernance} />
+          </a>
+          <ReactTooltip
+            place="bottom"
+            id="governance"
+            effect="solid"
+            backgroundColor="#253E47"
+          >
+            <span>Go to governance</span>
+          </ReactTooltip>
           <a href="/staking-v1" sx={styles.normalButton}>
             Switch to v1
+            <img className="icon" src={images.iconArrowRight} />
           </a>
         </div>
         <div sx={styles.body}>
           {/* voting power */}
           {/* tab group */}
           <TabGroup
-            list={TabsMocking}
+            list={hakkaSupportChain}
             active={activeChainTab}
             onChange={setActiveChainTab}
           ></TabGroup>

@@ -1,4 +1,3 @@
-import merge from 'lodash/merge';
 import { ThemeUICSSObject } from 'theme-ui';
 import { NormalButton } from './StakePositionItem/buttonStyle';
 export default {
@@ -62,9 +61,16 @@ export default {
     display: 'block',
   },
 
-  normalButton: NormalButton,
+  normalButton: {
+    ...NormalButton,
+    '& .icon': {
+      ml: '6px'
+    }
+  },
 
-  governanceButton: merge(NormalButton, {ml: 'auto', mr: '1rem'}),
+  governanceButton: {
+    ...NormalButton, ml: 'auto', mr: '1rem',
+  } as ThemeUICSSObject,
 
   gridBlock: {
     display: 'grid',

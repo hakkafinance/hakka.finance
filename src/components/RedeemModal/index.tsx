@@ -58,7 +58,7 @@ const RedeemModal = ({ redeem, sHakkaBalance, sHakkaBalanceInFarming }: RedeemMo
         <p>{sHakkaBalanceInFarming || '-'}</p>
         <div sx={styles.sHakkaPoolLink} onClick={() => navigate(`/farms`)}>
           <p>sHAKKA Pool</p>
-          <img src={images.iconArrowRight} />
+          <img sx={{opacity: '0.5'}} src={images.iconArrowRight} />
         </div>
       </div>
       <hr sx={styles.hr} />

@@ -88,37 +88,43 @@ export default memo(function StakePositionTable(props: IProps) {
           <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
         </Box>
       </Flex>
-      <div>
-        <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
-          <Column<ITableData>
-            title=""
-            dataIndex="icon"
-            render={renderVaultIcon}
-            width={72}
-          ></Column>
+      <div sx={{
+        mb: '100px',
+      }}>
+        {tableData.length > 0 && (
+          <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
+            <Column<ITableData>
+              title=""
+              dataIndex="icon"
+              render={renderVaultIcon}
+              width={72}
+            ></Column>
 
-          <Column<ITableData>
-            title="Expiry date"
-            dataIndex="index"
-            render={renderExpiryDate}
-            width={180}
-          />
+            <Column<ITableData>
+              title="Expiry date"
+              dataIndex="index"
+              render={renderExpiryDate}
+              width={180}
+            />
 
-          <Column<ITableData> title="HAKKA staked" dataIndex="stakedHakka" render={stakedHakkaRenderer}
-            width={180}
-          />
-          <Column<ITableData>
-            title="sHAKKA obtained"
-            dataIndex="sHakkaReceived"
-            render={sHakkaObtainedRenderer}
-            width={180}
-          />
-          <Column<ITableData>
-            title=""
-            dataIndex="index"
-            render={actionButtonRender}
-          />
-        </Table>
+            <Column<ITableData> title="HAKKA staked" dataIndex="stakedHakka" render={stakedHakkaRenderer}
+              width={180}
+            />
+            <Column<ITableData>
+              title="sHAKKA obtained"
+              dataIndex="sHakkaReceived"
+              render={sHakkaObtainedRenderer}
+              width={180}
+            />
+            <Column<ITableData>
+              title=""
+              dataIndex="index"
+              render={actionButtonRender}
+            />
+          </Table>) || (<div sx={styles.emptySection}>
+            No position
+          </div>)
+        }
       </div>
     </div>
   );

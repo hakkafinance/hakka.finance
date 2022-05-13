@@ -180,9 +180,10 @@ const Staking = () => {
           </div>
           {/* stakingForm */}
           <div sx={styles.stakingCard}>
-            <div sx={{ width: "103px", ml: "auto" }}>
+            <div sx={{ml: "auto", width: '135px' }}>
               <a href="/staking" sx={styles.switchButton}>
                 Switch to v2
+                <img className="icon" src={images.iconArrowRight} />
               </a>
             </div>
           </div>

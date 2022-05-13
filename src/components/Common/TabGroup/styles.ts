@@ -3,6 +3,9 @@ import type { ThemeUICSSObject } from 'theme-ui';
 const tabActive: ThemeUICSSObject = {
   backgroundColor: '#ebf0f2',
   color: '#253e47',
+  '& img': {
+    opacity: '1',
+  }
 }
 
 export default {
@@ -11,19 +14,24 @@ export default {
   fontWeight: '600',
 
   div: {
-    padding: '12px 24px',
+    padding: '10px 12px',
     borderRadius: '8px',
+    fontSize: '14px',
 
     ':hover': {
       cursor: 'pointer',
       color: '#253e47',
+      '& img': {
+        opacity: '0.8',
+      }
     },
 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     img: {
-      mr: '1rem',
+      mr: '8px',
+      opacity: '0.5',
     }
   },
 
