@@ -6,6 +6,7 @@ import {
   ToggleInfoModalAction,
   ToggleClaimModalAction,
   ToggleRedeemModalAction,
+  ToggleRestakeModalAction,
   AddPopupAction,
   RemovePopupAction,
   UPDATE_BLOCK_NUMBER,
@@ -13,6 +14,7 @@ import {
   TOGGLE_INFO_MODAL,
   TOGGLE_CLAIM_MODAL,
   TOGGLE_REDEEM_MODAL,
+  TOGGLE_RESTAKE_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
 } from './actions';
@@ -33,6 +35,7 @@ export interface ApplicationState {
   readonly infoModalOpen: boolean;
   readonly claimModalOpen: boolean;
   readonly redeemModalOpen: boolean;
+  readonly restakeModalOpen: boolean;
 }
 
 export const initialApplicationState: ApplicationState = {
@@ -42,6 +45,7 @@ export const initialApplicationState: ApplicationState = {
   infoModalOpen: false,
   claimModalOpen: false,
   redeemModalOpen: false,
+  restakeModalOpen: false,
 };
 
 type ApplicationAction =
@@ -50,6 +54,7 @@ type ApplicationAction =
   | ToggleInfoModalAction
   | ToggleClaimModalAction
   | ToggleRedeemModalAction
+  | ToggleRestakeModalAction
   | AddPopupAction
   | RemovePopupAction;
 
@@ -99,6 +104,12 @@ export default function reducer(
       return {
         ..._state,
         redeemModalOpen: !state.redeemModalOpen,
+      };
+    }
+    case TOGGLE_RESTAKE_MODAL: {
+      return {
+        ..._state,
+        restakeModalOpen: !state.restakeModalOpen,
       };
     }
     case ADD_POPUP: {

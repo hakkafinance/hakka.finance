@@ -10,6 +10,7 @@ import {
   toggleInfoModalAction,
   toggleClaimModalAction,
   toggleRedeemModalAction,
+  toggleRestakeModalAction,
   addPopupAction,
   removePopupAction,
 } from './actions';
@@ -21,6 +22,7 @@ interface ApplicationContextProps {
   toggleInfoModal: () => void;
   toggleClaimModal: ()=> void;
   toggleRedeemModal: ()=> void;
+  toggleRestakeModal: ()=> void;
   addPopup: (payload: AddPopupPayload) => void;
   removePopup: (payload: RemovePopupPayload) => void;
 }
@@ -52,6 +54,10 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
     dispatch(toggleRedeemModalAction());
   }, []);
 
+  const toggleRestakeModal = useCallback(() => {
+    dispatch(toggleRestakeModalAction());
+  }, []);
+
   const addPopup = useCallback((payload) => {
     dispatch(addPopupAction(payload));
   }, []);
@@ -70,6 +76,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleInfoModal,
           toggleClaimModal,
           toggleRedeemModal,
+          toggleRestakeModal,
           addPopup,
           removePopup,
         }),
@@ -80,6 +87,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleInfoModal,
           toggleClaimModal,
           toggleRedeemModal,
+          toggleRestakeModal,
           addPopup,
           removePopup,
         ],
