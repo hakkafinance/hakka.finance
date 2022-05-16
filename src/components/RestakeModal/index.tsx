@@ -13,11 +13,13 @@ import NumericalInputField from '../NumericalInputField';
 import { useCallback, useState } from 'react';
 import { ApprovalState } from '../../hooks/useTokenApprove';
 import VotingPowerSection from '../StakingPage/StakingPanel/VotingPowerSection'
+import LockPeriodOptions from '../StakingPage/StakingPanel/LockPeriodOptions.tsx';
 
 interface RestakeModalInterface {
   restake: () => void;
   // restakeState?: RestakeState;
   hakkaBalance?: string;
+  vault?: any;
 }
 
 interface StayTheSameSwitchWithTitleType {
@@ -37,10 +39,11 @@ const StayTheSameSwitchWithTitle = ({ title, switchState, handleSwitchChange }: 
   );
 };
 
-const RestakeModal = ({ restake, hakkaBalance }: RestakeModalInterface) => {
+const RestakeModal = ({ restake, hakkaBalance, vault }: RestakeModalInterface) => {
   const restakeModalOpen = useRestakeModalOpen();
   const toggleRestakeModal = useRestakeModalToggle();
   const [inputAmount, setInputAmount] = useState('0');
+  const [period, setPeriod] = useState(0);
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
   const [isKeepAmountTheSame, setIsKeepAmountTheSame] = useState(false);
   const [isKeepPeriodTheSame, setIsKeepPeriodTheSame] = useState(false);
@@ -52,15 +55,18 @@ const RestakeModal = ({ restake, hakkaBalance }: RestakeModalInterface) => {
   const handleKeepPeriodTheSame = useCallback(() => {
     setIsKeepPeriodTheSame((state) => !state);
   }, []);
-  // 
-  const receiveShakkaAmount = inputAmount ? parseFloat(inputAmount) * 0.1 : 0; // TODO: replace this
-  const totalShakkaValue = 15000;
+
+  const receiveShakkaAmount = inputAmount ? parseFloat(inputAmount) * 0.1 : 0; // TODO: replace this from hook
+  const totalShakkaValue = 15000; // TODO: replace this from hook
 
   // const [approveState, approve] = useTokenApprove(
   //  HAKKA[chainId as ChainId],  // sHakka
   //  BURNER_ADDRESS[chainId as ChainId],
   //  inputAmount,
   // );
+
+  // TODO: can get this date from vault.unlockTime
+  const FAKE_LEFT_TIME = 5184000; // the unit is sec
 
   return (
     <Modal
@@ -92,10 +98,7 @@ const RestakeModal = ({ restake, hakkaBalance }: RestakeModalInterface) => {
         <hr sx={styles.hr} />
         <StayTheSameSwitchWithTitle title='Adjust period?' switchState={isKeepPeriodTheSame} handleSwitchChange={handleKeepPeriodTheSame}  />
         <div style={isKeepPeriodTheSame ? { display: 'none' } : {}}>
-          <p sx={styles.date}>
-            {/* TODO: until date is not ready */}
-            Locked period until <strong>2099/03/23</strong> 
-          </p>
+          <LockPeriodOptions onChange={setPeriod} timeLeft={FAKE_LEFT_TIME} />
           <p sx={styles.textHint}> You can only reselect a longer duration than the left period.</p>
         </div>
         <hr sx={styles.hr} />
@@ -107,8 +110,10 @@ const RestakeModal = ({ restake, hakkaBalance }: RestakeModalInterface) => {
             total={totalShakkaValue}
           />
         </div>
-        {/* disabled={isCorrectInput || restakeState === RestakeState.PENDING} */}
-        <MyButton onClick={restake} styleKit='green'>
+        {/* disabled={isCorrectInput || restakeState === RestakeState.PENDING || (isKeepPeriodTheSame && setIsKeepAmountTheSame)} */}
+        {/* stakeTime = isKeepPeriodTheSame ? vault.unlockTime : period */}
+        {/* amount = setIsKeepAmountTheSame ? vault.hakkaAmount : inputAmount */}
+        <MyButton onClick={restake} styleKit='green'> 
           Confirm
           {/* {restakeState === RestakeState.PENDING ? 'Pending' : 'Confirm'} */}
         </MyButton>

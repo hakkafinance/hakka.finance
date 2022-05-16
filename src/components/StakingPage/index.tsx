@@ -24,7 +24,6 @@ import { tryParseAmount } from '../../utils';
 import {
   useWalletModalToggle,
   useRedeemModalToggle,
-  useRestakeModalToggle,
 } from '../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
@@ -40,9 +39,6 @@ import StakePositionTable from './StakePositionTable';
 import { BigNumber } from 'ethers';
 import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
-import RestakeModal from '../RestakeModal';
-import VotingPowerArea from '../StakingPage/VotingPower/index';
-
 const TabsMocking = [
   { icon: EthIcon, title: 'Ethereum' },
   { icon: SVGIcon, title: 'BSC' },
@@ -178,8 +174,6 @@ const Staking = () => {
 
   const [activeChainTab, setActiveChainTab] = useState(TabsMocking[0].title);
 
-  const toggleRestakeModal = useRestakeModalToggle();
-
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
@@ -233,10 +227,6 @@ const Staking = () => {
           redeem={() => {}}
           // redeemState={redeemState}
         />
-        <RestakeModal 
-          restake={() => {}}
-        />
-        <button onClick={toggleRestakeModal}>666</button>
         {/* infoPart */}
 
         {/* link area */}

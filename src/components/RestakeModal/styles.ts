@@ -15,10 +15,6 @@ export default {
     '@media screen and (max-width: 576px)': {
       width: '318.75px',
     },
-
-    p: {
-      margin: '0',
-    },
   },
 
   heading: {
@@ -107,7 +103,6 @@ export default {
   textHint: {
     fontSize: '12px',
     color: 'rgba(37, 62, 71, 0.5)',
-
   },
 
   date: {
