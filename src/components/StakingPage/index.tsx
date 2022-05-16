@@ -41,6 +41,7 @@ import StakePositionTable from './StakePositionTable';
 import { BigNumber } from 'ethers';
 import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
+<<<<<<< HEAD
 
 import _omit from 'lodash/omit';
 import ReactTooltip from 'react-tooltip';
@@ -56,6 +57,18 @@ const hakkaSupportChain = Object.keys(
     icon: ChainNameWithIcon[+key as ChainId].iconName,
   };
 });
+=======
+import StakeInfo from './StakeInfo';
+import { useRewardsData } from '../../data/RewardsData';
+import { REWARD_POOLS } from '../../constants/rewards';
+import VotingPowerArea from './VotingPower';
+
+const TabsMocking = [
+  { icon: EthIcon, title: 'Ethereum' },
+  { icon: SVGIcon, title: 'BSC' },
+  { icon: PolygonIcon, title: 'Polygon' },
+];
+>>>>>>> 16a1ca2 (adjust: import VotingPowerArea)
 const mockingData = [
   {
     index: 0,
