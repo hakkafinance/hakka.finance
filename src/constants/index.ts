@@ -222,7 +222,7 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
 // TODO: check this address
 export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: AddressZero,
-  [ChainId.KOVAN]: AddressZero,
+  [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
 };
