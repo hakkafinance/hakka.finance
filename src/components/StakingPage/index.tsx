@@ -47,6 +47,9 @@ import _omit from 'lodash/omit';
 import ReactTooltip from 'react-tooltip';
 import VotingPowerSection from './StakingPanel/VotingPowerSection';
 import { botSideBarItems } from '../../containers/SideBar';
+import { useRewardsData } from '../../data/RewardsData';
+import { REWARD_POOLS } from '../../constants/rewards';
+import StakeInfo from './StakeInfo';
 
 const hakkaSupportChain = Object.keys(
   _omit(ChainNameWithIcon, ChainId.KOVAN)
@@ -193,7 +196,7 @@ const Staking = () => {
 
   const currentShakkaRewardPoolAddress = SHAKKA_POOLS[chainId];
 
-  const rewardData = useRewardsData([currentShakkaRewardPoolAddress], [REWARD_POOLS[currentShakkaRewardPoolAddress].decimal || 18]);
+  const rewardData = useRewardsData([currentShakkaRewardPoolAddress], [REWARD_POOLS[currentShakkaRewardPoolAddress]?.decimal || 18]);
   const depositedBalance = account ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2) : '-';
 
   return (
@@ -301,3 +304,4 @@ const Staking = () => {
 };
 
 export default Staking;
+
