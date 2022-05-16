@@ -10,7 +10,7 @@ import styles, { headerWrapper } from './styles';
 import { MyButton } from '../Common';
 import { navigate } from 'gatsby';
 import NumericalInputField from '../NumericalInputField';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ApprovalState } from '../../hooks/useTokenApprove';
 import VotingPowerSection from '../StakingPage/StakingPanel/VotingPowerSection'
 import LockPeriodOptions from '../StakingPage/StakingPanel/LockPeriodOptions.tsx';
@@ -56,7 +56,7 @@ const RestakeModal = ({ restake, hakkaBalance, vault }: RestakeModalInterface) =
     setIsKeepPeriodTheSame((state) => !state);
   }, []);
 
-  const receiveShakkaAmount = inputAmount ? parseFloat(inputAmount) * 0.1 : 0; // TODO: replace this from hook
+  const additionalShakkaAmount = 5000; // TODO: replace this from hook
   const totalShakkaValue = 15000; // TODO: replace this from hook
 
   // const [approveState, approve] = useTokenApprove(
@@ -66,7 +66,14 @@ const RestakeModal = ({ restake, hakkaBalance, vault }: RestakeModalInterface) =
   // );
 
   // TODO: can get this date from vault.unlockTime
-  const FAKE_LEFT_TIME = 5184000; // the unit is sec
+  const FAKE_LEFT_TIME = 1799; // the unit is sec
+
+  const isLeftTimeLessThan30Mins = useMemo(() => {
+    if (isKeepPeriodTheSame) {
+      return FAKE_LEFT_TIME < 30 * 60;
+    }
+    return false;
+  }, [isKeepPeriodTheSame, FAKE_LEFT_TIME]);
 
   return (
     <Modal
@@ -105,17 +112,17 @@ const RestakeModal = ({ restake, hakkaBalance, vault }: RestakeModalInterface) =
         <h4 sx={styles.receiveShakkaTitle}>Additional sHAKKA you get...</h4>
         <div sx={styles.votingPowerSectionWrapper}>
           <VotingPowerSection 
-            value={receiveShakkaAmount}
+            value={additionalShakkaAmount}
             prefixSymbol
             total={totalShakkaValue}
           />
         </div>
-        {/* disabled={isCorrectInput || restakeState === RestakeState.PENDING || (isKeepPeriodTheSame && setIsKeepAmountTheSame)} */}
+        {/* disabled={isCorrectInput || restakeState === RestakeState.PENDING || (isKeepPeriodTheSame && setIsKeepAmountTheSame) || additionalShakkaAmount === 0 || isLeftTimeLessThan30Mins} */}
         {/* stakeTime = isKeepPeriodTheSame ? vault.unlockTime : period */}
         {/* amount = setIsKeepAmountTheSame ? vault.hakkaAmount : inputAmount */}
         <MyButton onClick={restake} styleKit='green'> 
           Confirm
-          {/* {restakeState === RestakeState.PENDING ? 'Pending' : 'Confirm'} */}
+          {/* {restakeState === RestakeState.PENDING ? 'Pending' : isLeftTimeLessThan30Mins ? 'Insufficient extension period' : 'Confirm' } */}
         </MyButton>
       </div>
     </Modal>
