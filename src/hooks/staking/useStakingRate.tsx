@@ -3,6 +3,7 @@ import { Contract as MulticallContract, Provider as MulticallProvider } from '@p
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Zero } from '@ethersproject/constants';
 import debounce from 'lodash.debounce';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../../constants';
 import STAKING_ABI from '../../constants/abis/shakka.json';
@@ -14,7 +15,7 @@ export default function useStakingRate(): {
   } {
     const { chainId } = useWeb3React();
     const latestBlockNumber = useBlockNumber();
-    const [stakingRate, setStakingRate] = useState<BigNumber>();
+    const [stakingRate, setStakingRate] = useState<BigNumber>(Zero);
     const [transactionSuccess, setTransactionSuccess] = useState(false);
   
     const fetchDataState: ChainDataFetchingState = useMemo(() => {
