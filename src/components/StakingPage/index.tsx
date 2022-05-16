@@ -23,6 +23,7 @@ import {
   stakingMonth,
   SHAKKA_POOL,
   ChainNameWithIcon,
+  SHAKKA_POOLS,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
 import {
@@ -41,7 +42,6 @@ import StakePositionTable from './StakePositionTable';
 import { BigNumber } from 'ethers';
 import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
-<<<<<<< HEAD
 
 import _omit from 'lodash/omit';
 import ReactTooltip from 'react-tooltip';
@@ -57,18 +57,6 @@ const hakkaSupportChain = Object.keys(
     icon: ChainNameWithIcon[+key as ChainId].iconName,
   };
 });
-=======
-import StakeInfo from './StakeInfo';
-import { useRewardsData } from '../../data/RewardsData';
-import { REWARD_POOLS } from '../../constants/rewards';
-import VotingPowerArea from './VotingPower';
-
-const TabsMocking = [
-  { icon: EthIcon, title: 'Ethereum' },
-  { icon: SVGIcon, title: 'BSC' },
-  { icon: PolygonIcon, title: 'Polygon' },
-];
->>>>>>> 16a1ca2 (adjust: import VotingPowerArea)
 const mockingData = [
   {
     index: 0,
@@ -203,13 +191,7 @@ const Staking = () => {
     return botSideBarItems.find((ele) => ele.name === 'governance').href!;
   }, []);
 
-  const currentShakkaRewardPoolAddress = useMemo(() => {
-    return chainId === ChainId.MAINNET 
-      ? ETH_SHAKKA_POOL 
-      : chainId === ChainId.BSC 
-      ? BSC_SHAKKA_POOL 
-      : POLYGON_SHAKKA_POOL;
-  }, [chainId])
+  const currentShakkaRewardPoolAddress = SHAKKA_POOLS[chainId];
 
   const rewardData = useRewardsData([currentShakkaRewardPoolAddress], [REWARD_POOLS[currentShakkaRewardPoolAddress].decimal || 18]);
   const depositedBalance = account ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2) : '-';

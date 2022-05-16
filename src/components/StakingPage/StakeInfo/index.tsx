@@ -20,7 +20,7 @@ const InfoItem = ({ icon, title, value }: InfoItemProps) => (
       <img style={styles.icon} src={icon} />
       <span>{title}</span>
     </div>
-    <span style={(!value || parseFloat(value) === 0) ? { color: 'rgba(37, 62, 71, 0.5)' } : {}}>{value || '0.00'}</span>
+    <span style={!parseFloat(value) ? { color: 'rgba(37, 62, 71, 0.5)' } : {}}>{value || '0.00'}</span>
   </div>
 );
 
