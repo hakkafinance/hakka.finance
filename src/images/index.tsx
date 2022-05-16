@@ -34,6 +34,10 @@ const images = {
   iconQuestion: require('./icons/iconQuestion.svg').default,
   iconProportion: require('./icons/iconProportion.svg').default,
   iconArrowRight: require('./icons/iconArrowRight.svg').default,
+  iconFarmsSmall: require('./icons/iconFarmSmall.svg').default,
+  iconWallet: require('./icons/iconWallet.svg').default,
+  iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
+  iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
