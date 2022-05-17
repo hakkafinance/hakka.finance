@@ -11,7 +11,7 @@ import { createBigNumberSort } from '../../../utils/sort';
 const { Column } = Table;
 
 interface IProps {
-  data: IStakePositionItem[];
+  data: {result: IStakePositionItem}[];
   onRedeem: (index: number) => void;
   onRestake: (index: number) => void;
 }
@@ -26,17 +26,19 @@ export default memo(function StakePositionTable(props: IProps) {
   }, []);
 
   const tableData: ITableData[] = useMemo(() => {
+    if (data.some(raw => !raw?.result)) return []
     const archiveList: ITableData[] = [];
     const nonArchiveList: ITableData[] = [];
     data
-      .forEach((raw) => {
+      .forEach(({result: raw}) => {
         const state: HakkaVaultState =
-          +(raw.until.mul(1000).lte(Date.now()) && !raw.stakedHakka.isZero()) +
-          +!raw.stakedHakka.isZero();
+          +(raw.unlockTime.mul(1000).lte(Date.now()) && !raw.hakkaAmount.isZero()) +
+          +!raw.hakkaAmount.isZero();
         const _tmpRaw = {
           ...raw, state,
-          stakedHakkaStr: (+formatUnits(raw.stakedHakka)).toFixed(4),
-          sHakkaReceivedStr: (+formatUnits(raw.sHakkaReceived)).toFixed(4),
+          stakedHakkaStr: (+formatUnits(raw.hakkaAmount)).toFixed(4),
+          sHakkaReceivedStr: (+formatUnits(raw.wAmount)).toFixed(4),
+          rowKey: raw.index
         };
         if (state) {
           nonArchiveList.push(_tmpRaw);
@@ -44,8 +46,8 @@ export default memo(function StakePositionTable(props: IProps) {
           archiveList.push(_tmpRaw);
         }
       });
-    archiveList.sort(createBigNumberSort('until', 'asc'));
-    nonArchiveList.sort(createBigNumberSort('until', 'asc'));
+    archiveList.sort(createBigNumberSort('unlockTime', 'asc'));
+    nonArchiveList.sort(createBigNumberSort('unlockTime', 'asc'));
 
     return showArchive ? nonArchiveList.concat(archiveList) : nonArchiveList;
   }, [showArchive, data]);
@@ -96,6 +98,7 @@ export default memo(function StakePositionTable(props: IProps) {
             <Column<ITableData>
               title=""
               dataIndex="icon"
+              key="icon"
               render={renderVaultIcon}
               width={72}
             ></Column>
@@ -103,22 +106,25 @@ export default memo(function StakePositionTable(props: IProps) {
             <Column<ITableData>
               title="Expiry date"
               dataIndex="index"
+              key="unlockTime"
               render={renderExpiryDate}
               width={180}
             />
 
-            <Column<ITableData> title="HAKKA staked" dataIndex="stakedHakka" render={stakedHakkaRenderer}
+            <Column<ITableData> title="HAKKA staked" dataIndex="hakkaAmount" render={stakedHakkaRenderer}
               width={180}
             />
             <Column<ITableData>
               title="sHAKKA obtained"
-              dataIndex="sHakkaReceived"
+              dataIndex="wAmount"
+              key="wAmount"
               render={sHakkaObtainedRenderer}
               width={180}
             />
             <Column<ITableData>
               title=""
               dataIndex="index"
+              key="hakkaAmount"
               render={actionButtonRender}
             />
           </Table>) || (<div sx={styles.emptySection}>

@@ -4,9 +4,9 @@ import type { BigNumber } from 'ethers';
 export interface IStakePositionItem {
   index: number;
   sHakkaBalance?: CurrencyAmount;
-  stakedHakka: BigNumber;
-  sHakkaReceived: BigNumber;
-  until: BigNumber;
+  hakkaAmount: BigNumber;
+  wAmount: BigNumber;
+  unlockTime: BigNumber;
 }
 
 export interface ITableData extends IStakePositionItem {
