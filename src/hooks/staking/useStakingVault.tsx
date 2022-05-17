@@ -43,7 +43,7 @@ export default function useStakingVault(): {
       const multicallProvider = new MulticallProvider(providers[chainId], chainId);
       const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
       try {
-        const [ vault, vaultCount ] = await multicallProvider.all([sHakkaContract.vaults(account), sHakkaContract.vaultCount(account)]);
+        const [vault, vaultCount] = await multicallProvider.all([sHakkaContract.vaults(account), sHakkaContract.vaultCount(account)]);
         setVault(vault);
         setVaultCount(vaultCount);
         setTransactionSuccess(true);

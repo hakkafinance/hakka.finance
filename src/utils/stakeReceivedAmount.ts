@@ -1,5 +1,10 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from "ethers/lib/utils";
+import { formatUnits } from 'ethers/lib/utils';
+
+const THIRTY_MINS_FRACTIONS_OF_YEAR = 30/60/24/365.25;
+const stakeFormula = 
+  (amount: number, time: string, stakingRate: BigNumber): number => 
+    amount * Math.pow(2, parseFloat(time)) * parseFloat(formatUnits(stakingRate, 18)) / 16;
 
 export function stakeReceivedAmount(
     amount: string, 
@@ -9,7 +14,7 @@ export function stakeReceivedAmount(
   if (!stakingRate) { 
     return undefined;
   }
-  const receivedSHakkaAmount = parseFloat(amount) * Math.pow(2, parseFloat(time)) * parseFloat(formatUnits(stakingRate, 18)) / 16;
+  const receivedSHakkaAmount = stakeFormula(parseFloat(amount), time, stakingRate);
   return receivedSHakkaAmount.toFixed(4);
 };
 
@@ -23,11 +28,11 @@ export function restakeReceivedAmount(
 if (!stakingRate || !vault) { 
   return [];
 }
-if (parseFloat(time) >  4 || parseFloat(time) < 30/60/24/360) {
+if (parseFloat(time) >  4 || parseFloat(time) < THIRTY_MINS_FRACTIONS_OF_YEAR) {
   return [];
 }
-const receivedSHakkaAmount = 
-  (parseFloat(formatUnits(vault[index].hakkaAmount, 18)) + parseFloat(amount)) * Math.pow(2, parseFloat(time)) * parseFloat(formatUnits(stakingRate, 18)) / 16;
+const totalStakedHakka = parseFloat(formatUnits(vault[index].hakkaAmount, 18)) + parseFloat(amount);
+const receivedSHakkaAmount = stakeFormula(totalStakedHakka, time, stakingRate);
 const additionalSHakkaAmount = receivedSHakkaAmount - parseFloat(formatUnits(vault[index].wAmount, 18));
 return [receivedSHakkaAmount.toFixed(4), additionalSHakkaAmount.toFixed(4)];
 };
