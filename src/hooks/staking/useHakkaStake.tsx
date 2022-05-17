@@ -18,7 +18,7 @@ export function useHakkaStake(
   stakeAddress: string,
   spender: string,
   amountParsed: BigNumber,
-  lockMonth: number,
+  lockSec: number,
 ): [StakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
@@ -40,8 +40,7 @@ export function useHakkaStake(
     }
 
     try {
-      // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
-      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 2592000);
+      const tx = await stakeContract.stake(spender, amountParsed, lockSec);
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -63,7 +62,7 @@ export function useHakkaStake(
     stakeContract,
     spender,
     amountParsed,
-    lockMonth,
+    lockSec,
   ]);
 
   return [stakeState, stake];

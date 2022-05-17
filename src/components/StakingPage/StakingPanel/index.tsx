@@ -1,14 +1,19 @@
 /** @jsx jsx */
 import { useWeb3React } from '@web3-react/core';
-import { useState } from 'react';
+import { BigNumber } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
+import { useState, useMemo } from 'react';
 import { jsx } from 'theme-ui';
 import { HAKKA, NEW_SHAKKA_ADDRESSES, ChainId } from '../../../constants';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
+import { useHakkaStake } from '../../../hooks/staking/useHakkaStake';
 import { StakeState } from '../../../hooks/staking/useHakkaStakeV1';
+import useStakingRate from '../../../hooks/staking/useStakingRate';
 import { ApprovalState, useTokenApprove } from '../../../hooks/useTokenApprove';
 import { useTokenBalance } from '../../../state/wallet/hooks';
+import { stakeReceivedAmount } from '../../../utils/stakeReceivedAmount';
 import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
 import LockPeriodOptions from './LockPeriodOptions.tsx';
@@ -18,12 +23,18 @@ import VotingPowerSection from './VotingPowerSection';
 interface IProps {
   isCorrectNetwork: boolean;
   toggleWalletModal: () => void;
-  stakeState: StakeState;
   chainId: ChainId;
 }
 
+function transferToYear(sec: number): string {
+  // 360 days in a year
+  return BigNumber.from(sec)
+    .div(31104000)
+    .toString();
+}
+
 export default function StakingPanel(props: IProps) {
-  const { isCorrectNetwork, toggleWalletModal, stakeState, chainId } = props;
+  const { isCorrectNetwork, toggleWalletModal, chainId } = props;
   const { account } = useWeb3React();
 
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
@@ -43,8 +54,23 @@ export default function StakingPanel(props: IProps) {
 
   // TODO, use on staking
   const [secondTimer, setSecondTimer] = useState<number>(124416000);
+  const [stakeState, stake] = useHakkaStake(
+    NEW_SHAKKA_ADDRESSES[chainId],
+    account,
+    parseUnits(inputAmount, 18),
+    secondTimer
+  );
+  // TODO fetch state implement / fix staking rate implementation;
+  const { stakingRate, fetchDataState } = useStakingRate();
 
-  function mockStake() {}
+  const receivedAmount = useMemo(() => {
+    const received = +stakeReceivedAmount(
+      inputAmount,
+      transferToYear(secondTimer),
+      stakingRate
+    );
+    return received;
+  }, [stakeState.toString(), inputAmount, secondTimer]);
 
   return (
     <div sx={styles.stakingCard}>
@@ -63,17 +89,15 @@ export default function StakingPanel(props: IProps) {
         approveState={approveState}
         setIsCorrectInput={setIsCorrectInput}
       />
-      
+
       <LockPeriodOptions onChange={setSecondTimer} />
-      <p sx={styles.title}>
-        Obtain sHAKA (voting power)
-      </p>
-      <VotingPowerSection value={0} />
+      <p sx={styles.title}>Obtain sHAKA (voting power)</p>
+      <VotingPowerSection value={receivedAmount} />
       <div sx={styles.stakeBtn}>
         <StakeButton
           styleKit={'green'}
           isDisabledWhenNotPrepared={false}
-          onClick={mockStake}
+          onClick={stake}
           isConnected={!!account}
           connectWallet={toggleWalletModal}
           isApproved={approveState === ApprovalState.APPROVED}
