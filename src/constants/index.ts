@@ -243,6 +243,11 @@ export const BHS_HAKKA_POOL = '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF'
 export const MKR_HAKKA_POOL = '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645'
 export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058'
 export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977'
+// TODO: new sHakka pool is not ready
+export const ETH_SHAKKA_POOL = ''
+export const BSC_SHAKKA_POOL = ''
+export const POLYGON_SHAKKA_POOL = ''
+export const KOVAN_SHAKKA_POOL = ''
 export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d' // example, should be delete after prod released
 export const IGAIN_BNB_BUSD_POOL = '0x4E353C2CCc7DfB6a4d3Ea7802ddEBa226574702E' // started at 20211104
 
@@ -258,6 +263,13 @@ export const IGAIN_IG_POLYGON_ETH_USDC_POOL_1 = '0x459fB73f0B9bE0cAA85FCbDF151Ea
 export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 export const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
 export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935'
+
+export const SHAKKA_POOLS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: ETH_SHAKKA_POOL,
+  [ChainId.KOVAN]: KOVAN_SHAKKA_POOL,
+  [ChainId.BSC]: BSC_SHAKKA_POOL,
+  [ChainId.POLYGON]: POLYGON_SHAKKA_POOL,
+};
 
 export const TOKEN_PRICE_SLUGS: string[] = [
   'ethereum',

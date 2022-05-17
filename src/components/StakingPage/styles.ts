@@ -77,6 +77,11 @@ export default {
     gridTemplateColumns: '1fr 1fr',
   },
 
+  stakeInfoWrapper: {
+    paddingTop: '40px',
+    paddingRight: '80px',
+  },
+
   hr: {
     backgroundColor: '#dae1e3',
     border: 'none',

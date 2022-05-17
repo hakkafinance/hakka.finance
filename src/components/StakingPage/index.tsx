@@ -23,6 +23,7 @@ import {
   stakingMonth,
   SHAKKA_POOL,
   ChainNameWithIcon,
+  SHAKKA_POOLS,
 } from '../../constants';
 import { tryParseAmount } from '../../utils';
 import {
@@ -46,6 +47,9 @@ import _omit from 'lodash/omit';
 import ReactTooltip from 'react-tooltip';
 import VotingPowerSection from './StakingPanel/VotingPowerSection';
 import { botSideBarItems } from '../../containers/SideBar';
+import { useRewardsData } from '../../data/RewardsData';
+import { REWARD_POOLS } from '../../constants/rewards';
+import StakeInfo from './StakeInfo';
 
 const hakkaSupportChain = Object.keys(
   _omit(ChainNameWithIcon, ChainId.KOVAN)
@@ -190,6 +194,11 @@ const Staking = () => {
     return botSideBarItems.find((ele) => ele.name === 'governance').href!;
   }, []);
 
+  const currentShakkaRewardPoolAddress = SHAKKA_POOLS[chainId];
+
+  const rewardData = useRewardsData([currentShakkaRewardPoolAddress], [REWARD_POOLS[currentShakkaRewardPoolAddress]?.decimal || 18]);
+  const depositedBalance = account ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2) : '-';
+
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
@@ -241,9 +250,15 @@ const Staking = () => {
             active={activeChainTab}
             onChange={setActiveChainTab}
           ></TabGroup>
-          {/* TODO: modal trigger for dev. need to be removed */}
           <div sx={styles.gridBlock}>
-            <div>{/* staking number */}</div>
+            <div sx={styles.stakeInfoWrapper}>
+              <StakeInfo
+                totalStakedHakka={''}
+                totalSHakkaObtained={''}
+                sHakkaBalance={''}
+                farmingSHakka={depositedBalance}
+              />
+            </div>
             <StakingPanel
               isCorrectNetwork={isCorrectNetwork}
               chainId={ChainId.KOVAN}
@@ -258,9 +273,10 @@ const Staking = () => {
         <RedeemModal
           redeem={() => {}}
           // redeemState={redeemState}
+          sHakkaBalance={''}
+          sHakkaBalanceInFarming={depositedBalance}
         />
         {/* infoPart */}
-
         {/* link area */}
         <div sx={styles.sHakkaRewardLinkArea}>
           <hr sx={styles.hr} />
@@ -268,10 +284,10 @@ const Staking = () => {
             <span>Earn more Hakka</span>
             <a
               sx={styles.sHakkaRewardLinkBtn}
-              href={`/farms/${SHAKKA_POOL}`}
+              href={`/farms/${currentShakkaRewardPoolAddress}`}
               rel="noreferrer"
             >
-              <span>sHAKKA Reward</span>
+              <span>sHAKKA Pool</span>
               <img src={images.iconForwardGreen} />
             </a>
           </div>
@@ -288,3 +304,4 @@ const Staking = () => {
 };
 
 export default Staking;
+
