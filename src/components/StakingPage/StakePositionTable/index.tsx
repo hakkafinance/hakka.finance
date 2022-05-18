@@ -4,21 +4,21 @@ import { memo } from 'react';
 import Table from 'rc-table';
 import { useCallback, useState, useMemo } from 'react';
 import styles from './styles';
-import type { ITableData, IStakePositionItem, HakkaVaultState } from './types';
+import type { ITableData, HakkaVaultState } from './types';
 import { createRenderValue, renderExpiryDate, renderVaultIcon } from './TableComponent';
 import { formatUnits } from 'ethers/lib/utils';
 import { createBigNumberSort } from '../../../utils/sort';
+import { VaultType } from '../../../hooks/staking/useStakingVault';
 const { Column } = Table;
 
 interface IProps {
-  data: { result: IStakePositionItem }[];
+  data: VaultType[];
   onRedeem: (index: number) => void;
   onRestake: (index: number) => void;
-  setPositionIndex: (input: number) => void;
 }
 
 export default memo(function StakePositionTable(props: IProps) {
-  const { data, onRedeem, onRestake, setPositionIndex } = props;
+  const { data, onRedeem, onRestake } = props;
 
   const [showArchive, setShowArchive] = useState(false);
 
@@ -27,11 +27,11 @@ export default memo(function StakePositionTable(props: IProps) {
   }, []);
 
   const tableData: ITableData[] = useMemo(() => {
-    if (data.some(raw => !raw?.result)) return []
+    if (data.some(raw => !raw)) return []
     const archiveList: ITableData[] = [];
     const nonArchiveList: ITableData[] = [];
     data
-      .forEach(({ result: raw }, i) => {
+      .forEach((raw, i) => {
         const state: HakkaVaultState =
           +(raw.unlockTime.mul(1000).lte(Date.now()) && !raw.hakkaAmount.isZero()) +
           +!raw.hakkaAmount.isZero();
@@ -39,7 +39,6 @@ export default memo(function StakePositionTable(props: IProps) {
           ...raw, state,
           stakedHakkaStr: (+formatUnits(raw.hakkaAmount)).toFixed(4),
           sHakkaReceivedStr: (+formatUnits(raw.wAmount)).toFixed(4),
-          rowKey: i,
           index: i
         };
         if (state) {
