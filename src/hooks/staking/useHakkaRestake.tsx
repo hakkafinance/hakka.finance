@@ -6,7 +6,7 @@ import { BigNumber } from 'ethers';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
 
-import { useStakeV1Contract } from '../useContract';
+import { useStakeContract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 
 export enum RestakeState {
@@ -16,32 +16,31 @@ export enum RestakeState {
 
 export default function useHakkaRestake(
   stakeAddress: string,
-  spender: string,
+  index: number,
   amountParsed: BigNumber,
-  lockMonth: number,
+  sec: number,
 ): [RestakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
   const stakeState: RestakeState = useMemo(() => {
-    if (!spender) return RestakeState.UNKNOWN;
+    if (!index) return RestakeState.UNKNOWN;
 
     return currentTransaction
       ? RestakeState.PENDING
       : RestakeState.UNKNOWN;
-  }, [currentTransaction, spender]);
+  }, [currentTransaction, index]);
 
-  const stakeContract = useStakeV1Contract(stakeAddress);
-
+  const stakeContract = useStakeContract(stakeAddress);
+  Object.assign(window, {stakeContract});
   const restake = useCallback(async (): Promise<void> => {
-    if (!spender) {
-      console.error('no spender');
+    if (!index) {
+      console.error('no index');
       return;
     }
 
     try {
-      // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
-      const tx = await stakeContract.restake(spender, amountParsed, lockMonth * 2592000);
+      const tx = await stakeContract.restake(index, amountParsed, sec);
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -61,9 +60,9 @@ export default function useHakkaRestake(
     }
   }, [
     stakeContract,
-    spender,
+    index,
     amountParsed,
-    lockMonth,
+    sec,
   ]);
 
   return [stakeState, restake];

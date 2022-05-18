@@ -106,7 +106,7 @@ const Staking = () => {
           <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.votingPowerArea}>
-          {/* <VotingPowerContainer /> */}
+          <VotingPowerContainer />
 
           {/* governance navigation */}
           <a
@@ -152,7 +152,7 @@ const Staking = () => {
             </div>
             <StakingPanel
               isCorrectNetwork={isCorrectNetwork}
-              chainId={ChainId.KOVAN}
+              chainId={activeChainTab}
               toggleWalletModal={toggleWalletModal}
             ></StakingPanel>
           </div>
@@ -162,14 +162,14 @@ const Staking = () => {
         </div>
         <RedeemModal
           vaults={vaults}
-          chainId={chainId}
+          chainId={activeChainTab}
           account={account}
           index={positionIndex}
           sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
           sHakkaBalanceInFarming={depositedBalance}
         />
         <RestakeModal
-          chainId={chainId}
+          chainId={activeChainTab}
           account={account}
           index={positionIndex}
           vaults={vaults}

@@ -78,7 +78,7 @@ const RestakeModal = ({ vaults, index, account, chainId }: RestakeModalInterface
 
   const [restakeState, restake] = useHakkaRestake(
     NEW_SHAKKA_ADDRESSES[chainId],
-    account,
+    index,
     isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(inputAmount, 18),
     isKeepPeriodTheSame ? timeLeft : period,
   )

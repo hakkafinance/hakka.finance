@@ -40,7 +40,7 @@ const RedeemModal = ({
   const [inputAmount, setInputAmount] = useState('0');
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
   const vault = vaults[index]?.result;
-  const receiveHakkaAmount = unstakeReceivedAmount(index, inputAmount, vault);
+  const receiveHakkaAmount = unstakeReceivedAmount(inputAmount, vault);
 
   const [unstakeState, unstake] = useHakkaUnstake(
     NEW_SHAKKA_ADDRESSES[chainId as ChainId],

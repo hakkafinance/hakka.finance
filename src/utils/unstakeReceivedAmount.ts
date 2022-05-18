@@ -1,6 +1,6 @@
 import { formatUnits } from "ethers/lib/utils";
 
-export function unstakeReceivedAmount(index: number, withdrawAmount: string, vault?: any): string | undefined {
+export function unstakeReceivedAmount(withdrawAmount: string, vault?: any): string | undefined {
   if(!(vault && vault.wAmount && vault.hakkaAmount)) {
     return undefined;
   }
