@@ -27,6 +27,10 @@ interface IProps {
   chainId: ChainId;
 }
 
+const StakeButton = withApproveTokenCheckWrapper(
+  withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
+);
+
 export default function StakingPanel(props: IProps) {
   const { isCorrectNetwork, toggleWalletModal, chainId } = props;
   const { account } = useWeb3React();
@@ -42,9 +46,6 @@ export default function StakingPanel(props: IProps) {
     inputAmount
   );
 
-  const StakeButton = withApproveTokenCheckWrapper(
-    withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
-  );
 
   // TODO, use on staking
   const [secondTimer, setSecondTimer] = useState<number>(124416000);
