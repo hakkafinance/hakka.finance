@@ -1,8 +1,9 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Contract as MulticallContract, Provider as MulticallProvider } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from '@ethersproject/bignumber';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { useEffect, useMemo, useState } from 'react';
+import { Zero } from '@ethersproject/constants';
 import debounce from 'lodash.debounce';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../constants';
 import { useBlockNumber } from '../state/application/hooks';
@@ -43,17 +44,27 @@ export default function useStakedHakka(): {
     const fetchStakedHakka = async () => {
       setTransactionSuccess(false);
       try {
-        const [ethStakedHakka, bscStakedHakka, polygonStakedHakka, kovanStakedHakka] = await Promise.all([
-          getStakedHakka(ChainId.MAINNET),
-          getStakedHakka(ChainId.BSC),
-          getStakedHakka(ChainId.POLYGON),
+        // const [ethStakedHakka, bscStakedHakka, polygonStakedHakka, kovanStakedHakka] = await Promise.all([
+        //   getStakedHakka(ChainId.MAINNET),
+        //   getStakedHakka(ChainId.BSC),
+        //   getStakedHakka(ChainId.POLYGON),
+        //   getStakedHakka(ChainId.KOVAN),
+        // ]);
+
+        const [kovanStakedHakka] = await Promise.all([
           getStakedHakka(ChainId.KOVAN),
         ]);
         
+        // setStakedHakka({
+        //   [ChainId.MAINNET]: ethStakedHakka,
+        //   [ChainId.BSC]: bscStakedHakka,
+        //   [ChainId.POLYGON]: polygonStakedHakka,
+        //   [ChainId.KOVAN]: kovanStakedHakka});
+
         setStakedHakka({
-          [ChainId.MAINNET]: ethStakedHakka,
-          [ChainId.BSC]: bscStakedHakka,
-          [ChainId.POLYGON]: polygonStakedHakka,
+          [ChainId.MAINNET]: Zero,
+          [ChainId.BSC]: Zero,
+          [ChainId.POLYGON]: Zero,
           [ChainId.KOVAN]: kovanStakedHakka});
         setTransactionSuccess(true);
       } catch (e) {

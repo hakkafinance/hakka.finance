@@ -25,6 +25,7 @@ import { tryParseAmount } from '../../utils';
 import {
   useWalletModalToggle,
   useRedeemModalToggle,
+  useRestakeModalToggle,
 } from '../../state/application/hooks';
 import { TabGroup } from '../Common/TabGroup';
 
@@ -43,6 +44,7 @@ import StakeInfo from './StakeInfo';
 import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
 import useVotingPower from '../../hooks/useVotingPower';
 import VotingPowerContainer from '../../containers/VotingPowerContainer';
+import useStakedHakka from '../../hooks/useStakedHakka';
 
 const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
@@ -63,6 +65,7 @@ const Staking = () => {
 
   const toggleWalletModal = useWalletModalToggle();
   const toggleRedeemModal = useRedeemModalToggle();
+  const toggleRestakeModal = useRestakeModalToggle();
 
   const isCorrectNetwork = useMemo<boolean>(() => {
     if (chainId) {
@@ -79,7 +82,7 @@ const Staking = () => {
 
   const { votingPowerInfo } = useVotingPower();
 
-  const currentShakkaRewardPoolAddress = SHAKKA_POOLS[chainId];
+  const currentShakkaRewardPoolAddress = SHAKKA_POOLS[activeChainTab];
 
   const rewardData = useRewardsData(
     [currentShakkaRewardPoolAddress],
@@ -90,9 +93,10 @@ const Staking = () => {
     : '-';
 
   const totalSHakkaObtained =
-    (+formatUnits(votingPowerInfo[chainId] ?? Zero)).toFixed(2) || '-';
+    (+formatUnits(votingPowerInfo[activeChainTab] ?? Zero)).toFixed(2) || '-';
 
-  const sHakkaBalance = useSHakkaBalance()
+  const { sHakkaBalanceInfo } = useSHakkaBalance();
+  const { stakedHakka } = useStakedHakka();
 
   return (
     <div sx={styles.container}>
@@ -102,7 +106,7 @@ const Staking = () => {
           <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.votingPowerArea}>
-          <VotingPowerContainer />
+          {/* <VotingPowerContainer /> */}
 
           {/* governance navigation */}
           <a
@@ -140,9 +144,9 @@ const Staking = () => {
           <div sx={styles.gridBlock}>
             <div sx={styles.stakeInfoWrapper}>
               <StakeInfo
-                totalStakedHakka={stakingBalance?.toFixed(2)}
+                totalStakedHakka={stakedHakka?.[activeChainTab] ? parseFloat(formatUnits(stakedHakka[activeChainTab], 18)).toFixed(2) : '-'}
                 totalSHakkaObtained={totalSHakkaObtained}
-                sHakkaBalance={sHakkaBalance?.toFixed(2)}
+                sHakkaBalance={sHakkaBalanceInfo?.[activeChainTab] ? parseFloat(formatUnits(sHakkaBalanceInfo[activeChainTab], 18)).toFixed(2) : '-'}
                 farmingSHakka={depositedBalance}
               />
             </div>
@@ -157,10 +161,11 @@ const Staking = () => {
           <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
+          vaults={vaults}
           chainId={chainId}
           account={account}
           index={positionIndex}
-          sHakkaBalance={sHakkaBalance[chainId]}
+          sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
           sHakkaBalanceInFarming={depositedBalance}
         />
         {/* infoPart */}
@@ -182,8 +187,14 @@ const Staking = () => {
         {/* table */}
         <StakePositionTable
           data={vaults}
-          onRedeem={toggleRedeemModal}
-          onRestake={() => {}}
+          onRedeem={(index) => {
+            setPositionIndex(index);
+            toggleRedeemModal();
+          }}
+          onRestake={(index) => {
+            setPositionIndex(index);
+            toggleRestakeModal();
+          }}
           setPositionIndex={setPositionIndex}
         />
       </div>

@@ -15,10 +15,11 @@ import NumericalInputField from '../NumericalInputField';
 import { ApprovalState } from '../../hooks/useTokenApprove';
 import { ChainId, NEW_SHAKKA_ADDRESSES, UnstakeState } from '../../constants';
 import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
-import useStakingVault from '../../hooks/staking/useStakingVault';
 import { unstakeReceivedAmount } from '../../utils/unstakeReceivedAmount';
+import { tryParseAmount } from '../../utils';
 
 interface RedeemModalInterface {
+  vaults?: any[];
   chainId: ChainId;
   account: string;
   index: number;
@@ -27,6 +28,7 @@ interface RedeemModalInterface {
 }
 
 const RedeemModal = ({ 
+  vaults,
   chainId, 
   account, 
   index, 
@@ -37,7 +39,7 @@ const RedeemModal = ({
   const toggleRedeemModal = useRedeemModalToggle();
   const [inputAmount, setInputAmount] = useState('0');
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
-  const {vault} = useStakingVault();
+  const vault = vaults[index]?.result;
   const receiveHakkaAmount = unstakeReceivedAmount(index, inputAmount, vault);
 
   const [unstakeState, unstake] = useHakkaUnstake(
@@ -46,6 +48,7 @@ const RedeemModal = ({
     index,
     parseUnits(inputAmount || '0'),
   );
+  const sHakkaCurrencyAmount = tryParseAmount(sHakkaBalance);
 
   return (
     <Modal
@@ -59,13 +62,13 @@ const RedeemModal = ({
         </div>
         <div sx={styles.hakkaBalanceContainer}>
           <span>Burn</span>
-          <span>sHAKKA Balance: {sHakkaBalance || '-'}</span>
+          <span>sHAKKA Balance: {parseFloat(sHakkaBalance).toFixed(2) || '-'}</span>
         </div>
         <div sx={styles.numericalInputWrapper}>
           <NumericalInputField
             value={inputAmount}
             onUserInput={setInputAmount}
-            tokenBalance={sHakkaBalance as any}
+            tokenBalance={sHakkaCurrencyAmount}
             approve={()=>{}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
             setIsCorrectInput={setIsCorrectInput}
@@ -87,7 +90,7 @@ const RedeemModal = ({
             <span>{receiveHakkaAmount || '-'}</span>
           </div>
         </div>
-        <MyButton onClick={unstake} styleKit='green' disabled={isCorrectInput || unstakeState === UnstakeState.PENDING}>
+        <MyButton onClick={unstake} styleKit='green' disabled={!isCorrectInput || unstakeState === UnstakeState.PENDING}>
           {unstakeState === UnstakeState.PENDING ? 'Pending' : 'Confirm'}
         </MyButton>
       </div>

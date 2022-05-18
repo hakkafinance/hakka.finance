@@ -11,7 +11,7 @@ import { createBigNumberSort } from '../../../utils/sort';
 const { Column } = Table;
 
 interface IProps {
-  data: {result: IStakePositionItem}[];
+  data: { result: IStakePositionItem }[];
   onRedeem: (index: number) => void;
   onRestake: (index: number) => void;
   setPositionIndex: (input: number) => void;
@@ -31,7 +31,7 @@ export default memo(function StakePositionTable(props: IProps) {
     const archiveList: ITableData[] = [];
     const nonArchiveList: ITableData[] = [];
     data
-      .forEach(({result: raw}) => {
+      .forEach(({ result: raw }, i) => {
         const state: HakkaVaultState =
           +(raw.unlockTime.mul(1000).lte(Date.now()) && !raw.hakkaAmount.isZero()) +
           +!raw.hakkaAmount.isZero();
@@ -39,7 +39,8 @@ export default memo(function StakePositionTable(props: IProps) {
           ...raw, state,
           stakedHakkaStr: (+formatUnits(raw.hakkaAmount)).toFixed(4),
           sHakkaReceivedStr: (+formatUnits(raw.wAmount)).toFixed(4),
-          rowKey: raw.index
+          rowKey: i,
+          index: i
         };
         if (state) {
           nonArchiveList.push(_tmpRaw);
@@ -59,20 +60,12 @@ export default memo(function StakePositionTable(props: IProps) {
       return (
         <div>
           {state > 1 && (
-            <button sx={styles.button} onClick={() => {
-                onRedeem(record.index);
-                setPositionIndex(record.index);
-              }}
-            >
+            <button sx={styles.button} onClick={() => onRedeem(record.index)}>
               Redeem
             </button>
           )}
           {state > 0 && (
-            <button sx={styles.button} onClick={() => {
-                onRestake(record.index)
-                setPositionIndex(record.index);
-              }}
-            >
+            <button sx={styles.button} onClick={() => onRestake(record.index)}>
               Restake
             </button>
           )}

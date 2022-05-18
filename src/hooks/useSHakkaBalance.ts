@@ -3,9 +3,10 @@ import { useWeb3React } from '@web3-react/core';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
 import debounce from 'lodash.debounce';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Zero } from '@ethersproject/constants';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { ChainId } from '../constants';
 import { useEffect, useMemo, useState } from 'react';
-import { JsonRpcProvider } from '@ethersproject/providers';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 
@@ -44,17 +45,26 @@ export default function useSHakkaBalance(): {
     const fetchSHakkaBalance = async () => {
       setTransactionSuccess(false);
       try {
-        const [ethSHakkaBalance, bscSHakkaBalance, polygonSHakkaBalance, kovanSHakkaBalance] = await Promise.all([
-          getSHakkaBalance(ChainId.MAINNET),
-          getSHakkaBalance(ChainId.BSC),
-          getSHakkaBalance(ChainId.POLYGON),
+        // const [ethSHakkaBalance, bscSHakkaBalance, polygonSHakkaBalance, kovanSHakkaBalance] = await Promise.all([
+        //   getSHakkaBalance(ChainId.MAINNET),
+        //   getSHakkaBalance(ChainId.BSC),
+        //   getSHakkaBalance(ChainId.POLYGON),
+        //   getSHakkaBalance(ChainId.KOVAN),
+        // ]);
+
+        const [kovanSHakkaBalance] = await Promise.all([
           getSHakkaBalance(ChainId.KOVAN),
         ]);
         
+        // setSHakkaBalanceInfo({
+        //   [ChainId.MAINNET]: ethSHakkaBalance,
+        //   [ChainId.BSC]: bscSHakkaBalance,
+        //   [ChainId.POLYGON]: polygonSHakkaBalance,
+        //   [ChainId.KOVAN]: kovanSHakkaBalance});
         setSHakkaBalanceInfo({
-          [ChainId.MAINNET]: ethSHakkaBalance,
-          [ChainId.BSC]: bscSHakkaBalance,
-          [ChainId.POLYGON]: polygonSHakkaBalance,
+          [ChainId.MAINNET]: Zero,
+          [ChainId.BSC]: Zero,
+          [ChainId.POLYGON]: Zero,
           [ChainId.KOVAN]: kovanSHakkaBalance});
         setTransactionSuccess(true);
       } catch (e) {
