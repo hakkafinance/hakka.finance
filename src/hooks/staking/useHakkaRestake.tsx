@@ -9,31 +9,31 @@ import { ExternalLink } from 'react-feather';
 import { useStakeV1Contract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 
-export enum StakeState {
+export enum RestakeState {
   UNKNOWN,
   PENDING
 }
 
-export function useHakkaStake(
+export default function useHakkaRestake(
   stakeAddress: string,
   spender: string,
   amountParsed: BigNumber,
   lockMonth: number,
-): [StakeState, () => Promise<void>] {
+): [RestakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const stakeState: StakeState = useMemo(() => {
-    if (!spender) return StakeState.UNKNOWN;
+  const stakeState: RestakeState = useMemo(() => {
+    if (!spender) return RestakeState.UNKNOWN;
 
     return currentTransaction
-      ? StakeState.PENDING
-      : StakeState.UNKNOWN;
+      ? RestakeState.PENDING
+      : RestakeState.UNKNOWN;
   }, [currentTransaction, spender]);
 
   const stakeContract = useStakeV1Contract(stakeAddress);
 
-  const stake = useCallback(async (): Promise<void> => {
+  const restake = useCallback(async (): Promise<void> => {
     if (!spender) {
       console.error('no spender');
       return;
@@ -66,5 +66,5 @@ export function useHakkaStake(
     lockMonth,
   ]);
 
-  return [stakeState, stake];
+  return [stakeState, restake];
 }

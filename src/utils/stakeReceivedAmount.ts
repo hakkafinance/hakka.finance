@@ -19,7 +19,6 @@ export function stakeReceivedAmount(
 };
 
 export function restakeReceivedAmount(
-  index: number,
   amount: string, 
   year: string, // the unit is year
   stakingRate?: BigNumber,
@@ -31,8 +30,8 @@ if (!stakingRate || !vault) {
 if (parseFloat(year) >  4 || parseFloat(year) < THIRTY_MINS_FRACTIONS_OF_YEAR) {
   return [];
 }
-const totalStakedHakka = parseFloat(formatUnits(vault[index].hakkaAmount, 18)) + parseFloat(amount);
+const totalStakedHakka = parseFloat(formatUnits(vault.hakkaAmount, 18)) + parseFloat(amount);
 const receivedSHakkaAmount = stakeFormula(totalStakedHakka, year, stakingRate);
-const additionalSHakkaAmount = receivedSHakkaAmount - parseFloat(formatUnits(vault[index].wAmount, 18));
+const additionalSHakkaAmount = receivedSHakkaAmount - parseFloat(formatUnits(vault.wAmount, 18));
 return [receivedSHakkaAmount.toFixed(4), additionalSHakkaAmount.toFixed(4)];
 };

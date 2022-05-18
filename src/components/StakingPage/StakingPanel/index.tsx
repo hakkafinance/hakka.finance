@@ -13,6 +13,7 @@ import { StakeState } from '../../../hooks/staking/useHakkaStakeV1';
 import useStakingRate from '../../../hooks/staking/useStakingRate';
 import { ApprovalState, useTokenApprove } from '../../../hooks/useTokenApprove';
 import { useTokenBalance } from '../../../state/wallet/hooks';
+import { transferToYear } from '../../../utils';
 import { stakeReceivedAmount } from '../../../utils/stakeReceivedAmount';
 import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
@@ -24,13 +25,6 @@ interface IProps {
   isCorrectNetwork: boolean;
   toggleWalletModal: () => void;
   chainId: ChainId;
-}
-
-function transferToYear(sec: number): string {
-  // 360 days in a year
-  return BigNumber.from(sec)
-    .div(31104000)
-    .toString();
 }
 
 export default function StakingPanel(props: IProps) {

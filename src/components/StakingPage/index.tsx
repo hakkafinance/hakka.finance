@@ -41,10 +41,10 @@ import { botSideBarItems } from '../../containers/SideBar';
 import { useRewardsData } from '../../data/RewardsData';
 import { REWARD_POOLS } from '../../constants/rewards';
 import StakeInfo from './StakeInfo';
-import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
 import useVotingPower from '../../hooks/useVotingPower';
 import VotingPowerContainer from '../../containers/VotingPowerContainer';
 import useStakedHakka from '../../hooks/useStakedHakka';
+import RestakeModal from '../RestakeModal';
 
 const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
@@ -167,6 +167,12 @@ const Staking = () => {
           index={positionIndex}
           sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
           sHakkaBalanceInFarming={depositedBalance}
+        />
+        <RestakeModal
+          chainId={chainId}
+          account={account}
+          index={positionIndex}
+          vaults={vaults}
         />
         {/* infoPart */}
         {/* link area */}
