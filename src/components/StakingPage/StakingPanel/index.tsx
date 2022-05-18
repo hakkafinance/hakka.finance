@@ -77,7 +77,7 @@ export default function StakingPanel(props: IProps) {
       </div>
       <NumericalInputField
         value={inputAmount}
-        onUserInput={setInputAmount}
+        onUserInput={val => setInputAmount(val || '0')}
         tokenBalance={hakkaBalance}
         approve={approve}
         approveState={approveState}

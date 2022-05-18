@@ -23,9 +23,7 @@ export default function useVotingPower(): {
 } {
   const { account } = useWeb3React();
   const latestBlockNumber = useBlockNumber();
-  const [votingPowerInfo, setVotingPowerInfo] = useState<VotingPowerType>(
-    {} as VotingPowerType
-  );
+  const [votingPowerInfo, setVotingPowerInfo] = useState<VotingPowerType>({});
   const [transactionSuccess, setTransactionSuccess] = useState(false);
 
   const fetchDataState: ChainDataFetchingState = useMemo(() => {
@@ -54,7 +52,6 @@ export default function useVotingPower(): {
   }, []);
 
   const getVotingPower = useCallback(async (chainId: ChainId) => {
-    if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return Zero;
     const multicallProvider = new MulticallProvider(
       providers[chainId],
       chainId
@@ -62,7 +59,7 @@ export default function useVotingPower(): {
     const sHakkaContract = new MulticallContract(
       NEW_SHAKKA_ADDRESSES[chainId],
       STAKING_ABI
-    )
+    );
     const [votingPower] = await multicallProvider.all([
       sHakkaContract.votingPower(account),
     ]);
@@ -98,7 +95,7 @@ export default function useVotingPower(): {
   }, []);
 
   const debouncedFetchVotingPower = useMemo(
-    () => debounce(fetchVotingPower, 200),
+    () => debounce(fetchVotingPower, 200, { leading: true, trailing: true }),
     []
   );
 
