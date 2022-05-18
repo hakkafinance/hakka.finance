@@ -11,6 +11,7 @@ import Web3Status from '../Web3Status';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
+import useSHakkaBalance from '../../hooks/useSHakkaBalance';
 import {
   ChainId,
   HAKKA,
@@ -52,12 +53,10 @@ const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
 });
 
 const Staking = () => {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, connector } = useWeb3React();
+  const [positionIndex, setPositionIndex] = useState<number>(undefined);
 
   const {
-    stakingBalance,
-    sHakkaBalance,
-    votingPower,
     stakingRate,
     vaults,
   } = useStakingData('v2');
@@ -92,6 +91,8 @@ const Staking = () => {
 
   const totalSHakkaObtained =
     (+formatUnits(votingPowerInfo[chainId] ?? Zero)).toFixed(2) || '-';
+
+  const sHakkaBalance = useSHakkaBalance()
 
   return (
     <div sx={styles.container}>
@@ -156,9 +157,10 @@ const Staking = () => {
           <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
-          redeem={() => {}}
-          // redeemState={redeemState}
-          sHakkaBalance={''}
+          chainId={chainId}
+          account={account}
+          index={positionIndex}
+          sHakkaBalance={sHakkaBalance[chainId]}
           sHakkaBalanceInFarming={depositedBalance}
         />
         {/* infoPart */}
@@ -180,8 +182,9 @@ const Staking = () => {
         {/* table */}
         <StakePositionTable
           data={vaults}
-          onRedeem={() => {}}
+          onRedeem={toggleRedeemModal}
           onRestake={() => {}}
+          setPositionIndex={setPositionIndex}
         />
       </div>
     </div>

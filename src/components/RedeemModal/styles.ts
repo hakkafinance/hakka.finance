@@ -5,6 +5,7 @@ export default {
   },  
   
   container: {
+    width: '100%',
     position: 'relative',
     padding: '25px',
     color: '#253e47',

@@ -14,10 +14,11 @@ interface IProps {
   data: {result: IStakePositionItem}[];
   onRedeem: (index: number) => void;
   onRestake: (index: number) => void;
+  setPositionIndex: (input: number) => void;
 }
 
 export default memo(function StakePositionTable(props: IProps) {
-  const { data, onRedeem, onRestake } = props;
+  const { data, onRedeem, onRestake, setPositionIndex } = props;
 
   const [showArchive, setShowArchive] = useState(false);
 
@@ -58,12 +59,20 @@ export default memo(function StakePositionTable(props: IProps) {
       return (
         <div>
           {state > 1 && (
-            <button sx={styles.button} onClick={() => onRedeem(record.index)}>
+            <button sx={styles.button} onClick={() => {
+                onRedeem(record.index);
+                setPositionIndex(record.index);
+              }}
+            >
               Redeem
             </button>
           )}
           {state > 0 && (
-            <button sx={styles.button} onClick={() => onRestake(record.index)}>
+            <button sx={styles.button} onClick={() => {
+                onRestake(record.index)
+                setPositionIndex(record.index);
+              }}
+            >
               Restake
             </button>
           )}
