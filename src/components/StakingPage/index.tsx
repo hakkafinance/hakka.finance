@@ -1,21 +1,16 @@
 /** @jsx jsx */
-import { Box, Flex, jsx } from 'theme-ui';
-import { useState, useMemo, useCallback } from 'react';
-import { parseUnits } from '@ethersproject/units';
+import { jsx } from 'theme-ui';
+import { useState, useMemo, useRef } from 'react';
+import { formatUnits } from '@ethersproject/units';
+import { Zero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
 import { AddressZero } from '@ethersproject/constants';
 import images from '../../images';
 import styles from './styles';
-import { MyButton } from '../../components/Common';
 import Web3Status from '../Web3Status';
-import NumericalInputField from '../NumericalInputField';
 import { useTokenBalance } from '../../state/wallet/hooks';
 import { useStakingData } from '../../data/StakingData';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import {
-  useHakkaStakeV1,
-  StakeState,
-} from '../../hooks/staking/useHakkaStakeV1';
 import {
   ChainId,
   HAKKA,
@@ -30,121 +25,45 @@ import {
   useWalletModalToggle,
   useRedeemModalToggle,
 } from '../../state/application/hooks';
-import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
-import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
-import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import { TabGroup } from '../Common/TabGroup';
 
 import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
 import StakePositionTable from './StakePositionTable';
 
-import { BigNumber } from 'ethers';
-import { WeiPerEther } from '@ethersproject/constants';
 import StakingPanel from './StakingPanel';
 
 import _omit from 'lodash/omit';
 import ReactTooltip from 'react-tooltip';
-import VotingPowerSection from './StakingPanel/VotingPowerSection';
 import { botSideBarItems } from '../../containers/SideBar';
 import { useRewardsData } from '../../data/RewardsData';
 import { REWARD_POOLS } from '../../constants/rewards';
 import StakeInfo from './StakeInfo';
+import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
+import useVotingPower from '../../hooks/useVotingPower';
+import VotingPowerContainer from '../../containers/VotingPowerContainer';
 
-const hakkaSupportChain = Object.keys(
-  _omit(ChainNameWithIcon, ChainId.KOVAN)
-).map((key) => {
+const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
     value: +key as ChainId,
     title: ChainNameWithIcon[+key as ChainId].name,
     icon: ChainNameWithIcon[+key as ChainId].iconName,
   };
 });
-const mockingData = [
-  {
-    index: 0,
-    stakedHakka: WeiPerEther,
-    sHakkaReceived: WeiPerEther,
-    until: BigNumber.from(`${~~(Date.now() / 1000) + 1036800}`),
-  },
-  {
-    index: 1,
-    stakedHakka: WeiPerEther.mul(2),
-    sHakkaReceived: WeiPerEther.mul(2),
-    until: BigNumber.from(`${~~(Date.now() / 1000) - 1036800}`),
-  },
-  {
-    index: 2,
-    stakedHakka: BigNumber.from('0'),
-    sHakkaReceived: BigNumber.from('0'),
-    until: BigNumber.from(`${~~(Date.now() / 1000)}`),
-  },
-];
 
 const Staking = () => {
-  const { account, chainId, connector } = useWeb3React();
-  const [inputAmount, setInputAmount] = useState<string>('0');
-  const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
+  const { account, chainId } = useWeb3React();
 
-  // TODO: use new token balance
-  const hakkaBalance = useTokenBalance(
-    account as string,
-    HAKKA[chainId as ChainId]
-  );
   const {
     stakingBalance,
     sHakkaBalance,
     votingPower,
     stakingRate,
     vaults,
-  } = useStakingData();
-
-  const [approveState, approve] = useTokenApprove(
-    HAKKA[chainId as ChainId],
-    NEW_SHAKKA_ADDRESSES[chainId as ChainId],
-    inputAmount
-  );
-
-  const [lockTime, setLockTime] = useState<number>(12);
-  const timeOption: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-  };
-  const lockUntil = useMemo(
-    () =>
-      new Date(Date.now() + lockTime * 2592000 * 1000).toLocaleString(
-        'en-US',
-        timeOption
-      ),
-    [lockTime]
-  );
-
-  const sHakkaPreview = useMemo(
-    () =>
-      stakingRate && inputAmount
-        ? tryParseAmount(stakingRate[stakingMonth.indexOf(lockTime)])
-            .multiply(tryParseAmount(inputAmount))
-            .divide((1e18).toString())
-        : 0,
-    [lockTime, stakingRate, inputAmount]
-  );
-
-  const [stakeState, stake] = useHakkaStakeV1(
-    NEW_SHAKKA_ADDRESSES[chainId as ChainId],
-    account,
-    parseUnits(inputAmount || '0'),
-    lockTime
-  );
+  } = useStakingData('v2');
 
   const toggleWalletModal = useWalletModalToggle();
   const toggleRedeemModal = useRedeemModalToggle();
-
-  const StakeButton = withApproveTokenCheckWrapper(
-    withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
-  );
-
-  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
   const isCorrectNetwork = useMemo<boolean>(() => {
     if (chainId) {
@@ -153,51 +72,26 @@ const Staking = () => {
     return true;
   }, [chainId]);
 
-  const [unarchivePosition, archivedPosition] = useMemo(() => {
-    let archivedPosition = [];
-    let unarchivePosition = [];
-
-    vaults.forEach((vault, index) => {
-      if (vault?.result?.hakkaAmount.isZero()) {
-        archivedPosition.push({ ...vault, index: index });
-      } else {
-        unarchivePosition.push({ ...vault, index: index });
-      }
-    });
-
-    archivedPosition = archivedPosition.reverse();
-    return [unarchivePosition, archivedPosition];
-  }, [vaults]);
-
-  const sortedUnarchivePosition = useMemo(() => {
-    if (isSortByUnlockTime) {
-      unarchivePosition.sort(function(a, b) {
-        return a?.result?.unlockTime - b?.result?.unlockTime;
-      });
-      return unarchivePosition;
-    } else {
-      unarchivePosition.sort(function(a, b) {
-        return b?.index - a?.index;
-      });
-      return unarchivePosition;
-    }
-  }, [isSortByUnlockTime, unarchivePosition]);
-
-  const handleSortBtnClick = useCallback(
-    () => setIsSortByUnlockTime(!isSortByUnlockTime),
-    [isSortByUnlockTime]
-  );
-
   const [activeChainTab, setActiveChainTab] = useState(ChainId.MAINNET);
 
   const governanceLink = useMemo(() => {
     return botSideBarItems.find((ele) => ele.name === 'governance').href!;
   }, []);
 
+  const { votingPowerInfo } = useVotingPower();
+
   const currentShakkaRewardPoolAddress = SHAKKA_POOLS[chainId];
 
-  const rewardData = useRewardsData([currentShakkaRewardPoolAddress], [REWARD_POOLS[currentShakkaRewardPoolAddress]?.decimal || 18]);
-  const depositedBalance = account ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2) : '-';
+  const rewardData = useRewardsData(
+    [currentShakkaRewardPoolAddress],
+    [REWARD_POOLS[currentShakkaRewardPoolAddress]?.decimal || 18]
+  );
+  const depositedBalance = account
+    ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2)
+    : '-';
+
+  const totalSHakkaObtained =
+    (+formatUnits(votingPowerInfo[chainId] ?? Zero)).toFixed(2) || '-';
 
   return (
     <div sx={styles.container}>
@@ -207,15 +101,7 @@ const Staking = () => {
           <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.votingPowerArea}>
-          {/* TODO: check the fake data */}
-          <VotingPowerArea
-            totalVotingPower={'100.00'}
-            v1VotingPowerProportion={'66'}
-            v2VotingPowerProportion={'34'}
-            ethProportion={'33.33'}
-            bscProportion={'33.33'}
-            polygonProportion={'33.33'}
-          />
+          <VotingPowerContainer />
 
           {/* governance navigation */}
           <a
@@ -253,9 +139,9 @@ const Staking = () => {
           <div sx={styles.gridBlock}>
             <div sx={styles.stakeInfoWrapper}>
               <StakeInfo
-                totalStakedHakka={''}
-                totalSHakkaObtained={''}
-                sHakkaBalance={''}
+                totalStakedHakka={stakingBalance?.toFixed(2)}
+                totalSHakkaObtained={totalSHakkaObtained}
+                sHakkaBalance={sHakkaBalance?.toFixed(2)}
                 farmingSHakka={depositedBalance}
               />
             </div>
@@ -263,7 +149,6 @@ const Staking = () => {
               isCorrectNetwork={isCorrectNetwork}
               chainId={ChainId.KOVAN}
               toggleWalletModal={toggleWalletModal}
-              stakeState={stakeState}
             ></StakingPanel>
           </div>
           {/* info-panel */}
@@ -294,7 +179,7 @@ const Staking = () => {
         </div>
         {/* table */}
         <StakePositionTable
-          data={mockingData}
+          data={vaults}
           onRedeem={() => {}}
           onRestake={() => {}}
         />
@@ -304,4 +189,3 @@ const Staking = () => {
 };
 
 export default Staking;
-
