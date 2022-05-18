@@ -8,20 +8,13 @@ import { AddressZero } from '@ethersproject/constants';
 import images from '../../images';
 import styles from './styles';
 import Web3Status from '../Web3Status';
-import { useTokenBalance } from '../../state/wallet/hooks';
-import { useStakingData } from '../../data/StakingData';
-import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import useSHakkaBalance from '../../hooks/useSHakkaBalance';
 import {
   ChainId,
-  HAKKA,
   NEW_SHAKKA_ADDRESSES,
-  stakingMonth,
-  SHAKKA_POOL,
   ChainNameWithIcon,
   SHAKKA_POOLS,
 } from '../../constants';
-import { tryParseAmount } from '../../utils';
 import {
   useWalletModalToggle,
   useRedeemModalToggle,
@@ -29,7 +22,6 @@ import {
 } from '../../state/application/hooks';
 import { TabGroup } from '../Common/TabGroup';
 
-import VotingPowerArea from './VotingPower';
 import RedeemModal from '../RedeemModal';
 import StakePositionTable from './StakePositionTable';
 
@@ -45,6 +37,7 @@ import useVotingPower from '../../hooks/useVotingPower';
 import VotingPowerContainer from '../../containers/VotingPowerContainer';
 import useStakedHakka from '../../hooks/useStakedHakka';
 import RestakeModal from '../RestakeModal';
+import useStakingVault from '../../hooks/staking/useStakingVault';
 
 const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
@@ -55,13 +48,8 @@ const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
 });
 
 const Staking = () => {
-  const { account, chainId, connector } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const [positionIndex, setPositionIndex] = useState<number>(undefined);
-
-  const {
-    stakingRate,
-    vaults,
-  } = useStakingData('v2');
 
   const toggleWalletModal = useWalletModalToggle();
   const toggleRedeemModal = useRedeemModalToggle();
@@ -97,6 +85,8 @@ const Staking = () => {
 
   const { sHakkaBalanceInfo } = useSHakkaBalance();
   const { stakedHakka } = useStakedHakka();
+
+  const { vault } = useStakingVault(activeChainTab);
 
   return (
     <div sx={styles.container}>
@@ -144,9 +134,21 @@ const Staking = () => {
           <div sx={styles.gridBlock}>
             <div sx={styles.stakeInfoWrapper}>
               <StakeInfo
-                totalStakedHakka={stakedHakka?.[activeChainTab] ? parseFloat(formatUnits(stakedHakka[activeChainTab], 18)).toFixed(2) : '-'}
+                totalStakedHakka={
+                  stakedHakka?.[activeChainTab]
+                    ? parseFloat(
+                        formatUnits(stakedHakka[activeChainTab], 18)
+                      ).toFixed(2)
+                    : '-'
+                }
                 totalSHakkaObtained={totalSHakkaObtained}
-                sHakkaBalance={sHakkaBalanceInfo?.[activeChainTab] ? parseFloat(formatUnits(sHakkaBalanceInfo[activeChainTab], 18)).toFixed(2) : '-'}
+                sHakkaBalance={
+                  sHakkaBalanceInfo?.[activeChainTab]
+                    ? parseFloat(
+                        formatUnits(sHakkaBalanceInfo[activeChainTab], 18)
+                      ).toFixed(2)
+                    : '-'
+                }
                 farmingSHakka={depositedBalance}
               />
             </div>
@@ -161,7 +163,7 @@ const Staking = () => {
           <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
-          vaults={vaults}
+          vaults={vault}
           chainId={activeChainTab}
           account={account}
           index={positionIndex}
@@ -172,7 +174,9 @@ const Staking = () => {
           chainId={activeChainTab}
           account={account}
           index={positionIndex}
-          vaults={vaults}
+          vaults={vault}
+          toggleWalletModal={toggleWalletModal}
+          isCorrectNetwork={isCorrectNetwork}
         />
         {/* infoPart */}
         {/* link area */}
@@ -192,7 +196,7 @@ const Staking = () => {
         </div>
         {/* table */}
         <StakePositionTable
-          data={vaults}
+          data={vault}
           onRedeem={(index) => {
             setPositionIndex(index);
             toggleRedeemModal();
@@ -201,7 +205,6 @@ const Staking = () => {
             setPositionIndex(index);
             toggleRestakeModal();
           }}
-          setPositionIndex={setPositionIndex}
         />
       </div>
     </div>

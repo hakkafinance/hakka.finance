@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
 import { parseUnits } from 'ethers/lib/utils';
@@ -17,9 +17,10 @@ import { ChainId, NEW_SHAKKA_ADDRESSES, UnstakeState } from '../../constants';
 import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
 import { unstakeReceivedAmount } from '../../utils/unstakeReceivedAmount';
 import { tryParseAmount } from '../../utils';
+import { VaultType } from '../../hooks/staking/useStakingVault';
 
 interface RedeemModalInterface {
-  vaults?: any[];
+  vaults?: VaultType[];
   chainId: ChainId;
   account: string;
   index: number;
@@ -39,7 +40,7 @@ const RedeemModal = ({
   const toggleRedeemModal = useRedeemModalToggle();
   const [inputAmount, setInputAmount] = useState('0');
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
-  const vault = vaults[index]?.result;
+  const vault = vaults[index];
   const receiveHakkaAmount = unstakeReceivedAmount(inputAmount, vault);
 
   const [unstakeState, unstake] = useHakkaUnstake(
