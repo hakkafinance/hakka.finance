@@ -32,7 +32,6 @@ export default function useHakkaRestake(
   }, [currentTransaction, index]);
 
   const stakeContract = useStakeContract(stakeAddress);
-  Object.assign(window, {stakeContract});
   const restake = useCallback(async (): Promise<void> => {
     if (!index) {
       console.error('no index');
