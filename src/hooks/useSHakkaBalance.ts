@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
 import debounce from 'lodash.debounce';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Zero } from '@ethersproject/constants';
+import { Zero, AddressZero } from '@ethersproject/constants';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { ChainId } from '../constants';
 import { useEffect, useMemo, useState } from 'react';
@@ -35,14 +35,15 @@ export default function useSHakkaBalance(): {
       return {[ChainId.MAINNET]: ethProvider, [ChainId.BSC]: bscProvider, [ChainId.POLYGON]: polygonProvider, [ChainId.KOVAN]: kovanProvider};
     }, [])
 
-    const getSHakkaBalance = async (chainId: ChainId) => {
+    const getSHakkaBalance = async (chainId: ChainId, account: string) => {
       const multicallProvider = new MulticallProvider(providers[chainId], chainId);
       const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
       const [ sHakkaBalance ] = await multicallProvider.all([sHakkaContract.balanceOf(account)]);
       return sHakkaBalance;
     };
 
-    const fetchSHakkaBalance = async () => {
+    const fetchSHakkaBalance = async (account: string) => {
+      if (account === AddressZero || account === undefined) return undefined;
       setTransactionSuccess(false);
       try {
         // const [ethSHakkaBalance, bscSHakkaBalance, polygonSHakkaBalance, kovanSHakkaBalance] = await Promise.all([
@@ -53,7 +54,7 @@ export default function useSHakkaBalance(): {
         // ]);
 
         const [kovanSHakkaBalance] = await Promise.all([
-          getSHakkaBalance(ChainId.KOVAN),
+          getSHakkaBalance(ChainId.KOVAN, account),
         ]);
         
         // setSHakkaBalanceInfo({
@@ -76,8 +77,8 @@ export default function useSHakkaBalance(): {
     const debouncedFetchSHakkaBalance = useMemo(() => debounce(fetchSHakkaBalance, 200), [fetchSHakkaBalance]);
   
     useEffect(() => {
-      debouncedFetchSHakkaBalance();
-    }, [latestBlockNumber]);
+      debouncedFetchSHakkaBalance(account);
+    }, [latestBlockNumber, account]);
   
     return { sHakkaBalanceInfo, fetchDataState };
   }

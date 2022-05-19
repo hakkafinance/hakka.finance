@@ -62,8 +62,9 @@ export default function useStakingVault(
       : ChainDataFetchingState.LOADING;
   }, [transactionSuccess]);
 
-  const fetchVault = useCallback(async (chainId: ChainId) => {
+  const fetchVault = useCallback(async (chainId: ChainId, account: string) => {
     if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return;
+    if (account === AddressZero || !account) return;
     setTransactionSuccess(false);
     const multicallProvider = new MulticallProvider(
       chainProviders[chainId],
@@ -103,8 +104,8 @@ export default function useStakingVault(
   );
 
   useEffect(() => {
-    debouncedFetchVault(activeChainId);
-  }, [latestBlockNumber, activeChainId]);
+    debouncedFetchVault(activeChainId, account);
+  }, [latestBlockNumber, activeChainId, account]);
 
   return { vault: vaultCache[activeChainId] ?? [], vaultCount, fetchDataState };
 }

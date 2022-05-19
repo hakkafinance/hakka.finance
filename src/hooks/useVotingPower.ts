@@ -51,7 +51,9 @@ export default function useVotingPower(): {
     };
   }, []);
 
-  const getVotingPower = useCallback(async (chainId: ChainId) => {
+  const getVotingPower = useCallback(async (chainId: ChainId, account: string) => {
+    if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return undefined;
+    if (account === AddressZero || !account) return undefined;
     const multicallProvider = new MulticallProvider(
       providers[chainId],
       chainId
@@ -66,7 +68,7 @@ export default function useVotingPower(): {
     return votingPower;
   }, []);
 
-  const fetchVotingPower = useCallback(async () => {
+  const fetchVotingPower = useCallback(async (account: string) => {
     setTransactionSuccess(false);
     try {
       const [
@@ -75,10 +77,10 @@ export default function useVotingPower(): {
         polygonVotingPower,
         kovanVotingPower,
       ] = await Promise.all([
-        getVotingPower(ChainId.MAINNET),
-        getVotingPower(ChainId.BSC),
-        getVotingPower(ChainId.POLYGON),
-        getVotingPower(ChainId.KOVAN),
+        getVotingPower(ChainId.MAINNET, account),
+        getVotingPower(ChainId.BSC, account),
+        getVotingPower(ChainId.POLYGON, account),
+        getVotingPower(ChainId.KOVAN, account),
       ]);
 
       setVotingPowerInfo({
@@ -100,8 +102,8 @@ export default function useVotingPower(): {
   );
 
   useEffect(() => {
-    debouncedFetchVotingPower();
-  }, [latestBlockNumber]);
+    debouncedFetchVotingPower(account);
+  }, [latestBlockNumber, account]);
 
   return { votingPowerInfo, fetchVotingPowerState: fetchDataState };
 }
