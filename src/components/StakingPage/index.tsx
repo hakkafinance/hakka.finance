@@ -169,6 +169,8 @@ const Staking = () => {
           index={positionIndex}
           sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
           sHakkaBalanceInFarming={depositedBalance}
+          toggleWalletModal={toggleWalletModal}
+          isCorrectNetwork={isCorrectNetwork}
         />
         <RestakeModal
           chainId={activeChainTab}
