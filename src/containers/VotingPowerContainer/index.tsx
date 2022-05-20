@@ -5,7 +5,8 @@ import { Zero } from '@ethersproject/constants';
 import { ChainId } from '../../constants';
 import { useStakingData } from '../../data/StakingData';
 import useVotingPower from '../../hooks/useVotingPower';
-
+import { v1PowerWeighting } from '../../utils/votingPowerCal';
+const startDateSec = ~~(new Date('2022-05-16 17:00:00').getTime() / 1000);
 const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
 if (process.env.NODE_ENV === 'development') {
   availableList.push(ChainId.KOVAN);
@@ -22,10 +23,10 @@ const VotingPowerContainer = () => {
     v2PolygonProportion,
     // v2KovanProportion,
   ] = useMemo(() => {
-    const v1VotingPower = parseFloat(votingPower.toExact()) * 0.8;
-    const v2TotalPower = availableList.reduce((total, chainId) => {
+    const v1VotingPower = parseFloat(votingPower.toExact());
+    const v2TotalPower = parseFloat(formatUnits(availableList.reduce((total, chainId) => {
       return (votingPowerInfo[chainId] || Zero).add(total);
-    }, Zero);
+    }, Zero)));
     const v2VotingPower = parseFloat(formatUnits(v2TotalPower));
     const totalVotingPower = v1VotingPower + v2VotingPower;
     const v1Proportion = ((v1VotingPower / totalVotingPower) * 100).toFixed(2);
