@@ -11,6 +11,8 @@ interface VotingPowerAreaProps {
   ethProportion?: string;
   bscProportion?: string;
   polygonProportion?: string;
+  v1VotingPowerWeight: string;
+  v2VotingPowerWeight: string; 
 }
 
 interface ProportionItemProps {
@@ -28,7 +30,7 @@ const ProportionItem = ({ proportionValue, img }: ProportionItemProps) => {
 };
 
 const VotingPowerArea = (props: VotingPowerAreaProps) => {
-  const { totalVotingPower, v1VotingPowerProportion, v2VotingPowerProportion, ethProportion, bscProportion, polygonProportion } = props;
+  const { totalVotingPower, v1VotingPowerProportion, v2VotingPowerProportion, ethProportion, bscProportion, polygonProportion, v1VotingPowerWeight, v2VotingPowerWeight } = props;
 
   return(
     <div sx={styles.main}>
@@ -37,7 +39,7 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           <p>Voting Power</p>
           <img src={images.iconQuestion} data-tip data-for='votingPower' />
           <ReactTooltip id='votingPower' effect='solid' backgroundColor='#253E47'>
-            <span>Due to the version upgrade, the new <br /> voting power is derived from V1 x 0.8 + V2 x 1</span>
+            <span>Due to the version upgrade, the new <br /> voting power is derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
           </ReactTooltip>
         </div> 
         <div sx={styles.votingPowerValueWrapper}>
