@@ -22,9 +22,11 @@ export enum ChainDataFetchingState {
   SUCCESS,
 }
 
-export enum UnstakeState {
+export enum TransactionState {
   UNKNOWN,
-  PENDING
+  PENDING,
+  SUCCESS,
+  ERROR,
 }
 
 export const stakingMonth = [1, 3, 6, 12];

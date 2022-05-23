@@ -5,34 +5,31 @@ import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-
 import { useStakeContract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
-
-export enum RestakeState {
-  UNKNOWN,
-  PENDING
-}
+import { TransactionState } from '../../constants';
 
 export default function useHakkaRestake(
   stakeAddress: string,
   index: number,
   amountParsed: BigNumber,
   sec: number,
-): [RestakeState, () => Promise<void>] {
+): [TransactionState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
+  const [transactionState, setTransactionState] = useState<TransactionState>(TransactionState.UNKNOWN);
 
-  const stakeState: RestakeState = useMemo(() => {
-    if (!index) return RestakeState.UNKNOWN;
+  const stakeState: TransactionState = useMemo(() => {
+    if (!index) return TransactionState.UNKNOWN;
 
     return currentTransaction
-      ? RestakeState.PENDING
-      : RestakeState.UNKNOWN;
-  }, [currentTransaction, index]);
+      ? TransactionState.PENDING
+      : transactionState;
+  }, [currentTransaction, transactionState, index]);
 
   const stakeContract = useStakeContract(stakeAddress);
   const restake = useCallback(async (): Promise<void> => {
+    setTransactionState(TransactionState.UNKNOWN)
     if (!index) {
       console.error('no index');
       return;
@@ -52,8 +49,10 @@ export default function useHakkaRestake(
         </a>
       , { containerId: 'tx' });
       await tx.wait();
+      setTransactionState(TransactionState.SUCCESS);
     } catch (err) {
       toast.error(<div>{err.data ? JSON.stringify(err.data) : err.message}</div>,  { containerId: 'error' });
+      setTransactionState(TransactionState.ERROR);
     } finally {
       setCurrentTransaction(null);
     }

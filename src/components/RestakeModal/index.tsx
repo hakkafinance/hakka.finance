@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { jsx, Switch } from 'theme-ui';
-import { formatUnits, parseUnits } from 'ethers/lib/utils';
-import { WeiPerEther, Zero } from '@ethersproject/constants';
+import { parseUnits } from 'ethers/lib/utils';
+import { WeiPerEther } from '@ethersproject/constants';
 import {
   useRestakeModalOpen,
   useRestakeModalToggle,
@@ -16,10 +16,8 @@ import { ApprovalState, useTokenApprove } from '../../hooks/useTokenApprove';
 import VotingPowerSection from '../StakingPage/StakingPanel/VotingPowerSection';
 import LockPeriodOptions from '../StakingPage/StakingPanel/LockPeriodOptions.tsx';
 import { useTokenBalance } from '../../state/wallet/hooks';
-import { ChainId, HAKKA, NEW_SHAKKA_ADDRESSES } from '../../constants';
-import useHakkaRestake, {
-  RestakeState,
-} from '../../hooks/staking/useHakkaRestake';
+import { ChainId, HAKKA, NEW_SHAKKA_ADDRESSES, TransactionState } from '../../constants';
+import useHakkaRestake from '../../hooks/staking/useHakkaRestake';
 import { restakeReceivedAmount } from '../../utils/stakeReceivedAmount';
 import { transferToYear } from '../../utils';
 import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
@@ -134,18 +132,24 @@ const RestakeModal = ({
 
   const isDisable =
     (parseFloat(inputAmount) !== 0 && !isCorrectInput) ||
-    restakeState === RestakeState.PENDING ||
+    restakeState === TransactionState.PENDING ||
     (isKeepPeriodTheSame && isKeepAmountTheSame) ||
     parseFloat(additionalSHakkaAmount) <= 0 ||
     isLeftTimeLessThan30Mins;
 
-  const isRestakePending = restakeState === RestakeState.PENDING;
+  const isRestakePending = restakeState === TransactionState.PENDING;
 
   const btnContent = isRestakePending
     ? 'Pending'
     : isLeftTimeLessThan30Mins
     ? 'Insufficient extension period'
     : 'Confirm';
+
+  useEffect(() => {
+    if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
+      toggleRestakeModal()
+    }
+  }, [restakeState]);
 
   return (
     <Modal isOpen={restakeModalOpen} onDismiss={toggleRestakeModal}>

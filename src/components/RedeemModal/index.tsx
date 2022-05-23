@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
 import { parseUnits } from 'ethers/lib/utils';
@@ -16,7 +16,7 @@ import { ApprovalState } from '../../hooks/useTokenApprove';
 import {
   ChainId,
   NEW_SHAKKA_ADDRESSES,
-  UnstakeState,
+  TransactionState,
 } from '../../constants';
 import { useHakkaUnstake } from '../../hooks/staking/useHakkaUnstake';
 import { unstakeReceivedAmount } from '../../utils/unstakeReceivedAmount';
@@ -65,6 +65,14 @@ const RedeemModal = ({
   );
   const sHakkaCurrencyAmount = tryParseAmount(sHakkaBalance);
 
+  useEffect(() => {
+    if(unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
+      toggleRedeemModal()
+    }
+  }, [unstakeState]);
+
+  const btnContent = unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
+
   return (
     <Modal isOpen={redeemModalOpen} onDismiss={toggleRedeemModal}>
       <div sx={styles.container}>
@@ -109,14 +117,14 @@ const RedeemModal = ({
         <RedeemButton
           onClick={unstake}
           styleKit="green"
-          disabled={!isCorrectInput || unstakeState === UnstakeState.PENDING}
+          disabled={!isCorrectInput || unstakeState === TransactionState.PENDING}
           isDisabledWhenNotPrepared={false}
           isConnected={!!account}
           connectWallet={toggleWalletModal}
           isCorrectNetwork={isCorrectNetwork}
           targetNetwork={chainId}
         >
-          {unstakeState === UnstakeState.PENDING ? 'Pending' : 'Confirm'}
+          {btnContent}
         </RedeemButton>
       </div>
     </Modal>

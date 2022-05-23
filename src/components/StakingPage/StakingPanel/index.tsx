@@ -105,7 +105,7 @@ export default function StakingPanel(props: IProps) {
           isCorrectNetwork={isCorrectNetwork}
           targetNetwork={chainId}
         >
-          Stake
+          {stakeState === StakeState.PENDING ? 'Pending' : 'Stake'}
         </StakeButton>
       </div>
     </div>
