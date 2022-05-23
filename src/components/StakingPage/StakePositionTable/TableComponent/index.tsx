@@ -23,17 +23,17 @@ export function renderVaultIcon(_: unknown, record: ITableData) {
 }
 
 export function renderExpiryDate(_: unknown, record: ITableData) {
-  const isExpired = record.until.mul(1000).lt(Date.now());
+  const isExpired = record.unlockTime.mul(1000).lt(Date.now());
 
   const text = isExpired
     ? 'Expired'
-    : `Left ${record.until
+    : `Left ${record.unlockTime
         .mul(1000)
         .sub(Date.now())
         .div(86400000)
         .toNumber()
         .toString()} days`;
-  const date = new Date(record.until.mul(1000).toNumber()).toLocaleString(
+  const date = new Date(record.unlockTime.mul(1000).toNumber()).toLocaleString(
     'en-us',
     {
       year: 'numeric',

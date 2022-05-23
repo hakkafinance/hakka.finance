@@ -1,8 +1,9 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Contract as MulticallContract, Provider as MulticallProvider } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from '@ethersproject/bignumber';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { useEffect, useMemo, useState } from 'react';
+import { Zero, AddressZero } from '@ethersproject/constants';
 import debounce from 'lodash.debounce';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../constants';
 import { useBlockNumber } from '../state/application/hooks';
@@ -33,27 +34,39 @@ export default function useStakedHakka(): {
       return {[ChainId.MAINNET]: ethProvider, [ChainId.BSC]: bscProvider, [ChainId.POLYGON]: polygonProvider, [ChainId.KOVAN]: kovanProvider};
     }, [])
 
-    const getStakedHakka = async (chainId: ChainId) => {
+    const getStakedHakka = async (chainId: ChainId, account: string): Promise<BigNumber> => {
       const multicallProvider = new MulticallProvider(providers[chainId], chainId);
       const sHakkaContract = new MulticallContract(NEW_SHAKKA_ADDRESSES[chainId], STAKING_ABI);
       const [ stakedHakka ] = await multicallProvider.all([sHakkaContract.stakedHakka(account)]);
       return stakedHakka;
     };
 
-    const fetchStakedHakka = async () => {
+    const fetchStakedHakka = async (account: string) => {
+      if (account === AddressZero || !account) return;
+
       setTransactionSuccess(false);
       try {
-        const [ethStakedHakka, bscStakedHakka, polygonStakedHakka, kovanStakedHakka] = await Promise.all([
-          getStakedHakka(ChainId.MAINNET),
-          getStakedHakka(ChainId.BSC),
-          getStakedHakka(ChainId.POLYGON),
-          getStakedHakka(ChainId.KOVAN),
+        // const [ethStakedHakka, bscStakedHakka, polygonStakedHakka, kovanStakedHakka] = await Promise.all([
+        //   getStakedHakka(ChainId.MAINNET),
+        //   getStakedHakka(ChainId.BSC),
+        //   getStakedHakka(ChainId.POLYGON),
+        //   getStakedHakka(ChainId.KOVAN),
+        // ]);
+
+        const [kovanStakedHakka] = await Promise.all([
+          getStakedHakka(ChainId.KOVAN, account),
         ]);
         
+        // setStakedHakka({
+        //   [ChainId.MAINNET]: ethStakedHakka,
+        //   [ChainId.BSC]: bscStakedHakka,
+        //   [ChainId.POLYGON]: polygonStakedHakka,
+        //   [ChainId.KOVAN]: kovanStakedHakka});
+
         setStakedHakka({
-          [ChainId.MAINNET]: ethStakedHakka,
-          [ChainId.BSC]: bscStakedHakka,
-          [ChainId.POLYGON]: polygonStakedHakka,
+          [ChainId.MAINNET]: Zero,
+          [ChainId.BSC]: Zero,
+          [ChainId.POLYGON]: Zero,
           [ChainId.KOVAN]: kovanStakedHakka});
         setTransactionSuccess(true);
       } catch (e) {
@@ -65,8 +78,8 @@ export default function useStakedHakka(): {
     const debouncedFetchStakedHakka = useMemo(() => debounce(fetchStakedHakka, 200), [fetchStakedHakka]);
   
     useEffect(() => {
-      debouncedFetchStakedHakka();
-    }, [latestBlockNumber]);
+      debouncedFetchStakedHakka(account);
+    }, [latestBlockNumber, account]);
   
     return { stakedHakka, fetchDataState };
   }

@@ -8,14 +8,16 @@ import debounce from 'lodash.debounce';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../../constants';
 import STAKING_ABI from '../../constants/abis/shakka.json';
 import { useBlockNumber } from '../../state/application/hooks';
+import { parseUnits } from 'ethers/lib/utils';
 
+// FIXME: This is a temporary solution to get the correct staking rate.
 export default function useStakingRate(): {
   stakingRate: BigNumber;
   fetchDataState: ChainDataFetchingState;
   } {
     const { chainId } = useWeb3React();
     const latestBlockNumber = useBlockNumber();
-    const [stakingRate, setStakingRate] = useState<BigNumber>(Zero);
+    const [stakingRate, setStakingRate] = useState<BigNumber>(parseUnits('1'));
     const [transactionSuccess, setTransactionSuccess] = useState(false);
   
     const fetchDataState: ChainDataFetchingState = useMemo(() => {
@@ -46,9 +48,9 @@ export default function useStakingRate(): {
   
     const debouncedFetchStakingRate = useMemo(() => debounce(fetchStakingRate, 200), [fetchStakingRate]);
   
-    useEffect(() => {
-      debouncedFetchStakingRate();
-    }, [latestBlockNumber]);
+    // useEffect(() => {
+    //   debouncedFetchStakingRate();
+    // }, [latestBlockNumber]);
   
     return { stakingRate, fetchDataState };
   }

@@ -277,3 +277,14 @@ export function tryParseAmount(
   // necessary for all paths to return a value
   return CurrencyAmount.ether(JSBI.BigInt('0'));
 }
+
+export function transferToYear(sec: number): string {
+  // 365.25 days in a year
+  // return BigNumber.from(sec)
+  //   .div(BigNumber.from(31557600))
+  //   .toString();
+
+  // TODO: is this calculate correct or not
+  const secOfYear = 31557600;
+  return (sec / secOfYear).toString();
+}

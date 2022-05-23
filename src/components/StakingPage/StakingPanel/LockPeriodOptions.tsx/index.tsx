@@ -99,6 +99,9 @@ export default function LockPeriodOptions(props: IProps) {
     <div>
       <p sx={styles.title}>
         Locked period until <strong>{until}</strong>
+        {process.env.NODE_ENV === 'development' && <button onClick={() => {
+          onChange(30 * 60 + 70);
+        }}>set 30mins</button>}
       </p>
       <div sx={styles.optionContainer}>
         <div sx={styles.wrapper} className="option-block" data-label="Year(s)">
