@@ -33,11 +33,12 @@ const mockingMonthsPeriod = [9, 3, 1, 0];
 
 // time unit is seconds
 // maximum 4 years timestamp
-const maximumDuration = 4 * 12 * 30 * 24 * 60 * 60;
+const maximumDuration = 4 * 365.25 * 24 * 60 * 60;
 // minimum 30 minutes timestamp
 const minimumDuration = 30 * 60;
 
 const monthlyTimeStampTransfer = (month: number) => month * 30 * 24 * 60 * 60;
+const yearlyTimeStampTransfer = (years: number) => years * 8766 * 60 * 60;
 export default function LockPeriodOptions(props: IProps) {
   const { onChange, timeLeft = 0 } = props;
   const [lockYear, setLockYear] = useState(4);
@@ -48,7 +49,7 @@ export default function LockPeriodOptions(props: IProps) {
   const timeStamp = useMemo(() => {
     return (
       monthlyTimeStampTransfer(lockMonth) +
-      monthlyTimeStampTransfer(lockYear * 12)
+      yearlyTimeStampTransfer(lockYear)
     );
   }, [lockMonth, lockYear]);
 
@@ -64,9 +65,9 @@ export default function LockPeriodOptions(props: IProps) {
   const { yearOptions, monthOptions } = useMemo(() => {
     // block timestamp
     const monthTimestamp = monthlyTimeStampTransfer(lockMonth);
-    const yearTimestamp = monthlyTimeStampTransfer(lockYear * 12);
+    const yearTimestamp = yearlyTimeStampTransfer(lockYear);
     const yearOptions = mockingYearsPeriod.map((year) => {
-      const duration = monthTimestamp + monthlyTimeStampTransfer(year * 12);
+      const duration = monthTimestamp + yearlyTimeStampTransfer(year);
       return {
         value: year,
         label: year,

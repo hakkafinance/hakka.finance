@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
 import { useState, useEffect } from 'react';
 import { CurrencyAmount } from '@uniswap/sdk';
+import { WeiPerEther } from '@ethersproject/constants';
+import { jsx } from 'theme-ui';
+import BigNumber from 'bignumber.js';
 import styles from './styles';
 import NumercialInput from '../NumericalInput';
 import images from '../../images/index';
 import { ApprovalState } from '../../hooks/useTokenApprove';
-import BigNumber from 'bignumber.js';
-import { WeiPerEther } from '@ethersproject/constants';
 import { useActiveWeb3React } from '../../hooks/web3Manager';
 
 interface NumericalInputFieldProps {

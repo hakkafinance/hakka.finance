@@ -227,6 +227,14 @@ export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.POLYGON]: AddressZero,
 };
 
+export const SHAKKA_RELEASE_TIME: { [address: string]: number } = {
+  [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: undefined,
+  // [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1652630400,
+  [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
+  [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: undefined,
+};
+
 export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } = {
   '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE': 'ethereum',
   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48': 'usd-coin',
