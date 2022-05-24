@@ -149,7 +149,7 @@ const RestakeModal = ({
     if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
       toggleRestakeModal()
     }
-  }, [restakeState]);
+  }, [restakeState, restakeModalOpen]);
 
   return (
     <Modal isOpen={restakeModalOpen} onDismiss={toggleRestakeModal}>
