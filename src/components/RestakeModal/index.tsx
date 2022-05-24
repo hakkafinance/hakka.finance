@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { jsx, Switch } from 'theme-ui';
-import { formatUnits, parseUnits } from 'ethers/lib/utils';
-import { WeiPerEther, Zero } from '@ethersproject/constants';
+import { parseUnits } from 'ethers/lib/utils';
 import {
   useRestakeModalOpen,
   useRestakeModalToggle,
@@ -122,8 +121,8 @@ const RestakeModal = ({
   const [receivedSHakkaAmount, additionalSHakkaAmount] = restakeReceivedAmount(
     trialInputAmount,
     trialPeriod,
-    WeiPerEther,
-    vault
+    vault,
+    chainId
   );
 
   const [approveState, approve] = useTokenApprove(

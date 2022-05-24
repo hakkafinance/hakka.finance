@@ -36,6 +36,10 @@ export const ChainName: { [chainId in ChainId]: string } = {
   137: 'Polygon Network',
 };
 
+// 365.25 days per year
+export const SEC_OF_FOUR_YEARS = 126230400;
+export const SEC_OF_YEAR = 31557600;
+
 export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}> = {
   [ChainId.MAINNET]: {
     iconName: 'iconTabEthereum',
@@ -225,6 +229,13 @@ export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
+};
+
+export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: string]: number } = {
+  [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
+  [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: undefined,
 };
 
 export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } = {
