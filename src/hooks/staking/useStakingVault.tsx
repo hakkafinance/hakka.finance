@@ -102,7 +102,7 @@ export default function useStakingVault(
 
   useEffect(() => {
     debouncedFetchVault(activeChainId, account);
-  }, [latestBlockNumber, activeChainId, account]);
+  }, [latestBlockNumber, activeChainId, account, ~~(Date.now()) / 5000]);
 
   return { vault: vaultCache[activeChainId] ?? [], vaultCount, fetchDataState };
 }

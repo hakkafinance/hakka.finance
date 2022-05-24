@@ -23,6 +23,7 @@ import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import { VaultType } from '../../hooks/staking/useStakingVault';
+import { inputStrTransformNumber } from '../../utils/inputStrTransformNumber';
 interface RestakeModalInterface {
   index: number;
   vaults?: VaultType[];
@@ -170,7 +171,7 @@ const RestakeModal = ({
           <div sx={styles.numericalInputWrapper}>
             <NumericalInputField
               value={inputAmount}
-              onUserInput={val => setInputAmount(`${+val}` || '0')}
+              onUserInput={val => setInputAmount(inputStrTransformNumber(val))}
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}

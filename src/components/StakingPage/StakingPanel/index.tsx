@@ -81,7 +81,7 @@ export default function StakingPanel(props: IProps) {
       />
 
       <LockPeriodOptions onChange={setSecondTimer} />
-      <p sx={styles.title}>Obtain sHAKA (voting power)</p>
+      <p sx={styles.title}>Obtain sHAKKA (voting power)</p>
       <VotingPowerSection value={receivedAmount} />
       <div sx={styles.stakeBtn}>
         <StakeButton

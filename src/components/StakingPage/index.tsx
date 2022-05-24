@@ -200,7 +200,11 @@ const Staking = () => {
         <StakePositionTable
           data={vault}
           onRedeem={(index) => {
-            setPositionIndex(index);
+            console.log('redeem', index)
+            setPositionIndex(index => {
+              console.log('123pos', index)
+              return index
+            });
             toggleRedeemModal();
           }}
           onRestake={(index) => {

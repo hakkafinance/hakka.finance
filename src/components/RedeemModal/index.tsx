@@ -24,6 +24,7 @@ import { tryParseAmount } from '../../utils';
 import { VaultType } from '../../hooks/staking/useStakingVault';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import { inputStrTransformNumber } from '../../utils/inputStrTransformNumber';
 
 interface RedeemModalInterface {
   vaults?: VaultType[];
@@ -63,15 +64,17 @@ const RedeemModal = ({
     index,
     parseUnits(inputAmount || '0')
   );
-  const sHakkaCurrencyAmount = vault ? tryParseAmount(formatUnits(vault.wAmount)) : tryParseAmount('0');
+  const sHakkaCurrencyAmount = vault
+    ? tryParseAmount(formatUnits(vault.wAmount))
+    : tryParseAmount('0');
 
   useEffect(() => {
-    if(unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
-      toggleRedeemModal()
+    if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
+      toggleRedeemModal();
     }
   }, [unstakeState, redeemModalOpen]);
-
-  const btnContent = unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
+  const btnContent =
+    unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
 
   return (
     <Modal isOpen={redeemModalOpen} onDismiss={toggleRedeemModal}>
@@ -83,13 +86,13 @@ const RedeemModal = ({
         <div sx={styles.hakkaBalanceContainer}>
           <span>Burn</span>
           <span>
-            sHAKKA Balance: {parseFloat(sHakkaBalance).toFixed(2) || '-'}
+            sHAKKA Balance: {(vault && formatUnits(vault.wAmount)) || '-'}
           </span>
         </div>
         <div sx={styles.numericalInputWrapper}>
           <NumericalInputField
             value={inputAmount}
-            onUserInput={val => setInputAmount(`${+val}` || '0')}
+            onUserInput={(val) => setInputAmount(inputStrTransformNumber(val))}
             tokenBalance={sHakkaCurrencyAmount}
             approve={() => {}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
@@ -117,7 +120,9 @@ const RedeemModal = ({
         <RedeemButton
           onClick={unstake}
           styleKit="green"
-          disabled={!isCorrectInput || unstakeState === TransactionState.PENDING}
+          disabled={
+            !isCorrectInput || unstakeState === TransactionState.PENDING
+          }
           isDisabledWhenNotPrepared={false}
           isConnected={!!account}
           connectWallet={toggleWalletModal}
