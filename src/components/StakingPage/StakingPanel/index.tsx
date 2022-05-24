@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { useState, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { BigNumber } from 'ethers';
 import { parseUnits } from 'ethers/lib/utils';
 import { jsx } from 'theme-ui';
-import { HAKKA, NEW_SHAKKA_ADDRESSES, ChainId } from '../../../constants';
+import { HAKKA, NEW_SHAKKA_ADDRESSES, ChainId, SEC_OF_FOUR_YEARS } from '../../../constants';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
@@ -31,7 +30,6 @@ const StakeButton = withApproveTokenCheckWrapper(
 );
 
 export default function StakingPanel(props: IProps) {
-  const secOf4Years = 126230400;
   const { isCorrectNetwork, toggleWalletModal, chainId } = props;
   const { account } = useWeb3React();
 
@@ -46,9 +44,8 @@ export default function StakingPanel(props: IProps) {
     inputAmount
   );
 
-
   // TODO, use on staking
-  const [secondTimer, setSecondTimer] = useState<number>(secOf4Years);
+  const [secondTimer, setSecondTimer] = useState<number>(SEC_OF_FOUR_YEARS);
   const [stakeState, stake] = useHakkaStake(
     NEW_SHAKKA_ADDRESSES[chainId],
     account,

@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui';
 import { memo, useState, useMemo, useEffect, useRef } from 'react';
 import styles from './styles';
 import { dateRangeCal, getExpectedDay } from '../../../../utils/dateRangeCal';
+import { SEC_OF_FOUR_YEARS } from '../../../../constants';
 interface IProps {
   onChange(sec: number): void;
   timeLeft?: number;
@@ -33,7 +34,7 @@ const mockingMonthsPeriod = [9, 3, 1, 0];
 
 // time unit is seconds
 // maximum 4 years timestamp
-const maximumDuration = 4 * 365.25 * 24 * 60 * 60;
+const maximumDuration = SEC_OF_FOUR_YEARS;
 // minimum 30 minutes timestamp
 const minimumDuration = 30 * 60;
 
