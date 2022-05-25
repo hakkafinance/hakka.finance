@@ -72,7 +72,9 @@ const RedeemModal = ({
     if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
       toggleRedeemModal();
     }
-  }, [unstakeState, redeemModalOpen]);
+    // redeemModalOpen should not be used here, because it will be reset to false after toggleRedeemModal
+  }, [unstakeState]);
+
   const btnContent =
     unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
 

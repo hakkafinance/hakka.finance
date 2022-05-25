@@ -163,6 +163,7 @@ const Staking = () => {
           <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
+          key={positionIndex}
           vaults={vault}
           chainId={activeChainTab}
           account={account}
@@ -173,6 +174,7 @@ const Staking = () => {
           isCorrectNetwork={isCorrectNetwork}
         />
         <RestakeModal
+          key={positionIndex}
           chainId={activeChainTab}
           account={account}
           index={positionIndex}
@@ -201,10 +203,7 @@ const Staking = () => {
           data={vault}
           onRedeem={(index) => {
             console.log('redeem', index)
-            setPositionIndex(index => {
-              console.log('123pos', index)
-              return index
-            });
+            setPositionIndex(index);
             toggleRedeemModal();
           }}
           onRestake={(index) => {
