@@ -114,9 +114,8 @@ const RestakeModal = ({
 
   const periodYear = transferToYear(period);
   const trialInputAmount = isKeepAmountTheSame ? '0' : inputAmount;
-  const trialPeriod = isKeepPeriodTheSame ? timeLeft.toString() : periodYear;
+  const trialPeriod = isKeepPeriodTheSame ? transferToYear(timeLeft) : periodYear;
 
-  // TODO: stakingRate is not ready
   const [receivedSHakkaAmount, additionalSHakkaAmount] = restakeReceivedAmount(
     trialInputAmount,
     trialPeriod,
