@@ -101,7 +101,7 @@ export default function LockPeriodOptions(props: IProps) {
     <div>
       <p sx={styles.title}>
         Locked period until <strong>{until}</strong>
-        {process.env.NODE_ENV === 'development' && <button onClick={() => {
+        {process.env.GATSBY_ENV === 'development' && <button onClick={() => {
           onChange(30 * 60 + 70);
         }}>set 30mins</button>}
       </p>

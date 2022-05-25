@@ -24,18 +24,18 @@ import REWARD_ABI from '../constants/abis/staking_rewards.json';
 import IGAIN_ABI from '../constants/abis/iGainV1.json';
 import { REWARD_POOLS } from '../constants/rewards'
 
-const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL)
+const ethProvider = new JsonRpcProvider(process.env.GATSBY_NETWORK_URL)
 const ethMulticallProvider = new MulticallProvider(ethProvider, 1)
 const getKovanMulticallProvider = () => {
-  if(process.env.NODE_ENV !== 'development'){
+  if(process.env.GATSBY_ENV !== 'development'){
     return null;
   }
-  const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+  const kovanProvider = new JsonRpcProvider(process.env.GATSBY_KOVAN_NETWORK_URL);
   return new MulticallProvider(kovanProvider, ChainId.KOVAN);
 }
 const kovanMulticallProvider = getKovanMulticallProvider();
-const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL)
-const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL)
+const bscProvider = new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL)
+const polygonProvider = new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL)
 const bscMulticallProvider = new MulticallProvider(bscProvider, ChainId.BSC);
 const polygonMulticallProvider = new MulticallProvider(polygonProvider, ChainId.POLYGON);
 

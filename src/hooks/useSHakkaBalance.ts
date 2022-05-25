@@ -28,10 +28,10 @@ export default function useSHakkaBalance(): {
     }, [transactionSuccess]);
 
     const providers = useMemo(() => {
-      const ethProvider = new JsonRpcProvider(process.env.REACT_APP_NETWORK_URL);
-      const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
-      const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL);
-      const kovanProvider = new JsonRpcProvider(process.env.REACT_APP_KOVAN_NETWORK_URL);
+      const ethProvider = new JsonRpcProvider(process.env.GATSBY_NETWORK_URL);
+      const bscProvider = new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL);
+      const polygonProvider = new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL);
+      const kovanProvider = new JsonRpcProvider(process.env.GATSBY_KOVAN_NETWORK_URL);
       return {[ChainId.MAINNET]: ethProvider, [ChainId.BSC]: bscProvider, [ChainId.POLYGON]: polygonProvider, [ChainId.KOVAN]: kovanProvider};
     }, [])
 
