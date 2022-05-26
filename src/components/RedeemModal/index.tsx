@@ -24,7 +24,6 @@ import { tryParseAmount } from '../../utils';
 import { VaultType } from '../../hooks/staking/useStakingVault';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
-import { inputStrTransformNumber } from '../../utils/inputStrTransformNumber';
 
 interface RedeemModalInterface {
   vaults?: VaultType[];
@@ -94,7 +93,7 @@ const RedeemModal = ({
         <div sx={styles.numericalInputWrapper}>
           <NumericalInputField
             value={inputAmount}
-            onUserInput={(val) => setInputAmount(inputStrTransformNumber(val))}
+            onUserInput={setInputAmount}
             tokenBalance={sHakkaCurrencyAmount}
             approve={() => {}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
