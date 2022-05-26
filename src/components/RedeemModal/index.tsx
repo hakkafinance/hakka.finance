@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
-import { parseUnits } from 'ethers/lib/utils';
+import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import {
   useRedeemModalOpen,
   useRedeemModalToggle,
@@ -63,7 +63,7 @@ const RedeemModal = ({
     index,
     parseUnits(inputAmount || '0')
   );
-  const sHakkaCurrencyAmount = tryParseAmount(sHakkaBalance);
+  const sHakkaCurrencyAmount = vault ? tryParseAmount(formatUnits(vault.wAmount)) : tryParseAmount('0');
 
   useEffect(() => {
     if(unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
@@ -89,7 +89,7 @@ const RedeemModal = ({
         <div sx={styles.numericalInputWrapper}>
           <NumericalInputField
             value={inputAmount}
-            onUserInput={setInputAmount}
+            onUserInput={val => setInputAmount(`${+val}` || '0')}
             tokenBalance={sHakkaCurrencyAmount}
             approve={() => {}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
