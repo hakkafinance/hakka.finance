@@ -9,6 +9,8 @@ import { createRenderValue, renderExpiryDate, renderVaultIcon } from './TableCom
 import { formatUnits } from 'ethers/lib/utils';
 import { createBigNumberSort } from '../../../utils/sort';
 import { VaultType } from '../../../hooks/staking/useStakingVault';
+import { isMobile } from 'react-device-detect';
+import PositionCard from './PositionCard';
 const { Column } = Table;
 
 interface IProps {
@@ -27,7 +29,7 @@ export default memo(function StakePositionTable(props: IProps) {
   }, []);
 
   const tableData: ITableData[] = useMemo(() => {
-    if (data.some(raw => !raw)) return []
+    if (data.some(raw => !raw)) return [];
     const archiveList: ITableData[] = [];
     const nonArchiveList: ITableData[] = [];
     data
@@ -91,48 +93,51 @@ export default memo(function StakePositionTable(props: IProps) {
           <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
         </Box>
       </Flex>
-      <div sx={{
-        mb: '100px',
-      }}>
-        {tableData.length > 0 && (
-          <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
-            <Column<ITableData>
-              title=""
-              dataIndex="icon"
-              key="icon"
-              render={renderVaultIcon}
-              width={72}
-            ></Column>
+      {isMobile && tableData.map(raw => <PositionCard data={raw} key={raw.index} actionButtonRender={actionButtonRender} />) ||
 
-            <Column<ITableData>
-              title="Expiry date"
-              dataIndex="index"
-              key="unlockTime"
-              render={renderExpiryDate}
-              width={180}
-            />
+        <div sx={{
+          mb: '100px',
+        }}>
+          {tableData.length > 0 && (
+            <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
+              <Column<ITableData>
+                title=""
+                dataIndex="icon"
+                key="icon"
+                render={renderVaultIcon}
+                width={72}
+              ></Column>
 
-            <Column<ITableData> title="HAKKA staked" dataIndex="hakkaAmount" render={stakedHakkaRenderer}
-              width={180}
-            />
-            <Column<ITableData>
-              title="sHAKKA obtained"
-              dataIndex="wAmount"
-              key="wAmount"
-              render={sHakkaObtainedRenderer}
-              width={180}
-            />
-            <Column<ITableData>
-              title=""
-              dataIndex="index"
-              key="hakkaAmount"
-              render={actionButtonRender}
-            />
-          </Table>) || (<div sx={styles.emptySection}>
-            No position
-          </div>)
-        }
-      </div>
+              <Column<ITableData>
+                title="Expiry date"
+                dataIndex="index"
+                key="unlockTime"
+                render={renderExpiryDate}
+                width={180}
+              />
+
+              <Column<ITableData> title="HAKKA staked" dataIndex="hakkaAmount" render={stakedHakkaRenderer}
+                width={180}
+              />
+              <Column<ITableData>
+                title="sHAKKA obtained"
+                dataIndex="wAmount"
+                key="wAmount"
+                render={sHakkaObtainedRenderer}
+                width={180}
+              />
+              <Column<ITableData>
+                title=""
+                dataIndex="index"
+                key="hakkaAmount"
+                render={actionButtonRender}
+              />
+            </Table>) || (<div sx={styles.emptySection}>
+              No position
+            </div>)
+          }
+        </div>
+      }
     </div>
   );
 });
