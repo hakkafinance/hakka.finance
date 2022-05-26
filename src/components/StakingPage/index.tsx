@@ -163,7 +163,7 @@ const Staking = () => {
           <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
-          key={positionIndex}
+          key={`redeem-${positionIndex}`}
           vaults={vault}
           chainId={activeChainTab}
           account={account}
@@ -174,7 +174,7 @@ const Staking = () => {
           isCorrectNetwork={isCorrectNetwork}
         />
         <RestakeModal
-          key={positionIndex}
+          key={`restake-${positionIndex}`}
           chainId={activeChainTab}
           account={account}
           index={positionIndex}

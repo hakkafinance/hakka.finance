@@ -88,6 +88,8 @@ const RestakeModal = ({
   const vault = vaults[index];
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
 
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
+
   const handleKeepAmountTheSame = useCallback(() => {
     setIsKeepAmountTheSame((state) => !state);
   }, []);
@@ -108,12 +110,12 @@ const RestakeModal = ({
   const [restakeState, restake] = useHakkaRestake(
     NEW_SHAKKA_ADDRESSES[chainId],
     index,
-    isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(inputAmount, 18),
+    isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(safeInputAmount, 18),
     isKeepPeriodTheSame ? timeLeft : period
   );
 
   const periodYear = transferToYear(period);
-  const trialInputAmount = isKeepAmountTheSame ? '0' : inputAmount;
+  const trialInputAmount = isKeepAmountTheSame ? '0' : safeInputAmount;
   const trialPeriod = isKeepPeriodTheSame ? transferToYear(timeLeft) : periodYear;
 
   const [receivedSHakkaAmount, additionalSHakkaAmount] = restakeReceivedAmount(
@@ -126,11 +128,11 @@ const RestakeModal = ({
   const [approveState, approve] = useTokenApprove(
     HAKKA[chainId],
     NEW_SHAKKA_ADDRESSES[chainId],
-    inputAmount
+    safeInputAmount
   );
 
   const isDisable =
-    (parseFloat(inputAmount) !== 0 && !isCorrectInput) ||
+    (parseFloat(safeInputAmount) !== 0 && !isCorrectInput) ||
     restakeState === TransactionState.PENDING ||
     (isKeepPeriodTheSame && isKeepAmountTheSame) ||
     parseFloat(additionalSHakkaAmount) <= 0 ||
@@ -170,7 +172,7 @@ const RestakeModal = ({
           <div sx={styles.numericalInputWrapper}>
             <NumericalInputField
               value={inputAmount}
-              onUserInput={val => setInputAmount(inputStrTransformNumber(val))}
+              onUserInput={setInputAmount}
               tokenBalance={hakkaBalance}
               approve={approve}
               approveState={approveState}
