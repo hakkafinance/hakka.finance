@@ -4,11 +4,10 @@ import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from '@ethersproject/bignumber';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Zero, AddressZero } from '@ethersproject/constants';
-import debounce from 'lodash.debounce';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES, ChainId } from '../constants';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
-
+import throttle from 'lodash/throttle'
 export type StakedHakkaType = {
     [chainId in ChainId]: BigNumber; 
   };
@@ -75,10 +74,10 @@ export default function useStakedHakka(): {
       }
     };
   
-    const debouncedFetchStakedHakka = useMemo(() => debounce(fetchStakedHakka, 200), [fetchStakedHakka]);
+    const throttledFetchStakedHakka = useMemo(() => throttle(fetchStakedHakka, 2000), []);
   
     useEffect(() => {
-      debouncedFetchStakedHakka(account);
+      throttledFetchStakedHakka(account);
     }, [latestBlockNumber, account]);
   
     return { stakedHakka, fetchDataState };

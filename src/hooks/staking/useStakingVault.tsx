@@ -5,7 +5,7 @@ import {
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Zero } from '@ethersproject/constants';
 import {
@@ -98,10 +98,7 @@ export default function useStakingVault(
     }
   }, []);
 
-  const debouncedFetchVault = useMemo(
-    () => debounce(fetchVault, 200, { leading: true }),
-    []
-  );
+  const debouncedFetchVault = useMemo(() => throttle(fetchVault, 2000), []);
 
   useEffect(() => {
     debouncedFetchVault(activeChainId, account);
