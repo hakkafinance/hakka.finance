@@ -30,7 +30,7 @@ export default function useHakkaRestake(
   const stakeContract = useStakeContract(stakeAddress);
   const restake = useCallback(async (): Promise<void> => {
     setTransactionState(TransactionState.UNKNOWN)
-    if (!index) {
+    if (Number.isNaN(+index)) {
       console.error('no index');
       return;
     }
