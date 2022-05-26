@@ -29,21 +29,17 @@ const VotingPowerContainer = () => {
       (Date.now() / 1000 - startDateSec) / 3600
     );
     const v2Weight = v1Weight.sub(1).abs();
-    const v1VotingPower = parseFloat(votingPower.toExact());
-    const v2VotingPower = parseFloat(
+    const v1VotingPower = v1Weight.mul(parseFloat(votingPower.toExact()));
+    const v2VotingPower = v2Weight.mul(parseFloat(
       formatUnits(
         availableList.reduce((total, chainId) => {
           return (votingPowerInfo[chainId] || Zero).add(total);
         }, Zero)
       )
-    );
-    const totalVotingPower = v1VotingPower + v2VotingPower;
-    const v1Proportion = v1Weight
-      .mul((v1VotingPower / totalVotingPower) * 100)
-      .toFixed(2);
-    const v2Proportion = v2Weight
-      .mul((v2VotingPower / totalVotingPower) * 100)
-      .toFixed(2);
+    ));
+    const totalVotingPower = v1VotingPower.add(v2VotingPower);
+    const v1Proportion = v1VotingPower.div(totalVotingPower).mul(100);
+    const v2Proportion = v2VotingPower.div(totalVotingPower).mul(100);
 
     const v2ProportionList = availableList.map((chainId) => {
       if (!votingPowerInfo[chainId]) {
@@ -55,8 +51,8 @@ const VotingPowerContainer = () => {
       totalVotingPower?.toFixed(2),
       v1Weight.toFixed(4),
       v2Weight.toFixed(4),
-      v1Proportion,
-      v2Proportion,
+      v1Proportion.toFixed(4),
+      v2Proportion.toFixed(4),
       ...v2ProportionList,
     ];
   }, [votingPowerInfo, votingPower, ~~(Date.now() / 60000)]);
