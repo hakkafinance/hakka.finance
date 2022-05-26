@@ -202,7 +202,6 @@ const Staking = () => {
         <StakePositionTable
           data={vault}
           onRedeem={(index) => {
-            console.log('redeem', index)
             setPositionIndex(index);
             toggleRedeemModal();
           }}

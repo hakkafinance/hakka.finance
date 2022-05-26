@@ -101,7 +101,6 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '12px 16px 12px 20px',
-    width: '122px',
     height: '48px',
     borderRadius: '8px',
     backgroundColor: '#f7fbfc',
@@ -111,6 +110,10 @@ export default {
       cursor: 'pointer',
       backgroundColor: 'rgba(62, 189, 147, 0.1)',
     },
+
+    icon: {
+      marginLeft: '10px',
+    }
   },
   divider: {
     height: '1px',
