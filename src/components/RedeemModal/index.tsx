@@ -88,7 +88,7 @@ const RedeemModal = ({
         <div sx={styles.hakkaBalanceContainer}>
           <span>Burn</span>
           <span>
-            sHAKKA Balance: {(vault && formatUnits(vault.wAmount)) || '-'}
+            sHAKKA Balance: {(vault && parseFloat(formatUnits(vault.wAmount)).toFixed(4)) || '-'}
           </span>
         </div>
         <div sx={styles.numericalInputWrapper}>

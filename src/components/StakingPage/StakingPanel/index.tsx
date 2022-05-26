@@ -60,7 +60,7 @@ export default function StakingPanel(props: IProps) {
       chainId
     );
     return received;
-  }, [stakeState.toString(), inputAmount, secondTimer]);
+  }, [stakeState.toString(), inputAmount, secondTimer, chainId]);
 
   return (
     <div sx={styles.stakingCard}>

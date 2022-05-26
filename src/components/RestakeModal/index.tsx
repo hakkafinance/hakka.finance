@@ -166,7 +166,7 @@ const RestakeModal = ({
         <div style={isKeepAmountTheSame ? { display: 'none' } : {}}>
           <div sx={styles.hakkaBalanceContainer}>
             <span>Amount</span>
-            <span>HAKKA Balance: {hakkaBalance?.toFixed(2) || '-'}</span>
+            <span>HAKKA Balance: {hakkaBalance?.toFixed(4) || '-'}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
             <NumericalInputField
