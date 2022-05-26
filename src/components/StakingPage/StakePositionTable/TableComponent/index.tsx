@@ -3,46 +3,38 @@ import { jsx } from 'theme-ui';
 import { ITableData } from '../types';
 import styles from '../styles';
 import images from '../../../../images';
+import { getDateFromBigNumber, getExpiredLeftStrFromBigNumber } from '../utils';
 
-const vaultImage = [
+export const vaultImage = [
   images.iconVaultArchive,
   images.iconStaking,
   images.iconRedeem,
 ];
 
+export function VaultIcon(props: {
+  state: ITableData['state'];
+  className?: string;
+}) {
+  return (
+    <img
+      src={vaultImage[props.state] ?? images.iconVaultArchive}
+      alt=""
+      className={props.className}
+    />
+  );
+}
+
 export function renderVaultIcon(_: unknown, record: ITableData) {
   return (
     <div sx={styles.imgWrapper}>
-      <img
-        src={vaultImage[record.state] ?? images.iconVaultArchive}
-        alt=""
-        className="icon"
-      />
+      <VaultIcon state={record.state} className="icon" />
     </div>
   );
 }
 
 export function renderExpiryDate(_: unknown, record: ITableData) {
-  const isExpired = record.unlockTime.mul(1000).lt(Date.now());
-
-  const text = isExpired
-    ? 'Expired'
-    : `Left ${record.unlockTime
-        .mul(1000)
-        .sub(Date.now())
-        .div(86400000)
-        .toNumber()
-        .toString()} days`;
-  const date = new Date(record.unlockTime.mul(1000).toNumber()).toLocaleString(
-    'en-us',
-    {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    }
-  );
+  const text = getExpiredLeftStrFromBigNumber(record.unlockTime);
+  const date = getDateFromBigNumber(record.unlockTime);
   return (
     <div sx={styles.valueWrapper} className={!record.state ? 'disabled' : ''}>
       <strong className="title">{text}</strong>
