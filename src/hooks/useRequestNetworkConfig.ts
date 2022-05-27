@@ -15,7 +15,7 @@ export default function useRequestNetworkConfig(targetNetwork: ChainId): any {
             symbol: 'BNB',
             decimals: 18,
           },
-          rpcUrls: [process.env.REACT_APP_BSC_NETWORK_URL],
+          rpcUrls: [process.env.GATSBY_BSC_NETWORK_URL],
           blockExplorerUrls: ['https://bscscan.com/'],
         }],
       }

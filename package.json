@@ -12,6 +12,9 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
+    "build:dev": "TEST=true gatsby build",
+    "deploy": "netlify deploy --site=e3335be6-9531-4bd6-b1dc-302013899981",
+    "deploy:dev": "netlify deploy --site=510be721-6675-46d0-9306-48c3bc779345",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },

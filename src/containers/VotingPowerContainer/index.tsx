@@ -8,7 +8,7 @@ import useVotingPower from '../../hooks/useVotingPower';
 import { v1PowerWeighting } from '../../utils/votingPowerCal';
 const startDateSec = ~~(new Date('2022-05-16 17:00:00').getTime() / 1000);
 const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
-if (process.env.NODE_ENV === 'development') {
+if (process.env.GATSBY_ENV === 'development') {
   availableList.push(ChainId.KOVAN);
 }
 const VotingPowerContainer = () => {

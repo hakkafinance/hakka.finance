@@ -1,6 +1,12 @@
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-})
+if (process.env.TEST) {
+  require('dotenv').config({
+    path: '.env.development'
+  })
+} else {
+  require('dotenv').config({
+    path: `.env.${process.env.NODE_ENV}`
+  })
+}
 
 module.exports = {
   flags: {
