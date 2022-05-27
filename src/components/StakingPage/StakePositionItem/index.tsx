@@ -11,7 +11,7 @@ import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
 import { useActiveWeb3React } from '../../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
-import { ChainId, HAKKA, STAKING_ADDRESSES, UnstakeState } from '../../../constants';
+import { ChainId, HAKKA, STAKING_ADDRESSES, TransactionState } from '../../../constants';
 import { useV1HakkaUnstake } from '../../../hooks/staking/useV1HakkaUnstake';
 import { tryParseAmount } from '../../../utils';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
@@ -154,7 +154,7 @@ const StakePositionItem = (props: StakePositionProps) => {
               approveToken={approve}
               disabled={
                 Date.now() < until?.mul(1000).toNumber() 
-                || unstakeState === UnstakeState.PENDING 
+                || unstakeState === TransactionState.PENDING 
                 || sHakkaReceived.eq(0)
                 || !isCorrectInput
               }

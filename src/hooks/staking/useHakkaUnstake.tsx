@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
 import { useStakeContract } from '../useContract';
@@ -63,6 +63,10 @@ export function useHakkaUnstake(
     index,
     amountParsed,
   ]);
+
+  useEffect(() => {
+    setTransactionState(TransactionState.UNKNOWN);
+  }, [index])
 
   return [unstakeState, unstake];
 }

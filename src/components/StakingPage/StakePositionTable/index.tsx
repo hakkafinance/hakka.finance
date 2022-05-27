@@ -86,7 +86,7 @@ export default memo(function StakePositionTable(props: IProps) {
   return (
     <div>
       <Flex sx={styles.headerWrapper}>
-        <h2>Stake Position</h2>
+        <h2>Staking Position</h2>
         <Box>
           <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
         </Box>

@@ -3,7 +3,12 @@ import { useState, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { parseUnits } from 'ethers/lib/utils';
 import { jsx } from 'theme-ui';
-import { HAKKA, NEW_SHAKKA_ADDRESSES, ChainId, SEC_OF_FOUR_YEARS } from '../../../constants';
+import {
+  HAKKA,
+  NEW_SHAKKA_ADDRESSES,
+  ChainId,
+  SEC_OF_FOUR_YEARS,
+} from '../../../constants';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
@@ -44,7 +49,6 @@ export default function StakingPanel(props: IProps) {
     inputAmount
   );
 
-  // TODO, use on staking
   const [secondTimer, setSecondTimer] = useState<number>(SEC_OF_FOUR_YEARS);
   const [stakeState, stake] = useHakkaStake(
     NEW_SHAKKA_ADDRESSES[chainId],
@@ -59,8 +63,8 @@ export default function StakingPanel(props: IProps) {
       transferToYear(secondTimer),
       chainId
     );
-    return received;
-  }, [stakeState.toString(), inputAmount, secondTimer]);
+    return isNaN(received) ? 0 : received;
+  }, [stakeState.toString(), inputAmount, secondTimer, chainId]);
 
   return (
     <div sx={styles.stakingCard}>
@@ -73,7 +77,7 @@ export default function StakingPanel(props: IProps) {
       </div>
       <NumericalInputField
         value={inputAmount}
-        onUserInput={val => setInputAmount(`${+val}` || '0')}
+        onUserInput={setInputAmount}
         tokenBalance={hakkaBalance}
         approve={approve}
         approveState={approveState}
@@ -81,7 +85,7 @@ export default function StakingPanel(props: IProps) {
       />
 
       <LockPeriodOptions onChange={setSecondTimer} />
-      <p sx={styles.title}>Obtain sHAKA (voting power)</p>
+      <p sx={styles.title}>Obtain sHAKKA (voting power)</p>
       <VotingPowerSection value={receivedAmount} />
       <div sx={styles.stakeBtn}>
         <StakeButton

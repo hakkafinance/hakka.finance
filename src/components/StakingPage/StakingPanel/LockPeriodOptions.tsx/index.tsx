@@ -94,8 +94,8 @@ export default function LockPeriodOptions(props: IProps) {
   }, [lockYear, lockMonth, timeLeft]);
 
   const until = useMemo(() => {
-    return getExpectedDay(new Date(), (timeLeft + timeStamp) * 1000);
-  }, [timeLeft, timeStamp]);
+    return getExpectedDay(new Date(), timeStamp * 1000);
+  }, [timeStamp]);
 
   return (
     <div>

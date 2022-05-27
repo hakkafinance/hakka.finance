@@ -5,7 +5,7 @@ import {
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -96,13 +96,13 @@ export default function useVotingPower(): {
     }
   }, []);
 
-  const debouncedFetchVotingPower = useMemo(
-    () => debounce(fetchVotingPower, 200, { leading: true, trailing: true }),
+  const throttledFetchVotingPower = useMemo(
+    () => throttle(fetchVotingPower, 2000),
     []
   );
 
   useEffect(() => {
-    debouncedFetchVotingPower(account);
+    throttledFetchVotingPower(account);
   }, [latestBlockNumber, account]);
 
   return { votingPowerInfo, fetchVotingPowerState: fetchDataState };

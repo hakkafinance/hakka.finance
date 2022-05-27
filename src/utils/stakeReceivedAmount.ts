@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from 'ethers/lib/utils';
 import { ChainId, NEW_SHAKKA_ADDRESSES, SEC_OF_YEAR, STAKING_RATE_MODEL_RELEASE_TIME } from '../constants';
 
@@ -28,19 +27,19 @@ export function stakeReceivedAmount(
 
 export function restakeReceivedAmount(
   amount: string, 
-  year: string, // the unit is year
+  time: string, // the unit is year
   vault?: any,
   chainId?: ChainId,
 ): string[] | undefined[] {
 if (!chainId || !vault) { 
   return [];
 }
-if (parseFloat(year) >  4 || parseFloat(year) < THIRTY_MINS_FRACTIONS_OF_YEAR) {
+if (parseFloat(time) >  4 || parseFloat(time) < THIRTY_MINS_FRACTIONS_OF_YEAR) {
   return [];
 }
 const stakingRate = getStakingRate(STAKING_RATE_MODEL_RELEASE_TIME[NEW_SHAKKA_ADDRESSES[chainId]]);
 const totalStakedHakka = parseFloat(formatUnits(vault.hakkaAmount, 18)) + parseFloat(amount);
-const receivedSHakkaAmount = stakeFormula(totalStakedHakka, year, stakingRate);
+const receivedSHakkaAmount = stakeFormula(totalStakedHakka, time, stakingRate);
 const additionalSHakkaAmount = receivedSHakkaAmount - parseFloat(formatUnits(vault.wAmount, 18));
 return [receivedSHakkaAmount.toFixed(4), additionalSHakkaAmount.toFixed(4)];
 };

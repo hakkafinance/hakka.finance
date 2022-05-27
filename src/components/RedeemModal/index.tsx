@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
-import { parseUnits } from 'ethers/lib/utils';
+import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import {
   useRedeemModalOpen,
   useRedeemModalToggle,
@@ -63,15 +63,19 @@ const RedeemModal = ({
     index,
     parseUnits(inputAmount || '0')
   );
-  const sHakkaCurrencyAmount = tryParseAmount(sHakkaBalance);
+  const sHakkaCurrencyAmount = vault
+    ? tryParseAmount(formatUnits(vault.wAmount))
+    : tryParseAmount('0');
 
   useEffect(() => {
-    if(unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
-      toggleRedeemModal()
+    if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
+      toggleRedeemModal();
     }
-  }, [unstakeState, redeemModalOpen]);
+    // redeemModalOpen should not be used here, because it will be reset to false after toggleRedeemModal
+  }, [unstakeState]);
 
-  const btnContent = unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
+  const btnContent =
+    unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
 
   return (
     <Modal isOpen={redeemModalOpen} onDismiss={toggleRedeemModal}>
@@ -83,7 +87,7 @@ const RedeemModal = ({
         <div sx={styles.hakkaBalanceContainer}>
           <span>Burn</span>
           <span>
-            sHAKKA Balance: {parseFloat(sHakkaBalance).toFixed(2) || '-'}
+            sHAKKA Balance: {(vault && parseFloat(formatUnits(vault.wAmount)).toFixed(4)) || '-'}
           </span>
         </div>
         <div sx={styles.numericalInputWrapper}>
@@ -117,7 +121,9 @@ const RedeemModal = ({
         <RedeemButton
           onClick={unstake}
           styleKit="green"
-          disabled={!isCorrectInput || unstakeState === TransactionState.PENDING}
+          disabled={
+            !isCorrectInput || unstakeState === TransactionState.PENDING
+          }
           isDisabledWhenNotPrepared={false}
           isConnected={!!account}
           connectWallet={toggleWalletModal}

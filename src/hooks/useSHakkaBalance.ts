@@ -1,7 +1,7 @@
 import { Contract as MulticallContract, Provider as MulticallProvider } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Zero, AddressZero } from '@ethersproject/constants';
 import { JsonRpcProvider } from '@ethersproject/providers';
@@ -74,10 +74,10 @@ export default function useSHakkaBalance(): {
       }
     };
   
-    const debouncedFetchSHakkaBalance = useMemo(() => debounce(fetchSHakkaBalance, 200), [fetchSHakkaBalance]);
+    const throttledFetchSHakkaBalance = useMemo(() => throttle(fetchSHakkaBalance, 2000), []);
   
     useEffect(() => {
-      debouncedFetchSHakkaBalance(account);
+      throttledFetchSHakkaBalance(account);
     }, [latestBlockNumber, account]);
   
     return { sHakkaBalanceInfo, fetchDataState };

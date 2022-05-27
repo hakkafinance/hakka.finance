@@ -24,12 +24,12 @@ import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
 import AddToMetamaskBtn from '../AddToMetamaskBtn'
-
 export default function WalletModal() {
   const { chainId, account } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
 
   const ERC20_INTERFACE = new Interface(ERC20_ABI);
+
   const hakkaBalances = useMultipleContractMultipleData(
     [
       HAKKA[chainId as ChainId]?.address,
@@ -48,7 +48,8 @@ export default function WalletModal() {
     JSBI.BigInt(balance?.result?.[0] ?? 0),
   ));
 
-  const { stakingBalance } = useStakingData();
+  const { stakingBalance: v2StakingBalance } = useStakingData('v2');
+  const { stakingBalance: v1StakingBalance } = useStakingData('v1');
 
   const infoModalOpen = useInfoModalOpen();
   const toggleInfoModal = useInfoModalToggle();
@@ -83,9 +84,9 @@ export default function WalletModal() {
         <div sx={styles.contentWrapper}>
           <div sx={styles.displayBetween}>
             <div>
-              <div sx={styles.label}>Staking balance</div>
+              <div sx={styles.label}>Staking balance (v2)</div>
               <div sx={styles.data}>
-                {stakingBalance?.toFixed(2) || '-'}
+                {v2StakingBalance?.toFixed(2) || '-'}
                 {' '}
                 HAKKA
               </div>
@@ -94,10 +95,28 @@ export default function WalletModal() {
               onClick={() => { location.href = '/staking'; }}
               sx={styles.pageBtn}
             >
-              Staking
-              <ArrowRightCircle size="20" />
+              Staking V2
+              <ArrowRightCircle sx={styles.pageBtn.icon} size="20" />
             </button>
           </div>
+          <div sx={styles.displayBetween}>
+            <div>
+              <div sx={styles.label}>Staking balance (V1)</div>
+              <div sx={styles.data}>
+                {v1StakingBalance?.toFixed(2) || '-'}
+                {' '}
+                HAKKA
+              </div>
+            </div>
+            <button
+              onClick={() => { location.href = '/staking-v1'; }}
+              sx={styles.pageBtn}
+            >
+              Staking V1
+              <ArrowRightCircle sx={styles.pageBtn.icon} size="20" />
+            </button>
+          </div>
+          
           <div sx={styles.displayBetween}>
             <div>
               <div sx={styles.label}>Vesting balance</div>
@@ -112,7 +131,7 @@ export default function WalletModal() {
               sx={styles.pageBtn}
             >
               Vesting
-              <ArrowRightCircle size="20" />
+              <ArrowRightCircle sx={styles.pageBtn.icon} size="20" />
             </button>
           </div>
         </div>

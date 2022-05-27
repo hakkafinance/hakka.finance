@@ -7,23 +7,23 @@ import { useStakeV1Contract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
-import { UnstakeState } from '../../constants';
+import { TransactionState } from '../../constants';
 
 export function useV1HakkaUnstake(
   unstakeAddress: string,
   spender: string,
   index: number,
   amountParsed: BigNumber,
-): [UnstakeState, () => Promise<void>] {
+): [TransactionState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
 
-  const unstakeState: UnstakeState = useMemo(() => {
-    if (!spender) return UnstakeState.UNKNOWN;
+  const unstakeState: TransactionState = useMemo(() => {
+    if (!spender) return TransactionState.UNKNOWN;
 
     return currentTransaction
-      ? UnstakeState.PENDING
-      : UnstakeState.UNKNOWN;
+      ? TransactionState.PENDING
+      : TransactionState.UNKNOWN;
   }, [currentTransaction, spender]);
 
   const unstakeContract = useStakeV1Contract(unstakeAddress);

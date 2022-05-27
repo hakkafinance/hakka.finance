@@ -5,7 +5,7 @@ import {
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Zero } from '@ethersproject/constants';
 import {
@@ -85,10 +85,19 @@ export default function useStakingVault(
       const [...vault] = await multicallProvider.all(vaultsRequests);
 
       setVaultData((state) => {
-        if (_isEqual(state.vaultCache[chainId], vault)) {
+        const now = Date.now();
+
+        const newVault = vault.map((ele) => ({
+          __expired: ele.unlockTime.mul(1000).lte(now),
+          ...ele,
+        }));
+        
+        console.log('check eq', _isEqual(state.vaultCache[chainId], newVault), newVault);
+
+        if (_isEqual(state.vaultCache[chainId], newVault)) {
           return state;
         }
-        state.vaultCache[chainId] = vault;
+        state.vaultCache[chainId] = newVault;
         return { vaultCache: state.vaultCache, vaultCount };
       });
       setTransactionSuccess(true);
@@ -98,14 +107,11 @@ export default function useStakingVault(
     }
   }, []);
 
-  const debouncedFetchVault = useMemo(
-    () => debounce(fetchVault, 200, { leading: true }),
-    []
-  );
+  const debouncedFetchVault = useMemo(() => throttle(fetchVault, 2000), []);
 
   useEffect(() => {
     debouncedFetchVault(activeChainId, account);
-  }, [latestBlockNumber, activeChainId, account]);
+  }, [latestBlockNumber, activeChainId, account, ~~(Date.now() / 5000)]);
 
   return { vault: vaultCache[activeChainId] ?? [], vaultCount, fetchDataState };
 }

@@ -87,6 +87,8 @@ const RestakeModal = ({
   const vault = vaults[index];
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
 
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
+
   const handleKeepAmountTheSame = useCallback(() => {
     setIsKeepAmountTheSame((state) => !state);
   }, []);
@@ -107,15 +109,14 @@ const RestakeModal = ({
   const [restakeState, restake] = useHakkaRestake(
     NEW_SHAKKA_ADDRESSES[chainId],
     index,
-    isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(inputAmount, 18),
+    isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(safeInputAmount, 18),
     isKeepPeriodTheSame ? timeLeft : period
   );
 
   const periodYear = transferToYear(period);
-  const trialInputAmount = isKeepAmountTheSame ? '0' : inputAmount;
-  const trialPeriod = isKeepPeriodTheSame ? timeLeft.toString() : periodYear;
+  const trialInputAmount = isKeepAmountTheSame ? '0' : safeInputAmount;
+  const trialPeriod = isKeepPeriodTheSame ? transferToYear(timeLeft) : periodYear;
 
-  // TODO: stakingRate is not ready
   const [receivedSHakkaAmount, additionalSHakkaAmount] = restakeReceivedAmount(
     trialInputAmount,
     trialPeriod,
@@ -126,11 +127,11 @@ const RestakeModal = ({
   const [approveState, approve] = useTokenApprove(
     HAKKA[chainId],
     NEW_SHAKKA_ADDRESSES[chainId],
-    inputAmount
+    safeInputAmount
   );
 
   const isDisable =
-    (parseFloat(inputAmount) !== 0 && !isCorrectInput) ||
+    (parseFloat(safeInputAmount) !== 0 && !isCorrectInput) ||
     restakeState === TransactionState.PENDING ||
     (isKeepPeriodTheSame && isKeepAmountTheSame) ||
     parseFloat(additionalSHakkaAmount) <= 0 ||
@@ -148,7 +149,7 @@ const RestakeModal = ({
     if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
       toggleRestakeModal()
     }
-  }, [restakeState, restakeModalOpen]);
+  }, [restakeState]);
 
   return (
     <Modal isOpen={restakeModalOpen} onDismiss={toggleRestakeModal}>
@@ -165,7 +166,7 @@ const RestakeModal = ({
         <div style={isKeepAmountTheSame ? { display: 'none' } : {}}>
           <div sx={styles.hakkaBalanceContainer}>
             <span>Amount</span>
-            <span>HAKKA Balance: {hakkaBalance?.toFixed(2) || '-'}</span>
+            <span>HAKKA Balance: {hakkaBalance?.toFixed(4) || '-'}</span>
           </div>
           <div sx={styles.numericalInputWrapper}>
             <NumericalInputField
