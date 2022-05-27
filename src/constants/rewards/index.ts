@@ -16,6 +16,7 @@ import {
   IGAIN_POLYGON_USDC_POOL_2,
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
+  IGAIN_FANTOM_USDT_POOL_1,
 } from '../../constants';
 
 export type Pool = {
@@ -207,7 +208,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 6,
     rewardsAddress: IGAIN_POLYGON_USDC_POOL_3,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [IGAIN_IG_POLYGON_ETH_USDC_POOL_1]: {
     name: 'iGain IG ETH-USDC',
@@ -276,5 +277,22 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: IGAIN_POLYGON_USDC_POOL_1,
     rewardsSymbol: 'HAKKA',
     archived: true,
+  },
+  [IGAIN_FANTOM_USDT_POOL_1]: {
+    name: 'iGain IRS USDT',
+    subtitle: new Date(1656575394000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
+    closeTime: '1656575394000',
+    chain: ChainId.FANTOM,
+    website: 'iGain IRS',
+    url: 'https://igain.finance/irs/apy-trade-pools/detail/',
+    tokenAddress: '0x1',
+    tokenSymbol: 'LP',
+    decimal: 6,
+    rewardsAddress: IGAIN_FANTOM_USDT_POOL_1,
+    rewardsSymbol: 'HAKKA',
+    archived: false,
   },
 }

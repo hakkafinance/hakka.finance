@@ -55,4 +55,14 @@ export const tokenMetrics = [
     addressLink: 'https://polygonscan.com/token/0x978338A9d2d0aa2fF388d3dc98b9bF25bfF5efB4',
     addressIcon: images.iconPolygon,
   },
+  {
+    id: 'fantom',
+    chainId: 250,
+    shortName: 'Fantom',
+    name: 'Hakka Finance (HAKKA)',
+    type: 'ERC-20',
+    address: '',
+    addressLink: '',
+    addressIcon: images.iconBSCScan,
+  }
 ];
