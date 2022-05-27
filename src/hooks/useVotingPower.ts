@@ -4,12 +4,15 @@ import {
   Provider as MulticallProvider,
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
-import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
+import {
+  ChainDataFetchingState,
+  NEW_SHAKKA_ADDRESSES,
+  JSON_RPC_PROVIDER,
+} from '../constants';
 import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId } from '../constants';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { JsonRpcProvider } from '@ethersproject/providers';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 
@@ -32,63 +35,44 @@ export default function useVotingPower(): {
       : ChainDataFetchingState.LOADING;
   }, [transactionSuccess]);
 
-  const providers = useMemo(() => {
-    const ethProvider = new JsonRpcProvider(process.env.GATSBY_NETWORK_URL);
-    const bscProvider = new JsonRpcProvider(
-      process.env.GATSBY_BSC_NETWORK_URL
-    );
-    const polygonProvider = new JsonRpcProvider(
-      process.env.GATSBY_POLYGON_NETWORK_URL
-    );
-    const kovanProvider = new JsonRpcProvider(
-      process.env.GATSBY_KOVAN_NETWORK_URL
-    );
-    return {
-      [ChainId.MAINNET]: ethProvider,
-      [ChainId.BSC]: bscProvider,
-      [ChainId.POLYGON]: polygonProvider,
-      [ChainId.KOVAN]: kovanProvider,
-    };
-  }, []);
-
-  const getVotingPower = useCallback(async (chainId: ChainId, account: string) => {
-    if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return undefined;
-    if (account === AddressZero || !account) return undefined;
-    const multicallProvider = new MulticallProvider(
-      providers[chainId],
-      chainId
-    );
-    const sHakkaContract = new MulticallContract(
-      NEW_SHAKKA_ADDRESSES[chainId],
-      STAKING_ABI
-    );
-    const [votingPower] = await multicallProvider.all([
-      sHakkaContract.votingPower(account),
-    ]);
-    return votingPower;
-  }, []);
+  const providers = JSON_RPC_PROVIDER;
+  const getVotingPower = useCallback(
+    async (
+      chainId: ChainId,
+      account: string
+    ): Promise<[ChainId, BigNumber]> => {
+      if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return [chainId, undefined];
+      if (account === AddressZero || !account) return [chainId, undefined];
+      const multicallProvider = new MulticallProvider(
+        providers[chainId],
+        chainId
+      );
+      const sHakkaContract = new MulticallContract(
+        NEW_SHAKKA_ADDRESSES[chainId],
+        STAKING_ABI
+      );
+      const [votingPower] = await multicallProvider.all([
+        sHakkaContract.votingPower(account),
+      ]);
+      return [chainId, votingPower as BigNumber];
+    },
+    []
+  );
 
   const fetchVotingPower = useCallback(async (account: string) => {
     setTransactionSuccess(false);
     try {
-      const [
-        ethVotingPower,
-        bscVotingPower,
-        polygonVotingPower,
-        kovanVotingPower,
-      ] = await Promise.all([
+      const votingPowerList = await Promise.all([
         getVotingPower(ChainId.MAINNET, account),
         getVotingPower(ChainId.BSC, account),
         getVotingPower(ChainId.POLYGON, account),
         getVotingPower(ChainId.KOVAN, account),
+        getVotingPower(ChainId.RINKEBY, account),
       ]);
 
-      setVotingPowerInfo({
-        [ChainId.MAINNET]: ethVotingPower,
-        [ChainId.BSC]: bscVotingPower,
-        [ChainId.POLYGON]: polygonVotingPower,
-        [ChainId.KOVAN]: kovanVotingPower,
-      });
+      setVotingPowerInfo(
+        Object.fromEntries(votingPowerList) as typeof votingPowerInfo
+      );
       setTransactionSuccess(true);
     } catch (e) {
       console.log(e);

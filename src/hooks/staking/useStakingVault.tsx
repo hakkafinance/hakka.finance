@@ -4,7 +4,6 @@ import {
   Provider as MulticallProvider,
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
-import { JsonRpcProvider } from '@ethersproject/providers';
 import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Zero } from '@ethersproject/constants';
@@ -12,6 +11,7 @@ import {
   ChainDataFetchingState,
   NEW_SHAKKA_ADDRESSES,
   ChainId,
+  JSON_RPC_PROVIDER,
 } from '../../constants';
 import STAKING_ABI from '../../constants/abis/shakka.json';
 import { useBlockNumber } from '../../state/application/hooks';
@@ -27,20 +27,7 @@ export interface VaultType {
   unlockTime: BigNumber;
 }
 
-const ethProvider = new JsonRpcProvider(process.env.GATSBY_NETWORK_URL);
-const bscProvider = new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL);
-const polygonProvider = new JsonRpcProvider(
-  process.env.GATSBY_POLYGON_NETWORK_URL
-);
-const kovanProvider = new JsonRpcProvider(
-  process.env.GATSBY_KOVAN_NETWORK_URL
-);
-const chainProviders = {
-  [ChainId.MAINNET]: ethProvider,
-  [ChainId.BSC]: bscProvider,
-  [ChainId.POLYGON]: polygonProvider,
-  [ChainId.KOVAN]: kovanProvider,
-};
+const chainProviders = JSON_RPC_PROVIDER
 export default function useStakingVault(
   activeChainId: ChainId
 ): {
@@ -92,8 +79,6 @@ export default function useStakingVault(
           ...ele,
         }));
         
-        console.log('check eq', _isEqual(state.vaultCache[chainId], newVault), newVault);
-
         if (_isEqual(state.vaultCache[chainId], newVault)) {
           return state;
         }

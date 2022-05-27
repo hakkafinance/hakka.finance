@@ -1,3 +1,4 @@
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { Token } from '@uniswap/sdk';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { AddressZero } from '@ethersproject/constants';
@@ -12,6 +13,7 @@ import {
 
 export enum ChainId {
   MAINNET = 1,
+  RINKEBY = 4,
   KOVAN = 42,
   BSC = 56,
   POLYGON = 137,
@@ -33,6 +35,7 @@ export const stakingMonth = [1, 3, 6, 12];
 
 export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
+  4: 'Rinkeby',
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
   137: 'Polygon Network',
@@ -46,6 +49,10 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
   [ChainId.MAINNET]: {
     iconName: 'iconTabEthereum',
     name: 'Ethereum',
+  },
+  [ChainId.RINKEBY]: {
+    iconName: 'iconTabRinkeby',
+    name: 'Rinkeby',
   },
   [ChainId.KOVAN]: {
     iconName: 'iconTabKovan',
@@ -117,6 +124,13 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
     'HAKKA',
     'Hakka Finance',
   ),
+  [ChainId.RINKEBY]: new Token(
+    4,
+    '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+    18,
+    'HAKKA',
+    'Hakka Finance',
+  ),
   [ChainId.KOVAN]: new Token(
     42,
     '0xaFF4481D10270F50f203E0763e2597776068CBc5',
@@ -144,6 +158,7 @@ export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xd9958826bce875a75cc1789d5929459e6ff15040',
   [ChainId.KOVAN]: '0xBf605Cb5f610C0aEDbf6e89af652892FF007B47c',
   [ChainId.BSC]: AddressZero,
+  [ChainId.RINKEBY]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
 };
 
@@ -152,6 +167,7 @@ export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x3DEF87Be78024943E48183E9118D951C39a8197D',
   [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
   [ChainId.POLYGON]: '0xeC4b77e7369325b52A1f9d1Ae080B59954B8001a',
+  [ChainId.RINKEBY]: AddressZero,
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -159,6 +175,7 @@ export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x793f3a1427592f674113E97A1741D39c91904971',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
+  [ChainId.RINKEBY]: AddressZero,
 };
 
 export const GUILDBANK: { [chainId in ChainId]: string } = {
@@ -166,6 +183,7 @@ export const GUILDBANK: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0xB062FE463548FCEf976C9BC5B93f29813e142DB8',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
+  [ChainId.RINKEBY]: AddressZero,
 };
 
 export const ETHADDRESS: string = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
@@ -223,21 +241,25 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
   },
   [ChainId.POLYGON]: {
   },
+  [ChainId.RINKEBY]: {
+  }
 };
 
 // TODO: check this address
 export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: AddressZero,
   [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
+  [ChainId.RINKEBY]: '0x0b6eAA40319113f5500a2bD1C2f434b42Ec3C1b9',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
 };
 
-export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: string]: number } = {
+export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: typeof NEW_SHAKKA_ADDRESSES[ChainId]]: number } = {
   [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: undefined,
   [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
   [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: undefined,
   [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.RINKEBY]]: 1653630226,
 };
 
 export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } = {
@@ -261,6 +283,7 @@ export const ETH_SHAKKA_POOL = ''
 export const BSC_SHAKKA_POOL = ''
 export const POLYGON_SHAKKA_POOL = ''
 export const KOVAN_SHAKKA_POOL = ''
+export const RINKEBY_SHAKKA_POOL = ''
 export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d' // example, should be delete after prod released
 export const IGAIN_BNB_BUSD_POOL = '0x4E353C2CCc7DfB6a4d3Ea7802ddEBa226574702E' // started at 20211104
 
@@ -282,6 +305,7 @@ export const SHAKKA_POOLS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: KOVAN_SHAKKA_POOL,
   [ChainId.BSC]: BSC_SHAKKA_POOL,
   [ChainId.POLYGON]: POLYGON_SHAKKA_POOL,
+  [ChainId.RINKEBY]: RINKEBY_SHAKKA_POOL,
 };
 
 export const TOKEN_PRICE_SLUGS: string[] = [
@@ -298,3 +322,11 @@ export const TOKEN_PRICE_SLUGS: string[] = [
   'usd-coin',
   'tether',
 ]
+
+export const JSON_RPC_PROVIDER: {[chainId in ChainId]: JsonRpcProvider} = {
+  [ChainId.MAINNET]: new JsonRpcProvider(process.env.GATSBY_NETWORK_URL),
+  [ChainId.KOVAN]: new JsonRpcProvider(process.env.GATSBY_KOVAN_NETWORK_URL),
+  [ChainId.BSC]: new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL),
+  [ChainId.POLYGON]: new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL),
+  [ChainId.RINKEBY]: new JsonRpcProvider(process.env.GATSBY_RINKEBY_NETWORK_URL),
+}
