@@ -38,8 +38,6 @@ export default function StakingPanel(props: IProps) {
   const { toggleWalletModal, chainId: activeChainId, isCorrectNetwork } = props;
   const { account } = useWeb3React();
 
-  console.log('correct?', isCorrectNetwork)
-
   const hakkaBalance = useTokenBalance(account, HAKKA[activeChainId]);
 
   const [inputAmount, setInputAmount] = useState<string>('0');

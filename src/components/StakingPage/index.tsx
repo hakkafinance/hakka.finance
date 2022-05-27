@@ -66,8 +66,6 @@ const Staking = () => {
 
   const isTabInCorrectNetwork = chainId === activeChainTab;
 
-  console.log('isTabIncorrectNetwork', isTabInCorrectNetwork);
-
   const governanceLink = useMemo(() => {
     return botSideBarItems.find((ele) => ele.name === 'governance').href!;
   }, []);
