@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { parseUnits } from 'ethers/lib/utils';
 import { jsx } from 'theme-ui';
@@ -65,6 +65,12 @@ export default function StakingPanel(props: IProps) {
     );
     return isNaN(received) ? 0 : received;
   }, [stakeState.toString(), inputAmount, secondTimer, chainId]);
+
+  useEffect(() => {
+    if (stakeState === StakeState.UNKNOWN) {
+      setInputAmount('0');
+    }
+  }, [stakeState]);
 
   return (
     <div sx={styles.stakingCard}>

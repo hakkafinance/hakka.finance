@@ -70,6 +70,7 @@ const RedeemModal = ({
   useEffect(() => {
     if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
       toggleRedeemModal();
+      setInputAmount('0');
     }
     // redeemModalOpen should not be used here, because it will be reset to false after toggleRedeemModal
   }, [unstakeState]);

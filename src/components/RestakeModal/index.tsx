@@ -23,6 +23,7 @@ import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import { VaultType } from '../../hooks/staking/useStakingVault';
+import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp';
 interface RestakeModalInterface {
   index: number;
   vaults?: VaultType[];
@@ -97,7 +98,10 @@ const RestakeModal = ({
     setIsKeepPeriodTheSame((state) => !state);
   }, []);
 
-  let timeLeft = vault?.unlockTime.sub(~~(Date.now() / 1000)).toNumber() ?? 0;
+
+  const currentBlockTimestamp = useCurrentBlockTimestamp();
+  let timeLeft = vault?.unlockTime.sub(currentBlockTimestamp).toNumber() ?? 0;
+
   timeLeft = timeLeft < 0 ? 0 : timeLeft;
   const isLeftTimeLessThan30Mins = useMemo(() => {
     if (isKeepPeriodTheSame) {
@@ -106,16 +110,17 @@ const RestakeModal = ({
     return false;
   }, [isKeepPeriodTheSame, timeLeft]);
 
+  const escapeBlockUpdateTimeLeft = timeLeft + 300;
   const [restakeState, restake] = useHakkaRestake(
     NEW_SHAKKA_ADDRESSES[chainId],
     index,
     isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(safeInputAmount, 18),
-    isKeepPeriodTheSame ? timeLeft : period
+    isKeepPeriodTheSame ? escapeBlockUpdateTimeLeft : period
   );
 
   const periodYear = transferToYear(period);
   const trialInputAmount = isKeepAmountTheSame ? '0' : safeInputAmount;
-  const trialPeriod = isKeepPeriodTheSame ? transferToYear(timeLeft) : periodYear;
+  const trialPeriod = isKeepPeriodTheSame ? transferToYear(escapeBlockUpdateTimeLeft) : periodYear;
 
   const [receivedSHakkaAmount, additionalSHakkaAmount] = restakeReceivedAmount(
     trialInputAmount,
@@ -147,7 +152,10 @@ const RestakeModal = ({
 
   useEffect(() => {
     if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
-      toggleRestakeModal()
+      toggleRestakeModal();
+      setInputAmount('0');
+      setIsKeepAmountTheSame(false);
+      setIsKeepPeriodTheSame(false);
     }
   }, [restakeState]);
 
