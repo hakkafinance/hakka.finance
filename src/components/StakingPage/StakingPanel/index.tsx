@@ -30,8 +30,8 @@ interface IProps {
   chainId: ChainId;
 }
 
-const StakeButton = withApproveTokenCheckWrapper(
-  withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
+const StakeButton = withWrongNetworkCheckWrapper(
+  withApproveTokenCheckWrapper(withConnectWalletCheckWrapper(MyButton))
 );
 
 export default function StakingPanel(props: IProps) {
@@ -42,29 +42,30 @@ export default function StakingPanel(props: IProps) {
 
   const [inputAmount, setInputAmount] = useState<string>('0');
   const [isCorrectInput, setIsCorrectInput] = useState(true);
-
+  
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
   const [approveState, approve] = useTokenApprove(
     HAKKA[chainId],
     NEW_SHAKKA_ADDRESSES[chainId],
-    inputAmount
+    safeInputAmount
   );
 
   const [secondTimer, setSecondTimer] = useState<number>(SEC_OF_FOUR_YEARS);
   const [stakeState, stake] = useHakkaStake(
     NEW_SHAKKA_ADDRESSES[chainId],
     account,
-    parseUnits(inputAmount, 18),
+    parseUnits(safeInputAmount, 18),
     secondTimer
   );
 
   const receivedAmount = useMemo(() => {
     const received = +stakeReceivedAmount(
-      inputAmount,
+      safeInputAmount,
       transferToYear(secondTimer),
       chainId
     );
     return isNaN(received) ? 0 : received;
-  }, [stakeState.toString(), inputAmount, secondTimer, chainId]);
+  }, [stakeState.toString(), safeInputAmount, secondTimer, chainId]);
 
   return (
     <div sx={styles.stakingCard}>
