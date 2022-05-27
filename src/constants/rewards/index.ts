@@ -1,3 +1,4 @@
+import { AddressZero } from '@ethersproject/constants';
 import {
   ChainId,
   BHS_POOL,
@@ -16,7 +17,7 @@ import {
   IGAIN_POLYGON_USDC_POOL_2,
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
-  IGAIN_FANTOM_USDT_POOL_1,
+  // IGAIN_FANTOM_USDT_POOL_1,
 } from '../../constants';
 
 export type Pool = {
@@ -278,21 +279,21 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsSymbol: 'HAKKA',
     archived: true,
   },
-  [IGAIN_FANTOM_USDT_POOL_1]: {
-    name: 'iGain IRS USDT',
-    subtitle: new Date(1656575394000).toLocaleString(
-      'en-US',
-      timeOption,
-    ),
-    closeTime: '1656575394000',
-    chain: ChainId.FANTOM,
-    website: 'iGain IRS',
-    url: 'https://igain.finance/irs/apy-trade-pools/detail/',
-    tokenAddress: '0x1',
-    tokenSymbol: 'LP',
-    decimal: 6,
-    rewardsAddress: IGAIN_FANTOM_USDT_POOL_1,
-    rewardsSymbol: 'HAKKA',
-    archived: false,
-  },
+  // [IGAIN_FANTOM_USDT_POOL_1]: {
+  //   name: 'iGain IRS USDT',
+  //   subtitle: new Date(1656575394000).toLocaleString(
+  //     'en-US',
+  //     timeOption,
+  //   ),
+  //   closeTime: '1656575394000',
+  //   chain: ChainId.FANTOM,
+  //   website: 'iGain IRS',
+  //   url: 'https://igain.finance/irs/apy-trade-pools/detail/',
+  //   tokenAddress: AddressZero,
+  //   tokenSymbol: 'LP',
+  //   decimal: 6,
+  //   rewardsAddress: IGAIN_FANTOM_USDT_POOL_1,
+  //   rewardsSymbol: 'HAKKA',
+  //   archived: false,
+  // },
 }
