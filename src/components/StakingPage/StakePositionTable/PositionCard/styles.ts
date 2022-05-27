@@ -7,6 +7,12 @@ const cardContainer: ThemeUICSSObject = {
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
+  '& button': {
+    flexGrow: 1
+  },
+  '.button-group': {
+    display: 'flex',
+  }
 };
 
 const rowEle: ThemeUICSSObject = {
@@ -23,15 +29,17 @@ const rowEle: ThemeUICSSObject = {
     '.icon': {
       marginRight: '5px',
       verticalAlign: 'middle'
+    },
+    '&.semi': {
+      fontWeight: '600',
     }
   },
   '.sub-title': {
     color: 'rgba(37, 62, 71, 0.5)',
-    float: 'right'
+    float: 'right',
+    fontWeight: '600',
   },
-  '& button': {
-    flexGrow: 1
-  }
+  
 };
 
 export default {

@@ -59,7 +59,7 @@ export default memo(function StakePositionTable(props: IProps) {
     (_: unknown, record: ITableData) => {
       const state = record.state;
       return (
-        <div>
+        <div className="button-group">
           {state > 1 && (
             <button sx={styles.button} onClick={() => onRedeem(record.index)}>
               Redeem
@@ -93,12 +93,15 @@ export default memo(function StakePositionTable(props: IProps) {
           <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
         </Box>
       </Flex>
-      {isMobile && tableData.map(raw => <PositionCard data={raw} key={raw.index} actionButtonRender={actionButtonRender} />) ||
-
-        <div sx={{
-          mb: '100px',
-        }}>
-          {tableData.length > 0 && (
+      {
+        tableData.length ? (isMobile &&
+          <div sx={styles.cardWrapper}>
+            {tableData.map(raw => <PositionCard data={raw} key={raw.index} actionButtonRender={actionButtonRender} />)}
+          </div>
+          ||
+          <div sx={{
+            mb: '100px',
+          }}>
             <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
               <Column<ITableData>
                 title=""
@@ -132,12 +135,11 @@ export default memo(function StakePositionTable(props: IProps) {
                 key="hakkaAmount"
                 render={actionButtonRender}
               />
-            </Table>) || (<div sx={styles.emptySection}>
-              No position
-            </div>)
-          }
-        </div>
-      }
+            </Table>
+          </div>)
+          : <div sx={styles.emptySection}>
+            No position
+          </div>}
     </div>
   );
 });

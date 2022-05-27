@@ -25,12 +25,12 @@ export default function PositionCard(props: IProps) {
       </div>
       <div sx={styles.rowEle}>
         <div className="title">HAKKA staked</div>
-        <strong className="value">{data.stakedHakkaStr}</strong>
+        <span className="value semi">{data.stakedHakkaStr}</span>
         <span className="sub-title">HAKKA</span>
       </div>
       <div sx={styles.rowEle}>
         <div className="title">sHAKKA obtained</div>
-        <strong className="value">{data.sHakkaReceivedStr}</strong>
+        <span className="value semi">{data.sHakkaReceivedStr}</span>
         <span className="sub-title">sHAKKA</span>
       </div>
       {actionButtonRender?.(data, data)}
