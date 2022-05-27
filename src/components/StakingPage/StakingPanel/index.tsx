@@ -30,29 +30,30 @@ interface IProps {
   chainId: ChainId;
 }
 
-const StakeButton = withWrongNetworkCheckWrapper(
-  withApproveTokenCheckWrapper(withConnectWalletCheckWrapper(MyButton))
+const StakeButton = withApproveTokenCheckWrapper(
+  withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
 );
 
 export default function StakingPanel(props: IProps) {
-  const { isCorrectNetwork, toggleWalletModal, chainId } = props;
+  const { toggleWalletModal, chainId: activeChainId, isCorrectNetwork } = props;
   const { account } = useWeb3React();
 
-  const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
+  console.log('correct?', isCorrectNetwork)
+
+  const hakkaBalance = useTokenBalance(account, HAKKA[activeChainId]);
 
   const [inputAmount, setInputAmount] = useState<string>('0');
   const [isCorrectInput, setIsCorrectInput] = useState(true);
   
   const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
   const [approveState, approve] = useTokenApprove(
-    HAKKA[chainId],
-    NEW_SHAKKA_ADDRESSES[chainId],
+    HAKKA[activeChainId],
+    NEW_SHAKKA_ADDRESSES[activeChainId],
     safeInputAmount
   );
-
   const [secondTimer, setSecondTimer] = useState<number>(SEC_OF_FOUR_YEARS);
   const [stakeState, stake] = useHakkaStake(
-    NEW_SHAKKA_ADDRESSES[chainId],
+    NEW_SHAKKA_ADDRESSES[activeChainId],
     account,
     parseUnits(safeInputAmount, 18),
     secondTimer
@@ -62,10 +63,10 @@ export default function StakingPanel(props: IProps) {
     const received = +stakeReceivedAmount(
       safeInputAmount,
       transferToYear(secondTimer),
-      chainId
+      activeChainId
     );
     return isNaN(received) ? 0 : received;
-  }, [stakeState.toString(), safeInputAmount, secondTimer, chainId]);
+  }, [stakeState.toString(), safeInputAmount, secondTimer, activeChainId]);
 
   return (
     <div sx={styles.stakingCard}>
@@ -103,7 +104,7 @@ export default function StakingPanel(props: IProps) {
             !isCorrectInput
           }
           isCorrectNetwork={isCorrectNetwork}
-          targetNetwork={chainId}
+          targetNetwork={activeChainId}
         >
           {stakeState === StakeState.PENDING ? 'Pending' : 'Stake'}
         </StakeButton>
