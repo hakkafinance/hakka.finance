@@ -41,5 +41,5 @@ const stakingRate = getStakingRate(STAKING_RATE_MODEL_RELEASE_TIME[NEW_SHAKKA_AD
 const totalStakedHakka = parseFloat(formatUnits(vault.hakkaAmount, 18)) + parseFloat(amount);
 const receivedSHakkaAmount = stakeFormula(totalStakedHakka, time, stakingRate);
 const additionalSHakkaAmount = receivedSHakkaAmount - parseFloat(formatUnits(vault.wAmount, 18));
-return [receivedSHakkaAmount.toFixed(4), additionalSHakkaAmount.toFixed(4)];
+return [receivedSHakkaAmount.toFixed(4), (~~(additionalSHakkaAmount * 10000) / 10000).toString()];
 };

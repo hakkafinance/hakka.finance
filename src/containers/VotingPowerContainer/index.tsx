@@ -49,10 +49,10 @@ const VotingPowerContainer = () => {
     });
     return [
       totalVotingPower?.toFixed(2),
-      v1Weight.toFixed(4),
-      v2Weight.toFixed(4),
-      v1Proportion.toFixed(4),
-      v2Proportion.toFixed(4),
+      v1Weight.toFixed(2),
+      v2Weight.toFixed(2),
+      v1Proportion.toFixed(2),
+      v2Proportion.toFixed(2),
       ...v2ProportionList,
     ];
   }, [votingPowerInfo, votingPower, ~~(Date.now() / 60000)]);
