@@ -64,6 +64,8 @@ const Staking = () => {
 
   const [activeChainTab, setActiveChainTab] = useState(ChainId.MAINNET);
 
+  const isTabInCorrectNetwork = chainId === activeChainTab;
+
   const governanceLink = useMemo(() => {
     return botSideBarItems.find((ele) => ele.name === 'governance').href!;
   }, []);
@@ -153,7 +155,7 @@ const Staking = () => {
               />
             </div>
             <StakingPanel
-              isCorrectNetwork={isCorrectNetwork}
+              isCorrectNetwork={isTabInCorrectNetwork}
               chainId={activeChainTab}
               toggleWalletModal={toggleWalletModal}
             ></StakingPanel>
@@ -171,7 +173,7 @@ const Staking = () => {
           sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
           sHakkaBalanceInFarming={depositedBalance}
           toggleWalletModal={toggleWalletModal}
-          isCorrectNetwork={isCorrectNetwork}
+          isCorrectNetwork={isTabInCorrectNetwork}
         />
         <RestakeModal
           key={`restake-${positionIndex}`}
@@ -180,7 +182,7 @@ const Staking = () => {
           index={positionIndex}
           vaults={vault}
           toggleWalletModal={toggleWalletModal}
-          isCorrectNetwork={isCorrectNetwork}
+          isCorrectNetwork={isTabInCorrectNetwork}
         />
         {/* infoPart */}
         {/* link area */}
