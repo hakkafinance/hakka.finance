@@ -3,6 +3,10 @@ export default {
   optionContainer: {
     display: 'flex',
     alignItems: 'flex-end',
+    '@media screen and (max-width: 576px)': {
+      flexWrap: 'wrap',
+      rowGap: '12px'
+    }
   },
 
   wrapper: {
@@ -38,6 +42,7 @@ export default {
         color: 'rgba(37, 62, 71, 0.25)',
       },
     },
+    
   },
 
   title: {

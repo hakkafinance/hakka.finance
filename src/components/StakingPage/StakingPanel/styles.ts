@@ -12,11 +12,11 @@ const stakingCard = {
 
   '@media screen and (max-width: 1190px)': {
     marginTop: '0',
-    display: 'none',
   },
 
   '@media screen and (max-width: 576px)': {
     width: '100%',
+    boxSizing: 'border-box',
   },
 };
 const hakkaBalanceWrapper = {

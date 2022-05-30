@@ -57,6 +57,28 @@ export default {
     marginBottom: '60px',
   },
 
+  headingBlock: {
+    display: 'grid',
+    gridTemplateAreas: `'title wallet' 'comment comment' 'voting-power switch-btn'`,
+    '.heading-title': {
+      gridArea: 'title',
+    },
+    '.heading-wallet': {
+      gridArea: 'wallet',
+    },
+    '.heading-comment': {
+      gridArea: 'comment',
+    },
+    '.heading-voting-power': {
+      gridArea: 'voting-power',
+    },
+    '.heading-switch-btn': {
+      gridArea: 'switch-btn',
+    },
+    '@media screen and (max-width: 576px)': {
+    }
+  },
+
   body: {
     display: 'block',
   },
@@ -74,8 +96,11 @@ export default {
 
   gridBlock: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-  },
+    gridTemplateAreas: `'1fr 1fr'`,
+    '@media screen and (max-width: 1190px)': {
+      gridTemplateAreas: `'1fr' '1fr'`,
+    }
+  } as ThemeUICSSObject,
 
   stakeInfoWrapper: {
     paddingTop: '40px',
