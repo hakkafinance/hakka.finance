@@ -93,37 +93,45 @@ const Staking = () => {
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
-        <div sx={styles.heading}>
-          <h1>Staking</h1>
-          <Web3Status unsupported={!isCorrectNetwork} />
-        </div>
-        <div sx={styles.votingPowerArea}>
-          <VotingPowerContainer />
+        <div sx={styles.headingBlock}>
+          <h1 className="heading-title">Staking</h1>
+          <div className="heading-comment">
+            Read more about Hakka new staking model and migration
+            <img src={images.iconLinkSmall} alt="iconLinkSmall" />
+          </div>
+          <div className="heading-wallet">
+            <Web3Status unsupported={!isCorrectNetwork} />
+          </div>
+          <div className="heading-voting-power">
+            <VotingPowerContainer />
+          </div>
 
           {/* governance navigation */}
-          <a
-            data-tip
-            data-for="governance"
-            className="ml-auto"
-            href={governanceLink}
-            rel="noreferrer"
-            target="_blank"
-            sx={styles.governanceButton}
-          >
-            <img src={images.iconToGovernance} />
-          </a>
-          <ReactTooltip
-            place="bottom"
-            id="governance"
-            effect="solid"
-            backgroundColor="#253E47"
-          >
-            <span>Go to governance</span>
-          </ReactTooltip>
-          <a href="/staking-v1" sx={styles.normalButton}>
-            Switch to v1
-            <img className="icon" src={images.iconArrowRight} />
-          </a>
+          <div className="heading-switch-btn">
+            <a
+              data-tip
+              data-for="governance"
+              className="governance"
+              href={governanceLink}
+              rel="noreferrer"
+              target="_blank"
+              sx={styles.governanceButton}
+            >
+              <img src={images.iconToGovernance} />
+            </a>
+            <ReactTooltip
+              place="bottom"
+              id="governance"
+              effect="solid"
+              backgroundColor="#253E47"
+            >
+              <span>Go to governance</span>
+            </ReactTooltip>
+            <a href="/staking-v1" sx={styles.normalButton}>
+              Switch to v1
+              <img className="icon" src={images.iconArrowRight} />
+            </a>
+          </div>
         </div>
         <div sx={styles.body}>
           {/* voting power */}
