@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import styles from './style';
-import images from '../../../images/index';
 import ReactTooltip from 'react-tooltip';
+import { isMobile } from 'react-device-detect';
+import images from '../../../images/index';
 
 interface VotingPowerAreaProps {
   totalVotingPower?: string;
@@ -39,19 +40,31 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           <p>Voting Power</p>
           <img src={images.iconQuestion} data-tip data-for='votingPower' />
           <ReactTooltip id='votingPower' effect='solid' backgroundColor='#253E47'>
-            <span>Due to the version upgrade, the new <br /> voting power is derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
+            {isMobile ? (
+              <span>Due to the version upgrade, <br /> the new voting power is <br />  derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
+            ) : (
+              <span>Due to the version upgrade, the new <br /> voting power is derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
+            )}
           </ReactTooltip>
         </div> 
         <div sx={styles.votingPowerValueWrapper}>
           <p>{totalVotingPower ? totalVotingPower : '-'}</p>
-          <img src={images.iconProportion} data-tip data-for='votingPowerValue' />
-          <ReactTooltip id='votingPowerValue' place='bottom' effect='solid' backgroundColor='#253E47'>
-            <span>proportion V1:{v1VotingPowerProportion || 0}% V2:{v2VotingPowerProportion || 0}%</span>
-          </ReactTooltip>
+          {isMobile ? 
+            (
+              <span> V1: {v1VotingPowerProportion || 0}% V2: {v2VotingPowerProportion || 0}%</span>
+            ) : (
+              <div>
+                <img src={images.iconProportion} data-tip data-for='votingPowerValue' />
+                <ReactTooltip id='votingPowerValue' place='bottom' effect='solid' backgroundColor='#253E47'>
+                  <span>proportion V1:{v1VotingPowerProportion || 0}% V2:{v2VotingPowerProportion || 0}%</span>
+                </ReactTooltip>
+              </div>
+            )
+          }
         </div>
       </div>
       <div>
-        <p>Proportion</p>
+        <p>Proportion (V2 only)</p>
         <div sx={styles.proportionItemContainer}>
           <ProportionItem proportionValue={ethProportion || '-'} img={images.iconEthereumDarkBg} />
           <ProportionItem proportionValue={bscProportion || '-'} img={images.iconBSCDarkBg} />

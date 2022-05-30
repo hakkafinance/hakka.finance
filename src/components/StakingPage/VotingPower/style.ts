@@ -6,10 +6,18 @@ export default {
       margin: '0',
       fontSize: '14px',
     },
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+    },
   },
 
   votingPowerContainer: {
     marginRight: '60px',
+
+    '@media screen and (max-width: 576px)': {
+      marginBottom: '16px',
+    },
   },
 
   votingPowerTitle: {
@@ -48,6 +56,19 @@ export default {
       marginRight: '8px',
       fontSize: '24px',
       fontWeight: '600',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      alignItems: 'flex-end',
+
+      span: {
+        fontSize: '12px',
+        fontWeight: '600',
+      },
+
+      p: {
+        marginRight: '12px',
+      },
     },
   },
 };
