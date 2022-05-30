@@ -9,7 +9,7 @@ export default {
   container: {
     width: '100%',
     position: 'relative',
-    padding: '25px',
+    padding: '20px 12px',
     color: '#253e47',
 
     '@media screen and (max-width: 576px)': {
@@ -108,7 +108,14 @@ export default {
   date: {
     color: '#253e47',
     fontSize: '14px',
-  }
+  },
+
+  switchLabelWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  },
 };
 
 export const headerWrapper: ThemeUIStyleObject = {
@@ -133,6 +140,11 @@ export const headerWrapper: ThemeUIStyleObject = {
     fontWeight: '600',
     fontSize: '14px',
     color: '#253E47',
+  },
+
+  '@media screen and (max-width: 576px)': {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 };
     

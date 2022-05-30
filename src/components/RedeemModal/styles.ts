@@ -7,7 +7,7 @@ export default {
   container: {
     width: '100%',
     position: 'relative',
-    padding: '25px',
+    padding: '20px 12px',
     color: '#253e47',
 
     '@media screen and (max-width: 576px)': {

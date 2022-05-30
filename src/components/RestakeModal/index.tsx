@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { jsx, Switch } from 'theme-ui';
 import { parseUnits } from 'ethers/lib/utils';
+import { isMobile } from 'react-device-detect';
 import {
   useRestakeModalOpen,
   useRestakeModalToggle,
@@ -49,15 +50,18 @@ const StayTheSameSwitchWithTitle = ({
   return (
     <div sx={headerWrapper}>
       <p>{title}</p>
-      <div>
-        <Switch
-          disabled={isDisable}
-          id="stake-position-switch"
-          className="switch"
-          label="Stay the same"
-          checked={switchState}
-          onChange={handleSwitchChange}
-        ></Switch>
+      <div sx={styles.switchLabelWrapper}>
+        {isMobile && <p>Stay the same</p>}
+        <div>
+          <Switch
+            disabled={isDisable}
+            id="stake-position-switch"
+            className="switch"
+            label={isMobile ? '' : "Stay the same"}
+            checked={switchState}
+            onChange={handleSwitchChange}
+          />
+        </div>
       </div>
     </div>
   );
