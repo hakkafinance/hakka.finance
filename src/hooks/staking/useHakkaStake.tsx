@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
 
 import { useStakeContract } from '../useContract';
-import { getEtherscanLink, shortenTxId } from '../../utils';
+import { calculateGasMargin, getEtherscanLink, shortenTxId } from '../../utils';
+import { useEffect } from 'react';
 
 export enum StakeState {
   UNKNOWN,
@@ -40,7 +41,10 @@ export function useHakkaStake(
     }
 
     try {
-      const tx = await stakeContract.stake(spender, amountParsed, lockSec);
+      const estimatedGas = await stakeContract.estimateGas.stake(spender, amountParsed, lockSec);
+      const tx = await stakeContract.stake(spender, amountParsed, lockSec, {
+        gasLimit: estimatedGas.mul(BigNumber.from(15000)).div(BigNumber.from(10000)),  // * 1.5
+      });
       setCurrentTransaction(tx.hash);
       toast(
         <a
