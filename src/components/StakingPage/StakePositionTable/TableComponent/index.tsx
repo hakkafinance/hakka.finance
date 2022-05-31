@@ -27,7 +27,7 @@ export function VaultIcon(props: {
 export function renderVaultIcon(_: unknown, record: ITableData) {
   return (
     <div sx={styles.imgWrapper}>
-      <VaultIcon state={record.state} className="icon" />
+      <VaultIcon state={record.state} className="vault-icon" />
     </div>
   );
 }

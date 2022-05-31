@@ -7,7 +7,7 @@ const imgWrapper: ThemeUIStyleObject = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '8px',
-  '.icon': {
+  '.vault-icon': {
     size: '20px',
   },
 };
