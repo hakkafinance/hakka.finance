@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { VaultIcon } from '../TableComponent';
+import { expiredCountdownRenderer, VaultIcon } from '../TableComponent';
 import { ITableData } from '../types';
-import { getDateFromBigNumber, getExpiredLeftStrFromBigNumber } from '../utils';
+import { getDateFromBigNumber } from '../utils';
 import styles from './styles';
+
+import Countdown from 'react-countdown';
 interface IProps {
   data: ITableData;
   actionButtonRender?: (_: unknown, record: ITableData) => React.ReactElement;
@@ -17,7 +19,11 @@ export default function PositionCard(props: IProps) {
         <div className="title">Expiry date</div>
         <strong className="value">
           <VaultIcon state={data.state} className="icon" />
-          {getExpiredLeftStrFromBigNumber(data.unlockTime)}
+          <Countdown
+            date={new Date(data.unlockTime.mul(1000).toNumber())}
+            intervalDelay={30000}
+            renderer={expiredCountdownRenderer}
+          ></Countdown>
         </strong>
         <span className="sub-title">
           {getDateFromBigNumber(data.unlockTime)}

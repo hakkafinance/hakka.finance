@@ -4,12 +4,20 @@ import { ITableData } from '../types';
 import styles from '../styles';
 import images from '../../../../images';
 import { getDateFromBigNumber, getExpiredLeftStrFromBigNumber } from '../utils';
+import Countdown, { CountdownRendererFn } from 'react-countdown';
 
 export const vaultImage = [
   images.iconVaultArchive,
   images.iconStaking,
   images.iconRedeem,
 ];
+
+export const expiredCountdownRenderer: CountdownRendererFn = ({ days, completed }) => {
+  if (completed) {
+    return <span>Expired</span>;
+  }
+  return <span>{`Left ${days} days`}</span>;
+};
 
 export function VaultIcon(props: {
   state: ITableData['state'];
@@ -33,11 +41,16 @@ export function renderVaultIcon(_: unknown, record: ITableData) {
 }
 
 export function renderExpiryDate(_: unknown, record: ITableData) {
-  const text = getExpiredLeftStrFromBigNumber(record.unlockTime);
   const date = getDateFromBigNumber(record.unlockTime);
   return (
     <div sx={styles.valueWrapper} className={!record.state ? 'disabled' : ''}>
-      <strong className="title">{text}</strong>
+      <strong className="title">
+        <Countdown
+          intervalDelay={30000}
+          renderer={expiredCountdownRenderer}
+          date={new Date(record.unlockTime.mul(1000).toNumber())}
+        />
+      </strong>
       <span className="sub-title">{date}</span>
     </div>
   );
