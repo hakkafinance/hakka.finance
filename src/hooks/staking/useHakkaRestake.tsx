@@ -36,7 +36,10 @@ export default function useHakkaRestake(
     }
 
     try {
-      const tx = await stakeContract.restake(index, amountParsed, sec);
+      const estimatedGas = await stakeContract.estimateGas.restake(index, amountParsed, sec);
+      const tx = await stakeContract.restake(index, amountParsed, sec, {
+        gasLimit: estimatedGas.mul(BigNumber.from(15000)).div(BigNumber.from(10000)),  // * 1.5
+      });
       setCurrentTransaction(tx.hash);
       toast(
         <a
