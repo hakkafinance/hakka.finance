@@ -26,6 +26,17 @@ export default {
     p: {
       marginRight: '6px'
     },
+
+    '& .tooltips': {
+      maxWidth: '280px',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      '& .tooltips': {
+        maxWidth: '230px',
+        padding: '8px',
+      },
+    },
   },
 
   proportionItemContainer: {

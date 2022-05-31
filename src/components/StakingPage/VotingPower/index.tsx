@@ -39,12 +39,8 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
         <div sx={styles.votingPowerTitle}>
           <p>Voting Power</p>
           <img src={images.iconQuestion} data-tip data-for='votingPower' />
-          <ReactTooltip id='votingPower' effect='solid' backgroundColor='#253E47'>
-            {isMobile ? (
-              <span>Due to the version upgrade, <br /> the new voting power is <br />  derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
-            ) : (
-              <span>Due to the version upgrade, the new <br /> voting power is derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
-            )}
+          <ReactTooltip id='votingPower' effect='solid' backgroundColor='#253E47' className='tooltips'>
+            <span>Due to the version upgrade, the new voting power is derived from V1 x {v1VotingPowerWeight} + V2 x {v2VotingPowerWeight}</span>
           </ReactTooltip>
         </div> 
         <div sx={styles.votingPowerValueWrapper}>
