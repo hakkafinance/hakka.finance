@@ -7,7 +7,7 @@ const imgWrapper: ThemeUIStyleObject = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '8px',
-  '.icon': {
+  '.vault-icon': {
     size: '20px',
   },
 };
@@ -49,7 +49,7 @@ const emptySection: ThemeUIStyleObject = {
   border: 'solid 1px var(--theme-ui-colors-neutral-300)',
   fontWeight: 'bold',
   color: 'rgba(37, 62, 71, 0.5)',
-}
+};
 
 const tableWrapper: ThemeUIStyleObject = {
   width: '100%',
@@ -103,6 +103,13 @@ const valueWrapper: ThemeUIStyleObject = {
   },
 };
 
+const cardWrapper: ThemeUIStyleObject = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  mb: '100px',
+};
+
 export default {
   valueWrapper,
   button,
@@ -110,4 +117,5 @@ export default {
   tableWrapper,
   headerWrapper,
   emptySection,
+  cardWrapper,
 };
