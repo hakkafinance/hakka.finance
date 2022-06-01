@@ -111,10 +111,14 @@ export default {
   },
 
   switchLabelWrapper: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: '10px',
+    alignItems: 'center',
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      marginTop: '10px',
+    },
   },
 };
 

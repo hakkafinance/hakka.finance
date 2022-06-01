@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from 'react';
 import { jsx } from 'theme-ui';
 import styles from './style';
 import ReactTooltip from 'react-tooltip';
@@ -49,12 +50,12 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
             (
               <span> V1: {v1VotingPowerProportion || 0}% V2: {v2VotingPowerProportion || 0}%</span>
             ) : (
-              <div>
+              <>
                 <img src={images.iconProportion} data-tip data-for='votingPowerValue' />
                 <ReactTooltip id='votingPowerValue' place='bottom' effect='solid' backgroundColor='#253E47'>
                   <span>proportion V1:{v1VotingPowerProportion || 0}% V2:{v2VotingPowerProportion || 0}%</span>
                 </ReactTooltip>
-              </div>
+              </>
             )
           }
         </div>

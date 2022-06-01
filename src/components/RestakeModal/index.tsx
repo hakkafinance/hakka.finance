@@ -51,7 +51,7 @@ const StayTheSameSwitchWithTitle = ({
     <div sx={headerWrapper}>
       <p>{title}</p>
       <div sx={styles.switchLabelWrapper}>
-        {isMobile && <p>Stay the same</p>}
+        {isMobile && <div>Stay the same</div>}
         <div>
           <Switch
             disabled={isDisable}
