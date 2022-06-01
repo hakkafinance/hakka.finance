@@ -1,10 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { Fragment } from 'react';
 import { memo, useState, useMemo, useEffect, useRef } from 'react';
 import styles from './styles';
-import { dateRangeCal, getExpectedDay } from '../../../../utils/dateRangeCal';
-import { SEC_OF_FOUR_YEARS } from '../../../../constants';
+import { getExpectedDay } from '../../../../utils/dateRangeCal';
 import { useCallback } from 'react';
 interface IProps {
   onChange(sec: number): void;
@@ -38,43 +36,34 @@ const monthlyTimeStampTransfer = (month: number) => month * 30 * 24 * 60 * 60;
 const yearlyTimeStampTransfer = (years: number) => years * 8766 * 60 * 60;
 
 const periodsGroup = [
-  [4, 0],
-  [3, 9],
-  [3, 6],
-  [3, 3],
-  [3, 0],
-  [2, 9],
-  [2, 6],
-  [2, 3],
-  [2, 0],
-  [1, 9],
-  [1, 6],
-  [1, 3],
-  [1, 0],
-  [0, 9],
-  [0, 6],
-  [0, 3],
-]
-  .map(([years, months]) => ({
-    years,
-    months,
-    timestamp:
-      yearlyTimeStampTransfer(years) + monthlyTimeStampTransfer(months),
-  }))
+  [4, [0]],
+  [3, [0, 3, 6, 9]],
+  [2, [0, 3, 6, 9]],
+  [1, [0, 3, 6, 9]],
+  [0, [3, 6, 9]],
+] as [number, number[]][];
+
+const timestampGroups = periodsGroup
+  .map(([years, months]) =>
+    months.map((month) => ({
+      years,
+      months: month,
+      timestamp:
+        yearlyTimeStampTransfer(years) + monthlyTimeStampTransfer(month),
+    }))
+  )
+  .flat()
   .reduce((prev, { years, months, timestamp }) => {
-    if (prev[timestamp]) prev[timestamp][years] = months;
-    else prev[timestamp] = { [years]: months };
+    prev[timestamp] = { years, months };
     return prev;
-  }, {} as Record<string, { [x: number]: number }>);
-const keysOfPeriod = Object.keys(periodsGroup);
+  }, {} as Record<string, { [x in 'years' | 'months']: number }>);
+const keysOfPeriod = Object.keys(timestampGroups);
 // time unit is seconds
-// maximum 4 years timestamp
-const maximumDuration = SEC_OF_FOUR_YEARS;
 // minimum 30 minutes timestamp
 const minimumDuration = 30 * 60;
 
 export default function LockPeriodOptions(props: IProps) {
-  const { onChange, timeLeft = 0 } = props;
+  const { onChange, timeLeft = minimumDuration } = props;
   const [lockYear, setLockYear] = useState(4);
   const [lockMonth, setLockMonth] = useState(0);
 
@@ -96,25 +85,42 @@ export default function LockPeriodOptions(props: IProps) {
     onChange(timeStamp);
   }, [timeStamp]);
 
+  const availableTree = useMemo(() => {
+    const _timeLeft = Math.max(timeLeft, minimumDuration);
+
+    const availablePeriods = keysOfPeriod.filter((time) => {
+      return +time >= _timeLeft;
+    });
+
+    const availableTree = availablePeriods.reduce((prev, timeStamp) => {
+      const _tmp = prev.get(timestampGroups[timeStamp].years);
+      if (_tmp) {
+        _tmp.add(timestampGroups[timeStamp].months);
+      } else {
+        prev.set(
+          timestampGroups[timeStamp].years,
+          new Set([timestampGroups[timeStamp].months])
+        );
+      }
+      return prev;
+    }, new Map<number, Set<number>>());
+
+    return availableTree;
+  }, [timeLeft]);
+
+  useEffect(() => {
+    if (!availableTree.has(lockYear)) {
+      onLockYearChange(availableTree.keys().next().value);
+    }
+  }, [timeLeft]);
+
   const { yearOptions, monthOptions } = useMemo(() => {
-    // block timestamp
-
-    const availablePeriods = initSelect.current
-      ? keysOfPeriod.filter(time => {
-          return +time <= timeLeft && +time > minimumDuration;
-      }) : keysOfPeriod;
-
-    console.log(timeLeft, availablePeriods);
-
-    const availableYears = availablePeriods.map(time => periodsGroup[time]);
-    const availableMonths = availablePeriods.map(({ months }) => months);
-
     const yearOptions = yearsPeriod.map((year) => {
       return {
         value: year,
         label: year,
         active: lockYear === year,
-        disabled: !availableYears.includes(year),
+        disabled: !availableTree.has(year),
       };
     });
 
@@ -123,19 +129,31 @@ export default function LockPeriodOptions(props: IProps) {
         value: month,
         label: month,
         active: lockMonth === month,
-        disabled: !availableMonths.includes(month),
+        disabled: !availableTree.get(lockYear).has(month),
       };
     });
     return { yearOptions, monthOptions };
-  }, [lockYear, lockMonth, timeLeft]);
+  }, [lockYear, lockMonth, availableTree]);
 
   const until = useMemo(() => {
     return getExpectedDay(new Date(), timeStamp * 1000);
   }, [timeStamp]);
 
+  const lockMonthRef = useRef(lockMonth);
+  lockMonthRef.current = lockMonth;
+
   const onLockYearChange = useCallback((year: number) => {
     setLockYear(year);
     initSelect.current = false;
+
+    if (!availableTree.get(year).has(lockMonthRef.current)) {
+      setLockMonth(
+        availableTree
+          .get(year)
+          .values()
+          .next().value
+      );
+    }
   }, []);
 
   return (
@@ -165,29 +183,21 @@ export default function LockPeriodOptions(props: IProps) {
             />
           ))}
         </div>
-        {!initSelect.current && (
-          <Fragment>
-            <div sx={styles.wrapper} data-label="" style={{ margin: '0 8px' }}>
-              +
-            </div>
-            <div
-              sx={styles.wrapper}
-              className="option-block"
-              data-label="Month(s)"
-            >
-              {monthOptions.map((option) => (
-                <LockPeriod
-                  key={option.value}
-                  onClick={setLockMonth}
-                  disabled={option.disabled}
-                  active={option.active}
-                  value={option.value}
-                  label={option.label}
-                />
-              ))}
-            </div>
-          </Fragment>
-        )}
+        <div sx={styles.wrapper} data-label="" style={{ margin: '0 8px' }}>
+          +
+        </div>
+        <div sx={styles.wrapper} className="option-block" data-label="Month(s)">
+          {monthOptions.map((option) => (
+            <LockPeriod
+              key={option.value}
+              onClick={setLockMonth}
+              disabled={option.disabled}
+              active={option.active}
+              value={option.value}
+              label={option.label}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
