@@ -9,6 +9,13 @@ import { createRenderValue, renderExpiryDate, renderVaultIcon } from './TableCom
 import { formatUnits } from 'ethers/lib/utils';
 import { createBigNumberSort } from '../../../utils/sort';
 import { VaultType } from '../../../hooks/staking/useStakingVault';
+import { isMobile } from 'react-device-detect';
+import PositionCard from './PositionCard';
+
+import _cond from 'lodash/cond';
+import _matches from 'lodash/matches';
+import _stubTrue from 'lodash/stubTrue';
+
 const { Column } = Table;
 
 interface IProps {
@@ -27,7 +34,7 @@ export default memo(function StakePositionTable(props: IProps) {
   }, []);
 
   const tableData: ITableData[] = useMemo(() => {
-    if (data.some(raw => !raw)) return []
+    if (data.some(raw => !raw)) return [];
     const archiveList: ITableData[] = [];
     const nonArchiveList: ITableData[] = [];
     data
@@ -57,7 +64,7 @@ export default memo(function StakePositionTable(props: IProps) {
     (_: unknown, record: ITableData) => {
       const state = record.state;
       return (
-        <div>
+        <div className="button-group">
           {state > 1 && (
             <button sx={styles.button} onClick={() => onRedeem(record.index)}>
               Redeem
@@ -83,56 +90,64 @@ export default memo(function StakePositionTable(props: IProps) {
 
   const sHakkaObtainedRenderer = useCallback(createRenderValue('sHAKKA', 'sHakkaReceivedStr'), []);
 
+  const TableWrap = useCallback(_cond<{tableLength: number, isMobile: boolean}, React.ReactElement>([
+    [
+      _matches({ tableLength: 0 }),
+      () => <div sx={styles.emptySection}>
+        No position
+      </div>
+    ],
+    [
+      _matches({ isMobile: true }),
+      () => <div sx={styles.cardWrapper}>
+        {tableData.map(raw => <PositionCard data={raw} key={raw.index} actionButtonRender={actionButtonRender} />)}
+      </div>
+    ],
+    [
+      _stubTrue,
+      () => 
+        <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
+          <Column<ITableData>
+            title=""
+            dataIndex="icon"
+            render={renderVaultIcon}
+            width={72}
+          ></Column>
+
+          <Column<ITableData>
+            title="Expiry date"
+            dataIndex="index"
+            render={renderExpiryDate}
+            width={180}
+          />
+
+          <Column<ITableData> title="HAKKA staked" dataIndex="hakkaAmount" render={stakedHakkaRenderer}
+            width={180}
+          />
+          <Column<ITableData>
+            title="sHAKKA obtained"
+            dataIndex="wAmount"
+            render={sHakkaObtainedRenderer}
+            width={180}
+          />
+          <Column<ITableData>
+            title=""
+            dataIndex="index"
+            render={actionButtonRender}
+          />
+        </Table>
+    ]
+  ]), [tableData, actionButtonRender]);
+
   return (
-    <div>
+    <div sx={{pb: '100px'}}>
       <Flex sx={styles.headerWrapper}>
         <h2>Staking Position</h2>
         <Box>
           <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
         </Box>
       </Flex>
-      <div sx={{
-        mb: '100px',
-      }}>
-        {tableData.length > 0 && (
-          <Table rowKey="index" sx={styles.tableWrapper} data={tableData}>
-            <Column<ITableData>
-              title=""
-              dataIndex="icon"
-              key="icon"
-              render={renderVaultIcon}
-              width={72}
-            ></Column>
-
-            <Column<ITableData>
-              title="Expiry date"
-              dataIndex="index"
-              key="unlockTime"
-              render={renderExpiryDate}
-              width={180}
-            />
-
-            <Column<ITableData> title="HAKKA staked" dataIndex="hakkaAmount" render={stakedHakkaRenderer}
-              width={180}
-            />
-            <Column<ITableData>
-              title="sHAKKA obtained"
-              dataIndex="wAmount"
-              key="wAmount"
-              render={sHakkaObtainedRenderer}
-              width={180}
-            />
-            <Column<ITableData>
-              title=""
-              dataIndex="index"
-              key="hakkaAmount"
-              render={actionButtonRender}
-            />
-          </Table>) || (<div sx={styles.emptySection}>
-            No position
-          </div>)
-        }
-      </div>
+      <TableWrap tableLength={tableData.length} isMobile={isMobile} />
     </div>
   );
 });

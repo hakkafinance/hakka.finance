@@ -11,6 +11,7 @@ const tabActive: ThemeUICSSObject = {
 export default {
   display: 'flex',
   color: 'rgba(37, 62, 71, 0.5)',
+  flexWrap: 'wrap',
   fontWeight: '600',
 
   div: {
