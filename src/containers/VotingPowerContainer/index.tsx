@@ -11,7 +11,16 @@ const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
 if (process.env.GATSBY_ENV === 'development') {
   availableList.push(ChainId.KOVAN);
 }
-const VotingPowerContainer = () => {
+
+export enum StakingVersion {
+  V1,
+  V2,
+};
+interface VotingPowerContainerProps {
+  stakingVersion?: StakingVersion
+}
+
+const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => {
   const { votingPower } = useStakingData(); // this is v1 sHakka voting power
   const { votingPowerInfo } = useVotingPower();
   const [
@@ -67,6 +76,7 @@ const VotingPowerContainer = () => {
       polygonProportion={v2PolygonProportion}
       v1VotingPowerWeight={v1Weight}
       v2VotingPowerWeight={v2Weight}
+      stakingVersion={stakingVersion}
     />
   );
 };

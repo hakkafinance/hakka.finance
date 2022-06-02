@@ -1,3 +1,4 @@
+import { ThemeUICSSObject } from 'theme-ui';
 import { NormalButton } from './StakePositionItem/buttonStyle';
 
 export default {
@@ -41,47 +42,140 @@ export default {
     },
 
     '@media screen and (max-width: 576px)': {
-      display: 'block',
+      flexDirection: 'column-reverse',
+      alignItems: 'flex-start',
 
       h1: {
-        marginBottom: '20px',
+        marginTop: '20px',
         fontSize: '24px',
       },
     },
   },
 
   body: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    '.subtitle': {
+      display: 'inline-block',
+      fontSize: '14px',
+      fontWeight: '600',
+      margin: '0',
+      lineHeight: '24px',
+      opacity: 0.8,
+      filter: 'grayscale(100%)',
+      transition: 'all 0.25s ease-out',
+      color: 'rgba(37, 62, 71, 0.5)',
+      textDecoration: 'none',
 
-    '@media screen and (max-width: 1190px)': {
-      display: 'block',
+      img: {
+        verticalAlign: 'middle',
+      },
+
+      ':hover': {
+        cursor: 'pointer',
+        opacity: 1,
+        filter: 'grayscale(0)',
+        color: '#2da287',
+      },
+    },
+
+    '@media screen and (max-width: 576px)': {
+      '.subtitle': {
+        margin: '8px 0 20px 0',
+      },
+    },
+  },
+
+  btnBack: {
+    display: 'inline-flex',
+    paddingTop: '36px',
+    fontSize: '0.875rem',
+    color: 'rgba(37, 62, 71, 0.5)',
+    fontWeight: '600',
+    lineHeight: '1.71',
+    opacity: 0.8,
+    filter: 'grayscale(100%)',
+    transition: 'all 0.25s ease-out',
+
+    span: {
+      marginLeft: '4px',
+    },
+
+    ':hover': {
+      cursor: 'pointer',
+      opacity: 1,
+      filter: 'grayscale(0)',
+      color: '#2da287',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      paddingTop: '12px',
     },
   },
 
   infoArea: {
-    width: '300px',
-    marginTop: '40px',
+    marginTop: '50px',
+    marginBottom: '66px',
 
     '@media screen and (max-width: 576px)': {
-      width: '100%',
-      marginTop: '28px',
+      paddingTop: '0',
     },
   },
 
-  amountArea: {
-    paddingTop: '12px',
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    marginBottom: '36px',
 
     h4: {
-      margin: '0 0 28px 0',
+      margin: '0 24px 0 0',
       fontWeight: '600',
       fontSize: [3, 5],
       lineHeight: '1.17',
     },
 
+    span: {
+      whiteSpace: 'nowrap',
+      fontSize: '14px',
+      color: 'rgba(37, 62, 71, 0.5)',
+    },
+
     '@media screen and (max-width: 576px)': {
-      paddingTop: '0',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      span: {
+        paddingTop: '8px',
+      }
+    },
+  },
+
+  stakingInfoContainer: {
+    display: 'flex',
+    
+    p: {
+      margin: '0',
+    },
+
+    'div:first-child': {
+      marginRight: '60px',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+
+      'div:first-child': {
+        marginRight: '0px',
+        marginBottom: '16px',
+      },
+    },
+  },
+
+  stakingInfoItemWrapper: {
+    '& .title': {
+      fontSize: '14px',
+    },
+
+    '& .content': {
+      fontSize: '16px',
+      fontWeight: '600',
     },
   },
 
@@ -390,5 +484,16 @@ export default {
     p: {
       paddingRight: '4px',
     },
+  },
+
+  governanceButton: {
+    ...NormalButton, ml: 'auto', mr: '1rem',
+  } as ThemeUICSSObject,
+
+  votingPowerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '8px',
+    alignItems: 'center',
   },
 };

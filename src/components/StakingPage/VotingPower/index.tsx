@@ -3,6 +3,7 @@ import React from 'react';
 import { jsx } from 'theme-ui';
 import styles from './style';
 import ReactTooltip from 'react-tooltip';
+import { StakingVersion } from '../../../containers/VotingPowerContainer';
 import { isMobile } from 'react-device-detect';
 import images from '../../../images/index';
 
@@ -14,7 +15,8 @@ interface VotingPowerAreaProps {
   bscProportion?: string;
   polygonProportion?: string;
   v1VotingPowerWeight: string;
-  v2VotingPowerWeight: string; 
+  v2VotingPowerWeight: string;
+  stakingVersion?: StakingVersion;
 }
 
 interface ProportionItemProps {
@@ -32,7 +34,17 @@ const ProportionItem = ({ proportionValue, img }: ProportionItemProps) => {
 };
 
 const VotingPowerArea = (props: VotingPowerAreaProps) => {
-  const { totalVotingPower, v1VotingPowerProportion, v2VotingPowerProportion, ethProportion, bscProportion, polygonProportion, v1VotingPowerWeight, v2VotingPowerWeight } = props;
+  const { 
+    totalVotingPower, 
+    v1VotingPowerProportion, 
+    v2VotingPowerProportion, 
+    ethProportion, 
+    bscProportion, 
+    polygonProportion, 
+    v1VotingPowerWeight, 
+    v2VotingPowerWeight, 
+    stakingVersion 
+  } = props;
 
   return(
     <div sx={styles.main}>
@@ -60,7 +72,7 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           }
         </div>
       </div>
-      <div>
+      <div style={stakingVersion === StakingVersion.V1 ? {display: 'none'} : {}}>
         <p>Proportion (V2 only)</p>
         <div sx={styles.proportionItemContainer}>
           <ProportionItem proportionValue={ethProportion || '-'} img={images.iconEthereumDarkBg} />

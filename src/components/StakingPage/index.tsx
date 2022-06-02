@@ -5,6 +5,7 @@ import { formatUnits } from '@ethersproject/units';
 import { Zero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
 import { AddressZero } from '@ethersproject/constants';
+import { navigate } from 'gatsby';
 import images from '../../images';
 import styles from './styles';
 import Web3Status from '../Web3Status';
@@ -127,7 +128,7 @@ const Staking = () => {
             >
               <span>Go to governance</span>
             </ReactTooltip>
-            <a href="/staking-v1" sx={styles.normalButton}>
+            <a onClick={() => navigate(`/staking-v1`)} sx={styles.normalButton}>
               Switch to v1
               <img className="icon" src={images.iconArrowRight} />
             </a>
