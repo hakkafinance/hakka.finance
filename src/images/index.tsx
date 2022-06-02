@@ -134,7 +134,6 @@ const images = {
   imageGelato: require('./icons/imageGelato.png').default,
   imageImmunefiGray: require('./icons/iconImmunefiGray.png').default,
   imageProjectGalaxy: require('./icons/iconProjectGalaxy.png').default,
-  
 
   // icon chain
   iconEthereum: require('./icons/iconEthereum.png').default,
@@ -145,6 +144,7 @@ const images = {
   iconEthereumDarkBg: require('./icons/iconEthereumDark.svg').default,
   iconBSCDarkBg: require('./icons/iconBSCDark.svg').default,
   iconPolygonDarkBg: require('./icons/iconPolygonDark.svg').default,
+  iconFantom: require('./icons/iconFantom.png').default,
 
   iconTabEthereum: require('./icons/iconTabEthereum.svg').default,
   iconTabBinance: require('./icons/iconTabBinance.svg').default,

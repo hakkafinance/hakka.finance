@@ -21,8 +21,9 @@ const CurrentNetwork = ({ unsupported }: { unsupported?: boolean }) => {
 
   return (
     <div sx={styles.chainWrapper}>
-      <img src={chainId && chainId === ChainId.BSC ? images.iconBinanceGold
+      <img sx={styles.imgChain} src={chainId && chainId === ChainId.BSC ? images.iconBinanceGold
         : chainId && chainId === ChainId.POLYGON ? images.iconPolygon
+        : chainId && chainId === ChainId.FANTOM ? images.iconFantom
         : images.iconEthereumDark} alt="Chain Icon" />
       <span sx={styles.chainNameWrapper}>{ChainName[chainId]}</span>
     </div>

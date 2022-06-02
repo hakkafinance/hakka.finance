@@ -20,7 +20,7 @@ export enum ChainId {
   FANTOM = 250,
 }
 
-export enum ChainDataFetchingState { 
+export enum ChainDataFetchingState {
   LOADING,
   SUCCESS,
 }
@@ -34,13 +34,13 @@ export enum TransactionState {
 
 export const stakingMonth = [1, 3, 6, 12];
 
-export const ChainName: { [chainId in ChainId]: string } = {
+export const ChainName: { [chainId: ChainId]: string } = {
   1: 'Ethereum Mainnet',
   4: 'Rinkeby',
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
   137: 'Polygon Network',
-  250: 'Fantom Opera Network',
+  250: 'Fantom Network',
 };
 
 // 365.25 days per year
@@ -68,7 +68,7 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     iconName: 'iconTabPolygon',
     name: 'Polygon',
   },
-}
+};
 
 export interface WalletInfo {
   connector?: AbstractConnector;
@@ -178,7 +178,7 @@ export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
   [ChainId.POLYGON]: '0xeC4b77e7369325b52A1f9d1Ae080B59954B8001a',
   [ChainId.RINKEBY]: AddressZero,
-  [ChainId.FANTOM]: AddressZero,
+  [ChainId.FANTOM]: '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF',
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -285,38 +285,39 @@ export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK : { [address: string]: string } =
   '0x35101c731b1548B5e48bb23F99eDBc2f5c341935': 'blackholeswap-compound-dai-usdc',
 };
 
-export const BHS_USDC_DAI_HAKKA_BPT = '0x1B8874BaceAAfba9eA194a625d12E8b270D77016'
-export const BHS_POOL = '0x6b1ecbbd69eeaf8d089bdce4daaa4165f8c3ff11'
-export const BSC_BHS_POOL = '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a'
-export const BHS_USDC_DAI_HAKKA_POOL = '0x6EE6683Cb9b44810369C873679f8073bCBE52F27'
-export const BHS_HAKKA_BPT = '0xaE95D3198d602acFB18F9188d733d710e14A27Dd'
-export const BHS_HAKKA_POOL = '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF'
-export const MKR_HAKKA_POOL = '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645'
-export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058'
-export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977'
+export const BHS_USDC_DAI_HAKKA_BPT = '0x1B8874BaceAAfba9eA194a625d12E8b270D77016';
+export const BHS_POOL = '0x6b1ecbbd69eeaf8d089bdce4daaa4165f8c3ff11';
+export const BSC_BHS_POOL = '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a';
+export const BHS_USDC_DAI_HAKKA_POOL = '0x6EE6683Cb9b44810369C873679f8073bCBE52F27';
+export const BHS_HAKKA_BPT = '0xaE95D3198d602acFB18F9188d733d710e14A27Dd';
+export const BHS_HAKKA_POOL = '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF';
+export const MKR_HAKKA_POOL = '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645';
+export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058';
+export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977';
 // TODO: new sHakka pool is not ready
-export const ETH_SHAKKA_POOL = ''
-export const BSC_SHAKKA_POOL = ''
-export const POLYGON_SHAKKA_POOL = ''
-export const KOVAN_SHAKKA_POOL = ''
-export const RINKEBY_SHAKKA_POOL = ''
-export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d' // example, should be delete after prod released
-export const IGAIN_BNB_BUSD_POOL = '0x4E353C2CCc7DfB6a4d3Ea7802ddEBa226574702E' // started at 20211104
+export const ETH_SHAKKA_POOL = '';
+export const BSC_SHAKKA_POOL = '';
+export const POLYGON_SHAKKA_POOL = '';
+export const KOVAN_SHAKKA_POOL = '';
+export const RINKEBY_SHAKKA_POOL = '';
+export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d'; // example, should be delete after prod released
+export const IGAIN_BNB_BUSD_POOL = '0x4E353C2CCc7DfB6a4d3Ea7802ddEBa226574702E'; // started at 20211104
 
-export const IGAIN_POLYGON_DAI_POOL_1 = '0xdA54678FD782A162a2BAE0EA9E250a325c4F6de9'  // started at 23820161
-export const IGAIN_POLYGON_USDC_POOL_1 = '0x4D5054708982e96F284D02c7a46F31d6f7291C56' // started at 23819245
-export const IGAIN_POLYGON_USDT_POOL_1 = '0xF8B5351F4bCBF6321cAb7911D775Da3FaC3b5410' // started at 24085140
-export const IGAIN_POLYGON_DAI_POOL_2 = '0x5Dd2777c42C34Ed155FD3CC063A956D03f92448F'  // started at 25059512
-export const IGAIN_POLYGON_USDC_POOL_2 = '0x25a1f8f0b666E5C17e91CF9F5322aad0780B588e' // started at 25059502
-export const IGAIN_POLYGON_USDC_POOL_3 = '0x87c2829CcD44d2a96E76E1D3bF56d504d5cB1536' // started at 26867817
-export const IGAIN_POLYGON_USDT_POOL_2 = '0x9933AD4D38702cdC28C5DB2F421F1F02CF530780' // started at 25059529
+export const IGAIN_POLYGON_DAI_POOL_1 = '0xdA54678FD782A162a2BAE0EA9E250a325c4F6de9'; // started at 23820161
+export const IGAIN_POLYGON_USDC_POOL_1 = '0x4D5054708982e96F284D02c7a46F31d6f7291C56'; // started at 23819245
+export const IGAIN_POLYGON_USDT_POOL_1 = '0xF8B5351F4bCBF6321cAb7911D775Da3FaC3b5410'; // started at 24085140
+export const IGAIN_POLYGON_DAI_POOL_2 = '0x5Dd2777c42C34Ed155FD3CC063A956D03f92448F'; // started at 25059512
+export const IGAIN_POLYGON_USDC_POOL_2 = '0x25a1f8f0b666E5C17e91CF9F5322aad0780B588e'; // started at 25059502
+export const IGAIN_POLYGON_USDC_POOL_3 = '0x87c2829CcD44d2a96E76E1D3bF56d504d5cB1536'; // started at 26867817
+export const IGAIN_POLYGON_USDT_POOL_2 = '0x9933AD4D38702cdC28C5DB2F421F1F02CF530780'; // started at 25059529
 
-export const IGAIN_FANTOM_USDT_POOL_1 = 'AddressZero' // started at 
+export const IGAIN_FANTOM_DAI_POOL_1 = '0xdDcd120e3aA3eD45e85786E4543fAbD78aB94F12'; // started at
+export const IGAIN_FANTOM_ETH_POOL_1 = '0xdaFf37c6397F1916Af8352fae36749D88E0b298E'; // started at
 
-export const IGAIN_IG_POLYGON_ETH_USDC_POOL_1 = '0x459fB73f0B9bE0cAA85FCbDF151EaB2d1269823A' // started at 24809030
-export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
-export const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935'
+export const IGAIN_IG_POLYGON_ETH_USDC_POOL_1 = '0x459fB73f0B9bE0cAA85FCbDF151EaB2d1269823A'; // started at 24809030
+export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
+export const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935';
 
 export const SHAKKA_POOLS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: ETH_SHAKKA_POOL,
@@ -339,7 +340,7 @@ export const TOKEN_PRICE_SLUGS: string[] = [
   'dai',
   'usd-coin',
   'tether',
-]
+];
 
 export const JSON_RPC_PROVIDER: {[chainId in ChainId]: JsonRpcProvider} = {
   [ChainId.MAINNET]: new JsonRpcProvider(process.env.GATSBY_NETWORK_URL),
@@ -347,4 +348,5 @@ export const JSON_RPC_PROVIDER: {[chainId in ChainId]: JsonRpcProvider} = {
   [ChainId.BSC]: new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL),
   [ChainId.POLYGON]: new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL),
   [ChainId.RINKEBY]: new JsonRpcProvider(process.env.GATSBY_RINKEBY_NETWORK_URL),
-}
+  [ChainId.FANTOM]: new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL),
+};

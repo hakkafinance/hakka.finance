@@ -37,6 +37,8 @@ export function getEtherscanLink(
     ? 'https://bscscan.com'
     : chainId === ChainId.POLYGON
     ? 'https://polygonscan.com'
+    : chainId === ChainId.FANTOM
+    ? 'https://ftmscan.com'
     : `https://${
       ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]
     }etherscan.io`;

@@ -10,6 +10,7 @@ import {
   sHakkaApr,
   bscBhsApr,
   getGainAprFunc,
+  getTokenPrice,
 } from '../../utils/rewardsApr';
 import {
   balancer4tokenTvl,
@@ -27,7 +28,8 @@ import {
   IGAIN_POLYGON_USDC_POOL_2,
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
-  IGAIN_FANTOM_USDT_POOL_1,
+  IGAIN_FANTOM_DAI_POOL_1,
+  IGAIN_FANTOM_ETH_POOL_1
 } from '..';
 
 export type PoolAssets = {
@@ -35,6 +37,7 @@ export type PoolAssets = {
   decimal: number;
   getApr: (...args: any[]) => Promise<BigNumber>;
   getTvl: (...args: any[]) => Promise<BigNumber>;
+  tokenPriceKey?: string;
 }
 
 export const POOL_ASSETES: { [key: string]: PoolAssets } = {
@@ -134,10 +137,17 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     getApr: getGainAprFunc(IGAIN_POLYGON_USDT_POOL_2, ChainId.POLYGON),
     getTvl: getGainTvlFunc(IGAIN_POLYGON_USDT_POOL_2, ChainId.POLYGON),
   },
-  [IGAIN_FANTOM_USDT_POOL_1]: {
+  [IGAIN_FANTOM_DAI_POOL_1]: {
     icon: images.iconIgainLp,
-    decimal: 6,
-    getApr: getGainAprFunc(IGAIN_FANTOM_USDT_POOL_1, ChainId.FANTOM),
-    getTvl: getGainTvlFunc(IGAIN_FANTOM_USDT_POOL_1, ChainId.FANTOM),
+    decimal: 18,
+    getApr: getGainAprFunc(IGAIN_FANTOM_DAI_POOL_1, ChainId.FANTOM),
+    getTvl: getGainTvlFunc(IGAIN_FANTOM_DAI_POOL_1, ChainId.FANTOM),
+  },
+  [IGAIN_FANTOM_ETH_POOL_1]: {
+    icon: images.iconIgainLp,
+    decimal: 18,
+    getApr: getGainAprFunc(IGAIN_FANTOM_ETH_POOL_1, ChainId.FANTOM),
+    getTvl: getGainTvlFunc(IGAIN_FANTOM_ETH_POOL_1, ChainId.FANTOM),
+    tokenPriceKey: 'ethereum'
   },
 }
