@@ -17,6 +17,7 @@ export enum ChainId {
   KOVAN = 42,
   BSC = 56,
   POLYGON = 137,
+  FANTOM = 250,
 }
 
 export enum ChainDataFetchingState { 
@@ -39,6 +40,7 @@ export const ChainName: { [chainId in ChainId]: string } = {
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
   137: 'Polygon Network',
+  250: 'Fantom Opera Network',
 };
 
 // 365.25 days per year
@@ -152,6 +154,13 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
     'HAKKA',
     'Hakka Finance',
   ),
+  [ChainId.FANTOM]: new Token(
+    250,
+    '0xda803c6AD8078c51c5334B51aA4Cc3f440d56D5F',
+    18,
+    'HAKKA',
+    'Hakka Finance',
+  ),
 };
 
 export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
@@ -160,6 +169,7 @@ export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.BSC]: AddressZero,
   [ChainId.RINKEBY]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
+  [ChainId.FANTOM]: AddressZero,
 };
 
 export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
@@ -168,6 +178,7 @@ export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
   [ChainId.POLYGON]: '0xeC4b77e7369325b52A1f9d1Ae080B59954B8001a',
   [ChainId.RINKEBY]: AddressZero,
+  [ChainId.FANTOM]: AddressZero,
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -176,6 +187,7 @@ export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
   [ChainId.RINKEBY]: AddressZero,
+  [ChainId.FANTOM]: AddressZero,
 };
 
 export const GUILDBANK: { [chainId in ChainId]: string } = {
@@ -184,6 +196,7 @@ export const GUILDBANK: { [chainId in ChainId]: string } = {
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
   [ChainId.RINKEBY]: AddressZero,
+  [ChainId.FANTOM]: AddressZero,
 };
 
 export const ETHADDRESS: string = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
@@ -242,7 +255,9 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
   [ChainId.POLYGON]: {
   },
   [ChainId.RINKEBY]: {
-  }
+  },
+  [ChainId.FANTOM]: {
+  },
 };
 
 // TODO: check this address
@@ -252,6 +267,7 @@ export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.RINKEBY]: '0x0b6eAA40319113f5500a2bD1C2f434b42Ec3C1b9',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
+  [ChainId.FANTOM]: AddressZero
 };
 
 export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: typeof NEW_SHAKKA_ADDRESSES[ChainId]]: number } = {
@@ -294,6 +310,8 @@ export const IGAIN_POLYGON_DAI_POOL_2 = '0x5Dd2777c42C34Ed155FD3CC063A956D03f924
 export const IGAIN_POLYGON_USDC_POOL_2 = '0x25a1f8f0b666E5C17e91CF9F5322aad0780B588e' // started at 25059502
 export const IGAIN_POLYGON_USDC_POOL_3 = '0x87c2829CcD44d2a96E76E1D3bF56d504d5cB1536' // started at 26867817
 export const IGAIN_POLYGON_USDT_POOL_2 = '0x9933AD4D38702cdC28C5DB2F421F1F02CF530780' // started at 25059529
+
+export const IGAIN_FANTOM_USDT_POOL_1 = 'AddressZero' // started at 
 
 export const IGAIN_IG_POLYGON_ETH_USDC_POOL_1 = '0x459fB73f0B9bE0cAA85FCbDF151EaB2d1269823A' // started at 24809030
 export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'

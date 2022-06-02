@@ -14,15 +14,16 @@ import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
 
+enum SortOptions {
+  LATEST = 'latest',
+  APR = 'apr',
+}
+
 const RewardsPage = () => {
   const { account, chainId } = useWeb3React();
   const [currentChain, setCurrentChain] = useState<ChainId>(ChainId.MAINNET);
   const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
-  
-  enum SortOptions {
-    LATEST = 'latest',
-    APR = 'apr',
-  }
+
   const [sortBy, setSortBy] = useState(SortOptions.LATEST);
   const SORT_OPTIONS = [
     {
@@ -33,8 +34,8 @@ const RewardsPage = () => {
       label: "APR",
       value: SortOptions.APR,
     },
-  ]; 
-  
+  ];
+
   const currentPoolAddresses = useMemo(() => Object.keys(REWARD_POOLS).filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain), [currentChain]);
   const activePools = useMemo(() => currentPoolAddresses.filter((poolAddress) => !REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
   const archivedPools = useMemo(() => currentPoolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
@@ -85,7 +86,7 @@ const RewardsPage = () => {
     }
     return sortedActivePools;
   } ,[activePools, sortedByAprActivePools, sortBy]);
-  
+
   const sortedStakedActivePools = useMemo(() => {
     let sortedStakedActivePools = [];
     switch (sortBy) {
@@ -131,7 +132,7 @@ const RewardsPage = () => {
         }, 1000);
       }
     }
-    
+
     return () => { active = false }
   }, [hakkaPrice]);
 
@@ -178,6 +179,7 @@ const RewardsPage = () => {
             <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
             <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
             <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
+            {/* <div onClick={() => setCurrentChain(ChainId.FANTOM)} sx={currentChain === ChainId.FANTOM ? styles.chainActive : ''}>Fantom</div> */}
           </div>
           <div sx={styles.sortController}>
             <label sx={styles.checkBoxLabel}>
@@ -193,7 +195,7 @@ const RewardsPage = () => {
               <span>Sort by: </span>
               <select sx={styles.menu} onChange={(e)=> setSortBy(e.target.value)}>
                 {SORT_OPTIONS.map((option) => (
-                  <option value={option.value}>{option.label}</option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </div>
