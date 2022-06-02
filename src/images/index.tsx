@@ -130,6 +130,7 @@ const images = {
   iconBinanceGray: require('./icons/iconBinanceGray.png').default,
   iconBinanceGold: require('./icons/iconBinanceGold.png').default,
   iconPolygon: require('./icons/iconPolygon.png').default,
+  iconFantom: require('./icons/iconFantom.png').default,
 
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,

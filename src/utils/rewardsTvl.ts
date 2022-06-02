@@ -36,8 +36,10 @@ const getKovanMulticallProvider = () => {
 const kovanMulticallProvider = getKovanMulticallProvider();
 const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL)
 const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL)
+const fantomProvider = new JsonRpcProvider(process.env.REACT_APP_FANTOM_NETWORK_URL)
 const bscMulticallProvider = new MulticallProvider(bscProvider, ChainId.BSC);
 const polygonMulticallProvider = new MulticallProvider(polygonProvider, ChainId.POLYGON);
+const fantomMulticallProvider = new MulticallProvider(fantomProvider, ChainId.FANTOM);
 
 function getTokenPrice(source: any, tokenSlug: string): BigNumber {
   return parseEther(source[tokenSlug] ? source[tokenSlug].usd.toString() : '0')
@@ -83,7 +85,7 @@ export async function balancer2tokenTvl(tokenPrice: any) {
   const hakkaContract = new MulticallContract(HAKKA[ChainId.MAINNET].address, ERC20_ABI)
   const bhsContract = new MulticallContract(BHS_ADDRESS, ERC20_ABI)
   const bptContract = new MulticallContract(BHS_HAKKA_BPT, ERC20_ABI)
-    
+
   const [
     hakkaBalance,
     bhsBalance,
@@ -109,7 +111,11 @@ export function getGainTvlFunc(iGainAddress: string, chainId: ChainId): (tokenPr
   return async function (tokenPrice: any): Promise<BigNumber> {
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
-    const multicallProvider = chainId === ChainId.BSC ? bscMulticallProvider : chainId === ChainId.POLYGON ? polygonMulticallProvider : ethMulticallProvider;
+    const multicallProvider = chainId === ChainId.BSC
+      ? bscMulticallProvider
+      : chainId === ChainId.POLYGON
+        ? polygonMulticallProvider
+        : chainId === ChainId.FANTOM ? fantomMulticallProvider : ethMulticallProvider;
 
     const [stakedTotalSupply, poolA, poolB, totalSupply, decimals] = await multicallProvider.all([
       rewardsContract.totalSupply(),

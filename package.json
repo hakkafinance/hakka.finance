@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@fontsource/open-sans": "^4.2.2",
-    "@pelith/ethers-multicall": "0.2.1",
+    "@pelith/ethers-multicall": "0.2.2",
     "@reach/dialog": "^0.15.3",
     "@rebass/preset": "^4.0.5",
     "@types/react-helmet": "^6.1.2",

@@ -10,4 +10,8 @@ export default {
     fontWeight: 'bold',
     marginLeft: '4px',
   },
+  imgChain: {
+    width: '24px',
+    height: '24px',
+  }
 };

@@ -3657,10 +3657,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@pelith/ethers-multicall@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@pelith/ethers-multicall/-/ethers-multicall-0.2.1.tgz#636f6e61b894f4ea24add44931c5c0071fedd872"
-  integrity sha512-Dfj54cCYqM+pLyLwqvkK0njsuyocPaenZDXZixUE7ilDjgAmGyJmgbAZUdBn7KEh3oYis6Ke84mdZu3tSM9lEg==
+"@pelith/ethers-multicall@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@pelith/ethers-multicall/-/ethers-multicall-0.2.2.tgz#8c99d052bbb5d9e1ad83ea3d629b56b20e1aebc3"
+  integrity sha512-dGLRYGjIP7g3Lv0HsrZ0Lm4MDhCEEFiU/K8MtoiHkiFvJpg8cvcU2SrLWS+a/Cid8NYl4vNwd6x0Nt76MjcYKg==
   dependencies:
     ethers "5.1.0"
 

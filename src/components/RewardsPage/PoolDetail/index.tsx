@@ -66,7 +66,10 @@ const PoolDetail = ({ pool }) => {
     async function loadApr() {
       if (!active || !hakkaPrice) { return }
       try {
-        const newApr = await POOL_ASSETES[pool].getApr(parseUnits(hakkaPrice.toString(), 18));
+        const newApr = await POOL_ASSETES[pool].getApr(
+          parseUnits(hakkaPrice.toString(), 18),
+          POOL_ASSETES[pool].tokenPriceKey ? (tokenPrice?.[POOL_ASSETES[pool].tokenPriceKey]?.usd || 1) : 1
+        );
         setApr(tryParseAmount(formatUnits(newApr?.mul(100), 18)).toFixed(2));
       } catch (e) {
         console.error(e);
@@ -76,7 +79,7 @@ const PoolDetail = ({ pool }) => {
         }, 1000);
       }
     }
-  }, [hakkaPrice]);
+  }, [hakkaPrice, tokenPrice]);
 
   useEffect(() => {
     let active = true;

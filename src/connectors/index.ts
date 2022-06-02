@@ -10,6 +10,7 @@ import { NetworkConnector } from './NetworkConnector';
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
 const BSC_NETWORK_URL = process.env.REACT_APP_BSC_NETWORK_URL;
 const POLYGON_NETWORK_URL = process.env.REACT_APP_POLYGON_NETWORK_URL;
+const FANTOM_NETWORK_URL = process.env.REACT_APP_FANTOM_NETWORK_URL;
 const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY;
 const PORTIS_ID = process.env.REACT_APP_PORTIS_ID;
 
@@ -17,7 +18,8 @@ export const NETWORK_CHAIN_ID: number = parseInt(
   process.env.REACT_APP_CHAIN_ID ?? '1',
 );
 
-if (typeof NETWORK_URL === 'undefined' || typeof BSC_NETWORK_URL === 'undefined' || typeof POLYGON_NETWORK_URL === 'undefined') {
+if (typeof NETWORK_URL === 'undefined' || typeof BSC_NETWORK_URL === 'undefined'
+  || typeof POLYGON_NETWORK_URL === 'undefined' || typeof FANTOM_NETWORK_URL === 'undefined') {
   throw new Error(
     'REACT_APP_NETWORK_URL and REACT_APP_BSC_NETWORK_URL and POLYGON_NETWORK_URL must be a defined environment variable',
   );
@@ -33,12 +35,12 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: process.env.NODE_ENV === 'development' ? [1, 42, 56, 137] : [1, 56, 137],
+  supportedChainIds: process.env.NODE_ENV === 'development' ? [1, 42, 56, 137, 250] : [1, 56, 137, 250],
 });
 
 export const walletconnect = new WalletConnectConnector({
-  supportedChainIds: [1, 56, 137],
-  rpc: { 1: NETWORK_URL, 56: BSC_NETWORK_URL, 137: POLYGON_NETWORK_URL },
+  supportedChainIds: [1, 56, 137, 250],
+  rpc: { 1: NETWORK_URL, 56: BSC_NETWORK_URL, 137: POLYGON_NETWORK_URL, 250: FANTOM_NETWORK_URL },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,

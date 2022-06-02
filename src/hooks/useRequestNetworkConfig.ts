@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useWeb3React } from '@web3-react/core';
 import { ChainId } from '../constants';
 
 export default function useRequestNetworkConfig(targetNetwork: ChainId): any {

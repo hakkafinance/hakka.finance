@@ -22,6 +22,13 @@ export const chainsInfo = [
     chainName: 'Polygon Network',
     imgBg: '#f2ebff',
   },
+  {
+    id: 'fantom',
+    chainId: 250,
+    imgChain: 'iconFantom',
+    chainName: 'Fantom',
+    imgBg: '#1969ff',
+  },
 ];
 
 export const tokenMetrics = [
@@ -63,6 +70,6 @@ export const tokenMetrics = [
     type: 'ERC-20',
     address: '0xda803c6AD8078c51c5334B51aA4Cc3f440d56D5F',
     addressLink: 'https://ftmscan.com/address/0xda803c6ad8078c51c5334b51aa4cc3f440d56d5f',
-    addressIcon: images.iconBSCScan,
+    addressIcon: images.iconFantom,
   }
 ];

@@ -30,8 +30,10 @@ const getKovanMulticallProvider = () => {
 const kovanMulticallProvider = getKovanMulticallProvider();
 const bscProvider = new JsonRpcProvider(process.env.REACT_APP_BSC_NETWORK_URL);
 const polygonProvider = new JsonRpcProvider(process.env.REACT_APP_POLYGON_NETWORK_URL)
+const fantomProvider = new JsonRpcProvider(process.env.REACT_APP_FANTOM_NETWORK_URL)
 const bscMulticallProvider = new MulticallProvider(bscProvider, ChainId.BSC);
 const polygonMulticallProvider = new MulticallProvider(polygonProvider, ChainId.POLYGON);
+const fantomMulticallProvider = new MulticallProvider(fantomProvider, ChainId.FANTOM);
 
 export async function bhsApr(hakkaPrice: BigNumber): Promise<BigNumber> {
   return Promise.resolve(Zero);
@@ -77,12 +79,16 @@ export async function sHakkaApr(hakkaPrice: BigNumber): Promise<BigNumber> {
     .div(WeiPerEther);
 }
 
-export function getGainAprFunc(iGainAddress: string, chainId: ChainId): (hakkaPrice: BigNumber) => Promise<BigNumber> {
+export function getGainAprFunc(iGainAddress: string, chainId: ChainId): (hakkaPrice: BigNumber, tokenPrice: number) => Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
-  return async function (hakkaPrice: BigNumber): Promise<BigNumber> {
+  return async function (hakkaPrice: BigNumber, tokenPrice: number): Promise<BigNumber> {
     const rewardsContract = new MulticallContract(REWARD_POOLS[iGainAddress].rewardsAddress, REWARD_ABI); // farm address
     const igainContract = new MulticallContract(REWARD_POOLS[iGainAddress].tokenAddress, IGAIN_ABI); // igain lp address
-    const multicallProvider = chainId === ChainId.BSC ? bscMulticallProvider : chainId === ChainId.POLYGON ? polygonMulticallProvider : ethMulticallProvider;
+    const multicallProvider = chainId === ChainId.BSC
+      ? bscMulticallProvider
+      : chainId === ChainId.POLYGON
+        ? polygonMulticallProvider
+        : chainId === ChainId.FANTOM ? fantomMulticallProvider : ethMulticallProvider;
 
     const [stakedTotalSupply, rewardRate, periodFinish, poolA, poolB, totalSupply, decimals] = await multicallProvider.all([
       rewardsContract.totalSupply(),
@@ -100,9 +106,9 @@ export function getGainAprFunc(iGainAddress: string, chainId: ChainId): (hakkaPr
     if (periodFinish.lt(now)) {
       return Zero;
     }
-
+    const tokenPriceMultiplier = parseUnits(tokenPrice.toFixed(4), decimals);
     const yearlyUsdRewards = rewardRate.mul(SECONDS_IN_YEAR).mul(hakkaPrice).div(WeiPerEther);
-    return yearlyUsdRewards.mul(decimalBNUnit).div(stakedTotalValue)
+    return yearlyUsdRewards.mul(decimalBNUnit).div(stakedTotalValue.mul(tokenPriceMultiplier).div(decimalBNUnit))
   }
 }
 

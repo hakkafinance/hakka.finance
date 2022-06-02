@@ -13,6 +13,7 @@ import { REWARD_POOLS } from '../../constants/rewards';
 import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
+import useTokensPrice from '../../hooks/useTokensPrice';
 
 enum SortOptions {
   LATEST = 'latest',
@@ -41,6 +42,7 @@ const RewardsPage = () => {
   const archivedPools = useMemo(() => currentPoolAddresses.filter((poolAddress) => REWARD_POOLS[poolAddress].archived), [currentPoolAddresses]);
   const decimals = useMemo(() => currentPoolAddresses.map((pool) => POOL_ASSETES[pool]?.decimal || 18), [currentPoolAddresses])
 
+  const tokenPrice = useTokensPrice();
   const hakkaPrice = useTokenPrice('hakka-finance');
   const rewardData = useRewardsData(currentPoolAddresses, decimals);
   const [apr, setApr] = useState({});
@@ -117,7 +119,12 @@ const RewardsPage = () => {
     async function loadApr() {
       try {
         setApr({});
-        const aprList = await Promise.all(Object.keys(REWARD_POOLS).map((address) => POOL_ASSETES[address].getApr(parseUnits(hakkaPrice.toString(), 18))));
+
+        const aprList = await Promise.all(Object.keys(REWARD_POOLS).map((address) => POOL_ASSETES[address].getApr(
+          parseUnits(hakkaPrice.toString(), 18),
+          POOL_ASSETES[address].tokenPriceKey ? (tokenPrice?.[POOL_ASSETES[address].tokenPriceKey]?.usd || 1) : 1
+        )));
+
         const newApr = {}
         aprList.map((apr, index) => {
           newApr[REWARD_POOLS[Object.keys(REWARD_POOLS)[index]].rewardsAddress] = apr;
@@ -134,7 +141,7 @@ const RewardsPage = () => {
     }
 
     return () => { active = false }
-  }, [hakkaPrice]);
+  }, [hakkaPrice, tokenPrice]);
 
   const rewardsPoolRenderer = (pool, active = false) => (
     <RewardsPoolCard
@@ -179,7 +186,7 @@ const RewardsPage = () => {
             <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
             <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
             <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
-            {/* <div onClick={() => setCurrentChain(ChainId.FANTOM)} sx={currentChain === ChainId.FANTOM ? styles.chainActive : ''}>Fantom</div> */}
+            <div onClick={() => setCurrentChain(ChainId.FANTOM)} sx={currentChain === ChainId.FANTOM ? styles.chainActive : ''}>Fantom</div>
           </div>
           <div sx={styles.sortController}>
             <label sx={styles.checkBoxLabel}>

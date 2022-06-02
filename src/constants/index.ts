@@ -25,7 +25,7 @@ export const ChainName: { [chainId in ChainId]: string } = {
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
   137: 'Polygon Network',
-  250: 'Fantom Opera Network',
+  250: 'Fantom Network',
 };
 
 export interface WalletInfo {
@@ -127,7 +127,7 @@ export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x3DEF87Be78024943E48183E9118D951C39a8197D',
   [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
   [ChainId.POLYGON]: '0xeC4b77e7369325b52A1f9d1Ae080B59954B8001a',
-  [ChainId.FANTOM]: AddressZero,
+  [ChainId.FANTOM]: '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF',
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -232,7 +232,8 @@ export const IGAIN_POLYGON_USDC_POOL_2 = '0x25a1f8f0b666E5C17e91CF9F5322aad0780B
 export const IGAIN_POLYGON_USDC_POOL_3 = '0x87c2829CcD44d2a96E76E1D3bF56d504d5cB1536' // started at 26867817
 export const IGAIN_POLYGON_USDT_POOL_2 = '0x9933AD4D38702cdC28C5DB2F421F1F02CF530780' // started at 25059529
 
-export const IGAIN_FANTOM_USDT_POOL_1 = 'AddressZero' // started at 
+export const IGAIN_FANTOM_DAI_POOL_1 = '0xdDcd120e3aA3eD45e85786E4543fAbD78aB94F12' // started at 
+export const IGAIN_FANTOM_ETH_POOL_1 = '0xdaFf37c6397F1916Af8352fae36749D88E0b298E' // started at 
 
 export const IGAIN_IG_POLYGON_ETH_USDC_POOL_1 = '0x459fB73f0B9bE0cAA85FCbDF151EaB2d1269823A' // started at 24809030
 export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
