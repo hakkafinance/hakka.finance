@@ -57,7 +57,7 @@ const StayTheSameSwitchWithTitle = ({
             disabled={isDisable}
             id="stake-position-switch"
             className="switch"
-            label={isMobile ? '' : "Stay the same"}
+            label={isMobile ? '' : 'Stay the same'}
             checked={switchState}
             onChange={handleSwitchChange}
           />
@@ -84,7 +84,7 @@ const RestakeModal = ({
 }: RestakeModalInterface) => {
   const restakeModalOpen = useRestakeModalOpen();
   const toggleRestakeModal = useRestakeModalToggle();
-  const [inputAmount, setInputAmount] = useState('0');
+  const [inputAmount, setInputAmount] = useState('');
   const [period, setPeriod] = useState(secOfFourYear);
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
   const [isKeepAmountTheSame, setIsKeepAmountTheSame] = useState(false);
@@ -92,7 +92,7 @@ const RestakeModal = ({
   const vault = vaults[index];
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
 
-  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount]);
 
   const handleKeepAmountTheSame = useCallback(() => {
     setIsKeepAmountTheSame((state) => !state);
@@ -101,7 +101,6 @@ const RestakeModal = ({
   const handleKeepPeriodTheSame = useCallback(() => {
     setIsKeepPeriodTheSame((state) => !state);
   }, []);
-
 
   const currentBlockTimestamp = useCurrentBlockTimestamp();
   let timeLeft = vault?.unlockTime.sub(currentBlockTimestamp).toNumber() ?? 0;
@@ -151,13 +150,13 @@ const RestakeModal = ({
   const btnContent = isRestakePending
     ? 'Pending'
     : isLeftTimeLessThan30Mins
-    ? 'Insufficient extension period'
-    : 'Confirm';
+      ? 'Insufficient extension period'
+      : 'Confirm';
 
   useEffect(() => {
-    if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
+    if (restakeState === TransactionState.SUCCESS && restakeModalOpen) {
       toggleRestakeModal();
-      setInputAmount('0');
+      setInputAmount('');
       setIsKeepAmountTheSame(false);
       setIsKeepPeriodTheSame(false);
     }
