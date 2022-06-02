@@ -57,7 +57,7 @@ const StayTheSameSwitchWithTitle = ({
             disabled={isDisable}
             id="stake-position-switch"
             className="switch"
-            label={isMobile ? '' : "Stay the same"}
+            label={isMobile ? '' : 'Stay the same'}
             checked={switchState}
             onChange={handleSwitchChange}
           />
@@ -92,7 +92,7 @@ const RestakeModal = ({
   const vault = vaults[index];
   const hakkaBalance = useTokenBalance(account, HAKKA[chainId]);
 
-  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount]);
 
   const handleKeepAmountTheSame = useCallback(() => {
     setIsKeepAmountTheSame((state) => !state);
@@ -101,7 +101,6 @@ const RestakeModal = ({
   const handleKeepPeriodTheSame = useCallback(() => {
     setIsKeepPeriodTheSame((state) => !state);
   }, []);
-
 
   const currentBlockTimestamp = useCurrentBlockTimestamp();
   let timeLeft = vault?.unlockTime.sub(currentBlockTimestamp).toNumber() ?? 0;
@@ -151,11 +150,11 @@ const RestakeModal = ({
   const btnContent = isRestakePending
     ? 'Pending'
     : isLeftTimeLessThan30Mins
-    ? 'Insufficient extension period'
-    : 'Confirm';
+      ? 'Insufficient extension period'
+      : 'Confirm';
 
   useEffect(() => {
-    if(restakeState === TransactionState.SUCCESS && restakeModalOpen) {
+    if (restakeState === TransactionState.SUCCESS && restakeModalOpen) {
       toggleRestakeModal();
       setInputAmount('0');
       setIsKeepAmountTheSame(false);
@@ -206,7 +205,7 @@ const RestakeModal = ({
           </p>
         </div>
         <hr sx={styles.hr} />
-        <h4 sx={styles.receiveShakkaTitle}>Additional sHAKKA you get...</h4>
+        <h4 sx={styles.receiveShakkaTitle}>Additional sHAKKA you get</h4>
         <div sx={styles.votingPowerSectionWrapper}>
           <VotingPowerSection
             value={parseFloat(additionalSHakkaAmount)}

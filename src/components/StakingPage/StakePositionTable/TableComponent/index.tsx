@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import { ITableData } from '../types';
 import styles from '../styles';
 import images from '../../../../images';
-import { getDateFromBigNumber, getExpiredLeftStrFromBigNumber } from '../utils';
+import { getDateFromBigNumber } from '../utils';
 import Countdown, { CountdownRendererFn } from 'react-countdown';
 
 export const vaultImage = [
@@ -16,10 +16,10 @@ export const expiredCountdownRenderer: CountdownRendererFn = ({ days, completed 
   if (completed) {
     return <span>Expired</span>;
   }
-  return <span>{`Left ${days} days`}</span>;
+  return <span>{`${days} day(s) left`}</span>;
 };
 
-export function VaultIcon(props: {
+export function VaultIcon (props: {
   state: ITableData['state'];
   className?: string;
 }) {
@@ -32,7 +32,7 @@ export function VaultIcon(props: {
   );
 }
 
-export function renderVaultIcon(_: unknown, record: ITableData) {
+export function renderVaultIcon (_: unknown, record: ITableData) {
   return (
     <div sx={styles.imgWrapper}>
       <VaultIcon state={record.state} className="vault-icon" />
@@ -40,7 +40,7 @@ export function renderVaultIcon(_: unknown, record: ITableData) {
   );
 }
 
-export function renderExpiryDate(_: unknown, record: ITableData) {
+export function renderExpiryDate (_: unknown, record: ITableData) {
   const date = getDateFromBigNumber(record.unlockTime);
   return (
     <div sx={styles.valueWrapper} className={!record.state ? 'disabled' : ''}>
@@ -56,8 +56,8 @@ export function renderExpiryDate(_: unknown, record: ITableData) {
   );
 }
 
-export function createRenderValue(title: string, propsKey: keyof ITableData) {
-  return function renderValue(_: unknown, record: ITableData) {
+export function createRenderValue (title: string, propsKey: keyof ITableData) {
+  return function renderValue (_: unknown, record: ITableData) {
     return (
       <div sx={styles.valueWrapper} className={!record.state ? 'disabled' : ''}>
         <strong className="title">{record[propsKey]}</strong>
