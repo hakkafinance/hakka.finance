@@ -15,7 +15,7 @@ import {
   ChainId,
   STAKING_ADDRESSES,
 } from "../../constants";
-import VotingPowerContainer, { STAKING_VERSION } from "../../containers/VotingPowerContainer";
+import VotingPowerContainer, { StakingVersion } from "../../containers/VotingPowerContainer";
 import { botSideBarItems } from '../../containers/SideBar';
 
 interface StakingInfoItemProps {
@@ -51,7 +51,7 @@ const Staking = () => {
   }, [chainId]);
 
   const governanceLink = useMemo(() => {
-    return botSideBarItems.find((ele) => ele.name === 'governance').href!;
+    return botSideBarItems.find((ele) => ele.name === 'governance').href;
   }, []);
 
   const [unarchivePosition, archivedPosition] = useMemo(() => {
@@ -116,7 +116,7 @@ const Staking = () => {
             </div>
           )}
           <div sx={styles.votingPowerWrapper}>
-            <VotingPowerContainer stakingVersion={STAKING_VERSION.V1} />
+            <VotingPowerContainer stakingVersion={StakingVersion.V1} />
             {!isMobile && (
               <div>
                 <a

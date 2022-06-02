@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import styles from './style';
 import images from '../../../images/index';
 import ReactTooltip from 'react-tooltip';
-import { STAKING_VERSION } from '../../../containers/VotingPowerContainer';
+import { StakingVersion } from '../../../containers/VotingPowerContainer';
 
 interface VotingPowerAreaProps {
   totalVotingPower?: string;
@@ -14,7 +14,7 @@ interface VotingPowerAreaProps {
   polygonProportion?: string;
   v1VotingPowerWeight: string;
   v2VotingPowerWeight: string;
-  stakingVersion?: STAKING_VERSION;
+  stakingVersion?: StakingVersion;
 }
 
 interface ProportionItemProps {
@@ -62,7 +62,7 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           </ReactTooltip>
         </div>
       </div>
-      <div style={stakingVersion === STAKING_VERSION.V1 ? {display: 'none'} : {}}>
+      <div style={stakingVersion === StakingVersion.V1 ? {display: 'none'} : {}}>
         <p>Proportion</p>
         <div sx={styles.proportionItemContainer}>
           <ProportionItem proportionValue={ethProportion || '-'} img={images.iconEthereumDarkBg} />

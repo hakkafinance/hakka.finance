@@ -53,10 +53,6 @@ export default {
   },
 
   body: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-
     '.subtitle': {
       display: 'inline-block',
       fontSize: '14px',
@@ -79,10 +75,6 @@ export default {
         filter: 'grayscale(0)',
         color: '#2da287',
       },
-    },
-
-    '@media screen and (max-width: 1190px)': {
-      display: 'block',
     },
 
     '@media screen and (max-width: 576px)': {

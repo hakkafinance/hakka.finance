@@ -12,12 +12,12 @@ if (process.env.GATSBY_ENV === 'development') {
   availableList.push(ChainId.KOVAN);
 }
 
-export enum STAKING_VERSION {
+export enum StakingVersion {
   V1,
   V2,
 };
 interface VotingPowerContainerProps {
-  stakingVersion?: STAKING_VERSION
+  stakingVersion?: StakingVersion
 }
 
 const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => {
