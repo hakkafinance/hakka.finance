@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { memo, useState, useMemo, useEffect, useRef } from 'react';
+import { memo, useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import styles from './styles';
 import { getExpectedDay } from '../../../../utils/dateRangeCal';
-import { useCallback } from 'react';
 interface IProps {
   onChange(sec: number): void;
   timeLeft?: number;
@@ -32,16 +31,16 @@ const LockPeriod = memo((props: ILockPeriodProps) => {
 const yearsPeriod = [4, 3, 2, 1, 0];
 const monthsPeriod = [9, 6, 3, 0];
 
-const monthlyTimeStampTransfer = (month: number) => month * 30 * 24 * 60 * 60;
-const yearlyTimeStampTransfer = (years: number) => years * 8766 * 60 * 60;
+const monthlyTimeSecondsTransfer = (month: number) => month * 2592000;
+const yearlyTimeSecondsTransfer = (years: number) => years * 8766 * 60 * 60;
 
-const periodsGroup = [
+const periodsGroup: [number, number[]][] = [
   [4, [0]],
   [3, [0, 3, 6, 9]],
   [2, [0, 3, 6, 9]],
   [1, [0, 3, 6, 9]],
   [0, [3, 6, 9]],
-] as [number, number[]][];
+];
 
 const timestampGroups = periodsGroup
   .map(([years, months]) =>
@@ -49,14 +48,14 @@ const timestampGroups = periodsGroup
       years,
       months: month,
       timestamp:
-        yearlyTimeStampTransfer(years) + monthlyTimeStampTransfer(month),
+        yearlyTimeSecondsTransfer(years) + monthlyTimeSecondsTransfer(month),
     }))
   )
   .flat()
   .reduce((prev, { years, months, timestamp }) => {
     prev[timestamp] = { years, months };
     return prev;
-  }, {} as Record<string, { [x in 'years' | 'months']: number }>);
+  }, {} as {[key: string]: { [x in 'years' | 'months']: number }});
 const keysOfPeriod = Object.keys(timestampGroups);
 // time unit is seconds
 // minimum 30 minutes timestamp
@@ -68,11 +67,10 @@ export default function LockPeriodOptions(props: IProps) {
   const [lockMonth, setLockMonth] = useState(0);
 
   const firstMount = useRef(true);
-  const initSelect = useRef(true);
 
   const timeStamp = useMemo(() => {
     return (
-      monthlyTimeStampTransfer(lockMonth) + yearlyTimeStampTransfer(lockYear)
+      monthlyTimeSecondsTransfer(lockMonth) + yearlyTimeSecondsTransfer(lockYear)
     );
   }, [lockMonth, lockYear]);
 
@@ -144,7 +142,6 @@ export default function LockPeriodOptions(props: IProps) {
 
   const onLockYearChange = useCallback((year: number) => {
     setLockYear(year);
-    initSelect.current = false;
 
     if (!availableTree.get(year).has(lockMonthRef.current)) {
       setLockMonth(
