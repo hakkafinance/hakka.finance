@@ -127,7 +127,7 @@ export default function LockPeriodOptions(props: IProps) {
         value: month,
         label: month,
         active: lockMonth === month,
-        disabled: !availableTree.get(lockYear).has(month),
+        disabled: !availableTree.get(lockYear)?.has(month),
       };
     });
     return { yearOptions, monthOptions };
