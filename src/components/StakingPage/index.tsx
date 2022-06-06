@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { formatUnits } from '@ethersproject/units';
 import { Zero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
@@ -48,6 +48,8 @@ const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   };
 });
 
+const hakkaSupportChainIdSet = new Set(hakkaSupportChain.map((ele) => ele.value));
+
 const Staking = () => {
   const { account, chainId } = useWeb3React();
   const [positionIndex, setPositionIndex] = useState<number>(undefined);
@@ -63,7 +65,14 @@ const Staking = () => {
     return true;
   }, [chainId]);
 
-  const [activeChainTab, setActiveChainTab] = useState(ChainId.MAINNET);
+  const isChainSupported = hakkaSupportChainIdSet.has(chainId);
+  const [activeChainTab, setActiveChainTab] = useState(isChainSupported ? chainId : ChainId.MAINNET);
+
+  useEffect(() => {
+    if(hakkaSupportChainIdSet.has(chainId)) {
+      setActiveChainTab(chainId)
+    }
+  }, [chainId]);
 
   const isTabInCorrectNetwork = chainId === activeChainTab;
 
