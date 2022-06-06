@@ -48,7 +48,7 @@ const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   };
 });
 
-const hakkaSupportChainIdSet =  hakkaSupportChain.map((ele) => ele.value )
+const hakkaSupportChainIdSet = new Set(hakkaSupportChain.map((ele) => ele.value));
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -65,7 +65,7 @@ const Staking = () => {
     return true;
   }, [chainId]);
 
-  const isChainSupported = hakkaSupportChainIdSet.indexOf(chainId) > -1;
+  const isChainSupported = hakkaSupportChainIdSet.has(chainId);
   const [activeChainTab, setActiveChainTab] = useState(isChainSupported ? chainId : ChainId.MAINNET);
 
   const isTabInCorrectNetwork = chainId === activeChainTab;
