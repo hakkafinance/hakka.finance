@@ -34,7 +34,7 @@ export enum TransactionState {
 
 export const stakingMonth = [1, 3, 6, 12];
 
-export const ChainName: { [chainId: ChainId]: string } = {
+export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
   4: 'Rinkeby',
   42: 'Kovan Testnet',

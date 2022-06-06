@@ -169,9 +169,6 @@ const Staking = () => {
               toggleWalletModal={toggleWalletModal}
             ></StakingPanel>
           </div>
-          {/* info-panel */}
-          {/* stake-panel */}
-          <div>{/* Stake position component */}</div>
         </div>
         <RedeemModal
           key={`redeem-${positionIndex}`}
