@@ -21,7 +21,7 @@ interface VotingPowerContainerProps {
 }
 
 const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => {
-  const { v1VotingPower } = useV1VotingPower(); // this is v1 sHakka voting power
+  const { v1VotingPower } = useV1VotingPower();
   const { votingPowerInfo } = useVotingPower();
   const [
     totalVotingPower,
