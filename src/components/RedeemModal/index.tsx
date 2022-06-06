@@ -52,7 +52,7 @@ const RedeemModal = ({
 }: RedeemModalInterface) => {
   const redeemModalOpen = useRedeemModalOpen();
   const toggleRedeemModal = useRedeemModalToggle();
-  const [inputAmount, setInputAmount] = useState('0');
+  const [inputAmount, setInputAmount] = useState('');
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
   const vault = vaults[index];
   const receiveHakkaAmount = unstakeReceivedAmount(inputAmount, vault);
@@ -70,7 +70,7 @@ const RedeemModal = ({
   useEffect(() => {
     if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
       toggleRedeemModal();
-      setInputAmount('0');
+      setInputAmount('');
     }
     // redeemModalOpen should not be used here, because it will be reset to false after toggleRedeemModal
   }, [unstakeState]);

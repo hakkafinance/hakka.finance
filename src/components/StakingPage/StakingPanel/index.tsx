@@ -34,16 +34,16 @@ const StakeButton = withApproveTokenCheckWrapper(
   withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton))
 );
 
-export default function StakingPanel(props: IProps) {
+export default function StakingPanel (props: IProps) {
   const { toggleWalletModal, chainId: activeChainId, isCorrectNetwork } = props;
   const { account } = useWeb3React();
 
   const hakkaBalance = useTokenBalance(account, HAKKA[activeChainId]);
 
-  const [inputAmount, setInputAmount] = useState<string>('0');
+  const [inputAmount, setInputAmount] = useState<string>('');
   const [isCorrectInput, setIsCorrectInput] = useState(true);
-  
-  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount])
+
+  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount]);
   const [approveState, approve] = useTokenApprove(
     HAKKA[activeChainId],
     NEW_SHAKKA_ADDRESSES[activeChainId],
@@ -68,7 +68,7 @@ export default function StakingPanel(props: IProps) {
 
   useEffect(() => {
     if (stakeState === StakeState.UNKNOWN) {
-      setInputAmount('0');
+      setInputAmount('');
     }
   }, [stakeState]);
 

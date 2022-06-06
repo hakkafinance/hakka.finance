@@ -84,7 +84,7 @@ const RestakeModal = ({
 }: RestakeModalInterface) => {
   const restakeModalOpen = useRestakeModalOpen();
   const toggleRestakeModal = useRestakeModalToggle();
-  const [inputAmount, setInputAmount] = useState('0');
+  const [inputAmount, setInputAmount] = useState('');
   const [period, setPeriod] = useState(secOfFourYear);
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
   const [isKeepAmountTheSame, setIsKeepAmountTheSame] = useState(false);
@@ -156,7 +156,7 @@ const RestakeModal = ({
   useEffect(() => {
     if (restakeState === TransactionState.SUCCESS && restakeModalOpen) {
       toggleRestakeModal();
-      setInputAmount('0');
+      setInputAmount('');
       setIsKeepAmountTheSame(false);
       setIsKeepPeriodTheSame(false);
     }
