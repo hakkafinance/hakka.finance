@@ -20,8 +20,6 @@ export default function useHakkaRestake(
   const [transactionState, setTransactionState] = useState<TransactionState>(TransactionState.UNKNOWN);
 
   const stakeState: TransactionState = useMemo(() => {
-    if (!index) return TransactionState.UNKNOWN;
-
     return currentTransaction
       ? TransactionState.PENDING
       : transactionState;
