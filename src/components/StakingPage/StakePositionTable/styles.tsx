@@ -74,15 +74,63 @@ const headerWrapper: ThemeUIStyleObject = {
     mr: 'auto',
     mb: '36px',
   },
-  '.switch': {
-    transform: 'scale(0.7)',
-  },
-  '& .switch ~ span': {
-    fontWeight: '600',
-    fontSize: '14px',
-    color: '#52666D',
-  },
 };
+
+const switchLabel = {
+  fontWeight: '600',
+  fontSize: '14px',
+  color: '#52666D',
+  ml: '6px',
+};
+
+const switchWrapper: ThemeUIStyleObject = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
+const switchBtn: ThemeUIStyleObject = {
+  position: 'relative',
+  display: 'inline-block',
+  width: '26px',
+  height: '16px',
+  '& input': {
+    opacity: 0,
+    width: 0,
+    height: 0,
+  },
+  '& .slider': {
+    position: 'absolute',
+    cursor: 'pointer',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#dae1e3',
+    borderRadius: '34px',
+    transition: '.4s',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      height: '12px',
+      width: '12px',
+      left: '2px',
+      bottom: '2px',
+      backgroundColor: 'white',
+      transition: '.4s',
+      borderRadius: '50%',
+    }
+  },
+  '& input:checked + .slider': {
+    backgroundColor: '#3EBD93',
+  },
+  '& input:focus + .slider': {
+    boxShadow: '0 0 1px #2DA287',
+  },
+  '& input:checked + .slider:before': {
+    transform: 'translateX(10px)',
+  },
+}
 
 const valueWrapper: ThemeUIStyleObject = {
   textAlign: 'left',
@@ -118,4 +166,7 @@ export default {
   headerWrapper,
   emptySection,
   cardWrapper,
+  switchBtn,
+  switchLabel,
+  switchWrapper
 };

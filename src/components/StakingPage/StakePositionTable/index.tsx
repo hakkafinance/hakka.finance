@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, Flex, jsx, Switch } from 'theme-ui';
+import { Flex, jsx } from 'theme-ui';
 import { memo } from 'react';
 import Table from 'rc-table';
 import { useCallback, useState, useMemo } from 'react';
@@ -143,9 +143,13 @@ export default memo(function StakePositionTable(props: IProps) {
     <div sx={{pb: '100px'}}>
       <Flex sx={styles.headerWrapper}>
         <h2>Staking Position</h2>
-        <Box>
-          <Switch id="stake-position-switch" className="switch" label="Show archive" checked={showArchive} onChange={handleArchive}></Switch>
-        </Box>
+        <div sx={styles.switchWrapper}>
+          <label sx={styles.switchBtn}>
+            <input type="checkbox" checked={showArchive} onChange={handleArchive} />
+            <span className="slider"></span>
+          </label>
+          <span sx={styles.switchLabel}>Show archive</span>
+        </div>
       </Flex>
       <TableWrap tableLength={tableData.length} isMobile={isMobile} />
     </div>
