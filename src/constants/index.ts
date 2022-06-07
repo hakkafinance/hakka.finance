@@ -262,11 +262,11 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
 
 // TODO: check this address
 export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: AddressZero,
+  [ChainId.MAINNET]: '0xb925863a15ebdeae1a638bf2b6fd00d4db897a62',
   [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
   [ChainId.RINKEBY]: '0x0b6eAA40319113f5500a2bD1C2f434b42Ec3C1b9',
-  [ChainId.BSC]: AddressZero,
-  [ChainId.POLYGON]: AddressZero,
+  [ChainId.BSC]: '0x51DE1EeF029b5cc1Ef359E62aA98101F56f29bE6',
+  [ChainId.POLYGON]: '0x7F8093f5F49a9D7F0334f8017fF777F1893032d5',
   [ChainId.FANTOM]: AddressZero
 };
 
