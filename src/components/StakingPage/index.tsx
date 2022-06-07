@@ -2,9 +2,9 @@
 import { jsx } from 'theme-ui';
 import { useState, useMemo, useEffect } from 'react';
 import { formatUnits } from '@ethersproject/units';
-import { Zero } from '@ethersproject/constants';
+import { Zero, AddressZero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
-import { AddressZero } from '@ethersproject/constants';
+
 import { navigate } from 'gatsby';
 import images from '../../images';
 import styles from './styles';
@@ -39,6 +39,7 @@ import VotingPowerContainer from '../../containers/VotingPowerContainer';
 import useStakedHakka from '../../hooks/useStakedHakka';
 import RestakeModal from '../RestakeModal';
 import useStakingVault from '../../hooks/staking/useStakingVault';
+import NavigateLink from './NavigateLink';
 
 const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
@@ -48,7 +49,9 @@ const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   };
 });
 
-const hakkaSupportChainIdSet = new Set(hakkaSupportChain.map((ele) => ele.value));
+const hakkaSupportChainIdSet = new Set(
+  hakkaSupportChain.map((ele) => ele.value)
+);
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
@@ -66,11 +69,13 @@ const Staking = () => {
   }, [chainId]);
 
   const isChainSupported = hakkaSupportChainIdSet.has(chainId);
-  const [activeChainTab, setActiveChainTab] = useState(isChainSupported ? chainId : ChainId.MAINNET);
+  const [activeChainTab, setActiveChainTab] = useState(
+    isChainSupported ? chainId : ChainId.MAINNET
+  );
 
   useEffect(() => {
-    if(hakkaSupportChainIdSet.has(chainId)) {
-      setActiveChainTab(chainId)
+    if (hakkaSupportChainIdSet.has(chainId)) {
+      setActiveChainTab(chainId);
     }
   }, [chainId]);
 
@@ -106,8 +111,7 @@ const Staking = () => {
         <div sx={styles.headingBlock}>
           <h1 className="heading-title">Staking</h1>
           <div className="heading-comment">
-            Read more about Hakka new staking model and migration
-            <img src={images.iconLinkSmall} alt="iconLinkSmall" />
+            <NavigateLink />
           </div>
           <div className="heading-wallet">
             <Web3Status unsupported={!isCorrectNetwork} />
@@ -137,7 +141,7 @@ const Staking = () => {
             >
               <span>Go to governance</span>
             </ReactTooltip>
-            <a onClick={() => navigate(`/staking-v1`)} sx={styles.normalButton}>
+            <a onClick={() => navigate('/staking-v1')} sx={styles.normalButton}>
               Switch to v1
               <img className="icon" src={images.iconArrowRight} />
             </a>
@@ -157,16 +161,16 @@ const Staking = () => {
                 totalStakedHakka={
                   stakedHakka?.[activeChainTab]
                     ? parseFloat(
-                        formatUnits(stakedHakka[activeChainTab], 18)
-                      ).toFixed(2)
+                      formatUnits(stakedHakka[activeChainTab], 18)
+                    ).toFixed(2)
                     : '-'
                 }
                 totalSHakkaObtained={totalSHakkaObtained}
                 sHakkaBalance={
                   sHakkaBalanceInfo?.[activeChainTab]
                     ? parseFloat(
-                        formatUnits(sHakkaBalanceInfo[activeChainTab], 18)
-                      ).toFixed(2)
+                      formatUnits(sHakkaBalanceInfo[activeChainTab], 18)
+                    ).toFixed(2)
                     : '-'
                 }
                 farmingSHakka={depositedBalance}
