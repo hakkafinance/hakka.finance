@@ -90,9 +90,6 @@ const Staking = () => {
     [isSortByUnlockTime]
   );
 
-  // TODO: this link is not ready
-  const NEW_STAKING_MEDIUM_LINK = '';
-
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
