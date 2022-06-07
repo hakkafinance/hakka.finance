@@ -160,5 +160,6 @@ const images = {
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
+  iconStakingBanner: require('./icons/iconStakingBanner.svg').default,
 };
 export default images;

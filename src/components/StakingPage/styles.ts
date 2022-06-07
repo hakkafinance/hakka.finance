@@ -59,7 +59,7 @@ export default {
 
   headingBlock: {
     display: 'grid',
-    gridTemplateAreas: `'title wallet' 'comment comment' 'voting-power switch-btn'`,
+    gridTemplateAreas: '\'title wallet\' \'comment comment\' \'voting-power switch-btn\'',
     gridTemplateColumns: '1fr auto',
     '.heading-title': {
       gridArea: 'title',
@@ -71,13 +71,6 @@ export default {
     },
     '.heading-comment': {
       gridArea: 'comment',
-      mt: '8px',
-      fontSize: '14px',
-      fontWeight: '600',
-      color: 'rgba(37, 62, 71, 0.5)',
-      '& img': {
-        verticalAlign: 'middle',
-      }
     },
     '.heading-voting-power': {
       gridArea: 'voting-power',
@@ -89,7 +82,7 @@ export default {
       margin: 'auto'
     },
     '@media screen and (max-width: 576px)': {
-      gridTemplateAreas: `'title switch-btn' 'comment comment' 'voting-power voting-power'`,
+      gridTemplateAreas: '\'comment comment\' \'title switch-btn\' \'voting-power voting-power\'',
       gridTemplateColumns: '1fr auto',
       girdTemplateRows: '1fr 1fr auto',
 
@@ -119,9 +112,9 @@ export default {
 
   gridBlock: {
     display: 'grid',
-    gridTemplateAreas: `'1fr 1fr'`,
+    gridTemplateAreas: '\'1fr 1fr\'',
     '@media screen and (max-width: 1190px)': {
-      gridTemplateAreas: `'1fr' '1fr'`,
+      gridTemplateAreas: '\'1fr\' \'1fr\'',
     }
   } as ThemeUICSSObject,
 

@@ -17,6 +17,7 @@ import {
 } from "../../constants";
 import VotingPowerContainer, { StakingVersion } from "../../containers/VotingPowerContainer";
 import { botSideBarItems } from '../../containers/SideBar';
+import NavigateLink from './NavigateLink';
 
 interface StakingInfoItemProps {
   title: string;
@@ -107,7 +108,7 @@ const Staking = () => {
         </div>
         <div sx={styles.body}>
           <div>
-            <a href={NEW_STAKING_MEDIUM_LINK} className='subtitle' target='_blank'>Read more about Hakka new staking model and migration <img src={images.iconLinkSmallGreen} /></a>
+            <NavigateLink />
           </div>
           {!isMobile && (
             <div sx={styles.btnBack} onClick={() => navigate(`/staking`)}>
