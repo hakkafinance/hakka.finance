@@ -104,9 +104,6 @@ const Staking = () => {
           <Web3Status unsupported={!isCorrectNetwork} />
         </div>
         <div sx={styles.body}>
-          <div>
-            <NavigateLink />
-          </div>
           {!isMobile && (
             <div sx={styles.btnBack} onClick={() => navigate(`/staking`)}>
               <img src={images.iconBack} />

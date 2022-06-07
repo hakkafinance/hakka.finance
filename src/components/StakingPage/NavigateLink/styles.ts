@@ -17,6 +17,7 @@ export default {
     borderRadius: '8px',
 
     cursor: 'pointer',
+    border: 'solid 1px transparent',
 
     '&:hover': {
       border: 'solid 1px #8cebb9',
