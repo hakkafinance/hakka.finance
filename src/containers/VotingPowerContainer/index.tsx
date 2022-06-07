@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import VotingPowerArea from '../../components/StakingPage/VotingPower';
 import { Zero } from '@ethersproject/constants';
 import { ChainId } from '../../constants';
-import { useStakingData } from '../../data/StakingData';
 import useVotingPower from '../../hooks/useVotingPower';
 import { v1PowerWeighting } from '../../utils/votingPowerCal';
+import useV1VotingPower from '../../hooks/useV1VotingPower';
 const startDateSec = ~~(new Date('2022-05-16 17:00:00').getTime() / 1000);
 const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
 if (process.env.GATSBY_ENV === 'development') {
@@ -21,7 +21,7 @@ interface VotingPowerContainerProps {
 }
 
 const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => {
-  const { votingPower } = useStakingData(); // this is v1 sHakka voting power
+  const { v1VotingPower } = useV1VotingPower();
   const { votingPowerInfo } = useVotingPower();
   const [
     totalVotingPower,
@@ -38,17 +38,17 @@ const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => 
       (Date.now() / 1000 - startDateSec) / 3600
     );
     const v2Weight = v1Weight.sub(1).abs();
-    const v1VotingPower = v1Weight.mul(parseFloat(votingPower.toExact()));
-    const v2VotingPower = v2Weight.mul(parseFloat(
+    const weightedV1VotingPower = v1Weight.mul(parseFloat(formatUnits(v1VotingPower || Zero)));
+    const weightedV2VotingPower = v2Weight.mul(parseFloat(
       formatUnits(
         availableList.reduce((total, chainId) => {
           return (votingPowerInfo[chainId] || Zero).add(total);
         }, Zero)
       )
     ));
-    const totalVotingPower = v1VotingPower.add(v2VotingPower);
-    const v1Proportion = v1VotingPower.div(totalVotingPower).mul(100);
-    const v2Proportion = v2VotingPower.div(totalVotingPower).mul(100);
+    const totalVotingPower = weightedV1VotingPower.add(weightedV2VotingPower);
+    const v1Proportion = weightedV1VotingPower.div(totalVotingPower).mul(100);
+    const v2Proportion = weightedV2VotingPower.div(totalVotingPower).mul(100);
 
     const v2ProportionList = availableList.map((chainId) => {
       if (!votingPowerInfo[chainId]) {
@@ -64,7 +64,7 @@ const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => 
       v2Proportion.toFixed(2),
       ...v2ProportionList,
     ];
-  }, [votingPowerInfo, votingPower, ~~(Date.now() / 60000)]);
+  }, [votingPowerInfo, v1VotingPower, ~~(Date.now() / 60000)]);
 
   return (
     <VotingPowerArea
