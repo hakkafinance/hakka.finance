@@ -1,5 +1,6 @@
 const stakingCard = {
   width: '460px',
+  ml: 'auto',
   padding: '20px',
   marginTop: '36px',
   fontSize: [1],
@@ -16,6 +17,7 @@ const stakingCard = {
 
   '@media screen and (max-width: 576px)': {
     width: '100%',
+    ml: 'unset',
     boxSizing: 'border-box',
   },
 };

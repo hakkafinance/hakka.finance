@@ -79,7 +79,8 @@ export default {
     '.heading-switch-btn': {
       gridArea: 'switch-btn',
       display: 'flex',
-      margin: 'auto'
+      alignSelf: 'center',
+      justifySelf: 'end'
     },
     '@media screen and (max-width: 576px)': {
       gridTemplateAreas: '\'comment comment\' \'title switch-btn\' \'voting-power voting-power\'',
