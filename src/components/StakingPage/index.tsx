@@ -41,7 +41,7 @@ import RestakeModal from '../RestakeModal';
 import useStakingVault from '../../hooks/staking/useStakingVault';
 import NavigateLink from './NavigateLink';
 
-const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
+const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, process.env.GATSBY_ENV === 'development' ? [] : [ChainId.KOVAN, ChainId.RINKEBY])).map((key) => {
   return {
     value: +key as ChainId,
     title: ChainNameWithIcon[+key as ChainId].name,

@@ -60,14 +60,14 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     iconName: 'iconTabKovan',
     name: 'Kovan',
   },
-  [ChainId.BSC]: {
-    iconName: 'iconTabBinance',
-    name: 'BSC',
-  },
-  [ChainId.POLYGON]: {
-    iconName: 'iconTabPolygon',
-    name: 'Polygon',
-  },
+  // [ChainId.BSC]: {
+  //   iconName: 'iconTabBinance',
+  //   name: 'BSC',
+  // },
+  // [ChainId.POLYGON]: {
+  //   iconName: 'iconTabPolygon',
+  //   name: 'Polygon',
+  // },
 };
 
 export interface WalletInfo {
