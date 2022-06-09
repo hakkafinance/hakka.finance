@@ -31,6 +31,7 @@ const LockPeriod = memo((props: ILockPeriodProps) => {
 
 const yearsPeriod = [4, 3, 2, 1, 0];
 const monthsPeriod = [9, 6, 3, 0];
+const keyList = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a',];
 
 const monthlyTimeSecondsTransfer = (month: number) => month * 2592000;
 const yearlyTimeSecondsTransfer = (years: number) => years * 8766 * 60 * 60;
@@ -157,13 +158,12 @@ export default function LockPeriodOptions(props: IProps) {
   const [display30mins, setDisplay30mins] = useState(false);
 
   useEffect(() => {
-    const keyList = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a',];
     let keyIndex = -1;
     const clearKeyIndex = debounce(() => {
       keyIndex = -1;
     }, 2000);
     function handleKeyDown(e: KeyboardEvent) {
-      if (keyList[keyIndex + 1] === (e.key)) {
+      if (keyList[keyIndex + 1] === e.key) {
         keyIndex += 1;
         if (keyIndex === keyList.length - 1) {
           toast('30 mins lock period is available', {containerId: 'tx'});
