@@ -1,4 +1,5 @@
 import { ThemeUICSSObject } from 'theme-ui';
+import { NormalButton } from '../../StakePositionItem/buttonStyle';
 export default {
   optionContainer: {
     display: 'flex',
@@ -48,5 +49,12 @@ export default {
   title: {
     color: '#253e47',
     fontSize: '14px',
+  },
+
+  btn: {
+    ...NormalButton,
+    '&:active': {
+      background: 'rgba(62, 189, 147, 0.1)',
+    }
   }
 } as Record<string, ThemeUICSSObject>;
