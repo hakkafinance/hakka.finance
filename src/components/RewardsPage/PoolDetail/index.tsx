@@ -64,7 +64,7 @@ const PoolDetail = ({ pool }) => {
     return () => { active = false }
 
     async function loadApr() {
-      if (!active || !hakkaPrice) { return }
+      if (!active || !hakkaPrice || !tokenPrice) { return }
       try {
         const newApr = await POOL_ASSETES[pool].getApr(
           parseUnits(hakkaPrice.toString(), 18),

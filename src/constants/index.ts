@@ -271,7 +271,7 @@ export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
 };
 
 export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: typeof NEW_SHAKKA_ADDRESSES[ChainId]]: number } = {
-  [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: 1655110318,
   [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
   [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: undefined,
   [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: undefined,

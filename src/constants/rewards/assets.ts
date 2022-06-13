@@ -147,7 +147,7 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     icon: images.iconIgainLp,
     decimal: 18,
     getApr: getGainAprFunc(IGAIN_FANTOM_ETH_POOL_1, ChainId.FANTOM),
-    getTvl: getGainTvlFunc(IGAIN_FANTOM_ETH_POOL_1, ChainId.FANTOM),
+    getTvl: getGainTvlFunc(IGAIN_FANTOM_ETH_POOL_1, ChainId.FANTOM, 'ethereum'),
     tokenPriceKey: 'ethereum'
   },
 }

@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 export const v1PowerWeighting = (hours: number) => {
-  hours = hours >=8766 ? 8766 : hours;
+  hours = hours >=8766 ? 8766 : hours > 0 ? hours: 0;
   // .25(1-x/8766);
   return new Decimal(hours).mul(-0.25).div(8766).add(0.25);
 }

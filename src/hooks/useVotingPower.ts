@@ -64,8 +64,8 @@ export default function useVotingPower(): {
     try {
       const votingPowerList = await Promise.all([
         getVotingPower(ChainId.MAINNET, account),
-        getVotingPower(ChainId.BSC, account),
-        getVotingPower(ChainId.POLYGON, account),
+        [ChainId.BSC, Zero],
+        [ChainId.POLYGON, Zero],
         getVotingPower(ChainId.KOVAN, account),
         getVotingPower(ChainId.RINKEBY, account),
       ]);
