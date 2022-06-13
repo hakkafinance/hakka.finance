@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React, { useState, useEffect, useMemo } from 'react';
+import { BigNumber } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
@@ -112,31 +113,42 @@ const RewardsPage = () => {
 
   useEffect(() => {
     let active = true;
-    if (hakkaPrice) {
-      loadApr();
+    if (hakkaPrice && tokenPrice) {
+      loadApr(Object.keys(REWARD_POOLS));
     }
 
-    async function loadApr() {
+    async function loadApr(poolAddresses: string[], prevResult: any = {}) {
+      let newApr = {...prevResult}
+      const failAddress: string[] = []
       try {
-        setApr({});
-
-        const aprList = await Promise.all(Object.keys(REWARD_POOLS).map((address) => POOL_ASSETES[address].getApr(
+        setApr(newApr);
+        const apyPromiseList = poolAddresses.map((address) => POOL_ASSETES[address].getApr(
           parseUnits(hakkaPrice.toString(), 18),
           POOL_ASSETES[address].tokenPriceKey ? (tokenPrice?.[POOL_ASSETES[address].tokenPriceKey]?.usd || 1) : 1
-        )));
+        ))
 
-        const newApr = {}
-        aprList.map((apr, index) => {
-          newApr[REWARD_POOLS[Object.keys(REWARD_POOLS)[index]].rewardsAddress] = apr;
+        const settledApyList = await Promise.allSettled(apyPromiseList);
+        const reasonList: string[] = []
+        settledApyList.map((aprResult, index) => {
+          if (aprResult.status === "fulfilled") {
+            newApr[REWARD_POOLS[poolAddresses[index]].rewardsAddress] = (aprResult as PromiseFulfilledResult<BigNumber>).value
+          } else {
+            reasonList.push((aprResult as PromiseRejectedResult).reason)
+            failAddress.push(REWARD_POOLS[poolAddresses[index]].rewardsAddress);
+            newApr[REWARD_POOLS[poolAddresses[index]].rewardsAddress] = undefined;
+          }
         });
+
         if (!active) { return }
         setApr(newApr);
+        if (reasonList.length > 0) {
+          throw reasonList;
+        }
       } catch (e) {
         console.error(e);
-
         setTimeout(() => {
-          loadApr();
-        }, 1000);
+          loadApr(failAddress, newApr);
+        }, 3000);
       }
     }
 

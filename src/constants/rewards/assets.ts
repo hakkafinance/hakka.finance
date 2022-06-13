@@ -10,7 +10,6 @@ import {
   sHakkaApr,
   bscBhsApr,
   getGainAprFunc,
-  getTokenPrice,
 } from '../../utils/rewardsApr';
 import {
   balancer4tokenTvl,
