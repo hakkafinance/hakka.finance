@@ -11,8 +11,8 @@ import { MyButton } from '../../Common';
 import NumericalInputField from '../../NumericalInputField';
 import { useActiveWeb3React } from '../../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../../hooks/useTokenApprove';
-import { ChainId, HAKKA, STAKING_ADDRESSES } from '../../../constants';
-import { useHakkaUnstake, UnstakeState } from '../../../hooks/staking/useHakkaUnstake';
+import { ChainId, HAKKA, STAKING_ADDRESSES, TransactionState } from '../../../constants';
+import { useV1HakkaUnstake } from '../../../hooks/staking/useV1HakkaUnstake';
 import { tryParseAmount } from '../../../utils';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import { Zero } from '@ethersproject/constants';
@@ -58,7 +58,7 @@ const StakePositionItem = (props: StakePositionProps) => {
   const [isShowRedeem, setIsShowRedeem] = useState<boolean>(false);
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
-  const [unstakeState, unstake] = useHakkaUnstake(
+  const [unstakeState, unstake] = useV1HakkaUnstake(
     STAKING_ADDRESSES[chainId as ChainId],
     account,
     index,
@@ -154,7 +154,7 @@ const StakePositionItem = (props: StakePositionProps) => {
               approveToken={approve}
               disabled={
                 Date.now() < until?.mul(1000).toNumber() 
-                || unstakeState === UnstakeState.PENDING 
+                || unstakeState === TransactionState.PENDING 
                 || sHakkaReceived.eq(0)
                 || !isCorrectInput
               }

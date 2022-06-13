@@ -51,6 +51,26 @@ export function useClaimModalToggle(): () => void {
   return toggleClaimModal;
 }
 
+export function useRedeemModalOpen(): boolean {
+  const redeemModalOpen = useApplicationContextStateSelector('redeemModalOpen');
+  return redeemModalOpen;
+}
+
+export function useRedeemModalToggle(): () => void {
+  const { toggleRedeemModal } = useApplicationContext();
+  return toggleRedeemModal;
+}
+
+export function useRestakeModalOpen(): boolean {
+  const restakeModalOpen = useApplicationContextStateSelector('restakeModalOpen');
+  return restakeModalOpen;
+}
+
+export function useRestakeModalToggle(): () => void {
+  const { toggleRestakeModal } = useApplicationContext();
+  return toggleRestakeModal;
+}
+
 // returns a function that allows adding a popup
 export function useAddPopup(): (content: PopupContent, key?: string) => void {
   const { addPopup } = useApplicationContext();

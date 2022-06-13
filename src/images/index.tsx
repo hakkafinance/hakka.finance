@@ -31,6 +31,13 @@ const images = {
   iconIgainLp: require('./icons/icon-igain-lp.svg').default,
   iconSort: require('./icons/iconSort.svg').default,
   iconBug: require('./icons/iconBug.svg').default,
+  iconQuestion: require('./icons/iconQuestion.svg').default,
+  iconProportion: require('./icons/iconProportion.svg').default,
+  iconArrowRight: require('./icons/iconArrowRight.svg').default,
+  iconFarmsSmall: require('./icons/iconFarmSmall.svg').default,
+  iconWallet: require('./icons/iconWallet.svg').default,
+  iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
+  iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -62,6 +69,10 @@ const images = {
   iconDelete: require('./icons/iconDelete.svg').default,
   iconDeleteRound: require('./icons/iconDeleteRound.svg').default,
   iconAdd: require('./icons/iconAdd.svg').default,
+  iconRedeem: require('./icons/iconRedeem.svg').default,
+  iconStaking: require('./icons/iconStaking.svg').default,
+  iconVaultArchive: require('./icons/iconVaultArchive.svg').default,
+  iconToGovernance: require('./icons/iconToGovernance.svg').default,
 
   /// home icon
   iconLight: require('./icons/iconLight.svg').default,
@@ -94,6 +105,7 @@ const images = {
   iconBalancer: require('./icons/iconBalancer.png').default,
   iconUniswap: require('./icons/iconUniswap.png').default,
   iconPancakeSwap: require('./icons/iconPancakeSwap.png').default,
+  iconHakkaCoin: require('./icons/iconHakkaCoin.svg').default,
 
   // rewards
   icon4Tokens: require('./rewards/icon4Tokens.png').default,
@@ -122,7 +134,6 @@ const images = {
   imageGelato: require('./icons/imageGelato.png').default,
   imageImmunefiGray: require('./icons/iconImmunefiGray.png').default,
   imageProjectGalaxy: require('./icons/iconProjectGalaxy.png').default,
-  
 
   // icon chain
   iconEthereum: require('./icons/iconEthereum.png').default,
@@ -130,8 +141,14 @@ const images = {
   iconBinanceGray: require('./icons/iconBinanceGray.png').default,
   iconBinanceGold: require('./icons/iconBinanceGold.png').default,
   iconPolygon: require('./icons/iconPolygon.png').default,
+  iconEthereumDarkBg: require('./icons/iconEthereumDark.svg').default,
+  iconBSCDarkBg: require('./icons/iconBSCDark.svg').default,
+  iconPolygonDarkBg: require('./icons/iconPolygonDark.svg').default,
   iconFantom: require('./icons/iconFantom.png').default,
 
+  iconTabEthereum: require('./icons/iconTabEthereum.svg').default,
+  iconTabBinance: require('./icons/iconTabBinance.svg').default,
+  iconTabPolygon: require('./icons/iconTabPolygon.svg').default,
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
   iconUnderConstruction: require('./icons/underConstruction.svg').default,
@@ -143,5 +160,6 @@ const images = {
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
+  iconStakingBanner: require('./icons/iconStakingBanner.svg').default,
 };
 export default images;

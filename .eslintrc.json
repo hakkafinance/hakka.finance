@@ -19,5 +19,7 @@
         "react"
     ],
     "rules": {
+        "semi": ["error", "always"],
+        "comma-dangle": "off"
     }
 }

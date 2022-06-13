@@ -7,21 +7,21 @@ import { PortisConnector } from '@web3-react/portis-connector';
 import { FortmaticConnector } from './Fortmatic';
 import { NetworkConnector } from './NetworkConnector';
 
-const NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
-const BSC_NETWORK_URL = process.env.REACT_APP_BSC_NETWORK_URL;
-const POLYGON_NETWORK_URL = process.env.REACT_APP_POLYGON_NETWORK_URL;
-const FANTOM_NETWORK_URL = process.env.REACT_APP_FANTOM_NETWORK_URL;
-const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY;
-const PORTIS_ID = process.env.REACT_APP_PORTIS_ID;
+const NETWORK_URL = process.env.GATSBY_NETWORK_URL;
+const BSC_NETWORK_URL = process.env.GATSBY_BSC_NETWORK_URL;
+const POLYGON_NETWORK_URL = process.env.GATSBY_POLYGON_NETWORK_URL;
+const FANTOM_NETWORK_URL = process.env.GATSBY_FANTOM_NETWORK_URL;
+const FORMATIC_KEY = process.env.GATSBY_FORTMATIC_KEY;
+const PORTIS_ID = process.env.GATSBY_PORTIS_ID;
 
 export const NETWORK_CHAIN_ID: number = parseInt(
-  process.env.REACT_APP_CHAIN_ID ?? '1',
+  process.env.GATSBY_CHAIN_ID ?? '1',
 );
 
 if (typeof NETWORK_URL === 'undefined' || typeof BSC_NETWORK_URL === 'undefined'
   || typeof POLYGON_NETWORK_URL === 'undefined' || typeof FANTOM_NETWORK_URL === 'undefined') {
   throw new Error(
-    'REACT_APP_NETWORK_URL and REACT_APP_BSC_NETWORK_URL and POLYGON_NETWORK_URL must be a defined environment variable',
+    'GATSBY_NETWORK_URL and GATSBY_BSC_NETWORK_URL and POLYGON_NETWORK_URL must be a defined environment variable',
   );
 }
 
@@ -35,7 +35,7 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: process.env.NODE_ENV === 'development' ? [1, 42, 56, 137, 250] : [1, 56, 137, 250],
+  supportedChainIds: process.env.GATSBY_ENV === 'development' ? [1, 4, 42, 56, 137, 250] : [1, 56, 137, 250],
 });
 
 export const walletconnect = new WalletConnectConnector({

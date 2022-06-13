@@ -12,8 +12,6 @@ const InfoProduct = (props) => {
     dataInfo, infoTag, onClose, isShowInfoProduct,
   } = props;
 
-  // console.log('dataInfo', dataInfo)
-
   const onCloseInfo = () => {
     onClose(false);
   };

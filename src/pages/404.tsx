@@ -37,7 +37,7 @@ const NotFoundPage = () => (
       {' '}
       we couldn’t find what you were looking for.
       <br />
-      {process.env.NODE_ENV === 'development'
+      {process.env.GATSBY_ENV === 'development'
         ? (
           <>
             <br />

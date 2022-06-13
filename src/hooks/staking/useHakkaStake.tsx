@@ -3,10 +3,12 @@ import { jsx } from 'theme-ui';
 import { useState, useCallback, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
-import { useStakeContract } from '../useContract';
-import { getEtherscanLink, shortenTxId } from '../../utils';
 import { toast } from 'react-toastify';
 import { ExternalLink } from 'react-feather';
+
+import { useStakeContract } from '../useContract';
+import { calculateGasMargin, getEtherscanLink, shortenTxId } from '../../utils';
+import { useEffect } from 'react';
 
 export enum StakeState {
   UNKNOWN,
@@ -17,7 +19,7 @@ export function useHakkaStake(
   stakeAddress: string,
   spender: string,
   amountParsed: BigNumber,
-  lockMonth: number,
+  lockSec: number,
 ): [StakeState, () => Promise<void>] {
   const { chainId } = useWeb3React();
   const [currentTransaction, setCurrentTransaction] = useState(null);
@@ -39,8 +41,10 @@ export function useHakkaStake(
     }
 
     try {
-      // After calculation, lockMonth can only be 1 sec or 1, 3, 6, 12 month.
-      const tx = await stakeContract.stake(spender, amountParsed, lockMonth * 60 * 60 * 24 * 30);
+      const estimatedGas = await stakeContract.estimateGas.stake(spender, amountParsed, lockSec);
+      const tx = await stakeContract.stake(spender, amountParsed, lockSec, {
+        gasLimit: estimatedGas.mul(BigNumber.from(15000)).div(BigNumber.from(10000)),  // * 1.5
+      });
       setCurrentTransaction(tx.hash);
       toast(
         <a
@@ -62,7 +66,7 @@ export function useHakkaStake(
     stakeContract,
     spender,
     amountParsed,
-    lockMonth,
+    lockSec,
   ]);
 
   return [stakeState, stake];

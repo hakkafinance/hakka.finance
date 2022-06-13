@@ -1,277 +1,236 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useMemo, useCallback } from 'react';
-import { parseUnits } from '@ethersproject/units';
+import { useState, useMemo, useEffect } from 'react';
+import { formatUnits } from '@ethersproject/units';
+import { Zero, AddressZero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';
-import { AddressZero } from '@ethersproject/constants';
+
+import { navigate } from 'gatsby';
 import images from '../../images';
 import styles from './styles';
-import { MyButton } from '../../components/Common';
 import Web3Status from '../Web3Status';
-import NumericalInputField from '../NumericalInputField';
-import { useTokenBalance } from '../../state/wallet/hooks';
-import { useStakingData } from '../../data/StakingData';
-import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
-import { useHakkaStake, StakeState } from '../../hooks/staking/useHakkaStake';
-import StakePositionItem from './StakePositionItem/index';
+import useSHakkaBalance from '../../hooks/useSHakkaBalance';
 import {
-  ChainId, HAKKA, STAKING_ADDRESSES, stakingMonth,
+  ChainId,
+  NEW_SHAKKA_ADDRESSES,
+  ChainNameWithIcon,
+  SHAKKA_POOLS,
 } from '../../constants';
-import { tryParseAmount } from '../../utils';
-import { useWalletModalToggle } from '../../state/application/hooks';
-import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
-import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper';
-import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
+import {
+  useWalletModalToggle,
+  useRedeemModalToggle,
+  useRestakeModalToggle,
+} from '../../state/application/hooks';
+import { TabGroup } from '../Common/TabGroup';
+
+import RedeemModal from '../RedeemModal';
+import StakePositionTable from './StakePositionTable';
+
+import StakingPanel from './StakingPanel';
+
+import _omit from 'lodash/omit';
+import ReactTooltip from 'react-tooltip';
+import { botSideBarItems } from '../../containers/SideBar';
+import { useRewardsData } from '../../data/RewardsData';
+import { REWARD_POOLS } from '../../constants/rewards';
+import StakeInfo from './StakeInfo';
+import useVotingPower from '../../hooks/useVotingPower';
+import VotingPowerContainer from '../../containers/VotingPowerContainer';
+import useStakedHakka from '../../hooks/useStakedHakka';
+import RestakeModal from '../RestakeModal';
+import useStakingVault from '../../hooks/staking/useStakingVault';
+import NavigateLink from './NavigateLink';
+
+const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, process.env.GATSBY_ENV === 'development' ? [] : [ChainId.KOVAN, ChainId.RINKEBY])).map((key) => {
+  return {
+    value: +key as ChainId,
+    title: ChainNameWithIcon[+key as ChainId].name,
+    icon: ChainNameWithIcon[+key as ChainId].iconName,
+  };
+});
+
+const hakkaSupportChainIdSet = new Set(
+  hakkaSupportChain.map((ele) => ele.value)
+);
 
 const Staking = () => {
   const { account, chainId } = useWeb3React();
-  const [inputAmount, setInputAmount] = useState<string>('0');
-  const [isShowArchived, setIsShowArchived] = useState<boolean>(true);
-  const [isSortByUnlockTime, setIsSortByUnlockTime] = useState<boolean>(false);
-
-  const hakkaBalance = useTokenBalance(
-    account as string,
-    HAKKA[chainId as ChainId],
-  );
-  const {
-    stakingBalance, sHakkaBalance, votingPower, stakingRate, vaults,
-  } = useStakingData();
-
-  const [approveState, approve] = useTokenApprove(
-    HAKKA[chainId as ChainId],
-    STAKING_ADDRESSES[chainId as ChainId],
-    inputAmount,
-  );
-
-  const [lockTime, setLockTime] = useState<number>(12);
-  const timeOption: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-  };
-  const lockUntil = useMemo(() => new Date(Date.now() + lockTime * 2592000 * 1000).toLocaleString(
-    'en-US',
-    timeOption,
-  ), [lockTime]);
-
-  const sHakkaPreview = useMemo(() => (stakingRate && inputAmount ? tryParseAmount(stakingRate[stakingMonth.indexOf(lockTime)]).multiply(tryParseAmount(inputAmount)).divide(1e18.toString()) : 0),
-    [lockTime, stakingRate, inputAmount]);
-
-  const [stakeState, stake] = useHakkaStake(
-    STAKING_ADDRESSES[chainId as ChainId],
-    account,
-    parseUnits(inputAmount || '0'),
-    lockTime,
-  );
+  const [positionIndex, setPositionIndex] = useState<number>(undefined);
 
   const toggleWalletModal = useWalletModalToggle();
-
-  const StakeButton = withApproveTokenCheckWrapper(
-    withWrongNetworkCheckWrapper(
-      withConnectWalletCheckWrapper(MyButton)
-    )
-  )
-
-  const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
+  const toggleRedeemModal = useRedeemModalToggle();
+  const toggleRestakeModal = useRestakeModalToggle();
 
   const isCorrectNetwork = useMemo<boolean>(() => {
-    if(chainId){
-      return STAKING_ADDRESSES[chainId as ChainId] !== AddressZero;
+    if (chainId) {
+      return NEW_SHAKKA_ADDRESSES[chainId as ChainId] !== AddressZero;
     }
     return true;
-  }, [chainId]);  
+  }, [chainId]);
 
-  const [unarchivePosition, archivedPosition] = useMemo(() => {
-    let archivedPosition = [];
-    let unarchivePosition = [];
-    
-    vaults.forEach((vault, index) => {
-      if(vault?.result?.hakkaAmount.isZero()) {
-        archivedPosition.push({...vault, 'index': index});
-      } else {
-        unarchivePosition.push({...vault, 'index': index});
-      }
-    });
-    
-    archivedPosition = archivedPosition.reverse();
-    return [unarchivePosition, archivedPosition];
-  }, [vaults])
+  const isChainSupported = hakkaSupportChainIdSet.has(chainId);
+  const [activeChainTab, setActiveChainTab] = useState(
+    isChainSupported ? chainId : ChainId.MAINNET
+  );
 
-  const sortedUnarchivePosition = useMemo(() => {    
-    if (isSortByUnlockTime) {
-      unarchivePosition.sort(function (a, b) {
-        return a?.result?.unlockTime - b?.result?.unlockTime
-      });
-      return unarchivePosition;
-    } else {
-      unarchivePosition.sort(function (a, b) {
-        return b?.index - a?.index
-      });
-      return unarchivePosition;
+  useEffect(() => {
+    if (hakkaSupportChainIdSet.has(chainId)) {
+      setActiveChainTab(chainId);
     }
-  }, [isSortByUnlockTime, unarchivePosition]);
+  }, [chainId]);
 
-  const handleSortBtnClick = useCallback(() => setIsSortByUnlockTime(!isSortByUnlockTime), [isSortByUnlockTime]);
+  const isTabInCorrectNetwork = chainId === activeChainTab;
+
+  const governanceLink = useMemo(() => {
+    return botSideBarItems.find((ele) => ele.name === 'governance').href!;
+  }, []);
+
+  const { votingPowerInfo } = useVotingPower();
+
+  const currentShakkaRewardPoolAddress = SHAKKA_POOLS[activeChainTab];
+
+  const rewardData = useRewardsData(
+    [currentShakkaRewardPoolAddress],
+    [REWARD_POOLS[currentShakkaRewardPoolAddress]?.decimal || 18]
+  );
+  const depositedBalance = account
+    ? rewardData.depositBalances[currentShakkaRewardPoolAddress]?.toFixed(2)
+    : '-';
+
+  const totalSHakkaObtained =
+    (+formatUnits(votingPowerInfo[activeChainTab] ?? Zero)).toFixed(2) || '-';
+
+  const { sHakkaBalanceInfo } = useSHakkaBalance();
+  const { stakedHakka } = useStakedHakka();
+
+  const { vault } = useStakingVault(activeChainTab);
 
   return (
     <div sx={styles.container}>
       <div sx={styles.stakingPageWrapper}>
-        <div sx={styles.heading}>
-          <h1>Staking</h1>
-          <Web3Status unsupported={!isCorrectNetwork} />
+        <div sx={styles.headingBlock}>
+          <h1 className="heading-title">Staking</h1>
+          <div className="heading-comment">
+            <NavigateLink />
+          </div>
+          <div className="heading-wallet">
+            <Web3Status unsupported={!isCorrectNetwork} />
+          </div>
+          <div className="heading-voting-power">
+            <VotingPowerContainer />
+          </div>
+
+          {/* governance navigation */}
+          <div className="heading-switch-btn">
+            <a
+              data-tip
+              data-for="governance"
+              className="governance"
+              href={governanceLink}
+              rel="noreferrer"
+              target="_blank"
+              sx={styles.governanceButton}
+            >
+              <img src={images.iconToGovernance} />
+            </a>
+            <ReactTooltip
+              place="bottom"
+              id="governance"
+              effect="solid"
+              backgroundColor="#253E47"
+            >
+              <span>Go to governance</span>
+            </ReactTooltip>
+            <a onClick={() => navigate('/staking-v1')} sx={styles.normalButton}>
+              Switch to v1
+              <img className="icon" src={images.iconArrowRight} />
+            </a>
+          </div>
         </div>
         <div sx={styles.body}>
-          {/* infoPart */}
-          <div>
-            <div sx={styles.infoArea}>
-              <div sx={styles.amountArea}>
-                <h4>Stake to increase power</h4>
-                <div sx={styles.valueWrapper}>
-                  <span>Wallet sHAKKA balance</span>
-                  <span sx={styles.amountBold}>{sHakkaBalance?.toFixed(2)}</span>
-                </div>
-                <div sx={styles.valueWrapper}>
-                  <span>Staked HAKKA amount</span>
-                  <span sx={styles.amountBold}>{stakingBalance?.toFixed(2)}</span>
-                </div>
-              </div>
-              <div sx={styles.votingPowerCard}>
-                <div sx={styles.powerContent}>
-                  <div>
-                    <span>Voting Power</span>
-                    <p>{votingPower?.toFixed(2)}</p>
-                  </div>
-                  <img src={images.iconVotingPower} sx={styles.iconPower} />
-                </div>
-                <a sx={styles.viewGovernance} target="_blank" href="https://snapshot.org/#/hakka.eth" rel="noreferrer">
-                  <span>View governance</span>
-                  <img src={images.iconLinkNormal} />
-                </a>
-              </div>
-            </div>
-          </div>
-          {/* stakingForm */}
-          <div sx={styles.stakingCard}>
-            <div sx={styles.hakkaBalanceWrapper}>
-              <span>Amount</span>
-              <span>
-                HAKKA Balance:
-                {' '}
-                {isCorrectNetwork 
-                  ? (hakkaBalance?.toFixed(2) || '0.00')
-                  : '-'
+          {/* voting power */}
+          {/* tab group */}
+          <TabGroup
+            list={hakkaSupportChain}
+            active={activeChainTab}
+            onChange={setActiveChainTab}
+          ></TabGroup>
+          <div sx={styles.gridBlock}>
+            <div sx={styles.stakeInfoWrapper}>
+              <StakeInfo
+                totalStakedHakka={
+                  stakedHakka?.[activeChainTab]
+                    ? parseFloat(
+                      formatUnits(stakedHakka[activeChainTab], 18)
+                    ).toFixed(2)
+                    : '-'
                 }
-              </span>
-            </div>
-            <NumericalInputField
-              value={inputAmount}
-              onUserInput={setInputAmount}
-              tokenBalance={hakkaBalance}
-              approve={approve}
-              approveState={approveState}
-              setIsCorrectInput={setIsCorrectInput}
-            />
-            <p sx={{ margin: '20px 0 8px 0' }}>Lock time</p>
-            <div sx={styles.optionContainer}>
-              <div sx={styles.monthSwitch}>
-                <div sx={styles.optionWrapper}>
-                  {stakingMonth.map((month) => (
-                    <div
-                      onClick={() => setLockTime(month)}
-                      sx={
-                        lockTime === month
-                          ? styles.optionItemActive
-                          : styles.optionItem
-                      }
-                      key={month}
-                    >
-                      {month}
-                    </div>
-                  ))}
-                </div>
-                <span>Month(s)</span>
-              </div>
-              <span sx={styles.lockTimeUntil}>
-                until {lockUntil}
-              </span>
-            </div>
-            <div sx={styles.getsHakkaWrapper}>
-              <span sx={{ fontWeight: 'normal' }}>
-                Get sHAKKA (Voting Power)
-              </span>
-              <span>{sHakkaPreview?.toFixed(4)}</span>
-            </div>
-            <div sx={styles.stakeBtn}>
-              <StakeButton
-                styleKit={'green'}
-                isDisabledWhenNotPrepared={false}
-                onClick={stake}
-                isConnected={!!account}
-                connectWallet={toggleWalletModal}
-                isApproved={approveState === ApprovalState.APPROVED}
-                approveToken={approve}
-                disabled={stakeState === StakeState.PENDING
-                  || approveState === ApprovalState.UNKNOWN
-                  || !isCorrectInput
+                totalSHakkaObtained={totalSHakkaObtained}
+                sHakkaBalance={
+                  sHakkaBalanceInfo?.[activeChainTab]
+                    ? parseFloat(
+                      formatUnits(sHakkaBalanceInfo[activeChainTab], 18)
+                    ).toFixed(2)
+                    : '-'
                 }
-                isCorrectNetwork={isCorrectNetwork}
-                targetNetwork={ChainId.MAINNET}
-              >
-                Stake
-              </StakeButton>
+                farmingSHakka={depositedBalance}
+              />
             </div>
+            <StakingPanel
+              isCorrectNetwork={isTabInCorrectNetwork}
+              chainId={activeChainTab}
+              toggleWalletModal={toggleWalletModal}
+            ></StakingPanel>
           </div>
         </div>
-
+        <RedeemModal
+          key={`redeem-${positionIndex}`}
+          vaults={vault}
+          chainId={activeChainTab}
+          account={account}
+          index={positionIndex}
+          sHakkaBalance={formatUnits(sHakkaBalanceInfo?.[chainId] ?? Zero, 18)}
+          sHakkaBalanceInFarming={depositedBalance}
+          toggleWalletModal={toggleWalletModal}
+          isCorrectNetwork={isTabInCorrectNetwork}
+        />
+        <RestakeModal
+          key={`restake-${positionIndex}`}
+          chainId={activeChainTab}
+          account={account}
+          index={positionIndex}
+          vaults={vault}
+          toggleWalletModal={toggleWalletModal}
+          isCorrectNetwork={isTabInCorrectNetwork}
+        />
+        {/* infoPart */}
         {/* link area */}
         <div sx={styles.sHakkaRewardLinkArea}>
           <hr sx={styles.hr} />
           <div sx={styles.sHakkaRewardLinkWrapper}>
             <span>Earn more Hakka</span>
-            <a sx={styles.sHakkaRewardLinkBtn} href="/farms/0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977" rel="noreferrer">
-              <span>sHAKKA Reward</span>
+            <a
+              sx={styles.sHakkaRewardLinkBtn}
+              href={`/farms/${currentShakkaRewardPoolAddress}`}
+              rel="noreferrer"
+            >
+              <span>sHAKKA Pool</span>
               <img src={images.iconForwardGreen} />
             </a>
           </div>
         </div>
-        <div sx={styles.positionContainer}>
-          <div sx={styles.positionHeader}>
-            <h2 sx={styles.positionTitle}>Stake position</h2>
-            <button 
-              sx={isSortByUnlockTime ? {...styles.sortBtn, ...styles.activeSortBtn} : {...styles.sortBtn, ...styles.inactiveSortBtn}} 
-              onClick={handleSortBtnClick}
-            >
-              <img sx={!isSortByUnlockTime ? styles.inactiveSVG : {}}  src={images.iconSort}/>
-              <span>Sort by expiry date</span>
-            </button>
-          </div>
-          {sortedUnarchivePosition.map((vault, index) => {
-            return <StakePositionItem
-            key={index}
-            sHakkaBalance={sHakkaBalance}
-            index={vault.index}
-            stakedHakka={vault?.result?.hakkaAmount}
-            sHakkaReceived={vault?.result?.wAmount}
-            until={vault?.result?.unlockTime}
-            />
-          })}
-          <div sx={{ display: 'inline-block' }}>
-            <div onClick={() => setIsShowArchived(!isShowArchived)} sx={styles.archivedTitle}>
-              <p>Archived</p>
-              <img src={isShowArchived ? images.iconUp : images.iconDown} />
-            </div>
-          </div>
-          { isShowArchived && archivedPosition.map((vault, index) => {
-            return <StakePositionItem
-            key={index}
-            sHakkaBalance={sHakkaBalance}
-            index={vault.index}
-            stakedHakka={vault?.result?.hakkaAmount}
-            sHakkaReceived={vault?.result?.wAmount}
-            until={vault?.result?.unlockTime}
-            />
-          })}
-        </div>
+        {/* table */}
+        <StakePositionTable
+          data={vault}
+          onRedeem={(index) => {
+            setPositionIndex(index);
+            toggleRedeemModal();
+          }}
+          onRestake={(index) => {
+            setPositionIndex(index);
+            toggleRestakeModal();
+          }}
+        />
       </div>
     </div>
   );

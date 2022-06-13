@@ -12,6 +12,9 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
+    "build:dev": "TEST=true gatsby build",
+    "deploy": "netlify deploy --site=e3335be6-9531-4bd6-b1dc-302013899981",
+    "deploy:dev": "netlify deploy --site=510be721-6675-46d0-9306-48c3bc779345",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
@@ -53,6 +56,7 @@
     "node-fetch": "^2.6.1",
     "os-browserify": "^0.3.0",
     "prop-types": "^15.7.2",
+    "rc-table": "^7.24.1",
     "react": "^17.0.1",
     "react-countdown": "^2.3.2",
     "react-device-detect": "^1.17.0",
@@ -62,6 +66,7 @@
     "react-router-dom": "^5.2.0",
     "react-spring": "8.0.27",
     "react-toastify": "^7.0.4",
+    "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.2",
     "rebass": "^4.0.7",
     "stream-browserify": "^3.0.0",
@@ -71,6 +76,7 @@
     "use-context-selector": "1.1.4"
   },
   "devDependencies": {
+    "decimal.js": "^10.3.1",
     "eslint": "^7.23.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-config-standard": "^16.0.2",

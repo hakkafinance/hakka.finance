@@ -9,6 +9,8 @@ import {
   toggleWalletModalAction,
   toggleInfoModalAction,
   toggleClaimModalAction,
+  toggleRedeemModalAction,
+  toggleRestakeModalAction,
   addPopupAction,
   removePopupAction,
 } from './actions';
@@ -19,6 +21,8 @@ interface ApplicationContextProps {
   toggleWalletModal: () => void;
   toggleInfoModal: () => void;
   toggleClaimModal: ()=> void;
+  toggleRedeemModal: ()=> void;
+  toggleRestakeModal: ()=> void;
   addPopup: (payload: AddPopupPayload) => void;
   removePopup: (payload: RemovePopupPayload) => void;
 }
@@ -46,6 +50,14 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
     dispatch(toggleClaimModalAction());
   }, []);
 
+  const toggleRedeemModal = useCallback(() => {
+    dispatch(toggleRedeemModalAction());
+  }, []);
+
+  const toggleRestakeModal = useCallback(() => {
+    dispatch(toggleRestakeModalAction());
+  }, []);
+
   const addPopup = useCallback((payload) => {
     dispatch(addPopupAction(payload));
   }, []);
@@ -63,6 +75,8 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleWalletModal,
           toggleInfoModal,
           toggleClaimModal,
+          toggleRedeemModal,
+          toggleRestakeModal,
           addPopup,
           removePopup,
         }),
@@ -72,6 +86,8 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleWalletModal,
           toggleInfoModal,
           toggleClaimModal,
+          toggleRedeemModal,
+          toggleRestakeModal,
           addPopup,
           removePopup,
         ],
