@@ -9,6 +9,7 @@ import {
   fortmatic,
   injected,
   portis,
+  uauth,
 } from '../connectors';
 
 export enum ChainId {
@@ -113,6 +114,12 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     name: 'Portis',
     iconName: 'portisIcon',
     description: 'Login using Portis hosted wallet',
+  },
+  UAuth: {
+    connector: uauth,
+    name: 'Unstoppable Domaion',
+    iconName: 'unstoppableIcon',
+    description: 'Login using Unstoppable Domaion',
   },
 };
 

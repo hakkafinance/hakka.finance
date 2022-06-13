@@ -11,6 +11,7 @@ import CurrentNetwork from '../CurrentNetwork';
 import {
   injected,
   walletlink,
+  uauth,
 } from '../../connectors';
 import { MyButton } from '../Common';
 import styles from './styles';
@@ -81,7 +82,7 @@ export default function AccountDetails({
                 <CurrentNetwork />
               </div>
               <div sx={styles.buttonSection}>
-                {connector !== injected && connector !== walletlink ? (
+                {connector !== injected && connector !== walletlink && connector !== uauth ? (
                   <MyButton
                     onClick={() => {
                       (connector as any).close();
