@@ -23,7 +23,7 @@ export default {
   },
 
   loginButtonWrapper: {
-    width: '153px',
+    minWidth: '153px',
   },
 
   accountIconWrapper: {
