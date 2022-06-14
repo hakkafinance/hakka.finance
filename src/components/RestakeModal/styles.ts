@@ -14,6 +14,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       width: '318.75px',
+      height: '100%',
     },
   },
 

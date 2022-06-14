@@ -122,6 +122,10 @@ export default {
   stakeInfoWrapper: {
     paddingTop: '40px',
     paddingRight: '80px',
+
+    '@media screen and (max-width: 576px)': {
+      padding: '0',
+    },
   },
 
   hr: {
