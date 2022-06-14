@@ -12,7 +12,7 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       width: '318.75px',
-      height: '100%', // TODO: check the result
+      height: '100%',
     },
 
     p: {
