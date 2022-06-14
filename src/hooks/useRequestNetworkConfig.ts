@@ -18,6 +18,23 @@ export default function useRequestNetworkConfig(targetNetwork: ChainId): any {
           blockExplorerUrls: ['https://bscscan.com/'],
         }],
       }
+    } else if (targetNetwork === ChainId.FANTOM) {
+      return {
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: '0xFA',
+            chainName: 'Fantom',
+            nativeCurrency: {
+              name: 'FTM',
+              symbol: 'FTM',
+              decimals: 18,
+            },
+            rpcUrls: [process.env.GATSBY_FANTOM_NETWORK_URL],
+            blockExplorerUrls: ['https://ftmscan.com/'],
+          },
+        ],
+      };
     } else if (targetNetwork === ChainId.POLYGON) {
       return {
         method: 'wallet_addEthereumChain',

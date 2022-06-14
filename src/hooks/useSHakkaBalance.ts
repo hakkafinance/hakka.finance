@@ -14,7 +14,7 @@ import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 
 export type SHakkaBalanceType = {
-  [chainId in ChainId]: BigNumber;
+  [chainId in ChainId]?: BigNumber;
 };
 
 export default function useSHakkaBalance(): {
@@ -63,7 +63,8 @@ export default function useSHakkaBalance(): {
       //   getSHakkaBalance(ChainId.KOVAN),
       // ]);
 
-      const [kovanSHakkaBalance, rinkebySHakkaBalance] = await Promise.all([
+      const [ethSHakkaBalance, kovanSHakkaBalance, rinkebySHakkaBalance] = await Promise.all([
+        getSHakkaBalance(ChainId.MAINNET, account),
         getSHakkaBalance(ChainId.KOVAN, account),
         getSHakkaBalance(ChainId.RINKEBY, account),
       ]);
@@ -74,7 +75,7 @@ export default function useSHakkaBalance(): {
       //   [ChainId.POLYGON]: polygonSHakkaBalance,
       //   [ChainId.KOVAN]: kovanSHakkaBalance});
       setSHakkaBalanceInfo({
-        [ChainId.MAINNET]: Zero,
+        [ChainId.MAINNET]: ethSHakkaBalance,
         [ChainId.BSC]: Zero,
         [ChainId.POLYGON]: Zero,
         [ChainId.KOVAN]: kovanSHakkaBalance,

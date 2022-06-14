@@ -6,7 +6,7 @@ import { ChainId } from '../../constants';
 import useVotingPower from '../../hooks/useVotingPower';
 import { v1PowerWeighting } from '../../utils/votingPowerCal';
 import useV1VotingPower from '../../hooks/useV1VotingPower';
-const startDateSec = ~~(new Date('2022-05-16 17:00:00').getTime() / 1000);
+const startDateSec = ~~(new Date('2022-06-30 18:00:00').getTime() / 1000);
 const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
 if (process.env.GATSBY_ENV === 'development') {
   availableList.push(ChainId.KOVAN);
@@ -47,14 +47,24 @@ const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => 
       )
     ));
     const totalVotingPower = weightedV1VotingPower.add(weightedV2VotingPower);
-    const v1Proportion = weightedV1VotingPower.div(totalVotingPower).mul(100);
-    const v2Proportion = weightedV2VotingPower.div(totalVotingPower).mul(100);
+    const v1Proportion = totalVotingPower.gt(0) ? weightedV1VotingPower.div(totalVotingPower).mul(100) : 0;
+    const v2Proportion = totalVotingPower.gt(0) ? weightedV2VotingPower.div(totalVotingPower).mul(100) : 0;
+
+    const v2ProportionSum = availableList.reduce(
+      (previousValue, currentChainId) => {
+        if (!votingPowerInfo[currentChainId]) {
+          return previousValue;
+        }
+        return previousValue + parseFloat(formatUnits(votingPowerInfo[currentChainId]));
+      },
+      0
+    );
 
     const v2ProportionList = availableList.map((chainId) => {
       if (!votingPowerInfo[chainId]) {
         return '-';
       }
-      return parseFloat(formatUnits(votingPowerInfo[chainId])).toFixed(2);
+      return (parseFloat(formatUnits(votingPowerInfo[chainId])) / v2ProportionSum * 100).toFixed(2);
     });
     return [
       totalVotingPower?.toFixed(2),

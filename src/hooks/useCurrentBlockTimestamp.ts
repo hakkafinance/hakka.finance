@@ -6,5 +6,5 @@ import { useMulticallContract } from './useContract';
 export default function useCurrentBlockTimestamp(): BigNumber | undefined {
   const multicall = useMulticallContract();
   return useSingleCallResult(multicall, 'getCurrentBlockTimestamp')
-    ?.result?.[0];
+    ?.result?.[0] || BigNumber.from(~~(Date.now() / 1000));
 }

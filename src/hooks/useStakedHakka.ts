@@ -16,7 +16,7 @@ import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
 import throttle from 'lodash/throttle';
 export type StakedHakkaType = {
-  [chainId in ChainId]: BigNumber;
+  [chainId in ChainId]?: BigNumber;
 };
 
 export default function useStakedHakka(): {
@@ -68,7 +68,8 @@ export default function useStakedHakka(): {
       //   getStakedHakka(ChainId.KOVAN),
       // ]);
 
-      const [kovanStakedHakka, rinkebyStakedHakka] = await Promise.all([
+      const [ethStakedHakka, kovanStakedHakka, rinkebyStakedHakka] = await Promise.all([
+        getStakedHakka(ChainId.MAINNET, account),
         getStakedHakka(ChainId.KOVAN, account),
         getStakedHakka(ChainId.RINKEBY, account),
       ]);
@@ -80,7 +81,7 @@ export default function useStakedHakka(): {
       //   [ChainId.KOVAN]: kovanStakedHakka});
 
       setStakedHakka({
-        [ChainId.MAINNET]: Zero,
+        [ChainId.MAINNET]: ethStakedHakka,
         [ChainId.BSC]: Zero,
         [ChainId.POLYGON]: Zero,
         [ChainId.KOVAN]: kovanStakedHakka,
