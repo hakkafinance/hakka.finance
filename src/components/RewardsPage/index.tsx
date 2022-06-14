@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui';
 import React, { useState, useEffect, useMemo } from 'react';
 import { BigNumber } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
+import { Zero } from '@ethersproject/constants';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
@@ -122,10 +123,16 @@ const RewardsPage = () => {
       const failAddress: string[] = []
       try {
         setApr(newApr);
-        const apyPromiseList = poolAddresses.map((address) => POOL_ASSETES[address].getApr(
-          parseUnits(hakkaPrice.toString(), 18),
-          POOL_ASSETES[address].tokenPriceKey ? (tokenPrice?.[POOL_ASSETES[address].tokenPriceKey]?.usd || 1) : 1
-        ))
+
+        const apyPromiseList = await Promise.all(poolAddresses.map((address) => {
+          if(!POOL_ASSETES[address]){
+            return Zero;
+          }
+          return POOL_ASSETES[address].getApr(
+            parseUnits(hakkaPrice.toString(), 18),
+            POOL_ASSETES[address].tokenPriceKey ? (tokenPrice?.[POOL_ASSETES[address].tokenPriceKey]?.usd || 1) : 1
+          )
+        }));
 
         const settledApyList = await Promise.allSettled(apyPromiseList);
         const reasonList: string[] = []
@@ -155,8 +162,11 @@ const RewardsPage = () => {
     return () => { active = false }
   }, [hakkaPrice, tokenPrice]);
 
-  const rewardsPoolRenderer = (pool, active = false) => (
-    <RewardsPoolCard
+  const rewardsPoolRenderer = (pool, active = false) => {
+    if (!pool?.rewardsAddress) {
+      return <></>
+    }
+    return <RewardsPoolCard
       key={pool.rewardsAddress}
       tokenImage={POOL_ASSETES[pool.rewardsAddress].icon}
       title={pool.name}
@@ -170,7 +180,7 @@ const RewardsPage = () => {
       depositedBalance={account ? rewardData.depositBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
       earnedBalance={account ? rewardData.earnedBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
     />
-  );
+  };
 
   interface RewardsPoolsContainerProps {
     pools: string[];
