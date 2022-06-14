@@ -70,7 +70,7 @@ export const walletlink = new WalletLinkConnector({
 
 export const uauthOptions = {
   clientID: UAUTH_CLIENT_ID || 'client_id',
-  redirectUri: process.env.REACT_APP_ENV === 'production' ? 'https://hakka.finance' : 'http://localhost:8000',
+  redirectUri: process.env.GATSBY_ENV === 'production' ? 'https://hakka.finance' : 'http://localhost:8000',
   postLogoutRedirectUri: 'https://hakka.finance',
   scope: 'openid wallet',
   connectors: { injected, walletconnect },
