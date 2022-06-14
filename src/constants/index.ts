@@ -117,9 +117,9 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   },
   UAuth: {
     connector: uauth,
-    name: 'Unstoppable Domaion',
+    name: 'Unstoppable Domain',
     iconName: 'unstoppableIcon',
-    description: 'Login using Unstoppable Domaion',
+    description: 'Login using Unstoppable Domain',
   },
 };
 
