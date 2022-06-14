@@ -28,7 +28,7 @@ export default function useUnstoppableDomains(
   }, [debouncedAddress, username, changed]);
 
   return {
-    unstoppableDomain: changed ? null : domain ?? null,
+    unstoppableDomain: (changed || !domain ) ? null : domain,
     loading: changed || domain === null,
   };
 }
