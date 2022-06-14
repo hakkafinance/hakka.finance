@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui';
 import { useState, useEffect } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { UAuthConnector } from '@uauth/web3-react';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import usePrevious from '../../hooks/usePrevious';
 import {
@@ -96,6 +97,10 @@ export default function WalletModal({
       connector.walletConnectProvider = undefined;
     }
 
+    if (connector instanceof UAuthConnector) {
+      toggleWalletModal();
+    }
+
     connector
       && activate(connector, undefined, true).catch((error) => {
         console.log(error);
@@ -113,6 +118,7 @@ export default function WalletModal({
         <Option
           id={`connect-${key}`}
           onClick={() => {
+            window.localStorage.removeItem('username');
             option.connector === connector
               ? setWalletView(WALLET_VIEWS.ACCOUNT)
               : tryActivation(option.connector);

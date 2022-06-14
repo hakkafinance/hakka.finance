@@ -24,6 +24,7 @@
     "@reach/dialog": "^0.15.3",
     "@rebass/preset": "^4.0.5",
     "@types/react-helmet": "^6.1.2",
+    "@uauth/web3-react": "^1.1.0",
     "@uniswap/sdk": "^3.0.3",
     "@web3-react/core": "^6.1.9",
     "@web3-react/fortmatic-connector": "^6.1.6",
