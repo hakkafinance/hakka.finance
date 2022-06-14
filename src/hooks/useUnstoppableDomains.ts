@@ -6,7 +6,7 @@ import useDebounce from './useDebounce';
 
 export default function useUnstoppableDomains(
   address?: string,
-): { UnstoppableDomain: string | null; loading: boolean } {
+): { unstoppableDomain: string | null; loading: boolean } {
   const debouncedAddress = useDebounce(address, 200);
   const username = window.localStorage.getItem('username');
   const changed = debouncedAddress !== address;
@@ -28,7 +28,7 @@ export default function useUnstoppableDomains(
   }, [debouncedAddress, username, changed]);
 
   return {
-    UnstoppableDomain: changed ? null : domain ?? null,
+    unstoppableDomain: changed ? null : domain ?? null,
     loading: changed || domain === null,
   };
 }

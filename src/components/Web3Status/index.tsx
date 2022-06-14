@@ -18,7 +18,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { active, account } = useWeb3React();
   const contextNetwork = useWeb3React(NetworkContextName);
   const { ENSName } = useENSName(account ?? undefined);
-  const { UnstoppableDomain } = useUnstoppableDomains(account ?? undefined);
+  const { unstoppableDomain } = useUnstoppableDomains(account ?? undefined);
   const toggleWalletModal = useWalletModalToggle();
   const toggleInfoModal = useInfoModalToggle();
 
@@ -36,7 +36,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
               id={account ? 'web3-status-connected' : 'connect-wallet'}
               onClick={toggleWalletModal}
             >
-              {account ? ENSName || UnstoppableDomain || shortenAddress(account) : 'Connect'}
+              {account ? ENSName || unstoppableDomain || shortenAddress(account) : 'Connect'}
             </MyButton>
           </div>
           <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt="Account Icon" />
@@ -44,7 +44,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
       </div>
 
       <WalletModal
-        ENSName={ENSName || UnstoppableDomain || undefined}
+        ENSName={ENSName || unstoppableDomain || undefined}
       />
 
       <InfoModal />
