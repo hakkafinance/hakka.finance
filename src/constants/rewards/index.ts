@@ -122,42 +122,42 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     archived: false,
   },
   // TODO: check this info
-  [ETH_SHAKKA_POOL]: {
-    name: 'sHAKKA',
-    chain: ChainId.MAINNET,
-    website: 'sHAKKA',
-    url: 'https://hakka.finance/staking',
-    tokenAddress: '', // TODO: address is not ready
-    tokenSymbol: 'sHAKKA',
-    decimal: 18,
-    rewardsAddress: ETH_SHAKKA_POOL,
-    rewardsSymbol: 'HAKKA',
-    archived: false,
-  },
-  [BSC_SHAKKA_POOL]: {
-    name: 'sHAKKA',
-    chain: ChainId.BSC,
-    website: 'sHAKKA',
-    url: 'https://hakka.finance/staking',
-    tokenAddress: '', // TODO: address is not ready
-    tokenSymbol: 'sHAKKA',
-    decimal: 18,
-    rewardsAddress: BSC_SHAKKA_POOL,
-    rewardsSymbol: 'HAKKA',
-    archived: false,
-  },
-  [POLYGON_SHAKKA_POOL]: {
-    name: 'sHAKKA',
-    chain: ChainId.POLYGON,
-    website: 'sHAKKA',
-    url: 'https://hakka.finance/staking',
-    tokenAddress: '', // TODO: address is not ready
-    tokenSymbol: 'sHAKKA',
-    decimal: 18,
-    rewardsAddress: POLYGON_SHAKKA_POOL,
-    rewardsSymbol: 'HAKKA',
-    archived: false,
-  },
+  // [ETH_SHAKKA_POOL]: {
+  //   name: 'sHAKKA',
+  //   chain: ChainId.MAINNET,
+  //   website: 'sHAKKA',
+  //   url: 'https://hakka.finance/staking',
+  //   tokenAddress: '', // TODO: address is not ready
+  //   tokenSymbol: 'sHAKKA',
+  //   decimal: 18,
+  //   rewardsAddress: ETH_SHAKKA_POOL,
+  //   rewardsSymbol: 'HAKKA',
+  //   archived: false,
+  // },
+  // [BSC_SHAKKA_POOL]: {
+  //   name: 'sHAKKA',
+  //   chain: ChainId.BSC,
+  //   website: 'sHAKKA',
+  //   url: 'https://hakka.finance/staking',
+  //   tokenAddress: '', // TODO: address is not ready
+  //   tokenSymbol: 'sHAKKA',
+  //   decimal: 18,
+  //   rewardsAddress: BSC_SHAKKA_POOL,
+  //   rewardsSymbol: 'HAKKA',
+  //   archived: false,
+  // },
+  // [POLYGON_SHAKKA_POOL]: {
+  //   name: 'sHAKKA',
+  //   chain: ChainId.POLYGON,
+  //   website: 'sHAKKA',
+  //   url: 'https://hakka.finance/staking',
+  //   tokenAddress: '', // TODO: address is not ready
+  //   tokenSymbol: 'sHAKKA',
+  //   decimal: 18,
+  //   rewardsAddress: POLYGON_SHAKKA_POOL,
+  //   rewardsSymbol: 'HAKKA',
+  //   archived: false,
+  // },
   // 
   [BSC_BHS_POOL]: {
     name: 'BHS',
