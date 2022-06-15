@@ -17,7 +17,7 @@ export default {
       boxShadow: '0 4px 8px 0 #c8c8c8',
       padding: '0px',
       width: '50vw',
-      overflow: 'hidden',
+      overflow: 'auto',
 
       alignSelf: 'center',
 

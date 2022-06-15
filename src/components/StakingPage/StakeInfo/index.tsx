@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { isMobile } from 'react-device-detect';
 import images from '../../../images';
 import styles from './styles'
 type Props = {
@@ -27,8 +28,10 @@ const InfoItem = ({ icon, title, value }: InfoItemProps) => (
 const StakeInfo = ({ totalStakedHakka, totalSHakkaObtained, farmingSHakka, sHakkaBalance  }: Props) => {
   return (
     <div>
-      <span style={{ fontSize: '24px', fontWeight: 'bold' }}>Stake to increase power</span>
-      <div style={{ marginTop: '40px' }}>
+      {!isMobile && (
+        <span style={{ fontSize: '24px', fontWeight: 'bold' }}>Stake to increase power</span>
+      )}
+      <div style={{ marginTop: isMobile ? '28px' : '40px' }}>
         <InfoItem icon={images.iconHakkaCoinSmall} value={totalStakedHakka} title={<p style={styles.title}>Total <span style={{ fontWeight: 'bold' }}>HAKKA</span> staked</p>} />
         <InfoItem icon={images.iconShakkaCoin} value={totalSHakkaObtained} title={<p style={styles.title}>Total <span style={{ fontWeight: 'bold' }}>sHAKKA</span> obtained</p>} />
         <InfoItem icon={images.iconFarmsSmall} value={farmingSHakka} title={<p style={styles.title}>Farming  <span style={{ fontWeight: 'bold' }}>sHAKKA</span></p>} />
