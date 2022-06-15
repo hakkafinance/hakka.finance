@@ -28,7 +28,9 @@ const InfoItem = ({ icon, title, value }: InfoItemProps) => (
 const StakeInfo = ({ totalStakedHakka, totalSHakkaObtained, farmingSHakka, sHakkaBalance  }: Props) => {
   return (
     <div>
-      <span style={{ fontSize: '24px', fontWeight: 'bold', display: isMobile ? 'none' : 'inline' }}>Stake to increase power</span>
+      {!isMobile && (
+        <span style={{ fontSize: '24px', fontWeight: 'bold' }}>Stake to increase power</span>
+      )}
       <div style={{ marginTop: isMobile ? '28px' : '40px' }}>
         <InfoItem icon={images.iconHakkaCoinSmall} value={totalStakedHakka} title={<p style={styles.title}>Total <span style={{ fontWeight: 'bold' }}>HAKKA</span> staked</p>} />
         <InfoItem icon={images.iconShakkaCoin} value={totalSHakkaObtained} title={<p style={styles.title}>Total <span style={{ fontWeight: 'bold' }}>sHAKKA</span> obtained</p>} />
