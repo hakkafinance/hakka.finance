@@ -63,7 +63,7 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
   },
   // [ChainId.BSC]: {
   //   iconName: 'iconTabBinance',
-  //   name: 'BSC',
+  //   name: 'BNB',
   // },
   // [ChainId.POLYGON]: {
   //   iconName: 'iconTabPolygon',
