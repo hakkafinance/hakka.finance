@@ -72,14 +72,14 @@ const VotingPowerArea = (props: VotingPowerAreaProps) => {
           }
         </div>
       </div>
-      {/* <div style={stakingVersion === StakingVersion.V1 ? {display: 'none'} : {}}>
+      <div style={stakingVersion === StakingVersion.V1 ? {display: 'none'} : {}}>
         <p>Proportion (V2 only)</p>
         <div sx={styles.proportionItemContainer}>
           <ProportionItem proportionValue={ethProportion || '-'} img={images.iconEthereumDarkBg} />
           <ProportionItem proportionValue={bscProportion || '-'} img={images.iconBSCDarkBg} />
           <ProportionItem proportionValue={polygonProportion || '-'} img={images.iconPolygonDarkBg} />
         </div>
-      </div> */}
+      </div>
     </div>
   )
 } ;
