@@ -61,14 +61,14 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     iconName: 'iconTabKovan',
     name: 'Kovan',
   },
-  // [ChainId.BSC]: {
-  //   iconName: 'iconTabBinance',
-  //   name: 'BSC',
-  // },
-  // [ChainId.POLYGON]: {
-  //   iconName: 'iconTabPolygon',
-  //   name: 'Polygon',
-  // },
+  [ChainId.BSC]: {
+    iconName: 'iconTabBinance',
+    name: 'BNB',
+  },
+  [ChainId.POLYGON]: {
+    iconName: 'iconTabPolygon',
+    name: 'Polygon',
+  },
 };
 
 export interface WalletInfo {
@@ -272,16 +272,16 @@ export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xb925863a15ebdeae1a638bf2b6fd00d4db897a62',
   [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
   [ChainId.RINKEBY]: '0x0b6eAA40319113f5500a2bD1C2f434b42Ec3C1b9',
-  [ChainId.BSC]: AddressZero, // '0x51DE1EeF029b5cc1Ef359E62aA98101F56f29bE6',
-  [ChainId.POLYGON]: AddressZero, // '0x7F8093f5F49a9D7F0334f8017fF777F1893032d5',
+  [ChainId.BSC]: '0x51DE1EeF029b5cc1Ef359E62aA98101F56f29bE6',
+  [ChainId.POLYGON]: '0x7F8093f5F49a9D7F0334f8017fF777F1893032d5',
   [ChainId.FANTOM]: AddressZero
 };
 
 export const STAKING_RATE_MODEL_RELEASE_TIME: { [address: typeof NEW_SHAKKA_ADDRESSES[ChainId]]: number } = {
   [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: 1655110318,
   [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
-  [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: undefined,
-  [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: undefined,
+  [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: 1655108868,
+  [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: 1655455798,
   [NEW_SHAKKA_ADDRESSES[ChainId.RINKEBY]]: 1653630226,
 };
 

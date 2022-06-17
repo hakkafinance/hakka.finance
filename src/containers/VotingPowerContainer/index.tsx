@@ -9,7 +9,7 @@ import useV1VotingPower from '../../hooks/useV1VotingPower';
 const startDateSec = ~~(new Date('2022-06-30 18:00:00').getTime() / 1000);
 const availableList = [ChainId.MAINNET, ChainId.BSC, ChainId.POLYGON];
 if (process.env.GATSBY_ENV === 'development') {
-  availableList.push(ChainId.KOVAN);
+  availableList.push(ChainId.KOVAN, ChainId.RINKEBY);
 }
 
 export enum StakingVersion {

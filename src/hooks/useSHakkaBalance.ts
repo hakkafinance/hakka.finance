@@ -4,11 +4,14 @@ import {
   Provider as MulticallProvider,
 } from '@pelith/ethers-multicall';
 import { useWeb3React } from '@web3-react/core';
-import { ChainDataFetchingState, NEW_SHAKKA_ADDRESSES } from '../constants';
+import {
+  ChainDataFetchingState,
+  NEW_SHAKKA_ADDRESSES,
+  ChainId,
+} from '../constants';
 import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Zero, AddressZero } from '@ethersproject/constants';
-import { ChainId } from '../constants';
+import { AddressZero } from '@ethersproject/constants';
 import { useEffect, useMemo, useState } from 'react';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
@@ -41,6 +44,8 @@ export default function useSHakkaBalance(): {
       providers[chainId],
       chainId
     );
+    if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero)
+      return [chainId, undefined];
     const sHakkaContract = new MulticallContract(
       NEW_SHAKKA_ADDRESSES[chainId],
       STAKING_ABI
@@ -48,39 +53,27 @@ export default function useSHakkaBalance(): {
     const [sHakkaBalance] = await multicallProvider.all([
       sHakkaContract.balanceOf(account),
     ]);
-    return sHakkaBalance;
+    return [chainId, sHakkaBalance] as [ChainId, BigNumber];
   };
 
   const fetchSHakkaBalance = async (account: string) => {
-    if (account === AddressZero || account === undefined) return undefined;
     setTransactionSuccess(false);
     try {
-      // TODO: restore this when production is ready
-      // const [ethSHakkaBalance, bscSHakkaBalance, polygonSHakkaBalance, kovanSHakkaBalance] = await Promise.all([
-      //   getSHakkaBalance(ChainId.MAINNET),
-      //   getSHakkaBalance(ChainId.BSC),
-      //   getSHakkaBalance(ChainId.POLYGON),
-      //   getSHakkaBalance(ChainId.KOVAN),
-      // ]);
-
-      const [ethSHakkaBalance, kovanSHakkaBalance, rinkebySHakkaBalance] = await Promise.all([
+      const shakkaList = [
         getSHakkaBalance(ChainId.MAINNET, account),
-        getSHakkaBalance(ChainId.KOVAN, account),
-        getSHakkaBalance(ChainId.RINKEBY, account),
-      ]);
+        getSHakkaBalance(ChainId.BSC, account),
+        getSHakkaBalance(ChainId.POLYGON, account),
+      ];
+      if (process.env.GATSBY_ENV === 'development') {
+        shakkaList.push(
+          getSHakkaBalance(ChainId.KOVAN, account),
+          getSHakkaBalance(ChainId.RINKEBY, account)
+        );
+      }
 
-      // setSHakkaBalanceInfo({
-      //   [ChainId.MAINNET]: ethSHakkaBalance,
-      //   [ChainId.BSC]: bscSHakkaBalance,
-      //   [ChainId.POLYGON]: polygonSHakkaBalance,
-      //   [ChainId.KOVAN]: kovanSHakkaBalance});
-      setSHakkaBalanceInfo({
-        [ChainId.MAINNET]: ethSHakkaBalance,
-        [ChainId.BSC]: Zero,
-        [ChainId.POLYGON]: Zero,
-        [ChainId.KOVAN]: kovanSHakkaBalance,
-        [ChainId.RINKEBY]: rinkebySHakkaBalance,
-      });
+      const shakkaBalanceResults = await Promise.all(shakkaList);
+
+      setSHakkaBalanceInfo(Object.fromEntries(shakkaBalanceResults));
       setTransactionSuccess(true);
     } catch (e) {
       console.log(e);
@@ -94,6 +87,7 @@ export default function useSHakkaBalance(): {
   );
 
   useEffect(() => {
+    if (account === AddressZero || !account) return;
     throttledFetchSHakkaBalance(account);
   }, [latestBlockNumber, account]);
 

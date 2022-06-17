@@ -1,4 +1,4 @@
-import { AddressZero, Zero } from '@ethersproject/constants';
+import { AddressZero } from '@ethersproject/constants';
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
@@ -8,10 +8,10 @@ import {
   ChainDataFetchingState,
   NEW_SHAKKA_ADDRESSES,
   JSON_RPC_PROVIDER,
+  ChainId,
 } from '../constants';
 import throttle from 'lodash/throttle';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId } from '../constants';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBlockNumber } from '../state/application/hooks';
 import STAKING_ABI from '../constants/abis/shakka.json';
@@ -41,7 +41,8 @@ export default function useVotingPower(): {
       chainId: ChainId,
       account: string
     ): Promise<[ChainId, BigNumber]> => {
-      if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero) return [chainId, undefined];
+      if (NEW_SHAKKA_ADDRESSES[chainId] === AddressZero)
+        return [chainId, undefined];
       if (account === AddressZero || !account) return [chainId, undefined];
       const multicallProvider = new MulticallProvider(
         providers[chainId],
@@ -62,13 +63,18 @@ export default function useVotingPower(): {
   const fetchVotingPower = useCallback(async (account: string) => {
     setTransactionSuccess(false);
     try {
-      const votingPowerList = await Promise.all([
+      const matchingList = [
         getVotingPower(ChainId.MAINNET, account),
-        [ChainId.BSC, Zero],
-        [ChainId.POLYGON, Zero],
-        getVotingPower(ChainId.KOVAN, account),
-        getVotingPower(ChainId.RINKEBY, account),
-      ]);
+        getVotingPower(ChainId.BSC, account),
+        getVotingPower(ChainId.POLYGON, account),
+      ];
+      if (process.env.GATSBY_ENV === 'development') {
+        matchingList.push(
+          getVotingPower(ChainId.KOVAN, account),
+          getVotingPower(ChainId.RINKEBY, account)
+        );
+      }
+      const votingPowerList = await Promise.all(matchingList);
 
       setVotingPowerInfo(
         Object.fromEntries(votingPowerList) as typeof votingPowerInfo
@@ -86,6 +92,7 @@ export default function useVotingPower(): {
   );
 
   useEffect(() => {
+    if (account === AddressZero || !account) return;
     throttledFetchVotingPower(account);
   }, [latestBlockNumber, account]);
 
