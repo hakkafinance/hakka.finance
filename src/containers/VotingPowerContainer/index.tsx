@@ -64,7 +64,11 @@ const VotingPowerContainer = ({ stakingVersion }: VotingPowerContainerProps) => 
       if (!votingPowerInfo[chainId]) {
         return '-';
       }
-      return (parseFloat(formatUnits(votingPowerInfo[chainId])) / v2ProportionSum * 100).toFixed(2);
+      const molecular = parseFloat(formatUnits(votingPowerInfo[chainId]));
+      if (molecular > 0) {
+        return ((molecular / v2ProportionSum) * 100).toFixed(2);
+      }
+      return (0).toFixed(2);
     });
     return [
       totalVotingPower?.toFixed(2),

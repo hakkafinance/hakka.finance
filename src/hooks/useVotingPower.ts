@@ -63,18 +63,18 @@ export default function useVotingPower(): {
   const fetchVotingPower = useCallback(async (account: string) => {
     setTransactionSuccess(false);
     try {
-      const matchingList = [
+      const fetchingList = [
         getVotingPower(ChainId.MAINNET, account),
         getVotingPower(ChainId.BSC, account),
         getVotingPower(ChainId.POLYGON, account),
       ];
       if (process.env.GATSBY_ENV === 'development') {
-        matchingList.push(
+        fetchingList.push(
           getVotingPower(ChainId.KOVAN, account),
           getVotingPower(ChainId.RINKEBY, account)
         );
       }
-      const votingPowerList = await Promise.all(matchingList);
+      const votingPowerList = await Promise.all(fetchingList);
 
       setVotingPowerInfo(
         Object.fromEntries(votingPowerList) as typeof votingPowerInfo
