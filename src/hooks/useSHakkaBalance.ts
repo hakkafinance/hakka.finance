@@ -57,7 +57,6 @@ export default function useSHakkaBalance(): {
   };
 
   const fetchSHakkaBalance = async (account: string) => {
-    if (account === AddressZero || account === undefined) return undefined;
     setTransactionSuccess(false);
     try {
       const shakkaList = [
@@ -88,9 +87,8 @@ export default function useSHakkaBalance(): {
   );
 
   useEffect(() => {
-    if (account) {
-      throttledFetchSHakkaBalance(account as string);
-    }
+    if (account === AddressZero || !account) return;
+    throttledFetchSHakkaBalance(account);
   }, [latestBlockNumber, account]);
 
   return { sHakkaBalanceInfo, fetchDataState };

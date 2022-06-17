@@ -92,6 +92,7 @@ export default function useVotingPower(): {
   );
 
   useEffect(() => {
+    if (account === AddressZero || !account) return;
     throttledFetchVotingPower(account);
   }, [latestBlockNumber, account]);
 

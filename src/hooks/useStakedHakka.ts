@@ -57,8 +57,6 @@ export default function useStakedHakka(): {
   };
 
   const fetchStakedHakka = async (account: string) => {
-    if (account === AddressZero || !account) return;
-
     setTransactionSuccess(false);
     try {
       const stakedList = [
@@ -88,7 +86,8 @@ export default function useStakedHakka(): {
   );
 
   useEffect(() => {
-    throttledFetchStakedHakka(account as string);
+    if (account === AddressZero || !account) return;
+    throttledFetchStakedHakka(account);
   }, [latestBlockNumber, account]);
 
   return { stakedHakka, fetchDataState };
