@@ -128,6 +128,7 @@ const images = {
   imageTrustWallet: require('./icons/trustWallet.png').default,
   imageHashCloak: require('./icons/imageHashCloak.png').default,
   imageBinanceSmartChain: require('./icons/imageBinanceSmartChain.png').default,
+  imageBnbChain: require('./icons/imageBnbChain.png').default,
   imagePolygon: require('./icons/imagePolygon.png').default,
   imageAave: require('./icons/imageAave.png').default,
   imageEns: require('./icons/imageEns.png').default,
