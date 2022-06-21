@@ -58,7 +58,7 @@ const HomeScreen = (props) => {
       img: 'imageHashCloak',
     },
     {
-      img: 'imageBinanceSmartChain',
+      img: 'imageBnbChain',
     },
     {
       img: 'imagePolygon',

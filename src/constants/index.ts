@@ -39,7 +39,7 @@ export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
   4: 'Rinkeby',
   42: 'Kovan Testnet',
-  56: 'Binance Smart Chain',
+  56: 'BNB Chain',
   137: 'Polygon Network',
   250: 'Fantom Network',
 };
