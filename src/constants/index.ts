@@ -69,6 +69,10 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     iconName: 'iconTabPolygon',
     name: 'Polygon',
   },
+  [ChainId.FANTOM]: {
+    iconName: '',  // TODO: this icon is not ready
+    name: 'Fantom',
+  },
 };
 
 export interface WalletInfo {
