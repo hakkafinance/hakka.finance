@@ -27,7 +27,7 @@ export const chainsInfo = [
     chainId: 250,
     imgChain: 'iconFantom',
     chainName: 'Fantom',
-    imgBg: '#1969ff',
+    imgBg: '#CFDFFC',
   },
 ];
 
