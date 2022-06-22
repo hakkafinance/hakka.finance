@@ -8,8 +8,8 @@ import {
   TFT_POOL,
   SHAKKA_POOL,
   ETH_SHAKKA_POOL,
-  BSC_SHAKKA_POOL,
-  POLYGON_SHAKKA_POOL,
+  // BSC_SHAKKA_POOL,
+  // POLYGON_SHAKKA_POOL,
   BSC_BHS_POOL,
   IGAIN_BNB_BUSD_POOL,
   IGAIN_IG_POLYGON_ETH_USDC_POOL_1,
@@ -21,7 +21,8 @@ import {
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
   IGAIN_FANTOM_DAI_POOL_1,
-  IGAIN_FANTOM_ETH_POOL_1
+  IGAIN_FANTOM_ETH_POOL_1,
+  NEW_SHAKKA_ADDRESSES
 } from '../../constants';
 
 export type Pool = {
@@ -121,19 +122,18 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsSymbol: 'HAKKA',
     archived: false,
   },
-  // TODO: check this info
-  // [ETH_SHAKKA_POOL]: {
-  //   name: 'sHAKKA',
-  //   chain: ChainId.MAINNET,
-  //   website: 'sHAKKA',
-  //   url: 'https://hakka.finance/staking',
-  //   tokenAddress: '', // TODO: address is not ready
-  //   tokenSymbol: 'sHAKKA',
-  //   decimal: 18,
-  //   rewardsAddress: ETH_SHAKKA_POOL,
-  //   rewardsSymbol: 'HAKKA',
-  //   archived: false,
-  // },
+  [ETH_SHAKKA_POOL]: {
+    name: 'sHAKKA',
+    chain: ChainId.MAINNET,
+    website: 'sHAKKA',
+    url: 'https://hakka.finance/staking',
+    tokenAddress: NEW_SHAKKA_ADDRESSES[ChainId.MAINNET],
+    tokenSymbol: 'sHAKKA',
+    decimal: 18,
+    rewardsAddress: ETH_SHAKKA_POOL,
+    rewardsSymbol: 'HAKKA',
+    archived: false,
+  },
   // [BSC_SHAKKA_POOL]: {
   //   name: 'sHAKKA',
   //   chain: ChainId.BSC,
