@@ -302,7 +302,7 @@ export const MKR_HAKKA_POOL = '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645';
 export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058';
 export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977';
 // TODO: new sHakka pool is not ready
-export const ETH_SHAKKA_POOL = '0x38DDc71Bc1BFe2Bc0D3C51E863A7ec3c6a9826ea';
+export const ETH_SHAKKA_POOL = '0x735A80510536a9A18c8824f40DBc92824640c95a';
 export const BSC_SHAKKA_POOL = '';
 export const POLYGON_SHAKKA_POOL = '';
 export const KOVAN_SHAKKA_POOL = '';
@@ -326,7 +326,7 @@ export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
 export const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
 export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935';
 
-export const SHAKKA_POOLS: { [chainId in ChainId]: string } = {
+export const SHAKKA_POOLS: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: ETH_SHAKKA_POOL,
   [ChainId.KOVAN]: KOVAN_SHAKKA_POOL,
   [ChainId.BSC]: BSC_SHAKKA_POOL,
