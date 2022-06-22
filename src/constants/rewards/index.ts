@@ -111,7 +111,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     archived: true,
   },
   [SHAKKA_POOL]: {
-    name: 'sHAKKA v1(OLD)',
+    name: 'sHAKKA v1 (OLD)',
     chain: ChainId.MAINNET,
     website: 'sHAKKA v1(OLD)',
     url: 'https://hakka.finance/staking-v1',
@@ -123,9 +123,9 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     archived: false,
   },
   [ETH_SHAKKA_POOL]: {
-    name: 'sHAKKA',
+    name: 'sHAKKA v2 (NEW)',
     chain: ChainId.MAINNET,
-    website: 'sHAKKA',
+    website: 'sHAKKA v2 (NEW)',
     url: 'https://hakka.finance/staking',
     tokenAddress: NEW_SHAKKA_ADDRESSES[ChainId.MAINNET],
     tokenSymbol: 'sHAKKA',

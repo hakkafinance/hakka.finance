@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { BigNumber } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { Zero } from '@ethersproject/constants';
@@ -20,6 +20,11 @@ import useTokensPrice from '../../hooks/useTokensPrice';
 enum SortOptions {
   LATEST = 'latest',
   APR = 'apr',
+}
+interface RewardsPoolsContainerProps {
+  pools: string[];
+  active?: boolean;
+  renderPool: (pool: any, active?: any) => jsx.JSX.Element
 }
 
 const RewardsPage = () => {
@@ -123,7 +128,7 @@ const RewardsPage = () => {
       const failAddress: string[] = []
       try {
         setApr(newApr);
-
+        newApr = {...newApr};
         const apyPromiseList = await Promise.all(poolAddresses.map((address) => {
           if(!POOL_ASSETES[address]){
             return Zero;
@@ -162,7 +167,7 @@ const RewardsPage = () => {
     return () => { active = false }
   }, [hakkaPrice, tokenPrice]);
 
-  const rewardsPoolRenderer = (pool, active = false) => {
+  const rewardsPoolRenderer = useCallback((pool, active = false) => {
     if (!pool?.rewardsAddress) {
       return <></>
     }
@@ -180,18 +185,14 @@ const RewardsPage = () => {
       depositedBalance={account ? rewardData.depositBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
       earnedBalance={account ? rewardData.earnedBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
     />
-  };
+  }, [account, apr, rewardData]);
 
-  interface RewardsPoolsContainerProps {
-    pools: string[];
-    active?: boolean;
-  }
 
-  const RewardsPoolsContainer = ({ pools, active}: RewardsPoolsContainerProps) => {
+  const RewardsPoolsContainer = ({ pools, active, renderPool}: RewardsPoolsContainerProps) => {
     return(
       <>
         {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
-        .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], active))}
+        .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], active))}
       </>
     )
   }
@@ -233,7 +234,7 @@ const RewardsPage = () => {
         <div>
           <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
-            <RewardsPoolsContainer pools={isShowStakedOnly ? sortedStakedActivePools : sortedActivePools } active />
+            <RewardsPoolsContainer pools={isShowStakedOnly ? sortedStakedActivePools : sortedActivePools} active renderPool={rewardsPoolRenderer} />
           </div>
         </div>
         <div>
@@ -245,7 +246,7 @@ const RewardsPage = () => {
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              <RewardsPoolsContainer pools={isShowStakedOnly ? stakedArchivedPools : archivedPools } />
+              <RewardsPoolsContainer pools={isShowStakedOnly ? stakedArchivedPools : archivedPools} renderPool={rewardsPoolRenderer} />
             </div>
           }
         </div>
