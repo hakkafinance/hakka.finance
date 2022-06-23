@@ -70,7 +70,7 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     name: 'Polygon',
   },
   [ChainId.FANTOM]: {
-    iconName: '',  // TODO: this icon is not ready
+    iconName: 'iconTabFantom',
     name: 'Fantom',
   },
 };

@@ -149,6 +149,7 @@ const images = {
   iconTabEthereum: require('./icons/iconTabEthereum.svg').default,
   iconTabBinance: require('./icons/iconTabBinance.svg').default,
   iconTabPolygon: require('./icons/iconTabPolygon.svg').default,
+  iconTabFantom: require('./icons/iconTabFantom.svg').default,
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
   iconUnderConstruction: require('./icons/underConstruction.svg').default,
