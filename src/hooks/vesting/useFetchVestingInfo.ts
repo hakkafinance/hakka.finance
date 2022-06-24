@@ -74,7 +74,7 @@ export default function useFetchVestingInfo(chainId: ChainId): {
   );
 
   useEffect(() => {
-    if (account === AddressZero || !account) return;
+    if (account === AddressZero || !account || !latestBlockNumber) return;
     throttledFetchVestingInfo(account, chainId);
   }, [latestBlockNumber, account, chainId]);
 

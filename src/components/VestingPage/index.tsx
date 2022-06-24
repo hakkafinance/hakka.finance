@@ -54,7 +54,7 @@ const VestingPage = () => {
   );
 
   useEffect(() => {
-    if (vestingSupportChainIdSet.has(chainId)) {
+    if (isChainSupported) {
       setActiveChainTab(chainId);
     }
   }, [chainId]);
