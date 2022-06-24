@@ -113,7 +113,7 @@ const RewardsPage = () => {
   } ,[stakedActivePools, sortedByAprStakedActivePools, sortBy]);
 
   useEffect(() => {
-    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
+    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON || chainId === ChainId.FANTOM) {
       setCurrentChain(chainId);
     }
   }, [chainId]);
