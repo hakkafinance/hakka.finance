@@ -12,11 +12,11 @@ export default function useVestingInfo(): {
 } {
   const [vestingInfo, setVestingInfo] = useState<VestingInfoType>();
 
-  const {fetchVestingInfoResult: mainnetVestingInfo} = useFetchVestingInfo(ChainId.MAINNET);
-  const {fetchVestingInfoResult: bscVestingInfo} = useFetchVestingInfo(ChainId.BSC);
-  const {fetchVestingInfoResult: fantomVestingInfo} = useFetchVestingInfo(ChainId.FANTOM);
-  const {fetchVestingInfoResult: polygonVestingInfo} = useFetchVestingInfo(ChainId.POLYGON);
-  const {fetchVestingInfoResult: kovanVestingInfo} = useFetchVestingInfo(ChainId.KOVAN);
+  const { fetchVestingInfoResult: mainnetVestingInfo } = useFetchVestingInfo(ChainId.MAINNET);
+  const { fetchVestingInfoResult: bscVestingInfo } = useFetchVestingInfo(ChainId.BSC);
+  const { fetchVestingInfoResult: fantomVestingInfo } = useFetchVestingInfo(ChainId.FANTOM);
+  const { fetchVestingInfoResult: polygonVestingInfo } = useFetchVestingInfo(ChainId.POLYGON);
+  const { fetchVestingInfoResult: kovanVestingInfo } = useFetchVestingInfo(ChainId.KOVAN);
 
   useEffect(() => {
     setVestingInfo(Object.fromEntries([
