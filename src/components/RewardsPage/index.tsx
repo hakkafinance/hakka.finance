@@ -4,13 +4,14 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { BigNumber } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { Zero } from '@ethersproject/constants';
+import { isMobile } from 'react-device-detect';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
 import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
 import Web3Status from '../Web3Status';
-import { ChainId } from '../../constants';
+import { ChainId, CHAIN_SWITCH_TAB_INFO } from '../../constants';
 import { REWARD_POOLS } from '../../constants/rewards';
 import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
@@ -112,7 +113,7 @@ const RewardsPage = () => {
   } ,[stakedActivePools, sortedByAprStakedActivePools, sortBy]);
 
   useEffect(() => {
-    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
+    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON || chainId === ChainId.FANTOM) {
       setCurrentChain(chainId);
     }
   }, [chainId]);
@@ -198,6 +199,16 @@ const RewardsPage = () => {
     )
   }
 
+  const ChainSwitchButton = ({ chainId }: { chainId: ChainId }) => {
+    return (
+      <div onClick={() => setCurrentChain(chainId)} sx={currentChain === chainId ? styles.chainActive : ''}>
+        {isMobile 
+          ? <img src={currentChain === chainId ? CHAIN_SWITCH_TAB_INFO[chainId].img : CHAIN_SWITCH_TAB_INFO[chainId].imgGray } />
+          : CHAIN_SWITCH_TAB_INFO[chainId].displayName}
+      </div>
+    )
+  };
+
   return (
     <div sx={styles.container}>
       <div sx={styles.rewardsPageWrapper}>
@@ -207,10 +218,10 @@ const RewardsPage = () => {
         </div>
         <div sx={styles.displayOption}>
           <div sx={styles.chainSwitch}>
-            <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
-            <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>BNB Chain</div>
-            <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
-            <div onClick={() => setCurrentChain(ChainId.FANTOM)} sx={currentChain === ChainId.FANTOM ? styles.chainActive : ''}>Fantom</div>
+            <ChainSwitchButton chainId={ChainId.MAINNET} />
+            <ChainSwitchButton chainId={ChainId.BSC} />
+            <ChainSwitchButton chainId={ChainId.POLYGON} />
+            <ChainSwitchButton chainId={ChainId.FANTOM} />
           </div>
           <div sx={styles.sortController}>
             <label sx={styles.checkBoxLabel}>
