@@ -70,6 +70,10 @@ export const ChainNameWithIcon: Record<ChainId, {iconName: string, name: string}
     iconName: 'iconTabPolygon',
     name: 'Polygon',
   },
+  [ChainId.FANTOM]: {
+    iconName: 'iconTabFantom',
+    name: 'Fantom',
+  },
 };
 
 export interface WalletInfo {

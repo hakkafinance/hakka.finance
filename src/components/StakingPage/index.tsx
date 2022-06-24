@@ -49,8 +49,11 @@ const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, process.env.GATSB
   };
 });
 
-const hakkaSupportChainIdSet = new Set(
-  hakkaSupportChain.map((ele) => ele.value)
+const stakingSupportChain = hakkaSupportChain.filter((chain) => 
+  NEW_SHAKKA_ADDRESSES[chain.value] !== AddressZero);
+
+const stakingSupportChainIdSet = new Set(
+  stakingSupportChain.map((ele) => ele.value)
 );
 
 const Staking = () => {
@@ -68,13 +71,13 @@ const Staking = () => {
     return true;
   }, [chainId]);
 
-  const isChainSupported = hakkaSupportChainIdSet.has(chainId);
+  const isChainSupported = stakingSupportChainIdSet.has(chainId);
   const [activeChainTab, setActiveChainTab] = useState(
     isChainSupported ? chainId : ChainId.MAINNET
   );
 
   useEffect(() => {
-    if (hakkaSupportChainIdSet.has(chainId)) {
+    if (stakingSupportChainIdSet.has(chainId)) {
       setActiveChainTab(chainId);
     }
   }, [chainId]);
@@ -151,7 +154,7 @@ const Staking = () => {
           {/* voting power */}
           {/* tab group */}
           <TabGroup
-            list={hakkaSupportChain}
+            list={stakingSupportChain}
             active={activeChainTab}
             onChange={setActiveChainTab}
           ></TabGroup>

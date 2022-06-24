@@ -150,6 +150,7 @@ const images = {
   iconTabEthereum: require('./icons/iconTabEthereum.svg').default,
   iconTabBinance: require('./icons/iconTabBinance.svg').default,
   iconTabPolygon: require('./icons/iconTabPolygon.svg').default,
+  iconTabFantom: require('./icons/iconTabFantom.svg').default,
 
   iconTabEthWithBgColor: require('./icons/iconTabEthWithBgColor.svg').default,
   iconTabBscWithBgColor: require('./icons/iconTabBscWithBgColor.svg').default,

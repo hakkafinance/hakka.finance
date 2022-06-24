@@ -66,6 +66,10 @@ export default {
     lineHeight: '1.17',
   },
 
+  tabWrapper: {
+    marginBottom: '16px',
+  },
+
   vestingCardWrapper: {
     border: 'solid 1px #dae1e3',
     borderRadius: '8px',
