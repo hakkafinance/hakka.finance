@@ -60,9 +60,8 @@ export async function tftApr (hakkaPrice: BigNumber): Promise<BigNumber> { // 3f
 export async function sHakkaApr (hakkaPrice: BigNumber): Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(REWARD_POOLS[SHAKKA_POOL].rewardsAddress, REWARD_ABI);
-  const staking = new Contract(REWARD_POOLS[SHAKKA_POOL].tokenAddress, STAKING_V1_ABI, ethProvider);
 
-  const stakingRate = await staking.callStatic.getStakingRate(12 * 60 * 60 * 24 * 30);
+  const stakingRate = BigNumber.from('2218000000000000000')
   const [stakedTotalSupply, rewardRate, periodFinish] = await ethMulticallProvider.all([
     rewardsContract.totalSupply(),
     rewardsContract.rewardRate(),
