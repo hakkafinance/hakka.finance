@@ -6,12 +6,14 @@ import { Contract } from '@ethersproject/contracts';
 import REWARD_ABI from '../constants/abis/staking_rewards.json';
 import STAKING_V1_ABI from '../constants/abis/shakka_v1.json';
 import IGAIN_ABI from '../constants/abis/iGainV1.json';
-import { SHAKKA_POOL, ChainId } from '../constants';
+import { SHAKKA_POOL, ChainId, NEW_SHAKKA_ADDRESSES, STAKING_RATE_MODEL_RELEASE_TIME, SHAKKA_POOLS } from '../constants';
 import { REWARD_POOLS } from '../constants/rewards';
 import {
   Contract as MulticallContract,
   Provider as MulticallProvider,
 } from '@pelith/ethers-multicall';
+import { getFinalStakingRate, getStartStakingRate } from './stakeReceivedAmount';
+import { transferToYear } from '.';
 
 const SECONDS_IN_YEAR = BigNumber.from(
   (365.25 * 24 * 60 * 60).toString(),
@@ -58,9 +60,8 @@ export async function tftApr (hakkaPrice: BigNumber): Promise<BigNumber> { // 3f
 export async function sHakkaApr (hakkaPrice: BigNumber): Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
   const rewardsContract = new MulticallContract(REWARD_POOLS[SHAKKA_POOL].rewardsAddress, REWARD_ABI);
-  const staking = new Contract(REWARD_POOLS[SHAKKA_POOL].tokenAddress, STAKING_V1_ABI, ethProvider);
 
-  const stakingRate = await staking.callStatic.getStakingRate(12 * 60 * 60 * 24 * 30);
+  const stakingRate = BigNumber.from('2218000000000000000')
   const [stakedTotalSupply, rewardRate, periodFinish] = await ethMulticallProvider.all([
     rewardsContract.totalSupply(),
     rewardsContract.rewardRate(),
@@ -77,6 +78,32 @@ export async function sHakkaApr (hakkaPrice: BigNumber): Promise<BigNumber> {
     .div(stakedTotalSupply)
     .mul(stakingRate)
     .div(WeiPerEther);
+}
+
+export function sHakkaV2Apr(chainId: ChainId): () => Promise<BigNumber> {
+  const now = Math.round(Date.now() / 1000);
+  return async function (): Promise<BigNumber> {
+    const rewardsContract = new MulticallContract(REWARD_POOLS[SHAKKA_POOLS[chainId]].rewardsAddress, REWARD_ABI);
+    const initStakingRate = getStartStakingRate(STAKING_RATE_MODEL_RELEASE_TIME[NEW_SHAKKA_ADDRESSES[chainId]]);
+    const finalStakingRate = getFinalStakingRate(transferToYear(126230400), initStakingRate) // 126230400 = 365.25 * 60 * 60 * 24 * 4
+    const finalStakingBN = parseUnits(finalStakingRate.toString(), 18)
+    const [stakedTotalSupply, rewardRate, periodFinish] = await ethMulticallProvider.all([
+      rewardsContract.totalSupply(),
+      rewardsContract.rewardRate(),
+      rewardsContract.periodFinish(),
+    ]);
+
+    if (periodFinish.lt(now)) {
+      return Zero;
+    }
+
+    const yearlyRewards = rewardRate.mul(SECONDS_IN_YEAR);
+    return yearlyRewards
+      .mul(WeiPerEther)
+      .div(stakedTotalSupply)
+      .mul(finalStakingBN)
+      .div(WeiPerEther);
+  }
 }
 
 export function getGainAprFunc (iGainAddress: string, chainId: ChainId): (hakkaPrice: BigNumber, tokenPrice: number) => Promise<BigNumber> {

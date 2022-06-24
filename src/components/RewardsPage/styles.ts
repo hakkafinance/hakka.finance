@@ -66,13 +66,23 @@ export default {
     color: 'rgba(37, 62, 71, 0.5)',
     fontWeight: '600',
 
-    div: {
+    '> div': {
       padding: '12px 24px',
       borderRadius: '8px',
 
       ':hover': {
         cursor: 'pointer',
         color: '#253e47',
+      },
+    },
+
+    '@media screen and (max-width: 576px)': {
+      '> div': {
+        marginRight: '4px',
+        padding: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: '8px',
       },
     },
   },

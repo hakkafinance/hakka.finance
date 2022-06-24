@@ -128,6 +128,7 @@ const images = {
   imageTrustWallet: require('./icons/trustWallet.png').default,
   imageHashCloak: require('./icons/imageHashCloak.png').default,
   imageBinanceSmartChain: require('./icons/imageBinanceSmartChain.png').default,
+  imageBnbChain: require('./icons/imageBnbChain.png').default,
   imagePolygon: require('./icons/imagePolygon.png').default,
   imageAave: require('./icons/imageAave.png').default,
   imageEns: require('./icons/imageEns.png').default,
@@ -150,6 +151,17 @@ const images = {
   iconTabBinance: require('./icons/iconTabBinance.svg').default,
   iconTabPolygon: require('./icons/iconTabPolygon.svg').default,
   iconTabFantom: require('./icons/iconTabFantom.svg').default,
+
+  iconTabEthWithBgColor: require('./icons/iconTabEthWithBgColor.svg').default,
+  iconTabBscWithBgColor: require('./icons/iconTabBscWithBgColor.svg').default,
+  iconTabPolygonWithBgColor: require('./icons/iconTabPolygonWithBgColor.svg').default,
+  iconTabFantomWithBgColor: require('./icons/iconTabFantomWithBgColor.svg').default,
+  
+  iconTabEthGray: require('./icons/iconTabEthGray.svg').default,
+  iconTabBscGray: require('./icons/iconTabBscGray.svg').default,
+  iconTabPolygonGray: require('./icons/iconTabPolygonGray.svg').default,
+  iconTabFantomGray: require('./icons/iconTabFantomGray.svg').default,
+
   // icon content
   iconFlower: require('./icons/iconFlower.svg').default,
   iconUnderConstruction: require('./icons/underConstruction.svg').default,

@@ -1,16 +1,17 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { BigNumber } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { Zero } from '@ethersproject/constants';
+import { isMobile } from 'react-device-detect';
 import useTokenPrice from '../../hooks/useTokenPrice';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import images from '../../images';
 import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
 import Web3Status from '../Web3Status';
-import { ChainId } from '../../constants';
+import { ChainId, CHAIN_SWITCH_TAB_INFO } from '../../constants';
 import { REWARD_POOLS } from '../../constants/rewards';
 import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
@@ -20,6 +21,11 @@ import useTokensPrice from '../../hooks/useTokensPrice';
 enum SortOptions {
   LATEST = 'latest',
   APR = 'apr',
+}
+interface RewardsPoolsContainerProps {
+  pools: string[];
+  active?: boolean;
+  renderPool: (pool: any, currentChain: ChainId, active?: any) => jsx.JSX.Element
 }
 
 const RewardsPage = () => {
@@ -107,7 +113,7 @@ const RewardsPage = () => {
   } ,[stakedActivePools, sortedByAprStakedActivePools, sortBy]);
 
   useEffect(() => {
-    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON) {
+    if (chainId === ChainId.MAINNET || chainId === ChainId.BSC || chainId === ChainId.POLYGON || chainId === ChainId.FANTOM) {
       setCurrentChain(chainId);
     }
   }, [chainId]);
@@ -123,7 +129,7 @@ const RewardsPage = () => {
       const failAddress: string[] = []
       try {
         setApr(newApr);
-
+        newApr = {...newApr};
         const apyPromiseList = await Promise.all(poolAddresses.map((address) => {
           if(!POOL_ASSETES[address]){
             return Zero;
@@ -162,7 +168,7 @@ const RewardsPage = () => {
     return () => { active = false }
   }, [hakkaPrice, tokenPrice]);
 
-  const rewardsPoolRenderer = (pool, active = false) => {
+  const rewardsPoolRenderer = useCallback((pool,  currentChain, active = false) => {
     if (!pool?.rewardsAddress) {
       return <></>
     }
@@ -179,22 +185,29 @@ const RewardsPage = () => {
       apr={apr[pool.rewardsAddress] ? tryParseAmount(formatUnits(apr[pool.rewardsAddress]?.mul(100), 18)).toFixed(2) : '-'}
       depositedBalance={account ? rewardData.depositBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
       earnedBalance={account ? rewardData.earnedBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
+      currentChain={currentChain}
     />
-  };
+  }, [account, apr, rewardData]);
 
-  interface RewardsPoolsContainerProps {
-    pools: string[];
-    active?: boolean;
-  }
 
-  const RewardsPoolsContainer = ({ pools, active}: RewardsPoolsContainerProps) => {
+  const RewardsPoolsContainer = ({ pools, active, renderPool}: RewardsPoolsContainerProps) => {
     return(
       <>
         {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
-        .map((poolAddress) => rewardsPoolRenderer(REWARD_POOLS[poolAddress], active))}
+        .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], currentChain, active))}
       </>
     )
   }
+
+  const ChainSwitchButton = ({ chainId }: { chainId: ChainId }) => {
+    return (
+      <div onClick={() => setCurrentChain(chainId)} sx={currentChain === chainId ? styles.chainActive : ''}>
+        {isMobile 
+          ? <img src={currentChain === chainId ? CHAIN_SWITCH_TAB_INFO[chainId].img : CHAIN_SWITCH_TAB_INFO[chainId].imgGray } />
+          : CHAIN_SWITCH_TAB_INFO[chainId].displayName}
+      </div>
+    )
+  };
 
   return (
     <div sx={styles.container}>
@@ -205,10 +218,10 @@ const RewardsPage = () => {
         </div>
         <div sx={styles.displayOption}>
           <div sx={styles.chainSwitch}>
-            <div onClick={() => setCurrentChain(ChainId.MAINNET)} sx={currentChain === ChainId.MAINNET ? styles.chainActive : ''}>Ethereum</div>
-            <div onClick={() => setCurrentChain(ChainId.BSC)} sx={currentChain === ChainId.BSC ? styles.chainActive : ''}>Binance Smart Chain</div>
-            <div onClick={() => setCurrentChain(ChainId.POLYGON)} sx={currentChain === ChainId.POLYGON ? styles.chainActive : ''}>Polygon</div>
-            <div onClick={() => setCurrentChain(ChainId.FANTOM)} sx={currentChain === ChainId.FANTOM ? styles.chainActive : ''}>Fantom</div>
+            <ChainSwitchButton chainId={ChainId.MAINNET} />
+            <ChainSwitchButton chainId={ChainId.BSC} />
+            <ChainSwitchButton chainId={ChainId.POLYGON} />
+            <ChainSwitchButton chainId={ChainId.FANTOM} />
           </div>
           <div sx={styles.sortController}>
             <label sx={styles.checkBoxLabel}>
@@ -233,7 +246,7 @@ const RewardsPage = () => {
         <div>
           <p sx={styles.activeTitle}>Active ({activePools.length})</p>
           <div sx={styles.poolContainer}>
-            <RewardsPoolsContainer pools={isShowStakedOnly ? sortedStakedActivePools : sortedActivePools } active />
+            <RewardsPoolsContainer pools={isShowStakedOnly ? sortedStakedActivePools : sortedActivePools} active renderPool={rewardsPoolRenderer} />
           </div>
         </div>
         <div>
@@ -245,7 +258,7 @@ const RewardsPage = () => {
           </div>
           {isShowArchived &&
             <div sx={styles.poolContainer}>
-              <RewardsPoolsContainer pools={isShowStakedOnly ? stakedArchivedPools : archivedPools } />
+              <RewardsPoolsContainer pools={isShowStakedOnly ? stakedArchivedPools : archivedPools} renderPool={rewardsPoolRenderer} />
             </div>
           }
         </div>

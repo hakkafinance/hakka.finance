@@ -12,7 +12,7 @@ export const chainsInfo = [
     id: 'bsc',
     chainId: 56,
     imgChain: 'iconBinanceGold',
-    chainName: 'Binance Smart Chain',
+    chainName: 'BNB Chain',
     imgBg: '#fcf7de',
   },
   {
@@ -27,7 +27,7 @@ export const chainsInfo = [
     chainId: 250,
     imgChain: 'iconFantom',
     chainName: 'Fantom',
-    imgBg: '#1969ff',
+    imgBg: '#CFDFFC',
   },
 ];
 
@@ -45,8 +45,8 @@ export const tokenMetrics = [
   {
     id: 'bsc',
     chainId: 56,
-    shortName: 'BSC',
-    name: ' Hakka Finance on xDai on BSC (HAKKA)',
+    shortName: 'BNB Chain',
+    name: ' Hakka Finance on xDai on BNB Chain (HAKKA)',
     type: 'BEP-20',
     address: '0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',
     addressLink: 'https://bscscan.com/token/0x1D1eb8E8293222e1a29d2C0E4cE6C0Acfd89AaaC',

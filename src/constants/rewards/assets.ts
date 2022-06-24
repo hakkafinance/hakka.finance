@@ -8,6 +8,7 @@ import {
   mkrHakkaApr,
   tftApr,
   sHakkaApr,
+  sHakkaV2Apr,
   bscBhsApr,
   getGainAprFunc,
 } from '../../utils/rewardsApr';
@@ -28,7 +29,8 @@ import {
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
   IGAIN_FANTOM_DAI_POOL_1,
-  IGAIN_FANTOM_ETH_POOL_1
+  IGAIN_FANTOM_ETH_POOL_1,
+  ETH_SHAKKA_POOL,
 } from '..';
 
 export type PoolAssets = {
@@ -74,6 +76,12 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     icon: images.iconSealedHakka,
     decimal: 18,
     getApr: sHakkaApr,
+    getTvl: (tokenPrice: any) => Promise.resolve(Zero),
+  },
+  [ETH_SHAKKA_POOL]: {
+    icon: images.iconSealedHakka,
+    decimal: 18,
+    getApr: sHakkaV2Apr(ChainId.MAINNET),
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
   '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a': {

@@ -11,6 +11,7 @@ import {
   portis,
   uauth,
 } from '../connectors';
+import images from '../images';
 
 export enum ChainId {
   MAINNET = 1,
@@ -39,7 +40,7 @@ export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
   4: 'Rinkeby',
   42: 'Kovan Testnet',
-  56: 'Binance Smart Chain',
+  56: 'BNB Chain',
   137: 'Polygon Network',
   250: 'Fantom Network',
 };
@@ -306,7 +307,7 @@ export const MKR_HAKKA_POOL = '0x3BD145F66203B19CE7BeDaAC9A8147E08EA64645';
 export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058';
 export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977';
 // TODO: new sHakka pool is not ready
-export const ETH_SHAKKA_POOL = '';
+export const ETH_SHAKKA_POOL = '0x735A80510536a9A18c8824f40DBc92824640c95a';
 export const BSC_SHAKKA_POOL = '';
 export const POLYGON_SHAKKA_POOL = '';
 export const KOVAN_SHAKKA_POOL = '';
@@ -330,7 +331,7 @@ export const DAI_ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
 export const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
 export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935';
 
-export const SHAKKA_POOLS: { [chainId in ChainId]: string } = {
+export const SHAKKA_POOLS: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: ETH_SHAKKA_POOL,
   [ChainId.KOVAN]: KOVAN_SHAKKA_POOL,
   [ChainId.BSC]: BSC_SHAKKA_POOL,
@@ -360,4 +361,37 @@ export const JSON_RPC_PROVIDER: {[chainId in ChainId]: JsonRpcProvider} = {
   [ChainId.POLYGON]: new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL),
   [ChainId.RINKEBY]: new JsonRpcProvider(process.env.GATSBY_RINKEBY_NETWORK_URL),
   [ChainId.FANTOM]: new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL),
+};
+
+export const CHAIN_SWITCH_TAB_INFO: {[chainId in ChainId]: { displayName: string, img: string, imgGray: string }} = {
+  [ChainId.MAINNET]: {
+    displayName: 'Ethereum',
+    img: images.iconTabEthWithBgColor,
+    imgGray: images.iconTabEthGray,
+  },
+  [ChainId.KOVAN]: {
+    displayName: 'Kovan',
+    img: '',
+    imgGray: '',
+  },
+  [ChainId.BSC]: {
+    displayName: 'BNB Chain',
+    img: images.iconTabBscWithBgColor,
+    imgGray: images.iconTabBscGray,
+  },
+  [ChainId.RINKEBY]: {
+    displayName: 'Rinkeby',
+    img: '',
+    imgGray: '',
+  },
+  [ChainId.POLYGON]: {
+    displayName: 'Polygon',
+    img: images.iconTabPolygonWithBgColor,
+    imgGray: images.iconTabPolygonGray,
+  },
+  [ChainId.FANTOM]: {
+    displayName: 'Fantom',
+    img: images.iconTabFantomWithBgColor,
+    imgGray: images.iconTabFantomGray,
+  },
 };
