@@ -24,7 +24,7 @@ enum SortOptions {
 interface RewardsPoolsContainerProps {
   pools: string[];
   active?: boolean;
-  renderPool: (pool: any, active?: any) => jsx.JSX.Element
+  renderPool: (pool: any, currentChain: ChainId, active?: any) => jsx.JSX.Element
 }
 
 const RewardsPage = () => {
@@ -167,7 +167,7 @@ const RewardsPage = () => {
     return () => { active = false }
   }, [hakkaPrice, tokenPrice]);
 
-  const rewardsPoolRenderer = useCallback((pool, active = false) => {
+  const rewardsPoolRenderer = useCallback((pool,  currentChain, active = false) => {
     if (!pool?.rewardsAddress) {
       return <></>
     }
@@ -184,6 +184,7 @@ const RewardsPage = () => {
       apr={apr[pool.rewardsAddress] ? tryParseAmount(formatUnits(apr[pool.rewardsAddress]?.mul(100), 18)).toFixed(2) : '-'}
       depositedBalance={account ? rewardData.depositBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
       earnedBalance={account ? rewardData.earnedBalances[pool.rewardsAddress]?.toFixed(2) : '-'}
+      currentChain={currentChain}
     />
   }, [account, apr, rewardData]);
 
@@ -192,7 +193,7 @@ const RewardsPage = () => {
     return(
       <>
         {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
-        .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], active))}
+        .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], currentChain, active))}
       </>
     )
   }
