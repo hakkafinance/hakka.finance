@@ -11,7 +11,6 @@ import {
   portis,
   uauth,
 } from '../connectors';
-import images from '../images';
 
 export enum ChainId {
   MAINNET = 1,
@@ -361,37 +360,4 @@ export const JSON_RPC_PROVIDER: {[chainId in ChainId]: JsonRpcProvider} = {
   [ChainId.POLYGON]: new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL),
   [ChainId.RINKEBY]: new JsonRpcProvider(process.env.GATSBY_RINKEBY_NETWORK_URL),
   [ChainId.FANTOM]: new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL),
-};
-
-export const CHAIN_SWITCH_TAB_INFO: {[chainId in ChainId]: { displayName: string, img: string, imgGray: string }} = {
-  [ChainId.MAINNET]: {
-    displayName: 'Ethereum',
-    img: images.iconTabEthWithBgColor,
-    imgGray: images.iconTabEthGray,
-  },
-  [ChainId.KOVAN]: {
-    displayName: 'Kovan',
-    img: '',
-    imgGray: '',
-  },
-  [ChainId.BSC]: {
-    displayName: 'BNB Chain',
-    img: images.iconTabBscWithBgColor,
-    imgGray: images.iconTabBscGray,
-  },
-  [ChainId.RINKEBY]: {
-    displayName: 'Rinkeby',
-    img: '',
-    imgGray: '',
-  },
-  [ChainId.POLYGON]: {
-    displayName: 'Polygon',
-    img: images.iconTabPolygonWithBgColor,
-    imgGray: images.iconTabPolygonGray,
-  },
-  [ChainId.FANTOM]: {
-    displayName: 'Fantom',
-    img: images.iconTabFantomWithBgColor,
-    imgGray: images.iconTabFantomGray,
-  },
 };

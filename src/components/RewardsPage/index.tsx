@@ -11,12 +11,13 @@ import images from '../../images';
 import styles from './styles';
 import RewardsPoolCard from './RewardsPoolCard';
 import Web3Status from '../Web3Status';
-import { ChainId, CHAIN_SWITCH_TAB_INFO } from '../../constants';
+import { ChainId } from '../../constants';
 import { REWARD_POOLS } from '../../constants/rewards';
 import { POOL_ASSETES } from '../../constants/rewards/assets';
 import { tryParseAmount } from '../../utils';
 import { useRewardsData } from '../../data/RewardsData';
 import useTokensPrice from '../../hooks/useTokensPrice';
+import { CHAIN_SWITCH_TAB_INFO } from '../../constants/farm';
 
 enum SortOptions {
   LATEST = 'latest',
