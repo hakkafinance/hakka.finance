@@ -29,6 +29,7 @@ import {
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
   IGAIN_FANTOM_DAI_POOL_1,
+  IGAIN_FANTOM_USDT_POOL_1,
   IGAIN_FANTOM_ETH_POOL_1,
   ETH_SHAKKA_POOL,
 } from '..';
@@ -149,6 +150,12 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     decimal: 18,
     getApr: getGainAprFunc(IGAIN_FANTOM_DAI_POOL_1, ChainId.FANTOM),
     getTvl: getGainTvlFunc(IGAIN_FANTOM_DAI_POOL_1, ChainId.FANTOM),
+  },
+  [IGAIN_FANTOM_USDT_POOL_1]: {
+    icon: images.iconIgainLp,
+    decimal: 6,
+    getApr: getGainAprFunc(IGAIN_FANTOM_USDT_POOL_1, ChainId.FANTOM),
+    getTvl: getGainTvlFunc(IGAIN_FANTOM_USDT_POOL_1, ChainId.FANTOM),
   },
   [IGAIN_FANTOM_ETH_POOL_1]: {
     icon: images.iconIgainLp,

@@ -21,6 +21,7 @@ import {
   IGAIN_POLYGON_USDT_POOL_2,
   IGAIN_POLYGON_USDC_POOL_3,
   IGAIN_FANTOM_DAI_POOL_1,
+  IGAIN_FANTOM_USDT_POOL_1,
   IGAIN_FANTOM_ETH_POOL_1,
   NEW_SHAKKA_ADDRESSES
 } from '../../constants';
@@ -320,6 +321,23 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     rewardsAddress: IGAIN_POLYGON_USDC_POOL_1,
     rewardsSymbol: 'HAKKA',
     archived: true,
+  },
+  [IGAIN_FANTOM_USDT_POOL_1]: {
+    name: 'iGain IRS USDT',
+    subtitle: new Date(1672390290000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
+    closeTime: '1672390290000',
+    chain: ChainId.FANTOM,
+    website: 'iGain IRS',
+    url: 'https://igain.finance/irs/apy-trade-pools/detail/0x5bA39a707A27b34c5658B8c537b2a71F844801b7?targetChain=250',
+    tokenAddress: '0x5bA39a707A27b34c5658B8c537b2a71F844801b7',
+    tokenSymbol: 'LP',
+    decimal: 6,
+    rewardsAddress: IGAIN_FANTOM_USDT_POOL_1,
+    rewardsSymbol: 'HAKKA',
+    archived: false,
   },
   [IGAIN_FANTOM_DAI_POOL_1]: {
     name: 'iGain IRS DAI',
