@@ -43,7 +43,7 @@ export default function StakingPanel (props: IProps) {
   const [inputAmount, setInputAmount] = useState<string>('');
   const [isCorrectInput, setIsCorrectInput] = useState(true);
 
-  const safeInputAmount = useMemo(() => Number(inputAmount).toString(), [inputAmount]);
+  const safeInputAmount = useMemo(() => inputAmount === '' ? '0' : inputAmount, [inputAmount]);
   const [approveState, approve] = useTokenApprove(
     HAKKA[activeChainId],
     NEW_SHAKKA_ADDRESSES[activeChainId],
@@ -52,7 +52,7 @@ export default function StakingPanel (props: IProps) {
   const [secondTimer, setSecondTimer] = useState<number>(SEC_OF_FOUR_YEARS);
   const [stakeState, stake] = useHakkaStake(
     NEW_SHAKKA_ADDRESSES[activeChainId],
-    account,
+    account!,
     parseUnits(safeInputAmount, 18),
     secondTimer
   );
