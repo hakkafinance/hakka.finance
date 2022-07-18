@@ -32,6 +32,8 @@ import {
   IGAIN_FANTOM_USDT_POOL_1,
   IGAIN_FANTOM_ETH_POOL_1,
   ETH_SHAKKA_POOL,
+  BSC_SHAKKA_POOL,
+  POLYGON_SHAKKA_POOL,
 } from '..';
 
 export type PoolAssets = {
@@ -83,6 +85,18 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     icon: images.iconSealedHakka,
     decimal: 18,
     getApr: sHakkaV2Apr(ChainId.MAINNET),
+    getTvl: (tokenPrice: any) => Promise.resolve(Zero),
+  },
+  [BSC_SHAKKA_POOL]: {
+    icon: images.iconSealedHakka,
+    decimal: 18,
+    getApr: sHakkaV2Apr(ChainId.BSC),
+    getTvl: (tokenPrice: any) => Promise.resolve(Zero),
+  },
+  [POLYGON_SHAKKA_POOL]: {
+    icon: images.iconSealedHakka,
+    decimal: 18,
+    getApr: sHakkaV2Apr(ChainId.POLYGON),
     getTvl: (tokenPrice: any) => Promise.resolve(Zero),
   },
   '0x79EB6F02E9aC26a6fbc4e73DEE0b8991D0c55F4a': {
