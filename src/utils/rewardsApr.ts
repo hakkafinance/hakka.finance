@@ -83,11 +83,17 @@ export async function sHakkaApr (hakkaPrice: BigNumber): Promise<BigNumber> {
 export function sHakkaV2Apr(chainId: ChainId): () => Promise<BigNumber> {
   const now = Math.round(Date.now() / 1000);
   return async function (): Promise<BigNumber> {
-    const rewardsContract = new MulticallContract(REWARD_POOLS[SHAKKA_POOLS[chainId]].rewardsAddress, REWARD_ABI);
+    const rewardsContract = new MulticallContract(REWARD_POOLS[SHAKKA_POOLS[chainId]!].rewardsAddress, REWARD_ABI);
     const initStakingRate = getStartStakingRate(STAKING_RATE_MODEL_RELEASE_TIME[NEW_SHAKKA_ADDRESSES[chainId]]);
     const finalStakingRate = getFinalStakingRate(transferToYear(126230400), initStakingRate) // 126230400 = 365.25 * 60 * 60 * 24 * 4
     const finalStakingBN = parseUnits(finalStakingRate.toString(), 18)
-    const [stakedTotalSupply, rewardRate, periodFinish] = await ethMulticallProvider.all([
+    const multicallProvider = chainId === ChainId.BSC
+      ? bscMulticallProvider
+      : chainId === ChainId.POLYGON
+        ? polygonMulticallProvider
+        : chainId === ChainId.FANTOM ? fantomMulticallProvider : ethMulticallProvider;
+
+    const [stakedTotalSupply, rewardRate, periodFinish] = await multicallProvider.all([
       rewardsContract.totalSupply(),
       rewardsContract.rewardRate(),
       rewardsContract.periodFinish(),

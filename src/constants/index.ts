@@ -307,8 +307,8 @@ export const TFT_POOL = '0x0AA6C4Ff04e4E6512c5348f4B04685af2Cd11058';
 export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977';
 // TODO: new sHakka pool is not ready
 export const ETH_SHAKKA_POOL = '0x735A80510536a9A18c8824f40DBc92824640c95a';
-export const BSC_SHAKKA_POOL = '';
-export const POLYGON_SHAKKA_POOL = '';
+export const BSC_SHAKKA_POOL = '0x64A7B6F1A014156415b214e14Eb7477c3A3AceAE';
+export const POLYGON_SHAKKA_POOL = '0xf55eAbB6B9460baDb569b5bfF0AD0efdf2264d5a';
 export const KOVAN_SHAKKA_POOL = '';
 export const RINKEBY_SHAKKA_POOL = '';
 export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d'; // example, should be delete after prod released
