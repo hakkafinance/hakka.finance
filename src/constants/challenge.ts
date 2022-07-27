@@ -5,8 +5,8 @@ export const OAT_INFO: {[address: string]: {
   describeTitle?: string, 
   describeContent?: string,
   hint?: string[],
-  internalLink?: string,
-  externalLink?: string,
+  missionLink?: string,
+  claimLink?: string,
 }}  = {
   '0x1': {
     name: 'Golden Hoe',
@@ -15,8 +15,8 @@ export const OAT_INFO: {[address: string]: {
     describeTitle: 'Get some HAKKA', 
     describeContent: 'go buy some hakka. go buy some hakka. go buy some hakka.',
     hint: ['go buy some hakka'],
-    internalLink: '',
-    externalLink: '',
+    missionLink: '',
+    claimLink: '',
   },
   '0x2': {
     name: 'Golden Hat',
@@ -25,7 +25,7 @@ export const OAT_INFO: {[address: string]: {
     describeTitle: 'Stake some HAKKA', 
     describeContent: 'go stake some HAKKA. go stake some HAKKA. go stake some HAKKA.',
     hint: ['go stake some HAKKA'],
-    internalLink: '',
-    externalLink: '',
+    missionLink: '',
+    claimLink: '',
   }
 }

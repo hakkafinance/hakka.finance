@@ -26,7 +26,7 @@ module.exports.onCreateWebpackConfig = ({ actions }) => {
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
   const poolTemplate = path.resolve(`./src/templates/pool.tsx`);
-  const challengeDetailTemplate = path.resolve(`./src/templates/challengeDetail.tsx`);
+  const challengeDetail = path.resolve(`./src/templates/challengeDetail.tsx`);
   Object.keys(REWARD_POOLS).forEach(pool => {
     createPage({
       path: `/farms/${pool}`,
@@ -39,7 +39,7 @@ exports.createPages = async ({ actions }) => {
   Object.keys(OAT_INFO).forEach(address => {
     createPage({
       path: `/challenge/${address}`,
-      component: challengeDetailTemplate,
+      component: challengeDetail,
       context: {
         oatAddress: address,
       },
