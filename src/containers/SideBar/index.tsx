@@ -46,6 +46,13 @@ export const botSideBarItems = [
     subIcon: images.iconLinkSmall,
   },
   {
+    name: 'challenge',
+    icon: images.iconForum,
+    path: 'challenge',
+    connectOutsideWebsite: false,
+    underConstruction: false,
+  },
+  {
     name: 'farms',
     icon: images.iconFarms,
     href: 'https://rewards.hakka.finance/',
