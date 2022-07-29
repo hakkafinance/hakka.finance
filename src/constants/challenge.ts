@@ -1,6 +1,7 @@
 export const OAT_INFO: {[address: string]: { 
   name?: string,
   missionIndex?: number,
+  stage?: number,
   img?: string, 
   reward?: string, 
   describeTitle?: string, 
@@ -12,6 +13,7 @@ export const OAT_INFO: {[address: string]: {
   '0x1': {
     name: 'Golden Hoe',
     missionIndex: 1,
+    stage: 1,
     img: '',
     reward: '250 HAKKA', 
     describeTitle: 'Get some HAKKA', 
@@ -24,6 +26,7 @@ export const OAT_INFO: {[address: string]: {
   '0x2': {
     name: 'Golden Hat',
     missionIndex: 2,
+    stage: 1,
     img: '',
     reward: '500 HAKKA', 
     describeTitle: 'Stake some HAKKA', 
