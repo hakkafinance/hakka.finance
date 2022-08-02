@@ -50,7 +50,7 @@ const VestingPage = () => {
 
   const isChainSupported = vestingSupportChainIdSet.has(chainId);
   const [activeChainTab, setActiveChainTab] = useState(
-    isChainSupported ? chainId : ChainId.MAINNET
+    isChainSupported ? chainId! : ChainId.MAINNET
   );
 
   useEffect(() => {
@@ -64,14 +64,14 @@ const VestingPage = () => {
   const { vestingInfo } = useVestingInfo();
 
   const isWaitingCycle = useMemo(
-    () => vestingInfo?.[activeChainTab]?.lastWithdrawalTime && Date.now() - parseInt(vestingInfo[activeChainTab].lastWithdrawalTime?.toString()) * 1000 < 1641600000,
-    [vestingInfo?.[activeChainTab]?.lastWithdrawalTime , activeChainTab],
+    () => vestingInfo[activeChainTab]?.lastWithdrawalTime && Date.now() - parseInt(vestingInfo[activeChainTab].lastWithdrawalTime?.toString()) * 1000 < 1641600000,
+    [vestingInfo[activeChainTab]?.lastWithdrawalTime , activeChainTab],
   );
   const vestingValueAmount = useMemo(
-    () => (vestingInfo?.[activeChainTab].vestingValue && activeChainTab
+    () => (vestingInfo[activeChainTab]?.vestingValue && activeChainTab
       ? new TokenAmount(HAKKA[activeChainTab || 1], vestingInfo[activeChainTab].vestingValue.toString())
       : new TokenAmount(HAKKA[activeChainTab || 1], '0')),
-    [vestingInfo?.[activeChainTab]?.vestingValue, activeChainTab],
+    [vestingInfo[activeChainTab]?.vestingValue, activeChainTab],
   );
 
   const vestingValuePrice = useMemo(
@@ -79,10 +79,10 @@ const VestingPage = () => {
     [vestingValueAmount],
   );
   const vestingProportionAmount = useMemo(
-    () => (vestingInfo?.[activeChainTab].vestingProportion && activeChainTab
+    () => (vestingInfo[activeChainTab]?.vestingProportion && activeChainTab
       ? new TokenAmount(HAKKA[activeChainTab || 1], vestingInfo[activeChainTab].vestingProportion.toString())
       : new TokenAmount(HAKKA[activeChainTab || 1], '0')),
-    [vestingInfo?.[activeChainTab]?.vestingProportion, activeChainTab],
+    [vestingInfo[activeChainTab]?.vestingProportion, activeChainTab],
   );
 
   const countdownRenderer = ({
