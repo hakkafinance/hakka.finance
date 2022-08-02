@@ -11,7 +11,7 @@ export type VestingInfoType = {
 export default function useVestingInfo(): {
   vestingInfo: VestingInfoType;
 } {
-  const [vestingInfo, setVestingInfo] = useState<VestingInfoType>();
+  const [vestingInfo, setVestingInfo] = useState<VestingInfoType>({});
   const { fetchVestingInfoResult: mainnetVestingInfo } = useFetchVestingInfo(ChainId.MAINNET);
   const { fetchVestingInfoResult: bscVestingInfo } = useFetchVestingInfo(ChainId.BSC);
   const { fetchVestingInfoResult: fantomVestingInfo } = useFetchVestingInfo(ChainId.FANTOM);
