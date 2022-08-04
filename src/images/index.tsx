@@ -38,6 +38,7 @@ const images = {
   iconWallet: require('./icons/iconWallet.svg').default,
   iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
   iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
+  iconRectangle: require('./icons/rectangle.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
