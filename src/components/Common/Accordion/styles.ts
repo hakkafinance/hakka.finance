@@ -1,7 +1,4 @@
 export default {
-  container: {
-  },
-
   accordionHeader: {
     display: 'flex',
     alignItems: 'center',

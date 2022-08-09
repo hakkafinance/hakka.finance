@@ -30,7 +30,7 @@ const MissionSection = () => {
               // TODO: check status
               missionStatus={MissionStatusOptions.COMPLETED} 
             />
-            <hr sx={{ margin: '0', borderTop: '0', borderColor: '#E6E6E6' }} />
+            <hr sx={styles.hr} />
           </div>
         ))}
         <MissionItem

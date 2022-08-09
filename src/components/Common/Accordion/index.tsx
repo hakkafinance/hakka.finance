@@ -16,7 +16,7 @@ const Accordion = ({ children, headerContent }: AccordionProps) => {
   const mobileStyle = { maxHeight: '0px', padding: '0px 12px 0px 12px', borderBottom: '0px' }
   
   return (
-    <div sx={styles.container}>
+    <div>
       <div sx={styles.accordionHeader} onClick={() => setIsCollapse(!isCollapse)}>
         <img src={isCollapse ? images.iconTriangleUp : images.iconTriangleDown } />
         <p>{headerContent}</p>

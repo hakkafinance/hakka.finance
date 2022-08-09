@@ -16,4 +16,10 @@ export default {
       },
     },
   },
+
+  hr: {
+    margin: '0',
+    borderTop: '0', 
+    borderColor: '#E6E6E6',
+  },
 }
