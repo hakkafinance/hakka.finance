@@ -10,9 +10,11 @@ interface CharacterStatusProps {
   level?: number;
   characterTitle?: string;
   description?: string;
+  totalTaskAmount: number;
+  finishedTaskAmount: number;
 }
 
-const CharacterStatus = ({ address, level, characterTitle, description }: CharacterStatusProps) => {
+const CharacterStatus = ({ address, level, characterTitle, description, totalTaskAmount, finishedTaskAmount }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
       <div sx={styles.levelContainer}>Level {level}</div>
@@ -24,8 +26,8 @@ const CharacterStatus = ({ address, level, characterTitle, description }: Charac
           <p sx={styles.descriptionSection}>{description}</p>
           <div sx={styles.progressBarContainer}>
             <ProgressBar 
-              totalTaskAmount = {7}
-              finishedTaskAmount = {3}
+              totalTaskAmount={totalTaskAmount}
+              finishedTaskAmount={finishedTaskAmount}
             />
             <span>Next Level</span>
           </div>

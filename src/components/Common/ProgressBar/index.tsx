@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './styles';
 
 interface ProgressBarProps {
@@ -16,12 +16,16 @@ const ProgressBar = ({
   totalTaskAmount, 
   finishedTaskAmount  
 }: ProgressBarProps) => {
-  const progressRate =  finishedTaskAmount / totalTaskAmount * 100
-  const progressColor = progressRate === 100 
-    ? colorList[colorList.length - 1]
-    : colorList[Math.floor(progressRate / (100 / colorList?.length))]
-  const isFinishedTaskAmountLgThanZero = finishedTaskAmount > 0
-  const taskCounter = finishedTaskAmount + '/' + totalTaskAmount
+  const [progressRate, progressColor, isFinishedTaskAmountLgThanZero, taskCounter] = useMemo(() => {
+    const progressRate =  finishedTaskAmount / totalTaskAmount * 100
+    const progressColor = progressRate === 100 
+      ? colorList[colorList.length - 1]
+      : colorList[Math.floor(progressRate / (100 / colorList?.length))]
+    const isFinishedTaskAmountLgThanZero = finishedTaskAmount > 0
+    const taskCounter = finishedTaskAmount + '/' + totalTaskAmount
+    return [progressRate, progressColor, isFinishedTaskAmountLgThanZero, taskCounter]
+  }, [finishedTaskAmount, totalTaskAmount, colorList])
+
   return (
     <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor }}>
       {!isFinishedTaskAmountLgThanZero && taskCounter}

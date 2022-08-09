@@ -23,6 +23,8 @@ const Challenge = () => {
               characterTitle='Newbie DeFi Farmer' 
               description='Your journey across the DeFi Galaxy starts here, young farmer! Learn the basics of how a DAO works, and how to make money with it!' 
               level={0}
+              totalTaskAmount={7}
+              finishedTaskAmount={1}
             />
           </div>
         ) : (
