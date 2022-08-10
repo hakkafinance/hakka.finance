@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import styles from './styles'
 import Web3Status from '../Web3Status';
 import IntroPage from './IntroPage';
+import MissionSection from './MissionSection';
 import CharacterStatus from './CharacterStatus';
 
 const Challenge = () => {
@@ -26,6 +27,7 @@ const Challenge = () => {
               totalTaskAmount={7}
               finishedTaskAmount={1}
             />
+            <MissionSection />
           </div>
         ) : (
           <IntroPage setIsShowMissionPage={setIsShowMissionPage} />

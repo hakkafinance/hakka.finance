@@ -39,6 +39,8 @@ const images = {
   iconWallet: require('./icons/iconWallet.svg').default,
   iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
   iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
+  iconTriangleDown: require('./icons/iconTriangleDown.svg').default,
+  iconTriangleUp: require('./icons/iconTriangleUp.svg').default,
   iconMockProfile: require('./icons/iconMockProfile.svg').default,
   iconRectangle: require('./icons/rectangle.svg').default,
 
