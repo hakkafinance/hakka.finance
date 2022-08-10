@@ -39,6 +39,7 @@ const images = {
   iconWallet: require('./icons/iconWallet.svg').default,
   iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
   iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
+  iconMockProfile: require('./icons/iconMockProfile.svg').default,
   iconRectangle: require('./icons/rectangle.svg').default,
 
   // web applications icon
@@ -172,7 +173,7 @@ const images = {
   iconUnderConstruction: require('./icons/underConstruction.svg').default,
   sakura: require('./icons/sakura.png').default,
 
-  // header backgroud
+  // header background
   headerLogo: require('./logos/headerBg.jpg').default,
   headerLogo3x: require('./logos/headerBg-3x.jpg').default,
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
