@@ -46,8 +46,8 @@ export const botSideBarItems = [
     subIcon: images.iconLinkSmall,
   },
   {
-    name: 'challenge',
-    icon: images.iconForum,
+    name: 'play to earn!',
+    icon: images.iconChallenge,
     path: 'challenge',
     connectOutsideWebsite: false,
     underConstruction: false,
