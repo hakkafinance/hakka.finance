@@ -77,34 +77,92 @@ export default {
   mainLayout: {
     display: 'flex',
     justifyContent: 'flex-start',
+    alignItems: 'flex-start',
 
     '> div: first-child': {
       marginRight: '50px',
-    }
+    },
+
+    '@media screen and (max-width: 576px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+
+      '> div: first-child': {
+        marginRight: '0',
+      },
+    },
   },
 
   oatWrapper: {
     border: '1px solid lightGray',
     padding: '20px',
+    borderRadius: '8px',
+
+    '@media screen and (max-width: 576px)': {
+      marginBottom: '30px',
+    }
   },
 
   fakeImg: {
-    marginBottom: '40px',
-    height: '200px',
+    marginBottom: '12px',
+    height: '300px',
     width: '200px',
     backgroundColor: 'lightGray',
-    borderRadius: '999em',
-  },
-
-  smallFakeImg: {
-    height: '40px',
-    width: '40px',
-    backgroundColor: 'lightGray',
-    borderRadius: '999em',
   },
 
   buttonWrapper: {
     display: 'flex',
+    marginBottom: '28px',
     maxWidth: '300px',
+  },
+
+  infoHeader: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  missionIndex: {
+    fontWeight: '700',
+    fontSize: '16px',
+    lineHeight: '24px',
+    color: 'rgba(37, 62, 71, 0.5)',
+  },
+
+  statusItem: {
+    width: '74px',
+    padding: '8px 0',
+    marginLeft: '16px',
+    fontSize: '12px',
+    borderRadius: '8px',
+    textAlign: 'center',
+  },
+
+  missionTitle: {
+    marginTop: '4px',
+    marginBottom: '18px',
+    fontWeight: '700',
+    fontSize: '24px',
+    lineHeight: '40px',
+  },
+
+  hintTitle: {
+    paddingTop: '20px',
+    fontWeight: '700',
+  },
+
+  ul: {
+    margin: '0',
+    paddingLeft: '20px',
+    fontSize: '14px',
+
+    li: {
+      marginBottom: '12px',
+    },
+  },
+
+  describeContent: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '20px',
   }
 };
