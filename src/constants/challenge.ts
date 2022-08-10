@@ -139,3 +139,11 @@ export const OAT_INFO: {[address: string]: {
     priority: PriorityOptions.REQUIRED,
   }
 }
+
+export const LevelInfo = {
+  1: {
+    title: 'Newbie DeFi Farmer',
+    introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
+    missionList: ['0x1', '0x2', '0x3', '0x4']
+  },
+}

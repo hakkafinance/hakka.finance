@@ -17,7 +17,7 @@ const Accordion = ({ children, headerContent }: AccordionProps) => {
   
   return (
     <div>
-      <div sx={styles.accordionHeader} onClick={() => setIsCollapse(!isCollapse)}>
+      <div sx={styles.accordionHeader} style={!isCollapse ? { background: 'rgba(62, 189, 147, 0.1)' } : {}} onClick={() => setIsCollapse(!isCollapse)}>
         <img src={isCollapse ? images.iconTriangleUp : images.iconTriangleDown } />
         <p>{headerContent}</p>
       </div>

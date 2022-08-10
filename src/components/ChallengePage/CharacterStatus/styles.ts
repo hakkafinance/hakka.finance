@@ -44,6 +44,11 @@ export default {
     },
   },
 
+  profileImgWrapper: {
+    minWidth: '200px',
+    height: '200px',
+  },
+
   infoSection: {
     paddingLeft: '28px',
 

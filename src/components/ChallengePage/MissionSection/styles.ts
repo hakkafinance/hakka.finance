@@ -22,4 +22,8 @@ export default {
     borderTop: '0', 
     borderColor: '#E6E6E6',
   },
+
+  missionItemWrapper: {
+    marginBottom: '10px'
+  },
 }
