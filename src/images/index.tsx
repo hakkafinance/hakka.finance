@@ -43,7 +43,6 @@ const images = {
   iconTriangleDown: require('./icons/iconTriangleDown.svg').default,
   iconTriangleUp: require('./icons/iconTriangleUp.svg').default,
   iconMockProfile: require('./icons/iconMockProfile.svg').default,
-  iconRectangle: require('./icons/rectangle.svg').default,
   iconOat: require('./icons/iconOat.svg').default,
 
   // web applications icon
