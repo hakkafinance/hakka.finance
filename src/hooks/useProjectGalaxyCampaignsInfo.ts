@@ -56,7 +56,7 @@ const useProjectGalaxyCampaignsInfo = () => {
     ...querySetting
   })
 
-  const throttleFunc = useMemo(
+  const throttleSetCampaignsInfo = useMemo(
     () => throttle(setCampaignsInfo, 2000),
     []
   );
@@ -86,7 +86,7 @@ const useProjectGalaxyCampaignsInfo = () => {
         }
       }
     })
-    throttleFunc(queryResults);
+    throttleSetCampaignsInfo(queryResults);
   }, [
     latestBlockNumber, 
     account, 

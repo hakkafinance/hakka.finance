@@ -11,16 +11,16 @@ interface CharacterStatusProps {
   description?: string;
   totalTaskAmount: number;
   completedTaskAmount: number;
-  profile?: string;
+  profileImg?: string;
 }
 
-const CharacterStatus = ({ address, level, characterTitle, description, totalTaskAmount, completedTaskAmount, profile }: CharacterStatusProps) => {
+const CharacterStatus = ({ address, level, characterTitle, description, totalTaskAmount, completedTaskAmount, profileImg }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
       <div sx={styles.levelContainer}>Level {level}</div>
       <div sx={styles.mainLayout}>
         <div sx={styles.profileImgWrapper}>
-          <img src={profile} width="200" height="200" />
+          <img src={profileImg} width="200" height="200" />
         </div>
         <div sx={styles.infoSection}>
           <p sx={styles.address}>{address}</p>

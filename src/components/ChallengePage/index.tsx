@@ -16,9 +16,7 @@ import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants
 const Challenge = () => {
   const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(false)
   const { account } = useWeb3React();
-
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
-  console.log('campaignsInfo', campaignsInfo)
 
   const userLevel = useMemo(() => {
     let userLevel = 1
@@ -86,7 +84,7 @@ const Challenge = () => {
               level={userLevel}
               totalTaskAmount={LevelInfo[userLevel].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
-              profile={images[LevelInfo[userLevel].profile]}
+              profileImg={images[LevelInfo[userLevel].profile]}
             />
             <div sx={styles.missionSectionWrapper}>
               <MissionSection campaignsInfo={campaignsInfo}/>
