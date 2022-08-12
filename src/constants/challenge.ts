@@ -155,7 +155,7 @@ export const OAT_INFO: {[address: string]: {
 
     // TODO: fake link
     missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/',
+    claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCTANUUJkf/',
     priority: PriorityOptions.REQUIRED,
   },
   'GCSH6Utrps': {
@@ -177,7 +177,7 @@ export const OAT_INFO: {[address: string]: {
     ],
     // TODO: fake link
     missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/',
+    claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCSH6Utrps/',
     priority: PriorityOptions.REQUIRED,
   },
   'GCuq6UU5zS': {
@@ -199,7 +199,7 @@ export const OAT_INFO: {[address: string]: {
     ],
     // TODO: fake link
     missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/',
+    claimLink: 'https://galaxy.eco/alpacafinance/campaign/GCuq6UU5zS',
     priority: PriorityOptions.REQUIRED,
   },
 }
