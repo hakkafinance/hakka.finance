@@ -37,7 +37,7 @@ export default {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '40px',
+    marginBottom: '20px',
 
     p: {
       margin: '0 0 20px 0',
@@ -48,7 +48,6 @@ export default {
 
     '@media screen and (max-width: 576px)': {
       display: 'block',
-      marginBottom: '20px',
     },
   },
 

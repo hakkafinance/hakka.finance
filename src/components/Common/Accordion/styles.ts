@@ -5,7 +5,6 @@ export default {
     paddingLeft: '43px',
     height: '60px',
     borderRadius: '8px 8px 0px 0px',
-    background: 'rgba(62, 189, 147, 0.1)',
     border: '1px solid #DAE1E3',
     pointer: 'course',
     fontWeight: '700',
