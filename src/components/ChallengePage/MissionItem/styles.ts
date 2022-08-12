@@ -112,5 +112,10 @@ export default {
     width: '60px',
     height: '72px',
     backgroundColor: '#F1F1F1',
+    marginLeft: '28px',
+
+    '@media screen and (max-width: 576px)': {
+      marginLeft: '14px',
+    },
   },
 }

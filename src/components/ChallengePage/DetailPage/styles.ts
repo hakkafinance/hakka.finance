@@ -98,7 +98,21 @@ export default {
     borderRadius: '8px',
 
     '@media screen and (max-width: 576px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
       marginBottom: '30px',
+    }
+  },
+
+  oat: {
+    width: '260px',
+    height: '312px',
+    marginBottom: '12px',
+
+    '@media screen and (max-width: 576px)': {
+      width: '240px',
+      height: '287px',
     }
   },
 

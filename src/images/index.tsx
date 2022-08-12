@@ -184,5 +184,15 @@ const images = {
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
   iconStakingBanner: require('./icons/iconStakingBanner.svg').default,
+
+  // challenge
+  profileLv1: require('./challenge/profile/iconLv1.png').default,
+  profileLv2: require('./challenge/profile/iconLv2.png').default,
+  mission1: require('./challenge/missions/mission1.gif').default,
+  mission2: require('./challenge/missions/mission2.gif').default,
+  mission3: require('./challenge/missions/mission3.gif').default,
+  mission4: require('./challenge/missions/mission4.gif').default,
+  mission5: require('./challenge/missions/mission5.gif').default,
+  iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
 };
 export default images;
