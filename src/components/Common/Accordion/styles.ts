@@ -27,7 +27,7 @@ export default {
     borderTop: '0',
     transition: 'max-height 0.1s linear, padding 0.1s linear, borderBottom 0.2s',
     overflow: 'hidden',
-    maxHeight: '1000px',
+    maxHeight: '2000px',
 
     '@media screen and (max-width: 576px)': {
       padding: '12px 12px 32px 12px',

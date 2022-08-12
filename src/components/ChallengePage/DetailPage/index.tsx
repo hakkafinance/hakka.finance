@@ -8,14 +8,15 @@ import styles from './styles';
 import images from '../../../images';
 import { MissionStatusOptions, MISSION_STATUS, OAT_INFO } from '../../../constants/challenge';
 import { MyButton } from '../../Common';
+import useProjectGalaxyCampaignsInfo from '../../../hooks/useProjectGalaxyCampaignsInfo';
 
 interface ChallengeDetailPageProps {
   oatAddress: string;
 }
 
 const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
-  // TODO: get this status
-  const missionStatus = MissionStatusOptions.FINISHED
+  const campaignsInfo = useProjectGalaxyCampaignsInfo()
+  const missionStatus = campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED
   const isMissionUnfinished = useMemo(() =>  missionStatus === MissionStatusOptions.UNFINISHED, [missionStatus])
 
   return (
@@ -33,9 +34,7 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
         </div>
         <div sx={styles.mainLayout}>
           <div sx={styles.oatWrapper}>
-            <div sx={styles.fakeImg} />
-            {/* TODO: img is not ready */}
-            {/* <img src={OAT_INFO[oatAddress].img} /> */}
+            <img sx={styles.oat} src={images[OAT_INFO[oatAddress].img]} />
             <img src={images.iconOat} />
           </div>
           <div>
@@ -51,7 +50,7 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
             <h4 sx={styles.missionTitle}>{OAT_INFO[oatAddress].describeTitle}</h4>
             <div sx={styles.buttonWrapper}>
               <MyButton 
-                onClick={() => navigate(OAT_INFO[oatAddress].missionLink || '/')}
+                onClick={() => window.open(OAT_INFO[oatAddress].missionLink, '_blank').focus()} 
                 styleKit={isMissionUnfinished ? 'green' : ''}
                 disabled={!isMissionUnfinished}
               >

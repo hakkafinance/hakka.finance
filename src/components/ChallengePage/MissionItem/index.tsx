@@ -6,6 +6,7 @@ import { MyButton } from '../../Common';
 import styles from './styles';
 import { MissionStatusOptions, MISSION_STATUS, OAT_INFO, PriorityInfo, PriorityOptions } from '../../../constants/challenge';
 import { navigate } from 'gatsby';
+import images from '../../../images';
 
 interface MissionItemProps {
   oatAddress?: string;
@@ -17,6 +18,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
   const missionIndex = oatAddress ? OAT_INFO[oatAddress].missionIndex : ''
   const priority = oatAddress ? OAT_INFO[oatAddress].priority : ''
   const missionTitle = oatAddress ? OAT_INFO[oatAddress].describeTitle : ''
+  const profile = oatAddress ? images[OAT_INFO[oatAddress].img] : ''
 
   return (
     <div sx={styles.container}>
@@ -28,8 +30,10 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
           >
             {!isMobile && MISSION_STATUS[missionStatus].content}
           </div>
-          <img></img>
-          {isUpcoming ? <div sx={styles.upcomingImg} /> : <div sx={styles.mockImg} />}
+          {oatAddress && (
+            <img src={profile} width="60px" height="72px" />
+          )}
+          {isUpcoming && <div sx={styles.upcomingImg} />}
         </div>
         <div>
           {!isUpcoming && priority && (

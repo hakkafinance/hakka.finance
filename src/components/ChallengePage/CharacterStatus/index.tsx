@@ -2,7 +2,6 @@
 import { jsx } from 'theme-ui';
 import React from 'react'
 import styles from './styles';
-import images from '../../../images';
 import ProgressBar from '../../Common/ProgressBar';
 
 interface CharacterStatusProps {
@@ -12,15 +11,16 @@ interface CharacterStatusProps {
   description?: string;
   totalTaskAmount: number;
   completedTaskAmount: number;
+  profile?: string;
 }
 
-const CharacterStatus = ({ address, level, characterTitle, description, totalTaskAmount, completedTaskAmount }: CharacterStatusProps) => {
+const CharacterStatus = ({ address, level, characterTitle, description, totalTaskAmount, completedTaskAmount, profile }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
       <div sx={styles.levelContainer}>Level {level}</div>
       <div sx={styles.mainLayout}>
         <div sx={styles.profileImgWrapper}>
-          <img src={images.iconMockProfile} />
+          <img src={profile} width="200" height="200" />
         </div>
         <div sx={styles.infoSection}>
           <p sx={styles.address}>{address}</p>

@@ -21,6 +21,26 @@ const useProjectGalaxyCampaignsInfo = () => {
       skip: !account,
     }}, [projectGalaxyClient, account])
 
+  const campaignInfo_GCGnZUtqDE = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCGnZUtqDE'},
+    ...querySetting
+  })
+
+  const campaignInfo_GCr8yUtQN5 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCr8yUtQN5'},
+    ...querySetting
+  })
+
+  const campaignInfo_GCBryUtyo7 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCBryUtyo7'},
+    ...querySetting
+  })
+
+  const campaignInfo_GCBCyUtZRy = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCBCyUtZRy'},
+    ...querySetting
+  }) 
+
   const campaignInfo_GCTANUUJkf = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
     variables: { account, campaignId: 'GCTANUUJkf'},
     ...querySetting
@@ -31,6 +51,11 @@ const useProjectGalaxyCampaignsInfo = () => {
     ...querySetting
   })
 
+  const campaignInfo_GCSH6Utrps = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCSH6Utrps'},
+    ...querySetting
+  })
+
   const throttleFunc = useMemo(
     () => throttle(setCampaignsInfo, 2000),
     []
@@ -38,7 +63,15 @@ const useProjectGalaxyCampaignsInfo = () => {
 
   useEffect(() => {
     if (account === AddressZero || !account) return;
-    const campaignInfos = [campaignInfo_GCTANUUJkf, campaignInfo_GCuq6UU5zS];
+    const campaignInfos = [
+      campaignInfo_GCTANUUJkf, 
+      campaignInfo_GCuq6UU5zS, 
+      campaignInfo_GCSH6Utrps,
+      campaignInfo_GCGnZUtqDE,
+      campaignInfo_GCr8yUtQN5,
+      campaignInfo_GCBryUtyo7,
+      campaignInfo_GCBCyUtZRy,
+    ];
     const queryResults = {}
     campaignInfos.forEach((campaignInfo) => {
       if(campaignInfo.data && campaignInfo.variables?.campaignId) {
@@ -54,7 +87,17 @@ const useProjectGalaxyCampaignsInfo = () => {
       }
     })
     throttleFunc(queryResults);
-  }, [latestBlockNumber, account, campaignInfo_GCuq6UU5zS, campaignInfo_GCTANUUJkf]);
+  }, [
+    latestBlockNumber, 
+    account, 
+    campaignInfo_GCuq6UU5zS, 
+    campaignInfo_GCTANUUJkf, 
+    campaignInfo_GCSH6Utrps,
+    campaignInfo_GCGnZUtqDE,
+    campaignInfo_GCr8yUtQN5,
+    campaignInfo_GCBryUtyo7,
+    campaignInfo_GCBCyUtZRy,
+  ]);
 
   return campaignsInfo
 }

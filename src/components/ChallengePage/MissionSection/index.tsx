@@ -24,7 +24,9 @@ const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
         {/* TODO: link is not ready */}
         {!isMobile && (
           <div sx={{ width: '160px' }}>
-            <MyButton onClick={() => {}}>View my NFTs</MyButton>
+            <MyButton onClick={() => window.open('https://galaxy.eco/galaxyid', '_blank').focus()} >
+              View my NFTs
+            </MyButton>
           </div>
         )}
       </div>

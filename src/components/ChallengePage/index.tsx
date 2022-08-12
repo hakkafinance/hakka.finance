@@ -16,26 +16,9 @@ import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants
 const Challenge = () => {
   const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(false)
   const { account } = useWeb3React();
-  const mockUserLevel = 1
 
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
   console.log('campaignsInfo', campaignsInfo)
-
-  // 
-  const level1Task = ['GCTANUUJkf', 'GCuq6UU5zS']
-  const LevelInfo = {
-    1: {
-      title: 'Newbie DeFi Farmer',
-      introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
-      missionList: ['GCTANUUJkf', 'GCuq6UU5zS']
-    },
-    2: {
-      title: '',
-      introduction: '',
-      missionList: ['aaa', 'bbb']
-    },
-  }
-  // 
 
   const userLevel = useMemo(() => {
     let userLevel = 1
@@ -61,7 +44,7 @@ const Challenge = () => {
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
-    level1Task.forEach((id) => { 
+    LevelInfo[userLevel].missionList.forEach((id) => { 
       if (
         campaignsInfo?.[id]?.status &&
         (campaignsInfo[id].status === MissionStatusOptions.FINISHED ||
@@ -98,12 +81,12 @@ const Challenge = () => {
             </div>
             <CharacterStatus 
               address={account ? shortenAddress(account) : '-'}
-              characterTitle={LevelInfo[mockUserLevel].title}
-              description={LevelInfo[mockUserLevel].introduction}
+              characterTitle={LevelInfo[userLevel].title}
+              description={LevelInfo[userLevel].introduction}
               level={userLevel}
-              totalTaskAmount={LevelInfo[mockUserLevel].missionList.length}
-              // TODO: check this value
+              totalTaskAmount={LevelInfo[userLevel].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
+              profile={images[LevelInfo[userLevel].profile]}
             />
             <div sx={styles.missionSectionWrapper}>
               <MissionSection campaignsInfo={campaignsInfo}/>
