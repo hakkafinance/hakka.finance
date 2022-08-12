@@ -8,8 +8,13 @@ import MissionStatusHint from '../MissionStatusHint';
 import MissionItem from '../MissionItem';
 import styles from './styles';
 import { MissionStatusOptions, OAT_INFO } from '../../../constants/challenge';
+import { CampaignsInfoType } from '../../../hooks/useProjectGalaxyCampaignsInfo';
 
-const MissionSection = () => {
+interface MissionSectionProps {
+  campaignsInfo: CampaignsInfoType | undefined
+}
+
+const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
   return (
     <div>
       <div sx={styles.missionHeader}>
@@ -28,7 +33,7 @@ const MissionSection = () => {
             <MissionItem
               oatAddress={oatAddress}
               // TODO: check status
-              missionStatus={MissionStatusOptions.COMPLETED} 
+              missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED} 
             />
             <hr sx={styles.hr} />
           </div>
