@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 const projectGalaxyClient = new ApolloClient({
-  uri: 'https://graphigo.stg.galaxy.eco/query',
+  uri: process.env.PROJECT_GALAXY_ENDPOINT,
   cache: new InMemoryCache(),
 })
 
