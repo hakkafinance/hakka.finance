@@ -57,7 +57,7 @@ export const OAT_INFO: {[address: string]: {
   claimLink?: string,
   priority: PriorityOptions,
 }} = {
-  '0x1': {
+  'GCTANUUJkf': {
     name: 'Golden Hoe',
     missionIndex: 1,
     stage: 1,
@@ -77,7 +77,7 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/',
     priority: PriorityOptions.REQUIRED,
   },
-  '0x2': {
+  'GCuq6UU5zS': {
     name: 'Golden Hat',
     missionIndex: 2,
     stage: 1,
@@ -99,51 +99,51 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/',
     priority: PriorityOptions.REQUIRED,
   },
-  '0x3': {
-    name: '',
-    missionIndex: 3,
-    stage: 1,
-    img: '',
-    reward: '', 
-    describeTitle: 'Complete The Hakka Exam!', 
-    describeContent: "All good! You have your rocket, and your fuel... but do you even know the basics of how to pilot a DeFi rocket?\
-      That's okay, we've got you, young Hakka Farmer. Let's have an accelerated course on the basics of DeFi with a very short quiz, so\
-      you can obtain your rocket license and fly 'to the moon'! 🚀",
-    hint: [
-      "Complete the Hakka Quiz Google Form to learn the basic terms of DeFi so it won't have any secret for you!",
-      "After completing the quiz correctly, you will be able to claim the NFT the next Monday!"
-    ],
-    // TODO: fake link
-    missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/',
-    priority: PriorityOptions.REQUIRED,
-  },
-  '0x4': {
-    name: '',
-    missionIndex: 4,
-    stage: 1,
-    img: '',
-    reward: '', 
-    describeTitle: 'Lend At Least $10 With iGain IRS!', 
-    describeContent: "It's dangerous to go alone! Take this! 🛡 The world of crypto and DeFi can be dangerous at times. Bear markets and\
-      volatility-induced turbulences in the DeFi outer space can cause your portfolio a great deal of trouble! Tokens and lending markets\
-      can go up and down, but there's a way to be protected against fluctuations! Remember the Hakka Exam mission when we mentioned the concept\
-      of 'financial derivative'? It's time to use your newly acquired tool, the Short token, to protect the gains from your stablecoins!",
-    hint: [
-      "Go to the 'Fixed-APY' section of iGain IRS, one of Hakka's products, and lend at least $10 of stablecoins, with a corresponding amount of Short tokens to protect yourself against interest rate decrease!",
-      "After the transaction is confirmed, you will automatically be able to claim the NFT!",
-    ],
-    // TODO: fake link
-    missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/',
-    priority: PriorityOptions.REQUIRED,
-  }
+  // '0x3': {
+  //   name: '',
+  //   missionIndex: 3,
+  //   stage: 1,
+  //   img: '',
+  //   reward: '', 
+  //   describeTitle: 'Complete The Hakka Exam!', 
+  //   describeContent: "All good! You have your rocket, and your fuel... but do you even know the basics of how to pilot a DeFi rocket?\
+  //     That's okay, we've got you, young Hakka Farmer. Let's have an accelerated course on the basics of DeFi with a very short quiz, so\
+  //     you can obtain your rocket license and fly 'to the moon'! 🚀",
+  //   hint: [
+  //     "Complete the Hakka Quiz Google Form to learn the basic terms of DeFi so it won't have any secret for you!",
+  //     "After completing the quiz correctly, you will be able to claim the NFT the next Monday!"
+  //   ],
+  //   // TODO: fake link
+  //   missionLink: '/staking',
+  //   claimLink: 'https://galaxy.eco/',
+  //   priority: PriorityOptions.REQUIRED,
+  // },
+  // '0x4': {
+  //   name: '',
+  //   missionIndex: 4,
+  //   stage: 1,
+  //   img: '',
+  //   reward: '', 
+  //   describeTitle: 'Lend At Least $10 With iGain IRS!', 
+  //   describeContent: "It's dangerous to go alone! Take this! 🛡 The world of crypto and DeFi can be dangerous at times. Bear markets and\
+  //     volatility-induced turbulences in the DeFi outer space can cause your portfolio a great deal of trouble! Tokens and lending markets\
+  //     can go up and down, but there's a way to be protected against fluctuations! Remember the Hakka Exam mission when we mentioned the concept\
+  //     of 'financial derivative'? It's time to use your newly acquired tool, the Short token, to protect the gains from your stablecoins!",
+  //   hint: [
+  //     "Go to the 'Fixed-APY' section of iGain IRS, one of Hakka's products, and lend at least $10 of stablecoins, with a corresponding amount of Short tokens to protect yourself against interest rate decrease!",
+  //     "After the transaction is confirmed, you will automatically be able to claim the NFT!",
+  //   ],
+  //   // TODO: fake link
+  //   missionLink: '/staking',
+  //   claimLink: 'https://galaxy.eco/',
+  //   priority: PriorityOptions.REQUIRED,
+  // }
 }
 
 export const LevelInfo = {
   1: {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
-    missionList: ['0x1', '0x2', '0x3', '0x4']
+    missionList: ['GCTANUUJkf', 'GCuq6UU5zS']
   },
 }

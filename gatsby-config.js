@@ -24,6 +24,12 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-plugin-polyfill-io',
     {
+      resolve: 'gatsby-plugin-apollo',
+      options: {
+        uri: 'https://graphigo.prd.galaxy.eco/query'
+      }
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: 'src/images/logos/favicon.png'
