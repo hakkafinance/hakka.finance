@@ -27,6 +27,7 @@ module.exports = {
       resolve: 'gatsby-plugin-apollo',
       options: {
         uri: 'https://graphigo.prd.galaxy.eco/query'
+        // Staging environment: https://graphigo.stg.galaxy.eco/query
       }
     },
     {
