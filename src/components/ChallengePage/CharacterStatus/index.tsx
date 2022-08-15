@@ -31,7 +31,7 @@ const CharacterStatus = ({ address, level, characterTitle, description, totalTas
               totalTaskAmount={totalTaskAmount}
               completedTaskAmount={completedTaskAmount}
             />
-            <span>Next Level</span>
+            <span>Level Up!</span>
           </div>
         </div>
       </div>

@@ -85,7 +85,7 @@ export default {
     width: '90%',
 
     span: {
-      paddingLeft: '20px',
+      paddingLeft: '8px',
       fontSize: '14px',
       fontWeight: '600',
       color: 'gray',

@@ -209,7 +209,7 @@ const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
 export const LevelInfo = {
   1: {
     title: 'Newbie DeFi Farmer',
-    introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
+    introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
     missionList: process.env.GATSBY_ENV === 'development' ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', ...testMissionList] : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy'],
     expectedMissionAmount: 7,
     profile: 'profileLv1',

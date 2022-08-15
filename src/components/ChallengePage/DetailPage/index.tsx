@@ -26,7 +26,7 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
           <p>Play To Earn</p>
           <Web3Status />
         </div>
-        <div sx={{ display: 'inline-block', marginBottom: '35px', textDecoration: 'none', }} onClick={() => navigate('/challenge')}>
+        <div sx={{ display: 'inline-block', marginBottom: '35px', textDecoration: 'none', }} onClick={() => navigate('/challenge?isIntroPageDisabled=true')}>
           <div sx={styles.btnBack}>
             <img src={images.iconBack} />
             <span>Back to mission lists</span>
