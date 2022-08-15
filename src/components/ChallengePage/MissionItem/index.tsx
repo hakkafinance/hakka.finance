@@ -52,9 +52,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
       </div>
       <div sx={styles.btnWrapper}>
         <MyButton 
-          onClick={missionStatus === MissionStatusOptions.FINISHED 
-            ? () => window.open(OAT_INFO[oatAddress].claimLink, '_blank').focus() 
-            : () => navigate(`/challenge/${oatAddress}`)} 
+          onClick={() => navigate(`/challenge/${oatAddress}`)} 
           disabled={isUpcoming}
         >
           {MISSION_STATUS[missionStatus].btnContent}
