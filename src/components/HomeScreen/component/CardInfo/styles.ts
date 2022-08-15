@@ -1,3 +1,5 @@
+import images from "../../../../images";
+
 export default {
   card_responsive: {
     display: 'grid',
@@ -20,7 +22,10 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
+    backgroundImage: `linear-gradient(90deg, #44D2BA 1.76%, #75E3B9 28.53%, #8CEBB9 63.21%, rgba(255, 255, 255, 0) 67.64%), url(${images.iconHomePageLinkBgImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'left, right',
+    backgroundSize: 'auto, contain',
     cursor: 'pointer',
     boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
     transition: 'all 0.25s ease-out ',
@@ -104,12 +109,10 @@ export default {
   },
 
   cardHeading: {
-    // maxWidth: '90%',
     color: '#253e47',
-    // margin: '12px 0',
     fontWeight: 'bold',
     fontFamily: 'system-ui',
-    fontSize: [3, 3, 4, 5],
+    fontSize: [2, 2, 2, 4],
   },
 
   cardFirstHeading: {
@@ -121,6 +124,7 @@ export default {
     fontSize: [3, 3, 4, 5],
   },
   subText: {
+    maxWidth: '58%',
     fontSize: [1, 1, 2, 3],
     fontWeight: '600',
     color: '#253e47',

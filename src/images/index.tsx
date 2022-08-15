@@ -8,6 +8,7 @@ const images = {
   iconVesting: require('./icons/iconVesting.svg').default,
   iconFarms: require('./icons/iconFarms.svg').default,
   iconVault: require('./icons/iconVault.svg').default,
+  iconChallenge: require('./icons/iconChallenge.svg').default,
   iconLinkSmall: require('./icons/iconLinkSmall.svg').default,
   iconForum: require('./icons/iconForum.svg').default,
   iconOgImage: require('./logos/ogImage.png').default,
@@ -34,10 +35,15 @@ const images = {
   iconQuestion: require('./icons/iconQuestion.svg').default,
   iconProportion: require('./icons/iconProportion.svg').default,
   iconArrowRight: require('./icons/iconArrowRight.svg').default,
+  iconArrowRightWhite: require('./icons/iconWhiteArrowRight.svg').default,
   iconFarmsSmall: require('./icons/iconFarmSmall.svg').default,
   iconWallet: require('./icons/iconWallet.svg').default,
   iconShakkaCoin: require('./icons/iconShakkaCoin.svg').default,
   iconHakkaCoinSmall: require('./icons/iconHakkaCoinSmall.svg').default,
+  iconTriangleDown: require('./icons/iconTriangleDown.svg').default,
+  iconTriangleUp: require('./icons/iconTriangleUp.svg').default,
+  iconMockProfile: require('./icons/iconMockProfile.svg').default,
+  iconOat: require('./icons/iconOat.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -73,10 +79,12 @@ const images = {
   iconStaking: require('./icons/iconStaking.svg').default,
   iconVaultArchive: require('./icons/iconVaultArchive.svg').default,
   iconToGovernance: require('./icons/iconToGovernance.svg').default,
+  iconRocket: require('./icons/iconRocket.svg').default,
 
   /// home icon
   iconLight: require('./icons/iconLight.svg').default,
   iconForward: require('./icons/iconForward.svg').default,
+  iconForwardGray: require('./icons/iconForwardGray.svg').default,
   iconLinkNormal: require('./icons/iconLinkNormal.svg').default,
   iconToken: require('./icons/iconToken.svg').default,
   iconScrollDown: require('./icons/iconScrollDown.svg').default,
@@ -96,6 +104,7 @@ const images = {
   iconSnapshot: require('./icons/iconSnapshot.svg').default,
   iconImmunefi: require('./icons/iconImmunefi.png').default,
   iconHashCloak: require('./icons/iconHashCloak.png').default,
+  iconArrowDown: require('./icons/iconArrowDown.svg').default,
 
   /// icon token
   iconCoingecko: require('./icons/iconCoingecko.png').default,
@@ -167,12 +176,23 @@ const images = {
   iconUnderConstruction: require('./icons/underConstruction.svg').default,
   sakura: require('./icons/sakura.png').default,
 
-  // header backgroud
+  // header background
   headerLogo: require('./logos/headerBg.jpg').default,
   headerLogo3x: require('./logos/headerBg-3x.jpg').default,
   dappHeaderLogo: require('./logos/dappHeaderBg.jpg').default,
   dappHeaderLogo3x: require('./logos/dappHeaderBg-3x.jpg').default,
   blurBall: require('./icons/decorativeBlurBall.png').default,
   iconStakingBanner: require('./icons/iconStakingBanner.svg').default,
+
+  // challenge
+  profileLv1: require('./challenge/profile/iconLv1.png').default,
+  profileLv2: require('./challenge/profile/iconLv2.png').default,
+  mission1: require('./challenge/missions/mission1.gif').default,
+  mission2: require('./challenge/missions/mission2.gif').default,
+  mission3: require('./challenge/missions/mission3.gif').default,
+  mission4: require('./challenge/missions/mission4.gif').default,
+  mission5: require('./challenge/missions/mission5.gif').default,
+  iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
+  iconHomePageLinkBgImg: require('./challenge/homePageLink/iconHomePageLinkBgImg.svg').default,
 };
 export default images;

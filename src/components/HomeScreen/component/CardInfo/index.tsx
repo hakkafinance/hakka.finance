@@ -7,19 +7,19 @@ import styles from './styles';
 function CardInfo(props) {
   const cardHeadContent = [
     {
-      imageTop: '',
-      title: 'Learn More <br/> About HAKKA',
-      subContent: 'View wiki',
-      click: () => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus(); },
-      imageBot: 'iconLinkNormal',
+      imageTop: 'iconForwardGray',
+      title: 'Roam Around <br/> Hakka Ecosystem',
+      subContent: 'Check out unique HAKKA products',
+      click: () => { location.href = 'products' },
+      icon: 'iconLight',
     },
 
     {
-      imageTop: 'iconToken',
+      imageTop: 'iconArrowDown',
       title: 'What’s <br/> HAKKA Token',
-      subContent: 'Check it out',
+      subContent: 'Check to learn more about HAKKA',
       click: () => { location.href = '#whatHakka'; },
-      imageBot: 'iconScrollDown',
+      icon: 'iconToken',
     },
   ];
 
@@ -36,7 +36,8 @@ function CardInfo(props) {
           <img sx={styles.cardImg} src={images[item.imageTop]} alt="" />
         </Flex>
         <Box>
-          <Box sx={styles.cardHeading} mt="3" mb="3" dangerouslySetInnerHTML={{ __html: item.title }} />
+          <img src={images[item.icon]} alt="" />
+          <Box sx={styles.cardHeading} mt='2' mb="2" dangerouslySetInnerHTML={{ __html: item.title }} />
           <Flex
             sx={styles.subContent}
             className="sub-content"
@@ -49,7 +50,6 @@ function CardInfo(props) {
             <div className="text" sx={styles.subTextGreen}>
               {item.subContent}
             </div>
-            <img sx={styles.forwardImg} src={images[item.imageBot]} alt="" />
           </Flex>
         </Box>
       </Box>
@@ -58,16 +58,14 @@ function CardInfo(props) {
   return (
     <Box>
       <Box sx={styles.card_responsive}>
-        <Box onClick={() => { location.href = 'products'; }}>
+        <Box onClick={() => { location.href = 'challenge'; }}>
           <Card sx={styles.cardFirstContainer}>
             <Flex justifyContent="flex-end">
-              <img sx={styles.cardFirstImg} src={images.iconLight} alt="" />
+              <img sx={styles.forwardImg} src={images.iconArrowRightWhite} alt="" />
             </Flex>
-            <Box sx={styles.cardFirstHeading} mt="22px" mb="3">
-              Roam Around
-              <br />
-              {' '}
-              Hakka Ecosystem
+            <img src={images.iconRocket} width='20px' height='20px' />
+            <Box sx={styles.cardFirstHeading}>
+              Play To Earn!
             </Box>
             <Flex
               sx={styles.subContent}
@@ -76,8 +74,7 @@ function CardInfo(props) {
               justifyContent="space-between"
               alignItems="center"
             >
-              <span sx={styles.subText} className="text">Check out unique HAKKA products</span>
-              <img sx={styles.forwardImg} src={images.iconForward} alt="" />
+              <span sx={styles.subText} className="text">Become a DeFi master and win NFTS by completing simple missions</span>
             </Flex>
           </Card>
         </Box>
