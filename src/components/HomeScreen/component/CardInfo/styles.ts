@@ -22,7 +22,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundImage: `linear-gradient(90deg, #44D2BA 1.76%, #75E3B9 28.53%, #8CEBB9 63.21%, rgba(255, 255, 255, 0) 67.64%), url(${images.iconIntroGraph})`,
+    backgroundImage: `linear-gradient(90deg, #44D2BA 1.76%, #75E3B9 28.53%, #8CEBB9 63.21%, rgba(255, 255, 255, 0) 67.64%), url(${images.iconHomePageLinkBgImg})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'left, right',
     backgroundSize: 'auto, contain',

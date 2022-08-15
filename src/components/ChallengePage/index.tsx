@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles'
 import Web3Status from '../Web3Status';
 import IntroPage from './IntroPage';
@@ -14,9 +14,15 @@ import useProjectGalaxyCampaignsInfo from '../../hooks/useProjectGalaxyCampaigns
 import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants/challenge';
 
 const Challenge = () => {
-  const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(false)
+  const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(true)
   const { account } = useWeb3React();
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const isIntroPageDisabled = urlParams.get('isIntroPageDisabled')
+    setIsShowMissionPage(!!isIntroPageDisabled)
+  }, [])
 
   const userLevel = useMemo(() => {
     let userLevel = 1
@@ -63,7 +69,7 @@ const Challenge = () => {
         {isShowMissionPage ? (
           <div>
             <div sx={styles.subTitleWrapper}>
-              <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master!Complete the missions below to level up, collect NFTs, 
+              <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master! Complete the missions below to level up, collect NFTs, 
                 and learn how to make money on DeFi!&nbsp;
               </span>
               {/* TODO: this link is not ready */}
@@ -73,7 +79,7 @@ const Challenge = () => {
                 href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76" 
                 rel="noreferrer"
               >
-                <span>Click here to learn more </span>
+                <span>Read more  </span>
                 <img src={images.iconLinkSmallGreen} />
               </a>
             </div>

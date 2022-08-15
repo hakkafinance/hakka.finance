@@ -193,5 +193,6 @@ const images = {
   mission4: require('./challenge/missions/mission4.gif').default,
   mission5: require('./challenge/missions/mission5.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
+  iconHomePageLinkBgImg: require('./challenge/homePageLink/iconHomePageLinkBgImg.svg').default,
 };
 export default images;
