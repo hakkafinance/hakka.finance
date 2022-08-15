@@ -28,7 +28,7 @@ const ProgressBar = ({
 
   return (
     <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor }}>
-      {!isCompletedTaskAmountLgThanZero && taskCounter}
+      {!isCompletedTaskAmountLgThanZero && <div sx={styles.progressBarZeroStatus}>0</div>}
       <div sx={styles.progressBar} style={{ backgroundColor: progressColor, width: progressRate + '%' }}>
         {isCompletedTaskAmountLgThanZero && (
           <span>{taskCounter}</span>
