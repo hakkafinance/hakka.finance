@@ -8,6 +8,10 @@ export default {
     border: '1px solid rgba(82, 102, 109, 0.3)',
     height: '24px',
     padding: '2px',
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#ffffff',
+    lineHeight: '24px',
   },
 
   progressBar: {
@@ -19,9 +23,17 @@ export default {
 
     span: {
       paddingRight: '10px',
-      fontSize: '14px',
-      fontWeight: '600',
       color: '#ffffff',
     },
-  }
+  },
+
+  progressBarZeroStatus: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '23px',
+    width: '20px',
+    height: '100%',
+    backgroundColor: '#FF8E8E',
+  },
 }
