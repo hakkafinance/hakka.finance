@@ -43,11 +43,12 @@ export default {
   },
 
   startBtn: {
-    marginTop: '20px',
+    marginTop: '38px',
     width: '270px',
 
     '@media screen and (max-width: 576px)': {
       width: '100%',
+      marginTop: '34px',
     },
   },
 }
