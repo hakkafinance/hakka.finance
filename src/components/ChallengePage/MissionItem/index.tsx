@@ -52,7 +52,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
       </div>
       <div sx={styles.btnWrapper}>
         <MyButton 
-          onClick={() => navigate(`/challenge/${oatAddress}`)} 
+          onClick={() => navigate(`/play2earn/${oatAddress}`)} 
           disabled={isUpcoming}
         >
           {MISSION_STATUS[missionStatus].btnContent}

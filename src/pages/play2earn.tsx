@@ -4,12 +4,12 @@ import ChallengePage from '../components/ChallengePage/index';
 
 type Props = {}
 
-const Challenge = ({}: Props) => {
+const Play2Earn = ({}: Props) => {
   return (
-    <DappLayout title="Hakka Finance | Challenge">
+    <DappLayout title="Hakka Finance | Play2Earn">
       <ChallengePage />
     </DappLayout>
   )
 }
 
-export default Challenge
+export default Play2Earn

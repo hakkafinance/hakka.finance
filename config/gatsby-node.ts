@@ -38,7 +38,7 @@ exports.createPages = async ({ actions }) => {
   });
   Object.keys(OAT_INFO).forEach(address => {
     createPage({
-      path: `/challenge/${address}`,
+      path: `/play2earn/${address}`,
       component: challengeDetail,
       context: {
         oatAddress: address,

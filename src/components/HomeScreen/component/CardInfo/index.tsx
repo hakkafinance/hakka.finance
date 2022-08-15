@@ -58,7 +58,7 @@ function CardInfo(props) {
   return (
     <Box>
       <Box sx={styles.card_responsive}>
-        <Box onClick={() => { location.href = 'challenge'; }}>
+        <Box onClick={() => { location.href = 'play2earn'; }}>
           <Card sx={styles.cardFirstContainer}>
             <Flex justifyContent="flex-end">
               <img sx={styles.forwardImg} src={images.iconArrowRightWhite} alt="" />
