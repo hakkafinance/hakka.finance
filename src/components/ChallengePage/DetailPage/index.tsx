@@ -56,7 +56,6 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
               >
                 Start Here
               </MyButton>
-              <Box sx={{ marginRight: '24px' }}/>
               <MyButton 
                 onClick={() => window.open(OAT_INFO[oatAddress].claimLink, '_blank').focus()} 
                 styleKit={isMissionUnfinished ? '' : 'green'}

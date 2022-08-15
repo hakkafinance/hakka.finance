@@ -127,6 +127,7 @@ export default {
     display: 'flex',
     marginBottom: '28px',
     maxWidth: '300px',
+    gap: '22px',
   },
 
   infoHeader: {
