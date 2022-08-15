@@ -73,7 +73,7 @@ const Challenge = () => {
                 and learn how to make money on DeFi!&nbsp;
               </span>
               {/* TODO: this link is not ready */}
-              <a 
+              {/* <a 
                 sx={styles.learnMoreLink} 
                 target="_blank" 
                 href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76" 
@@ -81,7 +81,7 @@ const Challenge = () => {
               >
                 <span>Read more  </span>
                 <img src={images.iconLinkSmallGreen} />
-              </a>
+              </a> */}
             </div>
             <CharacterStatus 
               address={account ? shortenAddress(account) : '-'}

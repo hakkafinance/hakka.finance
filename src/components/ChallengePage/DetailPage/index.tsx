@@ -29,7 +29,7 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
         <div sx={{ display: 'inline-block', marginBottom: '35px', textDecoration: 'none', }} onClick={() => navigate('/challenge?isIntroPageDisabled=true')}>
           <div sx={styles.btnBack}>
             <img src={images.iconBack} />
-            <span>Back to mission lists</span>
+            <span>Back to mission list</span>
           </div>
         </div>
         <div sx={styles.mainLayout}>
@@ -64,7 +64,7 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
               </MyButton>
             </div>
             <p sx={styles.describeContent}>{OAT_INFO[oatAddress].describeContent}</p>
-            <p sx={styles.hintTitle}>How to complete the challenge: </p>
+            <p sx={styles.hintTitle}>How to complete the mission: </p>
             <ul sx={styles.ul}>
               {OAT_INFO[oatAddress].hint?.map(hint => (<li>{hint}</li>))}
             </ul>

@@ -178,5 +178,6 @@ export default {
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '20px',
+    whiteSpace: 'pre-line',
   }
 };
