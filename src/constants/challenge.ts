@@ -24,7 +24,7 @@ export const MISSION_STATUS: {[key in MissionStatusOptions]: { content: string, 
   [MissionStatusOptions.UPCOMING]: {
     content: '',
     color: '',
-    btnContent: 'Soon',
+    btnContent: 'Soon™️',
   },
 }
 
