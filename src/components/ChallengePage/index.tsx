@@ -72,16 +72,15 @@ const Challenge = () => {
               <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master! Complete the missions below to level up, collect NFTs, 
                 and learn how to make money on DeFi!&nbsp;
               </span>
-              {/* TODO: this link is not ready */}
-              {/* <a 
+              <a 
                 sx={styles.learnMoreLink} 
                 target="_blank" 
-                href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76" 
+                href="https://hakkafinance.medium.com/play-to-earn-with-hakka-finance-a3b3cf50cfb5" 
                 rel="noreferrer"
               >
                 <span>Read more  </span>
                 <img src={images.iconLinkSmallGreen} />
-              </a> */}
+              </a>
             </div>
             <CharacterStatus 
               address={account ? shortenAddress(account) : '-'}

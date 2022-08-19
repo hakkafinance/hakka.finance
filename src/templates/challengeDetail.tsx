@@ -5,7 +5,7 @@ import DappLayout from '../containers/DappLayout';
 const ChallengeDetail = ({ pageContext }) => {
   const { oatAddress } = pageContext
   return (
-  <DappLayout title="Hakka Finance | Challenge">
+  <DappLayout title="Hakka Finance | Mission">
     <ChallengeDetailPage oatAddress={oatAddress} />
   </DappLayout>
   )
