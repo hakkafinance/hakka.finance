@@ -18,7 +18,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
   const missionIndex = oatAddress ? OAT_INFO[oatAddress].missionIndex : ''
   const priority = oatAddress ? OAT_INFO[oatAddress].priority : ''
   const missionTitle = oatAddress ? OAT_INFO[oatAddress].describeTitle : ''
-  const profile = oatAddress ? images[OAT_INFO[oatAddress].img] : ''
+  const oatImg = oatAddress ? images[OAT_INFO[oatAddress].img] : ''
 
   return (
     <div sx={styles.container}>
@@ -31,7 +31,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
             {!isMobile && MISSION_STATUS[missionStatus].content}
           </div>
           {oatAddress && (
-            <img src={profile} width="60px" height="72px" loading="lazy" />
+            <img src={oatImg} width="60px" height="72px" loading="lazy" />
           )}
           {isUpcoming && <div sx={styles.upcomingImg} />}
         </div>
