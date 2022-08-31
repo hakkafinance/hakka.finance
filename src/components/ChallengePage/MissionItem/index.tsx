@@ -31,7 +31,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
             {!isMobile && MISSION_STATUS[missionStatus].content}
           </div>
           {oatAddress && (
-            <img src={profile} width="60px" height="72px" />
+            <img src={profile} width="60px" height="72px" loading="lazy" />
           )}
           {isUpcoming && <div sx={styles.upcomingImg} />}
         </div>
