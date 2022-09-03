@@ -210,6 +210,8 @@ export const OAT_INFO: {[address: string]: {
 }
 
 const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
+// TODO: wrong address
+export const notificationMissionAddresses = ['GCBryUtyo7', 'GCBCyUtZRy']
 
 export const LevelInfo = {
   1: {

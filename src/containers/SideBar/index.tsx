@@ -25,6 +25,8 @@ const topSideBarItems = [
   },
 ];
 
+export const NOTIFICATION_DOT = 'notificationDot'
+
 export const botSideBarItems = [
   {
     name: 'governance',
@@ -51,6 +53,7 @@ export const botSideBarItems = [
     path: 'play2earn',
     connectOutsideWebsite: false,
     underConstruction: false,
+    subIcon: NOTIFICATION_DOT,
   },
   {
     name: 'farms',
