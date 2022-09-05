@@ -1,24 +1,28 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react'
+import React, { useState } from 'react'
 import { isMobile } from 'react-device-detect';
 import { MyButton } from '../../Common';
 import styles from './styles';
 import { MissionStatusOptions, MISSION_STATUS, OAT_INFO, PriorityInfo, PriorityOptions } from '../../../constants/challenge';
 import { navigate } from 'gatsby';
 import images from '../../../images';
+import Skeleton from '../../Common/Skeleton';
 
 interface MissionItemProps {
   oatAddress?: string;
   missionStatus: MissionStatusOptions;
+  isCampaignsInfoLoaded?: boolean
 }
 
-const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
+const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: MissionItemProps) => {
   const isUpcoming = missionStatus === MissionStatusOptions.UPCOMING
   const missionIndex = oatAddress ? OAT_INFO[oatAddress].missionIndex : ''
   const priority = oatAddress ? OAT_INFO[oatAddress].priority : ''
   const missionTitle = oatAddress ? OAT_INFO[oatAddress].describeTitle : ''
   const oatImg = oatAddress ? images[OAT_INFO[oatAddress].img] : ''
+
+  const [isImgLoading, setIsImgLoading] = useState(true);
 
   return (
     <div sx={styles.container}>
@@ -28,12 +32,16 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
             sx={styles.taskStatusWrapper} 
             style={{ background: MISSION_STATUS[missionStatus].color }}
           >
+            {!isUpcoming && <Skeleton isLoaded={isCampaignsInfoLoaded} className="skeleton skeleton-type-button" />}
             {!isMobile && MISSION_STATUS[missionStatus].content}
           </div>
-          {oatAddress && (
-            <img src={oatImg} width="60px" height="72px" loading="lazy" />
-          )}
-          {isUpcoming && <div sx={styles.upcomingImg} />}
+          <div sx={styles.oatImgWrapper}>
+            {!isUpcoming && <Skeleton isLoaded={!isImgLoading} className="skeleton" />}
+            {oatAddress && (
+              <img src={oatImg} onLoad={() => setIsImgLoading(false)} width="60px" height="72px" loading="lazy" />
+            )}
+            {isUpcoming && <div sx={styles.upcomingImg} />}
+          </div>
         </div>
         <div>
           {!isUpcoming && priority && (
@@ -51,6 +59,7 @@ const MissionItem = ({ oatAddress, missionStatus }: MissionItemProps) => {
         </div>
       </div>
       <div sx={styles.btnWrapper}>
+        {!isUpcoming && <Skeleton isLoaded={isCampaignsInfoLoaded} className="skeleton skeleton-type-button" />}
         <MyButton 
           onClick={() => navigate(`/play2earn/${oatAddress}`)} 
           disabled={isUpcoming}

@@ -18,6 +18,9 @@ const Challenge = () => {
   const { account } = useWeb3React();
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
 
+  // TODO: remove this
+  console.log('campaignsInfo', campaignsInfo)
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const isIntroPageDisabled = urlParams.get('isIntroPageDisabled')
@@ -59,6 +62,10 @@ const Challenge = () => {
     return completedTaskAmount
   }, [campaignsInfo])
 
+  const isCampaignsInfoLoaded = useMemo(() => {
+    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
+  }, [campaignsInfo])
+
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
@@ -90,9 +97,10 @@ const Challenge = () => {
               totalTaskAmount={LevelInfo[userLevel].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               profileImg={images[LevelInfo[userLevel].profile]}
+              isLoaded={isCampaignsInfoLoaded}
             />
             <div sx={styles.missionSectionWrapper}>
-              <MissionSection campaignsInfo={campaignsInfo}/>
+              <MissionSection campaignsInfo={campaignsInfo} isCampaignsInfoLoaded={isCampaignsInfoLoaded}/>
             </div>
           </div>
         ) : (

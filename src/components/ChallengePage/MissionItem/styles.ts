@@ -25,24 +25,19 @@ export default {
   },
 
   firstSectionWrapper: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     marginRight: '30px',
 
-    img: {
-      marginLeft: '28px',
-    },
-
     '@media screen and (max-width: 576px)': {
       marginRight: '10px',
       
-      img: {
-        marginLeft: '14px',
-      },
     }
   },
 
   taskStatusWrapper: {
+    position: 'relative',
     padding: '8px 0',
     textAlign: 'center',
     fontSize: '12px',
@@ -94,6 +89,7 @@ export default {
   },
 
   btnWrapper: {
+    position: 'relative',
     width: '130px',
 
     '@media screen and (max-width: 576px)': {
@@ -108,14 +104,20 @@ export default {
     lineHeight: '24px',
   },
 
-  upcomingImg: {
+  oatImgWrapper: {
+    position: 'relative',
     width: '60px',
     height: '72px',
-    backgroundColor: '#F1F1F1',
     marginLeft: '28px',
 
     '@media screen and (max-width: 576px)': {
       marginLeft: '14px',
-    },
+    }
+  },
+
+  upcomingImg: {
+    width: '60px',
+    height: '72px',
+    backgroundColor: '#F1F1F1',
   },
 }

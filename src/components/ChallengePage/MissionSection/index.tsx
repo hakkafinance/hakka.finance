@@ -14,9 +14,10 @@ import { CampaignsInfoType } from '../../../hooks/useProjectGalaxyCampaignsInfo'
 
 interface MissionSectionProps {
   campaignsInfo: CampaignsInfoType | undefined
+  isCampaignsInfoLoaded: boolean
 }
 
-const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
+const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSectionProps) => {
   return (
     <div>
       <div sx={styles.missionHeader}>
@@ -40,12 +41,13 @@ const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
                   oatAddress={oatAddress}
                   // TODO: check status
                   missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
+                  isCampaignsInfoLoaded={isCampaignsInfoLoaded}
                 />
                 <hr sx={styles.hr} />
               </div>
             ))}
             <MissionItem
-              missionStatus={MissionStatusOptions.UPCOMING} 
+              missionStatus={MissionStatusOptions.UPCOMING}
             />
             <hr sx={styles.hr} />
             <MissionItem

@@ -12,6 +12,7 @@ export default {
     position: 'absolute',
     top: '-20px',
     left: '60px',
+    zIndex: '2',
     borderRadius: '20px',
     backgroundImage: 'linear-gradient(0deg, #0B555A, #0B555A)',
     border: '1px solid lightGreen',
@@ -45,6 +46,7 @@ export default {
   },
 
   profileImgWrapper: {
+    position: 'relative',
     minWidth: '200px',
     height: '200px',
   },
