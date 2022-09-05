@@ -18,9 +18,6 @@ const Challenge = () => {
   const { account } = useWeb3React();
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
 
-  // TODO: remove this
-  console.log('campaignsInfo', campaignsInfo)
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const isIntroPageDisabled = urlParams.get('isIntroPageDisabled')

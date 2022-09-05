@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React, { useEffect, useMemo } from 'react'
-import { Box } from 'rebass';
 import { navigate } from 'gatsby';
 import Web3Status from '../../Web3Status';
 import styles from './styles';
@@ -21,15 +20,14 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
   const isBrowser = typeof window !== 'undefined';
 
   useEffect(() => {
-    let viewedPages: string[] = []
-    const localStorageViewedPages = isBrowser ? window.localStorage.getItem('viewed-pages') : ''
-    if (localStorageViewedPages) {
-      viewedPages = JSON.parse(localStorageViewedPages)
+    if (!isBrowser) {
+      return
     }
+    const localStorageViewedPages = window.localStorage.getItem('viewed-pages') 
+    const viewedPages: string[] = localStorageViewedPages ? JSON.parse(localStorageViewedPages) : []
+
     if (viewedPages.findIndex((address) => address === oatAddress) === -1) {
       viewedPages.push(oatAddress)
-    }
-    if (isBrowser) {
       window.localStorage.setItem('viewed-pages', JSON.stringify(viewedPages))
     }
   }, [])
