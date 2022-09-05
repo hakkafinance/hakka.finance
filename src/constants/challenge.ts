@@ -151,8 +151,7 @@ export const OAT_INFO: {[address: string]: {
       In other words, it means that every decision on the direction the DAO rocket must be taken together in the Snapshot control room, using your voting power.\
       The DAO Rocket will automatically take the direction decided by the majority. What will be the first decision you will take part of? \n` ,
     hint: [
-
-      `Head to the Hakka Finance DAO Snapshot page. If a proposal vote is open, make your voice heard and vote with your sHAKKA! If not, wait for the next one,\
+      `Click on “Start Here” and head to the Hakka Finance DAO Snapshot page. If a proposal vote is open, make your voice heard and vote with your sHAKKA! If not, wait for the next one,\
        or propose on the Hakka Finance Forum/Discord a suggestion relevant to vote on to improve the ecosystem!`,
       `After voting at least once, you will be able to claim the NFT!`,
     ],
