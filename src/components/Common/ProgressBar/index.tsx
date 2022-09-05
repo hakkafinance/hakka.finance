@@ -2,7 +2,6 @@
 import { jsx } from 'theme-ui';
 import React, { useMemo } from 'react'
 import styles from './styles';
-import Skeleton from '../Skeleton';
 
 interface ProgressBarProps {
   backgroundColor?: string;
@@ -30,8 +29,7 @@ const ProgressBar = ({
   }, [completedTaskAmount, totalTaskAmount, colorList])
 
   return (
-    <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor }}>
-      <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-progress-bar' />
+    <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor, display: !isLoaded ? 'none' : '' }}>
       {!isCompletedTaskAmountLgThanZero && <div sx={styles.progressBarZeroStatus}>0</div>}
       <div sx={styles.progressBar} style={{ backgroundColor: progressColor, width: progressRate + '%' }}>
         {isCompletedTaskAmountLgThanZero && (

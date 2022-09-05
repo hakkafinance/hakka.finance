@@ -69,7 +69,7 @@ const CharacterStatus = ({
               completedTaskAmount={completedTaskAmount}
               isLoaded={isLoaded}
             />
-            <span>Level Up!</span>
+            <span style={{ display: !isLoaded ? 'none' : '' }}>Level Up!</span>
           </div>
         </div>
       </div>
