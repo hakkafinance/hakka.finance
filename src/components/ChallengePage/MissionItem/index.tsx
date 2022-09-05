@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { isMobile } from 'react-device-detect';
 import { MyButton } from '../../Common';
 import styles from './styles';
-import { MissionStatusOptions, MISSION_STATUS, OAT_INFO, PriorityInfo, PriorityOptions } from '../../../constants/challenge';
+import { MissionStatusOptions, MISSION_STATUS, notificationMissionAddresses, OAT_INFO, PriorityInfo, PriorityOptions } from '../../../constants/challenge';
 import { navigate } from 'gatsby';
 import images from '../../../images';
 import Skeleton from '../../Common/Skeleton';
@@ -21,6 +21,7 @@ const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: Missi
   const priority = oatAddress ? OAT_INFO[oatAddress].priority : ''
   const missionTitle = oatAddress ? OAT_INFO[oatAddress].describeTitle : ''
   const oatImg = oatAddress ? images[OAT_INFO[oatAddress].img] : ''
+  const isNewMission = notificationMissionAddresses.findIndex((address) => address === oatAddress) >= 0
 
   const [isImgLoading, setIsImgLoading] = useState(true);
 
@@ -44,18 +45,14 @@ const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: Missi
           </div>
         </div>
         <div>
-          {!isUpcoming && priority && (
-            <p 
-              sx={styles.taskProperty} 
-              style={{ color: PriorityInfo[priority].color }}
-            >
-              {PriorityInfo[priority].content}
-            </p>
+          {!isUpcoming && (
+            <p sx={styles.newTask}>{isNewMission ? 'New' : ''}</p>
           )}
           <div sx={styles.titleWrapper} style={isUpcoming ? { color: '#D9D9D9' } : {}}>
             {!isUpcoming && <h4>Mission {missionIndex}</h4>}
             <p>{isUpcoming? 'Upcoming Mission' : missionTitle}</p>
           </div>
+          <p sx={styles.newTask} />
         </div>
       </div>
       <div sx={styles.btnWrapper}>

@@ -104,6 +104,14 @@ export default {
     lineHeight: '24px',
   },
 
+  newTask: {
+    minHeight: '16px',
+    fontWeight: '600',
+    fontSize: '12px',
+    lineHeight: '24px',
+    color: 'red',
+  },
+
   oatImgWrapper: {
     position: 'relative',
     width: '60px',
