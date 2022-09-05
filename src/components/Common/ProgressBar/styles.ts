@@ -1,5 +1,6 @@
 export default {
   progressBarContainer: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     flexGrow: '1',

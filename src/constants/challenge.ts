@@ -58,7 +58,7 @@ export const OAT_INFO: {[address: string]: {
   priority: PriorityOptions,
 }} = {
   'GCGnZUtqDE': {
-    name: 'Golden Hoe',
+    name: '',
     missionIndex: 1,
     stage: 1,
     img: 'mission1',
@@ -74,14 +74,12 @@ export const OAT_INFO: {[address: string]: {
       'Hakka Finance is one example of DAO. Its major decisions are taken via proposals its members can vote on in a website called Snapshot!', 
       'To complete this mission, go to the Hakka Snapshot page (Click on "Start Here" above) and click on the "Join" button! Then, you will automatically be able to claim the NFT!',
     ],
-
-    // TODO: fake link
     missionLink: 'https://snapshot.org/#/hakka.eth/',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCGnZUtqDE',
     priority: PriorityOptions.REQUIRED,
   },
   'GCr8yUtQN5': {
-    name: 'Golden Hat',
+    name: '',
     missionIndex: 2,
     stage: 1,
     img: 'mission2',
@@ -97,13 +95,12 @@ export const OAT_INFO: {[address: string]: {
       and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
       able to claim the NFT! You will even make some money with your staking rewards! Amazing!'
     ],
-    // TODO: fake link
     missionLink: 'https://hakka.finance/staking?utm_source=galaxy&utm_medium=nft&utm_campaign=play2earn_1_2',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCr8yUtQN5',
     priority: PriorityOptions.REQUIRED,
   },
   'GCBryUtyo7': {
-    name: 'Golden Hat',
+    name: '',
     missionIndex: 3,
     stage: 1,
     img: 'mission3',
@@ -117,13 +114,12 @@ export const OAT_INFO: {[address: string]: {
       `Complete the Hakka Quiz Google Form (Click on "Start Here" above) to learn the basic terms of DeFi so it won't have any secret for you!`,
       `After completing the quiz correctly with at least 7 right answers, you will be able to claim the NFT up to the next 12 hours!`
     ],
-    // TODO: fake link
     missionLink: 'https://forms.gle/aDE2N375rW2Zwyyf6',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBryUtyo7',
     priority: PriorityOptions.REQUIRED,
   },
   'GCBCyUtZRy': {
-    name: 'Golden Hat',
+    name: '',
     missionIndex: 4,
     stage: 1,
     img: 'mission4',
@@ -138,9 +134,29 @@ export const OAT_INFO: {[address: string]: {
       `Go to the 'Fixed-APY' section of iGain IRS (Click on "Start Here" above), one of Hakka's products, and lend at least $10 of stablecoins, with a corresponding amount of Short tokens to protect yourself against interest rate decrease!`,
       `After the transaction is confirmed, you will automatically be able to claim the NFT! You will even make some money from your stablecoins after depositing!`,
     ],
-    // TODO: fake link
     missionLink: 'https://igain.finance/irs/fixed-apy?utm_source=galaxy&utm_medium=nft&utm_campaign=play2earn_1_4',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBCyUtZRy',
+    priority: PriorityOptions.REQUIRED,
+  },
+  'GCdueUtHjz': {
+    name: '',
+    missionIndex: 5,
+    stage: 1,
+    img: 'mission5',
+    reward: '', 
+    describeTitle: 'Vote On A Governance Proposal!', 
+    describeContent: `Okay! The DAO rocket is almost ready to take off.. 🛫 \n
+      However, you are not the only one piloting it. In fact, the rocket is controlled collectively by other pilots of the DAO (remember Mission #1?),\
+      who, just like you, have contributed by adding voting power fuel to it! ⬆️ \n
+      In other words, it means that every decision on the direction the DAO rocket must be taken together in the Snapshot control room, using your voting power.\
+      The DAO Rocket will automatically take the direction decided by the majority. What will be the first decision you will take part of? \n` ,
+    hint: [
+      `Click on “Start Here” and head to the Hakka Finance DAO Snapshot page. If a proposal vote is open, make your voice heard and vote with your sHAKKA! If not, wait for the next one,\
+       or propose on the Hakka Finance Forum/Discord a suggestion relevant to vote on to improve the ecosystem!`,
+      `After voting at least once, you will be able to claim the NFT!`,
+    ],
+    missionLink: 'https://snapshot.org/#/hakka.eth/',
+    claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCdueUtHjz',
     priority: PriorityOptions.REQUIRED,
   },
   'GCTANUUJkf': {
@@ -157,8 +173,6 @@ export const OAT_INFO: {[address: string]: {
       'Hakka Finance is one example of DAO. Its major decisions are taken via proposals its members can vote on in a website called Snapshot!', 
       'To complete this mission, go to the Hakka Snapshot page and click on the "Join" button! Then, you will automatically be able to claim the NFT!',
     ],
-
-    // TODO: fake link
     missionLink: '/staking',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCTANUUJkf/',
     priority: PriorityOptions.REQUIRED,
@@ -180,7 +194,6 @@ export const OAT_INFO: {[address: string]: {
       and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
       able to claim the NFT!'
     ],
-    // TODO: fake link
     missionLink: '/staking',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCSH6Utrps/',
     priority: PriorityOptions.REQUIRED,
@@ -202,7 +215,6 @@ export const OAT_INFO: {[address: string]: {
       and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
       able to claim the NFT!'
     ],
-    // TODO: fake link
     missionLink: '/staking',
     claimLink: 'https://galaxy.eco/alpacafinance/campaign/GCuq6UU5zS',
     priority: PriorityOptions.REQUIRED,
@@ -210,12 +222,15 @@ export const OAT_INFO: {[address: string]: {
 }
 
 const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
+export const notificationMissionAddresses = ['GCdueUtHjz']
 
 export const LevelInfo = {
   1: {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
-    missionList: process.env.GATSBY_ENV === 'development' ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', ...testMissionList] : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy'],
+    missionList: process.env.GATSBY_ENV === 'development' 
+      ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', ...testMissionList] 
+      : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz'],
     expectedMissionAmount: 7,
     profile: 'profileLv1',
   },

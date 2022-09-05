@@ -59,6 +59,10 @@ const Challenge = () => {
     return completedTaskAmount
   }, [campaignsInfo])
 
+  const isCampaignsInfoLoaded = useMemo(() => {
+    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
+  }, [campaignsInfo])
+
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
@@ -90,9 +94,10 @@ const Challenge = () => {
               totalTaskAmount={LevelInfo[userLevel].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               profileImg={images[LevelInfo[userLevel].profile]}
+              isLoaded={isCampaignsInfoLoaded}
             />
             <div sx={styles.missionSectionWrapper}>
-              <MissionSection campaignsInfo={campaignsInfo}/>
+              <MissionSection campaignsInfo={campaignsInfo} isCampaignsInfoLoaded={isCampaignsInfoLoaded}/>
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Box, Flex, Link, Text,
 } from 'rebass';
@@ -10,6 +10,7 @@ import styles from './styles';
 import images from '../../images';
 import SideBarItem from './SideBarItem';
 import { MyButton } from '../../components/Common';
+import { notificationMissionAddresses } from '../../constants/challenge';
 
 const topSideBarItems = [
   {
@@ -24,6 +25,8 @@ const topSideBarItems = [
 
   },
 ];
+
+export const NOTIFICATION_DOT = 'notificationDot'
 
 export const botSideBarItems = [
   {
@@ -51,6 +54,7 @@ export const botSideBarItems = [
     path: 'play2earn',
     connectOutsideWebsite: false,
     underConstruction: false,
+    subIcon: NOTIFICATION_DOT,
   },
   {
     name: 'farms',
@@ -97,6 +101,24 @@ export const botSideBarItems = [
 function SideBar(props) {
   const { onCloseSideBar, isShowSideBar } = props;
   const [selectedNav, setSelectedNav] = useState('');
+  const [isViewAllNotifiedMission, setIsViewAllNotifiedMission] = useState<boolean>(true)
+  const isBrowser = typeof window !== 'undefined';
+
+  useEffect(() => {
+    const localStorageViewedPages = isBrowser ? window.localStorage.getItem('viewed-pages') : ''
+    if (localStorageViewedPages) {
+      let isAllAddressPass = true
+      const viewedPages: string[] = JSON.parse(localStorageViewedPages)
+      notificationMissionAddresses.forEach((address: string) => {
+        if (viewedPages.findIndex((viewedAddress: string) => viewedAddress === address) === -1) {
+          isAllAddressPass = false
+        }
+      })
+      setIsViewAllNotifiedMission(isAllAddressPass)
+    } else if (notificationMissionAddresses.length > 0) {
+      setIsViewAllNotifiedMission(false)
+    }
+  }, [])
 
   const onSelectNavItem = (path) => () => {
     navigate(`/${path}`);
@@ -126,6 +148,7 @@ function SideBar(props) {
         text={it.name}
         path={it.path}
         subIcon={get(it, 'subIcon')}
+        isViewAllNotifiedMission={isViewAllNotifiedMission}
       />
     </Box>
   ));

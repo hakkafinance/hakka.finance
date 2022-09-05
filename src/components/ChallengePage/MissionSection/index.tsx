@@ -14,14 +14,14 @@ import { CampaignsInfoType } from '../../../hooks/useProjectGalaxyCampaignsInfo'
 
 interface MissionSectionProps {
   campaignsInfo: CampaignsInfoType | undefined
+  isCampaignsInfoLoaded: boolean
 }
 
-const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
+const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSectionProps) => {
   return (
     <div>
       <div sx={styles.missionHeader}>
         <h4>Missions</h4>
-        {/* TODO: link is not ready */}
         {!isMobile && (
           <div sx={{ width: '160px' }}>
             <MyButton onClick={() => window.open('https://galaxy.eco/galaxyid', '_blank').focus()} >
@@ -38,14 +38,14 @@ const MissionSection = ({ campaignsInfo }: MissionSectionProps) => {
               <div key={index}>
                 <MissionItem
                   oatAddress={oatAddress}
-                  // TODO: check status
                   missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
+                  isCampaignsInfoLoaded={isCampaignsInfoLoaded}
                 />
                 <hr sx={styles.hr} />
               </div>
             ))}
             <MissionItem
-              missionStatus={MissionStatusOptions.UPCOMING} 
+              missionStatus={MissionStatusOptions.UPCOMING}
             />
             <hr sx={styles.hr} />
             <MissionItem

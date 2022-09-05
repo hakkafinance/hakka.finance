@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import { Box, Flex, Text } from 'rebass';
 import styles from './styles';
 import { upperCaseFirstLetter } from '../../../common/functions';
+import { NOTIFICATION_DOT } from '..';
 
 const SideBarItem = (props, { location, data }) => {
   const {
-    icon, text, path, subIcon,
+    icon, text, path, subIcon, isViewAllNotifiedMission
   } = props;
   const [selectedNavPath, setSelectedNavPath] = useState('');
   const isBrowser = typeof window !== 'undefined';
@@ -27,7 +28,15 @@ const SideBarItem = (props, { location, data }) => {
             {upperCaseFirstLetter(text)}
           </Text>
         </Flex>
-        <img src={subIcon} />
+        {subIcon === NOTIFICATION_DOT
+          ? !isViewAllNotifiedMission && (
+              <div sx={styles.notification_dot_container}>
+                <div sx={styles.notification_dot} />
+              </div>
+          ) : ( 
+            <img src={subIcon} /> 
+          )
+        }
       </Flex>
     </Box>
   );

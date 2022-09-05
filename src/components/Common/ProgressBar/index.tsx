@@ -8,13 +8,15 @@ interface ProgressBarProps {
   colorList?: string[];
   totalTaskAmount: number;
   completedTaskAmount: number;
+  isLoaded: boolean;
 }
 
 const ProgressBar = ({ 
   backgroundColor = '#ffffff', 
   colorList = ['#FF8E8E', '#EB99ED', '#C6A4FF', '#51BCDE', '#3EBD93'], 
   totalTaskAmount, 
-  completedTaskAmount  
+  completedTaskAmount,
+  isLoaded,
 }: ProgressBarProps) => {
   const [progressRate, progressColor, isCompletedTaskAmountLgThanZero, taskCounter] = useMemo(() => {
     const progressRate =  completedTaskAmount / totalTaskAmount * 100
@@ -27,7 +29,7 @@ const ProgressBar = ({
   }, [completedTaskAmount, totalTaskAmount, colorList])
 
   return (
-    <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor }}>
+    <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor, display: !isLoaded ? 'none' : '' }}>
       {!isCompletedTaskAmountLgThanZero && <div sx={styles.progressBarZeroStatus}>0</div>}
       <div sx={styles.progressBar} style={{ backgroundColor: progressColor, width: progressRate + '%' }}>
         {isCompletedTaskAmountLgThanZero && (
