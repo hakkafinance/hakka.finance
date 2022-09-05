@@ -22,7 +22,6 @@ const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSection
     <div>
       <div sx={styles.missionHeader}>
         <h4>Missions</h4>
-        {/* TODO: link is not ready */}
         {!isMobile && (
           <div sx={{ width: '160px' }}>
             <MyButton onClick={() => window.open('https://galaxy.eco/galaxyid', '_blank').focus()} >
@@ -39,7 +38,6 @@ const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSection
               <div key={index}>
                 <MissionItem
                   oatAddress={oatAddress}
-                  // TODO: check status
                   missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
                   isCampaignsInfoLoaded={isCampaignsInfoLoaded}
                 />
