@@ -51,10 +51,6 @@ const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSection
             <MissionItem
               missionStatus={MissionStatusOptions.UPCOMING} 
             />
-            <hr sx={styles.hr} />
-            <MissionItem
-              missionStatus={MissionStatusOptions.UPCOMING} 
-            />
           </Accordion>
         </div>
       )}
