@@ -165,7 +165,7 @@ export const OAT_INFO: {[address: string]: {
     stage: 1,
     img: 'mission6',
     reward: '', 
-    describeTitle: 'Participate To At Least 3 AMAs!', 
+    describeTitle: 'Participate In At Least 1 AMA!', 
     describeContent: `You're all set to take off with your brand new rocket and your DAO crew! 🚀\n
     Or are you? Before leaving, you must have an idea of who is part of the broader community by attending or\
     even asking questions during one of the Hakka Finance AMAs! 📢\n
@@ -175,7 +175,7 @@ export const OAT_INFO: {[address: string]: {
     OAT NFTs! The more OATs you collect, the more you can prove your involvement in the Hakka community!`,
     hint: [
       `Collect at least 1 Hakka AMA OAT (internal or with a partner) to complete this mission!`,
-      `Click on "Start Now", if you own any of the AMA-related NFTs on the list, you are eligible for this one.`,
+      `Click on "Start Now", if you own any of the AMA-related NFTs on the list, you are eligible for this one. Some of them require that you connect your Discord account to Galaxy.`,
       `If you don't have any, don't sweat it! At least 1 AMA is organized every month around the 15th on the Hakka Finance Discord server. Don't miss out!`
     ],
     missionLink: 'https://galaxy.eco/hakkafinance',
