@@ -46,6 +46,11 @@ const useProjectGalaxyCampaignsInfo = () => {
     ...querySetting
   })
 
+  const campaignInfo_GCD5yUt73A = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCD5yUt73A'},
+    ...querySetting
+  })
+
   const campaignInfo_GCTANUUJkf = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
     variables: { account, campaignId: 'GCTANUUJkf'},
     ...querySetting
@@ -77,6 +82,7 @@ const useProjectGalaxyCampaignsInfo = () => {
       campaignInfo_GCBryUtyo7,
       campaignInfo_GCBCyUtZRy,
       campaignInfo_GCdueUtHjz,
+      campaignInfo_GCD5yUt73A,
     ];
     const queryResults = {}
     campaignInfos.forEach((campaignInfo) => {
@@ -104,6 +110,7 @@ const useProjectGalaxyCampaignsInfo = () => {
     campaignInfo_GCBryUtyo7,
     campaignInfo_GCBCyUtZRy,
     campaignInfo_GCdueUtHjz,
+    campaignInfo_GCD5yUt73A,
   ]);
 
   return campaignsInfo
