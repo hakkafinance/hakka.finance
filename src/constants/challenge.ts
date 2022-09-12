@@ -159,6 +159,29 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCdueUtHjz',
     priority: PriorityOptions.REQUIRED,
   },
+  'GCD5yUt73A': {
+    name: '',
+    missionIndex: 6,
+    stage: 1,
+    img: 'mission6',
+    reward: '', 
+    describeTitle: 'Participate To At Least 3 AMAs!', 
+    describeContent: `You're all set to take off with your brand new rocket and your DAO crew! 🚀\n
+    Or are you? Before leaving, you must have an idea of who is part of the broader community by attending or\
+    even asking questions during one of the Hakka Finance AMAs! 📢\n
+    Since a DAO is decentralized, with members from worldwide, it is crucial the community meets on a regular basis\
+    to discuss on the future of the project, the suggestions you can bring to improve it, or simply learn from the core team!\n
+    In the amazing world of blockchain, it is possible to reliably prove and identify who has attended events, thanks to Galaxy\
+    OAT NFTs! The more OATs you collect, the more you can prove your involvement in the Hakka community!`,
+    hint: [
+      `Collect at least 1 Hakka AMA OAT (internal or with a partner) to complete this mission!`,
+      `Click on "Start Now", if you own any of the AMA-related NFTs on the list, you are eligible for this one.`,
+      `If you don't have any, don't sweat it! At least 1 AMA is organized every month around the 15th on the Hakka Finance Discord server. Don't miss out!`
+    ],
+    missionLink: 'https://galaxy.eco/hakkafinance',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCD5yUt73A',
+    priority: PriorityOptions.REQUIRED,
+  },
   'GCTANUUJkf': {
     name: 'Golden Hoe',
     missionIndex: 1,
@@ -222,15 +245,15 @@ export const OAT_INFO: {[address: string]: {
 }
 
 const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
-export const notificationMissionAddresses = ['GCdueUtHjz']
+export const notificationMissionAddresses = ['GCdueUtHjz', 'GCD5yUt73A']
 
 export const LevelInfo = {
   1: {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
     missionList: process.env.GATSBY_ENV === 'development' 
-      ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', ...testMissionList] 
-      : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz'],
+      ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', 'GCD5yUt73A', ...testMissionList] 
+      : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', 'GCD5yUt73A'],
     expectedMissionAmount: 7,
     profile: 'profileLv1',
   },
