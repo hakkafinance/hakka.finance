@@ -89,11 +89,11 @@ export const OAT_INFO: {[address: string]: {
     But to take off, your engine needs fuel... 🛢 \n
     That's right, joining a DAO was the first step. But to be able to vote and make your voice count, you need voting power! \n
     How to obtain it? By acquiring some HAKKA tokens and staking it to prove your long-term involvment in the project (and be rewarded with more tokens in the process)! \n
-    The more sHAKKA (staked HAKKA) you have, the more voting power your get! And the longer you stake, the more you are rewarded!`,
+    The more sHAKKA (staked HAKKA) you have, the more voting power your get! And the longer you stake, the more voting power you get too!`,
     hint: [
       'Use your wallet to acquire at least 1,000 HAKKA tokens on the network of your choice (Ethereum Mainnet, Polygon or BNB),\
       and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
-      able to claim the NFT! You will even make some money with your staking rewards! Amazing!'
+      able to claim the NFT! You will even make some money if you farm your staked HAKKA! Amazing!'
     ],
     missionLink: 'https://hakka.finance/staking?utm_source=galaxy&utm_medium=nft&utm_campaign=play2earn_1_2',
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCr8yUtQN5',
