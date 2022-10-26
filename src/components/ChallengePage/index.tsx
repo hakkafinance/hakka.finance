@@ -88,16 +88,18 @@ const Challenge = () => {
             </div>
             <CharacterStatus 
               address={account ? shortenAddress(account) : '-'}
-              characterTitle={LevelInfo[userLevel].title}
-              description={LevelInfo[userLevel].introduction}
               level={userLevel}
-              totalTaskAmount={LevelInfo[userLevel].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               profileImg={images[LevelInfo[userLevel].profile]}
               isLoaded={isCampaignsInfoLoaded}
+              levelInfo={LevelInfo[userLevel]}
             />
             <div sx={styles.missionSectionWrapper}>
-              <MissionSection campaignsInfo={campaignsInfo} isCampaignsInfoLoaded={isCampaignsInfoLoaded}/>
+              <MissionSection 
+                campaignsInfo={campaignsInfo} 
+                isCampaignsInfoLoaded={isCampaignsInfoLoaded} 
+                userLevel={userLevel} 
+              />
             </div>
           </div>
         ) : (

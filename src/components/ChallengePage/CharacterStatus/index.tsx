@@ -6,6 +6,7 @@ import styles from './styles';
 import ProgressBar from '../../Common/ProgressBar';
 import Skeleton from '../../Common/Skeleton';
 import '../../Common/Skeleton/skeleton.css'
+import { LevelInfoType } from '../../../constants/challenge';
 
 interface SkeletonTextWrapperProps {
   isLoaded?: boolean
@@ -23,32 +24,37 @@ export const SkeletonTextWrapper = ({isLoaded, children, isMobile}: SkeletonText
 }
 interface CharacterStatusProps {
   address?: string;
-  level?: number;
-  characterTitle?: string;
-  description?: string;
-  totalTaskAmount: number;
+  level: number;
   completedTaskAmount: number;
   profileImg?: string;
-  isLoaded: boolean
+  isLoaded: boolean;
+  levelInfo: LevelInfoType;
 }
 
 const CharacterStatus = ({ 
     address, 
     level, 
-    characterTitle, 
-    description, 
-    totalTaskAmount, 
     completedTaskAmount, 
     profileImg, 
-    isLoaded 
+    isLoaded,
+    levelInfo
   }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
-      <div sx={styles.levelContainer}>
+      <div 
+        sx={styles.levelContainer} 
+        style={{ backgroundColor: levelInfo.levelContainerBgColor }}
+      >
         <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-level-container skeleton-color-green'/>
         Level {level}
       </div>
-      <div sx={styles.mainLayout}>
+      <div 
+        sx={styles.mainLayout} 
+        style={{ 
+          backgroundColor: levelInfo.levelColor, 
+          borderColor: levelInfo.characterPanelBorderColor 
+        }}
+      >
         <div sx={styles.profileImgWrapper}>
           {!isLoaded && <div className='skeleton skeleton-type-circle' />}
           <img src={profileImg} width="200" height="200" />
@@ -58,14 +64,14 @@ const CharacterStatus = ({
             <p sx={styles.address}>{address}</p>
           </SkeletonTextWrapper>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
-            <h4>{characterTitle}</h4>
+            <h4>{levelInfo.title}</h4>
           </SkeletonTextWrapper>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
-            <p sx={styles.descriptionSection}>{description}</p>
+            <p sx={styles.descriptionSection}>{levelInfo.introduction}</p>
           </SkeletonTextWrapper>
           <div sx={styles.progressBarContainer}>
             <ProgressBar 
-              totalTaskAmount={totalTaskAmount}
+              totalTaskAmount={levelInfo.expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               isLoaded={isLoaded}
             />
