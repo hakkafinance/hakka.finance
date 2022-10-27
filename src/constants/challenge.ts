@@ -247,7 +247,19 @@ export const OAT_INFO: {[address: string]: {
 const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
 export const notificationMissionAddresses = ['GCdueUtHjz', 'GCD5yUt73A']
 
-export const LevelInfo = {
+export interface LevelInfoType {
+  title: string; 
+  introduction: string;
+  missionList: string[];
+  expectedMissionAmount: number;
+  profile: string;
+  levelColor: string;
+  levelContainerBgColor: string;
+  characterPanelBorderColor: string;
+}
+
+
+export const LevelInfo: {[level: number]: LevelInfoType} = {
   1: {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
@@ -256,5 +268,18 @@ export const LevelInfo = {
       : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', 'GCD5yUt73A'],
     expectedMissionAmount: 7,
     profile: 'profileLv1',
+    levelColor: 'rgba(108, 232, 180, 0.13)',
+    levelContainerBgColor: '#0B555A',
+    characterPanelBorderColor: 'rgba(108, 232, 180, 0.13)'
+  },
+  2: {
+    title: 'Hakka Traveler',
+    introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
+    missionList: [],
+    expectedMissionAmount: 7,
+    profile: 'profileLv2',
+    levelColor: 'rgba(73, 144, 235, 0.13)',
+    levelContainerBgColor: '#033361',
+    characterPanelBorderColor: 'rgba(82, 102, 109, 0.3)'
   },
 }
