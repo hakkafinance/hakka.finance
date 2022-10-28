@@ -258,3 +258,13 @@ export const LevelInfo = {
     profile: 'profileLv1',
   },
 }
+
+export const DECORATIVE_THREAD_COLOR_MAP = [
+  '#FF8F91',
+  '#EE98E0', 
+  '#D5A0F9', 
+  '#A6ABF6', 
+  '#61BAE3', 
+  '#4ABDBE',
+  '#3FBE94',
+]

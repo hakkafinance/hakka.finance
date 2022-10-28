@@ -11,7 +11,8 @@ export default {
   levelContainer: {
     position: 'absolute',
     top: '-20px',
-    left: '60px',
+    left: '50%',
+    transform: 'translate(-50%)',
     zIndex: '2',
     borderRadius: '20px',
     backgroundImage: 'linear-gradient(0deg, #0B555A, #0B555A)',
@@ -23,10 +24,6 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: '92px',
-
-    '@media screen and (max-width: 576px)': {
-      left: '130px',
-    },
   },
 
   mainLayout: {

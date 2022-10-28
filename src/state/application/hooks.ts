@@ -71,6 +71,16 @@ export function useRestakeModalToggle(): () => void {
   return toggleRestakeModal;
 }
 
+export function usePlayToEarnLevelUpModalOpen(): boolean {
+  const playToEarnLevelUpModalOpen = useApplicationContextStateSelector('playToEarnLevelUpModalOpen');
+  return playToEarnLevelUpModalOpen;
+}
+
+export function usePlayToEarnLevelUpModalToggle(): () => void {
+  const { togglePlayToEarnLevelUpModal } = useApplicationContext();
+  return togglePlayToEarnLevelUpModal;
+}
+
 // returns a function that allows adding a popup
 export function useAddPopup(): (content: PopupContent, key?: string) => void {
   const { addPopup } = useApplicationContext();

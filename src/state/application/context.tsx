@@ -11,6 +11,7 @@ import {
   toggleClaimModalAction,
   toggleRedeemModalAction,
   toggleRestakeModalAction,
+  togglePlayToEarnLevelUpModalAction,
   addPopupAction,
   removePopupAction,
 } from './actions';
@@ -23,6 +24,7 @@ interface ApplicationContextProps {
   toggleClaimModal: ()=> void;
   toggleRedeemModal: ()=> void;
   toggleRestakeModal: ()=> void;
+  togglePlayToEarnLevelUpModal: ()=> void;
   addPopup: (payload: AddPopupPayload) => void;
   removePopup: (payload: RemovePopupPayload) => void;
 }
@@ -58,6 +60,10 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
     dispatch(toggleRestakeModalAction());
   }, []);
 
+  const togglePlayToEarnLevelUpModal = useCallback(() => {
+    dispatch(togglePlayToEarnLevelUpModalAction());
+  }, []);
+
   const addPopup = useCallback((payload) => {
     dispatch(addPopupAction(payload));
   }, []);
@@ -77,6 +83,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleClaimModal,
           toggleRedeemModal,
           toggleRestakeModal,
+          togglePlayToEarnLevelUpModal,
           addPopup,
           removePopup,
         }),
@@ -88,6 +95,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleClaimModal,
           toggleRedeemModal,
           toggleRestakeModal,
+          togglePlayToEarnLevelUpModal,
           addPopup,
           removePopup,
         ],

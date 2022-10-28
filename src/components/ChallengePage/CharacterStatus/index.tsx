@@ -44,14 +44,14 @@ const CharacterStatus = ({
   }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
-      <div sx={styles.levelContainer}>
-        <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-level-container skeleton-color-green'/>
-        Level {level}
-      </div>
       <div sx={styles.mainLayout}>
         <div sx={styles.profileImgWrapper}>
           {!isLoaded && <div className='skeleton skeleton-type-circle' />}
           <img src={profileImg} width="200" height="200" />
+          <div sx={styles.levelContainer}>
+            <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-level-container skeleton-color-green'/>
+            Level {level}
+          </div>
         </div>
         <div sx={styles.infoSection}>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
