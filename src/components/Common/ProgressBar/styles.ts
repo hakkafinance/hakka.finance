@@ -27,14 +27,4 @@ export default {
       color: '#ffffff',
     },
   },
-
-  progressBarZeroStatus: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '23px',
-    width: '20px',
-    height: '100%',
-    backgroundColor: '#FF8E8E',
-  },
 }

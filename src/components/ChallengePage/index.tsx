@@ -24,27 +24,29 @@ const Challenge = () => {
     setIsShowMissionPage(!!isIntroPageDisabled)
   }, [])
 
-  const userLevel = useMemo(() => {
-    let userLevel = 1
-    let isBreak = false
-    const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
-    for (let i = 0; i < levelList.length; i++) {
-      for (let z = 0; z < levelList[i].length; z++) {
-        const id = levelList[i][z]
-        if (
-          campaignsInfo &&
-          OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
-          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
-          ) {
-            userLevel = i + 1
-            isBreak = true
-            break
-        }
-      }
-      if (isBreak) break
-    }
-    return userLevel
-  }, [campaignsInfo])
+  // const userLevel = useMemo(() => {
+  //   let userLevel = 1
+  //   let isBreak = false
+  //   const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
+  //   for (let i = 0; i < levelList.length; i++) {
+  //     for (let z = 0; z < levelList[i].length; z++) {
+  //       const id = levelList[i][z]
+  //       if (
+  //         campaignsInfo &&
+  //         OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
+  //         campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
+  //         ) {
+  //           userLevel = i + 1
+  //           isBreak = true
+  //           break
+  //       }
+  //     }
+  //     if (isBreak) break
+  //   }
+  //   return userLevel
+  // }, [campaignsInfo])
+
+  const userLevel = 2
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
@@ -63,11 +65,19 @@ const Challenge = () => {
     return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
   }, [campaignsInfo])
 
+  // 
+  const [isUserLevelUp, setIsUserLevelUp] = useState(false)
+  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState(false)
+  // 
+
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
         <div sx={styles.header}>
           <p>Play To Earn</p>
+          {/* TODO: remove this */}
+          <button onClick={() => setIsUserLevelUp(!isUserLevelUp)}>user level up</button>
+          <button onClick={() => setIsAnimationCanBePlayed(true)}>isAnimationCanBePlayed</button>
           <Web3Status />
         </div>
         {isShowMissionPage ? (
@@ -90,9 +100,10 @@ const Challenge = () => {
               address={account ? shortenAddress(account) : '-'}
               level={userLevel}
               completedTaskAmount={completedTaskAmount}
-              profileImg={images[LevelInfo[userLevel].profile]}
-              isLoaded={isCampaignsInfoLoaded}
-              levelInfo={LevelInfo[userLevel]}
+              // isLoaded={isCampaignsInfoLoaded}
+              isLoaded={true}
+              isUserLevelUp={isUserLevelUp}
+              isAnimationCanBePlayed={isAnimationCanBePlayed}
             />
             <div sx={styles.missionSectionWrapper}>
               <MissionSection 

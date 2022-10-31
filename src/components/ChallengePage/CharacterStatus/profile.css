@@ -1,0 +1,37 @@
+.level-container-up-to-lv2 {
+  animation: flip-and-change-bg-color-lv1-to-lv2 1s linear;
+}
+
+.profile-up-to-lv2 {
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: flip-lv1-to-lv2 1s linear;
+}
+
+@keyframes flip-and-change-bg-color-lv1-to-lv2 {
+  0% {  
+    background-color: #0B555A;
+  }
+  50% {  
+    transform: translateX( -1px ) rotateY( 180deg );
+    background-color: #033361;
+  }  
+  100% {  
+    transform: translateX( -1px ) rotateY( 360deg );
+  }
+}
+
+@keyframes flip-lv1-to-lv2 {
+  0% { 
+    background-image: url('../../../images/challenge/profile/iconLv1.png') ;
+  }
+  50% {  
+    transform: translateX( -1px ) rotateY( 180deg );
+    background-image: url('../../../images/challenge/profile/iconLv2.png');
+  }  
+  100% {  
+    transform: translateX( -1px ) rotateY( 360deg );
+    background-image: url('../../../images/challenge/profile/iconLv2.png');
+  }
+}

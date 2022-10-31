@@ -5,8 +5,10 @@ import { isMobile } from 'react-device-detect';
 import styles from './styles';
 import ProgressBar from '../../Common/ProgressBar';
 import Skeleton from '../../Common/Skeleton';
-import '../../Common/Skeleton/skeleton.css'
-import { LevelInfoType } from '../../../constants/challenge';
+import '../../Common/Skeleton/skeleton.css';
+import './profile.css';
+import { LevelInfo } from '../../../constants/challenge';
+import images from '../../../images';
 
 interface SkeletonTextWrapperProps {
   isLoaded?: boolean
@@ -26,28 +28,50 @@ interface CharacterStatusProps {
   address?: string;
   level: number;
   completedTaskAmount: number;
-  profileImg?: string;
   isLoaded: boolean;
-  levelInfo: LevelInfoType;
+  isUserLevelUp: boolean;
+  isAnimationCanBePlayed: boolean;
 }
 
 const CharacterStatus = ({ 
     address, 
     level, 
     completedTaskAmount, 
-    profileImg, 
     isLoaded,
-    levelInfo
+    isUserLevelUp,
+    isAnimationCanBePlayed
   }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
-      <div sx={styles.mainLayout}>
-        <div sx={styles.profileImgWrapper}>
+      <div 
+        sx={styles.mainLayout} 
+        style={{ 
+          backgroundColor: LevelInfo[level].levelColor, 
+          borderColor: LevelInfo[level].characterPanelBorderColor 
+        }}
+      >
+        <div sx={styles.profileImgWrapper} className= {isAnimationCanBePlayed ? 'profile-up-to-lv' + level : ''}>
           {!isLoaded && <div className='skeleton skeleton-type-circle' />}
-          <img src={profileImg} width="200" height="200" />
-          <div sx={styles.levelContainer}>
+          <img 
+            src={isUserLevelUp && !isAnimationCanBePlayed 
+              ? images[LevelInfo[level - 1].profile]
+              : images[LevelInfo[level].profile]}
+            style={{ display: isUserLevelUp && isAnimationCanBePlayed ? 'none' : 'inline'}} 
+            width="200" 
+            height="200" 
+          />
+          <div 
+            sx={styles.levelContainer} 
+            style={{ 
+              backgroundColor: 
+                isUserLevelUp && !isAnimationCanBePlayed 
+                  ? LevelInfo[level - 1].levelContainerBgColor 
+                  : LevelInfo[level].levelContainerBgColor,
+            }}
+            className= {isAnimationCanBePlayed ? 'level-container-up-to-lv' + level : ''}
+          >
             <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-level-container skeleton-color-green'/>
-            Level {level}
+            Level {isUserLevelUp && !isAnimationCanBePlayed ? level - 1 : level}
           </div>
         </div>
         <div sx={styles.infoSection}>
@@ -55,16 +79,18 @@ const CharacterStatus = ({
             <p sx={styles.address}>{address}</p>
           </SkeletonTextWrapper>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
-            <h4>{levelInfo.title}</h4>
+            <h4>{LevelInfo[level].title}</h4>
           </SkeletonTextWrapper>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
-            <p sx={styles.descriptionSection}>{levelInfo.introduction}</p>
+            <p sx={styles.descriptionSection}>{LevelInfo[level].introduction}</p>
           </SkeletonTextWrapper>
           <div sx={styles.progressBarContainer}>
             <ProgressBar 
-              totalTaskAmount={levelInfo.expectedMissionAmount}
+              totalTaskAmount={LevelInfo[level].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               isLoaded={isLoaded}
+              isUserLevelUp={isUserLevelUp}
+              isAnimationCanBePlayed={isAnimationCanBePlayed}
             />
             <span style={{ display: !isLoaded ? 'none' : '' }}>Level Up!</span>
           </div>
