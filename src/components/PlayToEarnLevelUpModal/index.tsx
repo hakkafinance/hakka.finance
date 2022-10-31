@@ -28,10 +28,10 @@ export default function PlayToEarnLevelUpModal() {
             <div style={{
               position: 'absolute',
               left: '50%',
-              top: '6px',
+              top: '7px',
               transform: 'translate(-50%)',
-              width: '223px',
-              height: '223px',
+              width: '224px',
+              height: '224px',
               border: '8px solid white',
               borderRadius: '50%' 
             }} />
