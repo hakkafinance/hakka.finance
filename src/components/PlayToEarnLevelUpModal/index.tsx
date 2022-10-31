@@ -8,7 +8,7 @@ import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
 import { MyButton } from '../Common';
-import { DECORATIVE_THREAD_COLOR_MAP } from '../../constants/challenge';
+import { DECORATIVE_THREAD_COLOR_LIST } from '../../constants/challenge';
 
 export default function PlayToEarnLevelUpModal() {
   const infoModalOpen = usePlayToEarnLevelUpModalOpen();
@@ -41,7 +41,7 @@ export default function PlayToEarnLevelUpModal() {
         <p sx={styles.title}>Mission Hakka-plished! 🎉</p>
         <p sx={styles.subtitle}>New Level!</p>
         <div sx={styles.decorativeThreadContainer}>
-          {DECORATIVE_THREAD_COLOR_MAP.map((ele) => <div sx={{background: ele , ...styles.decorativeThread}} />)}
+          {DECORATIVE_THREAD_COLOR_LIST.map((ele) => <div sx={{background: ele , ...styles.decorativeThread}} />)}
         </div>
         <p sx={styles.content}>You’ve completed all 7 DeFi missions, well done!</p>
         <div sx={styles.buttonSection}>

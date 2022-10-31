@@ -259,7 +259,7 @@ export const LevelInfo = {
   },
 }
 
-export const DECORATIVE_THREAD_COLOR_MAP = [
+export const DECORATIVE_THREAD_COLOR_LIST = [
   '#FF8F91',
   '#EE98E0', 
   '#D5A0F9', 
