@@ -7,6 +7,7 @@ import {
   ToggleClaimModalAction,
   ToggleRedeemModalAction,
   ToggleRestakeModalAction,
+  TogglePlayToEarnLevelUpModalAction,
   AddPopupAction,
   RemovePopupAction,
   UPDATE_BLOCK_NUMBER,
@@ -15,6 +16,7 @@ import {
   TOGGLE_CLAIM_MODAL,
   TOGGLE_REDEEM_MODAL,
   TOGGLE_RESTAKE_MODAL,
+  TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
 } from './actions';
@@ -36,6 +38,7 @@ export interface ApplicationState {
   readonly claimModalOpen: boolean;
   readonly redeemModalOpen: boolean;
   readonly restakeModalOpen: boolean;
+  readonly playToEarnLevelUpModalOpen: boolean;
 }
 
 export const initialApplicationState: ApplicationState = {
@@ -46,6 +49,7 @@ export const initialApplicationState: ApplicationState = {
   claimModalOpen: false,
   redeemModalOpen: false,
   restakeModalOpen: false,
+  playToEarnLevelUpModalOpen: false,
 };
 
 type ApplicationAction =
@@ -55,6 +59,7 @@ type ApplicationAction =
   | ToggleClaimModalAction
   | ToggleRedeemModalAction
   | ToggleRestakeModalAction
+  | TogglePlayToEarnLevelUpModalAction
   | AddPopupAction
   | RemovePopupAction;
 
@@ -110,6 +115,12 @@ export default function reducer(
       return {
         ..._state,
         restakeModalOpen: !state.restakeModalOpen,
+      };
+    }
+    case TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL: {
+      return {
+        ..._state,
+        playToEarnLevelUpModalOpen: !state.playToEarnLevelUpModalOpen,
       };
     }
     case ADD_POPUP: {

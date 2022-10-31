@@ -3,7 +3,7 @@ export default {
 //     display: "flex",
 //   },
   sidebar_responsive: {
-    zIndex: '1',
+    zIndex: '50',
     transition: 'all ease-out 0.5s',
     '@media screen and (max-width:576px)': {
       position: 'absolute',
@@ -13,7 +13,7 @@ export default {
     },
   },
   sidebar_responsive_show: {
-    zIndex: '1',
+    zIndex: '50',
     transition: 'all ease-out 0.5s',
     '@media screen and (max-width:576px)': {
       position: 'absolute',

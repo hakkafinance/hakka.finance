@@ -5,7 +5,7 @@ import React from 'react';
 import { NetworkContextName } from '../../constants';
 import useENSName from '../../hooks/useENSName';
 import useUnstoppableDomains from '../../hooks/useUnstoppableDomains';
-import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
+import { useWalletModalToggle, useInfoModalToggle, usePlayToEarnLevelUpModalToggle } from '../../state/application/hooks';
 import { shortenAddress } from '../../utils';
 import { MyButton } from '../../components/Common';
 import WalletModal from '../WalletModal';
@@ -13,6 +13,7 @@ import InfoModal from '../InfoModal';
 import CurrentNetwork from '../CurrentNetwork';
 import images from '../../images';
 import styles from './styles';
+import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { active, account } = useWeb3React();
@@ -21,6 +22,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { unstoppableDomain } = useUnstoppableDomains(account ?? undefined);
   const toggleWalletModal = useWalletModalToggle();
   const toggleInfoModal = useInfoModalToggle();
+  const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
 
   if (!contextNetwork.active && !active) {
     return null;
@@ -40,6 +42,8 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
             </MyButton>
           </div>
           <img onClick={toggleInfoModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt="Account Icon" />
+          {/* TODO: remove this */}
+          <img onClick={togglePlayToEarnLevelUpModal} sx={styles.accountIconWrapper} src={images.iconAccount} alt="Account Icon" />
         </div>
       </div>
 
@@ -48,6 +52,8 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
       />
 
       <InfoModal />
+      {/* TODO: remove this */}
+      <PlayToEarnLevelUpModal />
     </>
   );
 };

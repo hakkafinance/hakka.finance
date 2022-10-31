@@ -283,3 +283,13 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
     characterPanelBorderColor: 'rgba(82, 102, 109, 0.3)'
   },
 }
+
+export const DECORATIVE_THREAD_COLOR_LIST = [
+  '#FF8F91',
+  '#EE98E0', 
+  '#D5A0F9', 
+  '#A6ABF6', 
+  '#61BAE3', 
+  '#4ABDBE',
+  '#3FBE94',
+]
