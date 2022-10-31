@@ -17,11 +17,25 @@ export default function PlayToEarnLevelUpModal() {
   function getModalContent() {
     return (
       <div sx={styles.container}>
-        <div sx={{ borderRadius: '50%', padding: '16px' , border: '1px solid rgba(62, 189, 147, 0.3)', filter: 'drop-shadow(0px 0px 8px #6CE8B4)' }}>
-          <div sx={{ borderRadius: '50%', padding: '8px' , border: '3px solid rgba(62, 189, 147, 0.7)', filter: 'drop-shadow(0px 0px 8px #6CE8B4)' }}>
-            {/* TODO: gif is not ready */}
-            {/* <img src={images.levelUpGif} /> */}
-            <div sx={{ width: '220px', height: '220px', borderRadius: '50%'  }}></div>
+        <div sx={{ borderRadius: '50%', padding: '16px' , border: '1px solid rgba(62, 189, 147, 0.3)' }}>
+          <div sx={{ 
+            position: 'relative',
+            borderRadius: '50%',
+            padding: '8px',
+            border: '3px solid rgba(62, 189, 147, 0.7)',
+            filter: 'drop-shadow(0px 0px 8px #6CE8B4)'
+          }}>
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: '6px',
+              transform: 'translate(-50%)',
+              width: '223px',
+              height: '223px',
+              border: '8px solid white',
+              borderRadius: '50%' 
+            }} />
+            <img src={images.levelUpGif} />
           </div>
         </div>
         <p sx={styles.title}>Mission Hakka-plished! 🎉</p>
