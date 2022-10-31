@@ -15,8 +15,6 @@ export default {
     transform: 'translate(-50%)',
     zIndex: '2',
     borderRadius: '20px',
-    backgroundImage: 'linear-gradient(0deg, #0B555A, #0B555A)',
-    border: '1px solid lightGreen',
     color: 'white',
     padding: '0 12px',
     height: '40px',
@@ -31,9 +29,8 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '5px',
-    border: '1px solid lightGreen',
+    border: '1px solid',
     borderRadius: '100px',
-    backgroundColor: 'rgba(108, 232, 180, 0.13)',
 
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
