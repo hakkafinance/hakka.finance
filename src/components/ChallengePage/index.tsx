@@ -12,11 +12,18 @@ import { useWeb3React } from '@web3-react/core';
 import { shortenAddress } from '../../utils';
 import useProjectGalaxyCampaignsInfo from '../../hooks/useProjectGalaxyCampaignsInfo';
 import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants/challenge';
+import { usePlayToEarnLevelUpModalOpen, usePlayToEarnLevelUpModalToggle } from '../../state/application/hooks';
+import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Challenge = () => {
   const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(true)
+  const [isUserLevelUp, setIsUserLevelUp] = useState<boolean>(false)
+  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState<boolean>(false)
+  const [isLevelUpAnimationCompleted, setIsLevelUpAnimationCompleted] = useState<boolean>(false)
   const { account } = useWeb3React();
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
+  const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
+  const isPlayToEarnModalOpen = usePlayToEarnLevelUpModalOpen();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -46,7 +53,8 @@ const Challenge = () => {
   //   return userLevel
   // }, [campaignsInfo])
 
-  const userLevel = 2
+  // TODO: remove this
+  const [userLevel, setUserLevel] = useState(1)
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
@@ -65,10 +73,54 @@ const Challenge = () => {
     return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
   }, [campaignsInfo])
 
-  // 
-  const [isUserLevelUp, setIsUserLevelUp] = useState(false)
-  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState(false)
-  // 
+  const isBrowser = typeof window !== 'undefined';
+  useEffect(() => {
+    // if (!isBrowser || !isCampaignsInfoLoaded || !account) {
+    if (!isBrowser || !account) {
+      return
+    }
+    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+
+    if (!localStorageLevelInfo) {
+      let levelInfo = {}
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      return
+    }
+
+    const levelInfo = JSON.parse(localStorageLevelInfo)
+
+    if (!levelInfo[account]) {
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      return
+    }
+
+    if (levelInfo[account] < userLevel) {
+      togglePlayToEarnLevelUpModal()
+      setIsUserLevelUp(true)
+    }
+  // }, [isBrowser, account, userLevel, isCampaignsInfoLoaded]) 
+  }, [isBrowser, account, userLevel]) 
+
+
+
+  useEffect(() => {
+    if(isUserLevelUp && !isPlayToEarnModalOpen) {
+      setIsAnimationCanBePlayed(true)
+    }
+  }, [isUserLevelUp, isPlayToEarnModalOpen])
+
+  useEffect(() => {
+    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+    if (isLevelUpAnimationCompleted && account && localStorageLevelInfo) {
+      setIsAnimationCanBePlayed(false)
+      setIsUserLevelUp(false)
+      const levelInfo = JSON.parse(localStorageLevelInfo)
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+    }
+  }, [isLevelUpAnimationCompleted, userLevel, account])
 
   return (
     <div sx={styles.container}>
@@ -76,8 +128,7 @@ const Challenge = () => {
         <div sx={styles.header}>
           <p>Play To Earn</p>
           {/* TODO: remove this */}
-          <button onClick={() => setIsUserLevelUp(!isUserLevelUp)}>user level up</button>
-          <button onClick={() => setIsAnimationCanBePlayed(true)}>isAnimationCanBePlayed</button>
+          <button onClick={() => setUserLevel(userLevel + 1)}>user level + 1</button>
           <Web3Status />
         </div>
         {isShowMissionPage ? (
@@ -104,6 +155,7 @@ const Challenge = () => {
               isLoaded={true}
               isUserLevelUp={isUserLevelUp}
               isAnimationCanBePlayed={isAnimationCanBePlayed}
+              setIsLevelUpAnimationCompleted={setIsLevelUpAnimationCompleted}
             />
             <div sx={styles.missionSectionWrapper}>
               <MissionSection 
@@ -117,6 +169,7 @@ const Challenge = () => {
           <IntroPage setIsShowMissionPage={setIsShowMissionPage} />
         )}
       </div>
+      <PlayToEarnLevelUpModal />
     </div>
   )
 }

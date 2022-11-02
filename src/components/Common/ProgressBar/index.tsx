@@ -41,15 +41,19 @@ const ProgressBar = ({
     }
   }, [isAnimationCanBePlayed, progressRate, isUserLevelUp, isCompletedTaskAmountLgThanZero])
 
+  const animateProgressColor = useMemo(() => {
+    return isAnimationCanBePlayed ? '#3EBD93' : '#51BCDE'
+  }, [isAnimationCanBePlayed])
+
   return (
     <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor, display: !isLoaded ? 'none' : '' }}>
       <div 
         sx={styles.progressBar} 
         style={{ 
-          backgroundColor: progressColor, 
+          backgroundColor: isUserLevelUp ? animateProgressColor : progressColor, 
           width: progressBarWidth, 
           transition: isCompletedTaskAmountLgThanZero || isUserLevelUp
-            ? 'width 1s ease'
+            ? 'width 1s ease, background-color 1s ease'
             : 'none'
         }}>
         {!isUserLevelUp && (

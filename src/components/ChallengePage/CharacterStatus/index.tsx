@@ -31,6 +31,7 @@ interface CharacterStatusProps {
   isLoaded: boolean;
   isUserLevelUp: boolean;
   isAnimationCanBePlayed: boolean;
+  setIsLevelUpAnimationCompleted: (boolean) => void;
 }
 
 const CharacterStatus = ({ 
@@ -39,7 +40,8 @@ const CharacterStatus = ({
     completedTaskAmount, 
     isLoaded,
     isUserLevelUp,
-    isAnimationCanBePlayed
+    isAnimationCanBePlayed,
+    setIsLevelUpAnimationCompleted
   }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
@@ -50,28 +52,61 @@ const CharacterStatus = ({
           borderColor: LevelInfo[level].characterPanelBorderColor 
         }}
       >
-        <div sx={styles.profileImgWrapper} className= {isAnimationCanBePlayed ? 'profile-up-to-lv' + level : ''}>
+        <div sx={styles.profileImgWrapper}>
           {!isLoaded && <div className='skeleton skeleton-type-circle' />}
+          {isUserLevelUp && (
+            <div 
+              className={isAnimationCanBePlayed ? 'flip-action' : ''} 
+              onTransitionEnd={() => setIsLevelUpAnimationCompleted(true)}
+            >
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <img src={images[LevelInfo[level - 1].profile]} style={{ width: '200px', height: '200px' }} />
+                </div>
+                <div className="flip-card-back">
+                  <img src={images[LevelInfo[level].profile]} style={{ width: '200px', height: '200px' }} />
+                </div>
+              </div>
+            </div>
+          )}
           <img 
-            src={isUserLevelUp && !isAnimationCanBePlayed 
-              ? images[LevelInfo[level - 1].profile]
-              : images[LevelInfo[level].profile]}
-            style={{ display: isUserLevelUp && isAnimationCanBePlayed ? 'none' : 'inline'}} 
-            width="200" 
-            height="200" 
-          />
-          <div 
-            sx={styles.levelContainer} 
+            src={images[LevelInfo[level].profile]} 
             style={{ 
-              backgroundColor: 
-                isUserLevelUp && !isAnimationCanBePlayed 
-                  ? LevelInfo[level - 1].levelContainerBgColor 
-                  : LevelInfo[level].levelContainerBgColor,
-            }}
-            className= {isAnimationCanBePlayed ? 'level-container-up-to-lv' + level : ''}
-          >
-            <Skeleton isLoaded={isLoaded} className='skeleton skeleton-type-level-container skeleton-color-green'/>
-            Level {isUserLevelUp && !isAnimationCanBePlayed ? level - 1 : level}
+              visibility: isUserLevelUp ? 'hidden' : 'visible', 
+              width: '200px', 
+              height: '200px',
+            }} 
+          />
+          <div sx={styles.levelContainer}>
+            {isUserLevelUp ? (
+              <div className={isAnimationCanBePlayed ? 'flip-action' : ''}>
+                <div className="flip-card-inner">
+                  <div
+                    className="level-item flip-level-container-front"
+                    style={{ backgroundColor: LevelInfo[level - 1].levelContainerBgColor }}
+                  >
+                    Level {level - 1}
+                  </div>
+                  <div 
+                    className="level-item flip-level-container-back"
+                    style={{ backgroundColor: LevelInfo[level].levelContainerBgColor }}
+                  >
+                    Level {level}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div 
+                className='level-item'
+                style={{ backgroundColor: LevelInfo[level].levelContainerBgColor }}
+              >
+                <Skeleton 
+                  isLoaded={isLoaded} 
+                  className='skeleton skeleton-type-level-container skeleton-color-green'
+                />
+                Level {level}
+              </div>
+            )}
           </div>
         </div>
         <div sx={styles.infoSection}>
