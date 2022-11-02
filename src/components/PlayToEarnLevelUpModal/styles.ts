@@ -43,7 +43,7 @@ export default {
   },
 
   buttonSection: {
-    width: '180px',
+    width: '238px',
     margin: '0 auto',
   },
 

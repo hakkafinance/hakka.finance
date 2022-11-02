@@ -12,11 +12,18 @@ import { useWeb3React } from '@web3-react/core';
 import { shortenAddress } from '../../utils';
 import useProjectGalaxyCampaignsInfo from '../../hooks/useProjectGalaxyCampaignsInfo';
 import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants/challenge';
+import { usePlayToEarnLevelUpModalOpen, usePlayToEarnLevelUpModalToggle } from '../../state/application/hooks';
+import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Challenge = () => {
   const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(true)
+  const [isUserLevelUp, setIsUserLevelUp] = useState<boolean>(false)
+  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState<boolean>(false)
+  const [isLevelUpAnimationCompleted, setIsLevelUpAnimationCompleted] = useState<boolean>(false)
   const { account } = useWeb3React();
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
+  const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
+  const isPlayToEarnModalOpen = usePlayToEarnLevelUpModalOpen();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -24,27 +31,30 @@ const Challenge = () => {
     setIsShowMissionPage(!!isIntroPageDisabled)
   }, [])
 
-  const userLevel = useMemo(() => {
-    let userLevel = 1
-    let isBreak = false
-    const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
-    for (let i = 0; i < levelList.length; i++) {
-      for (let z = 0; z < levelList[i].length; z++) {
-        const id = levelList[i][z]
-        if (
-          campaignsInfo &&
-          OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
-          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
-          ) {
-            userLevel = i + 1
-            isBreak = true
-            break
-        }
-      }
-      if (isBreak) break
-    }
-    return userLevel
-  }, [campaignsInfo])
+  // const userLevel = useMemo(() => {
+  //   let userLevel = 1
+  //   let isBreak = false
+  //   const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
+  //   for (let i = 0; i < levelList.length; i++) {
+  //     for (let z = 0; z < levelList[i].length; z++) {
+  //       const id = levelList[i][z]
+  //       if (
+  //         campaignsInfo &&
+  //         OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
+  //         campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
+  //         ) {
+  //           userLevel = i + 1
+  //           isBreak = true
+  //           break
+  //       }
+  //     }
+  //     if (isBreak) break
+  //   }
+  //   return userLevel
+  // }, [campaignsInfo])
+
+  // TODO: remove this
+  const [userLevel, setUserLevel] = useState(1)
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
@@ -63,11 +73,62 @@ const Challenge = () => {
     return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
   }, [campaignsInfo])
 
+  const isBrowser = typeof window !== 'undefined';
+  useEffect(() => {
+    // if (!isBrowser || !isCampaignsInfoLoaded || !account) {
+    if (!isBrowser || !account) {
+      return
+    }
+    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+
+    if (!localStorageLevelInfo) {
+      let levelInfo = {}
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      return
+    }
+
+    const levelInfo = JSON.parse(localStorageLevelInfo)
+
+    if (!levelInfo[account]) {
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      return
+    }
+
+    if (levelInfo[account] < userLevel) {
+      togglePlayToEarnLevelUpModal()
+      setIsUserLevelUp(true)
+    }
+  // }, [isBrowser, account, userLevel, isCampaignsInfoLoaded]) 
+  }, [isBrowser, account, userLevel]) 
+
+
+
+  useEffect(() => {
+    if(isUserLevelUp && !isPlayToEarnModalOpen) {
+      setIsAnimationCanBePlayed(true)
+    }
+  }, [isUserLevelUp, isPlayToEarnModalOpen])
+
+  useEffect(() => {
+    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+    if (isLevelUpAnimationCompleted && account && localStorageLevelInfo) {
+      setIsAnimationCanBePlayed(false)
+      setIsUserLevelUp(false)
+      const levelInfo = JSON.parse(localStorageLevelInfo)
+      levelInfo[account] = userLevel
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+    }
+  }, [isLevelUpAnimationCompleted, userLevel, account])
+
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
         <div sx={styles.header}>
           <p>Play To Earn</p>
+          {/* TODO: remove this */}
+          <button onClick={() => setUserLevel(userLevel + 1)}>user level + 1</button>
           <Web3Status />
         </div>
         {isShowMissionPage ? (
@@ -90,9 +151,11 @@ const Challenge = () => {
               address={account ? shortenAddress(account) : '-'}
               level={userLevel}
               completedTaskAmount={completedTaskAmount}
-              profileImg={images[LevelInfo[userLevel].profile]}
-              isLoaded={isCampaignsInfoLoaded}
-              levelInfo={LevelInfo[userLevel]}
+              // isLoaded={isCampaignsInfoLoaded}
+              isLoaded={true}
+              isUserLevelUp={isUserLevelUp}
+              isAnimationCanBePlayed={isAnimationCanBePlayed}
+              setIsLevelUpAnimationCompleted={setIsLevelUpAnimationCompleted}
             />
             <div sx={styles.missionSectionWrapper}>
               <MissionSection 
@@ -106,6 +169,7 @@ const Challenge = () => {
           <IntroPage setIsShowMissionPage={setIsShowMissionPage} />
         )}
       </div>
+      <PlayToEarnLevelUpModal />
     </div>
   )
 }

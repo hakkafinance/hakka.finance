@@ -14,14 +14,7 @@ export default {
     left: '50%',
     transform: 'translate(-50%)',
     zIndex: '2',
-    borderRadius: '20px',
     color: 'white',
-    padding: '0 12px',
-    height: '40px',
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: '92px',
   },
 
   mainLayout: {
@@ -43,6 +36,8 @@ export default {
     position: 'relative',
     minWidth: '200px',
     height: '200px',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '200px',
   },
 
   infoSection: {
