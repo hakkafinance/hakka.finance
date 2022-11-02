@@ -70,6 +70,7 @@ export default {
       margin: '0',
       marginRight: '16px',
       fontWeight: '700',
+      whiteSpace: 'nowrap',
     },
 
     p: {

@@ -31,30 +31,27 @@ const Challenge = () => {
     setIsShowMissionPage(!!isIntroPageDisabled)
   }, [])
 
-  // const userLevel = useMemo(() => {
-  //   let userLevel = 1
-  //   let isBreak = false
-  //   const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
-  //   for (let i = 0; i < levelList.length; i++) {
-  //     for (let z = 0; z < levelList[i].length; z++) {
-  //       const id = levelList[i][z]
-  //       if (
-  //         campaignsInfo &&
-  //         OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
-  //         campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
-  //         ) {
-  //           userLevel = i + 1
-  //           isBreak = true
-  //           break
-  //       }
-  //     }
-  //     if (isBreak) break
-  //   }
-  //   return userLevel
-  // }, [campaignsInfo])
-
-  // TODO: remove this
-  const [userLevel, setUserLevel] = useState(1)
+  const userLevel = useMemo(() => {
+    let userLevel = 1
+    let isBreak = false
+    const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
+    for (let i = 0; i < levelList.length; i++) {
+      for (let z = 0; z < levelList[i].length; z++) {
+        const id = levelList[i][z]
+        if (
+          campaignsInfo &&
+          OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
+          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
+          ) {
+            userLevel = i + 1
+            isBreak = true
+            break
+        }
+      }
+      if (isBreak) break
+    }
+    return userLevel
+  }, [campaignsInfo])
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
@@ -75,8 +72,7 @@ const Challenge = () => {
 
   const isBrowser = typeof window !== 'undefined';
   useEffect(() => {
-    // if (!isBrowser || !isCampaignsInfoLoaded || !account) {
-    if (!isBrowser || !account) {
+    if (!isBrowser || !isCampaignsInfoLoaded || !account) {
       return
     }
     const localStorageLevelInfo = window.localStorage.getItem('user-level')
@@ -100,10 +96,7 @@ const Challenge = () => {
       togglePlayToEarnLevelUpModal()
       setIsUserLevelUp(true)
     }
-  // }, [isBrowser, account, userLevel, isCampaignsInfoLoaded]) 
-  }, [isBrowser, account, userLevel]) 
-
-
+  }, [isBrowser, account, userLevel, isCampaignsInfoLoaded])
 
   useEffect(() => {
     if(isUserLevelUp && !isPlayToEarnModalOpen) {
@@ -127,8 +120,6 @@ const Challenge = () => {
       <div sx={styles.challengePageWrapper}>
         <div sx={styles.header}>
           <p>Play To Earn</p>
-          {/* TODO: remove this */}
-          <button onClick={() => setUserLevel(userLevel + 1)}>user level + 1</button>
           <Web3Status />
         </div>
         {isShowMissionPage ? (
@@ -151,8 +142,7 @@ const Challenge = () => {
               address={account ? shortenAddress(account) : '-'}
               level={userLevel}
               completedTaskAmount={completedTaskAmount}
-              // isLoaded={isCampaignsInfoLoaded}
-              isLoaded={true}
+              isLoaded={isCampaignsInfoLoaded}
               isUserLevelUp={isUserLevelUp}
               isAnimationCanBePlayed={isAnimationCanBePlayed}
               setIsLevelUpAnimationCompleted={setIsLevelUpAnimationCompleted}
@@ -160,7 +150,7 @@ const Challenge = () => {
             <div sx={styles.missionSectionWrapper}>
               <MissionSection 
                 campaignsInfo={campaignsInfo} 
-                isCampaignsInfoLoaded={isCampaignsInfoLoaded} 
+                isLoaded={isCampaignsInfoLoaded} 
                 userLevel={userLevel} 
               />
             </div>

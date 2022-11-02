@@ -50,19 +50,13 @@ const useProjectGalaxyCampaignsInfo = () => {
     variables: { account, campaignId: 'GCD5yUt73A'},
     ...querySetting
   })
-
-  const campaignInfo_GCTANUUJkf = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCTANUUJkf'},
+  const campaignInfo_GCxTdUwieL = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCxTdUwieL'},
     ...querySetting
   })
 
-  const campaignInfo_GCuq6UU5zS = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCuq6UU5zS' },
-    ...querySetting
-  })
-
-  const campaignInfo_GCSH6Utrps = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCSH6Utrps'},
+  const campaignInfo_GCv7dUwr2V = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: 'GCv7dUwr2V'},
     ...querySetting
   })
 
@@ -74,15 +68,14 @@ const useProjectGalaxyCampaignsInfo = () => {
   useEffect(() => {
     if (account === AddressZero || !account) return;
     const campaignInfos = [
-      campaignInfo_GCTANUUJkf, 
-      campaignInfo_GCuq6UU5zS, 
-      campaignInfo_GCSH6Utrps,
       campaignInfo_GCGnZUtqDE,
       campaignInfo_GCr8yUtQN5,
       campaignInfo_GCBryUtyo7,
       campaignInfo_GCBCyUtZRy,
       campaignInfo_GCdueUtHjz,
       campaignInfo_GCD5yUt73A,
+      campaignInfo_GCxTdUwieL,
+      campaignInfo_GCv7dUwr2V,
     ];
     const queryResults = {}
     campaignInfos.forEach((campaignInfo) => {
@@ -102,15 +95,14 @@ const useProjectGalaxyCampaignsInfo = () => {
   }, [
     latestBlockNumber, 
     account, 
-    campaignInfo_GCuq6UU5zS, 
-    campaignInfo_GCTANUUJkf, 
-    campaignInfo_GCSH6Utrps,
     campaignInfo_GCGnZUtqDE,
     campaignInfo_GCr8yUtQN5,
     campaignInfo_GCBryUtyo7,
     campaignInfo_GCBCyUtZRy,
     campaignInfo_GCdueUtHjz,
     campaignInfo_GCD5yUt73A,
+    campaignInfo_GCxTdUwieL,
+    campaignInfo_GCv7dUwr2V,
   ]);
 
   return campaignsInfo
