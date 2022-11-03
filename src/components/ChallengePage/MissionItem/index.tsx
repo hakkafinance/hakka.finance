@@ -12,10 +12,10 @@ import Skeleton from '../../Common/Skeleton';
 interface MissionItemProps {
   oatAddress?: string;
   missionStatus: MissionStatusOptions;
-  isCampaignsInfoLoaded?: boolean
+  isLoaded?: boolean
 }
 
-const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: MissionItemProps) => {
+const MissionItem = ({ oatAddress, missionStatus, isLoaded }: MissionItemProps) => {
   const isUpcoming = missionStatus === MissionStatusOptions.UPCOMING
   const missionIndex = oatAddress ? OAT_INFO[oatAddress].missionIndex : ''
   const priority = oatAddress ? OAT_INFO[oatAddress].priority : ''
@@ -33,7 +33,7 @@ const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: Missi
             sx={styles.taskStatusWrapper} 
             style={{ background: MISSION_STATUS[missionStatus].color }}
           >
-            {!isUpcoming && <Skeleton isLoaded={isCampaignsInfoLoaded} className="skeleton skeleton-type-button" />}
+            {!isUpcoming && <Skeleton isLoaded={isLoaded} className="skeleton skeleton-type-button" />}
             {!isMobile && MISSION_STATUS[missionStatus].content}
           </div>
           <div sx={styles.oatImgWrapper}>
@@ -56,7 +56,7 @@ const MissionItem = ({ oatAddress, missionStatus, isCampaignsInfoLoaded }: Missi
         </div>
       </div>
       <div sx={styles.btnWrapper}>
-        {!isUpcoming && <Skeleton isLoaded={isCampaignsInfoLoaded} className="skeleton skeleton-type-button" />}
+        {!isUpcoming && <Skeleton isLoaded={isLoaded} className="skeleton skeleton-type-button" />}
         <MyButton 
           onClick={() => navigate(`/play2earn/${oatAddress}`)} 
           disabled={isUpcoming}

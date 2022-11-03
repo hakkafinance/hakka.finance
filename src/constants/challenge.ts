@@ -44,10 +44,30 @@ export const PriorityInfo: {[key in PriorityOptions]: { content: string, color: 
   },
 }
 
-export const OAT_INFO: {[address: string]: { 
-  name?: string,
+export enum MissionOptions {
+  MISSION1,
+  MISSION2,
+  MISSION3,
+  MISSION4,
+  MISSION5,
+  MISSION6,
+  MISSION7,
+  MISSION8,
+}
+
+export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
+  [MissionOptions.MISSION1]: 'GCGnZUtqDE',
+  [MissionOptions.MISSION2]: 'GCr8yUtQN5',
+  [MissionOptions.MISSION3]: 'GCBryUtyo7',
+  [MissionOptions.MISSION4]: 'GCBCyUtZRy',
+  [MissionOptions.MISSION5]: 'GCdueUtHjz',
+  [MissionOptions.MISSION6]: 'GCD5yUt73A',
+  [MissionOptions.MISSION7]: 'GCxTdUwieL',
+  [MissionOptions.MISSION8]: 'GCv7dUwr2V',
+}
+
+export const OAT_INFO: {[key: string]: { 
   missionIndex?: number,
-  stage?: number,
   img: string, 
   reward?: string, 
   describeTitle?: string, 
@@ -57,10 +77,8 @@ export const OAT_INFO: {[address: string]: {
   claimLink?: string,
   priority: PriorityOptions,
 }} = {
-  'GCGnZUtqDE': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1]]: {
     missionIndex: 1,
-    stage: 1,
     img: 'mission1',
     reward: '', 
     describeTitle: 'Join The Hakka DAO Snapshot!', 
@@ -78,10 +96,8 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCGnZUtqDE',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCr8yUtQN5': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2]]: {
     missionIndex: 2,
-    stage: 1,
     img: 'mission2',
     reward: '', 
     describeTitle: 'Stake At Least 1,000 HAKKA!', 
@@ -99,10 +115,8 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCr8yUtQN5',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCBryUtyo7': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION3]]: {
     missionIndex: 3,
-    stage: 1,
     img: 'mission3',
     reward: '', 
     describeTitle: 'Complete The Hakka Exam!', 
@@ -118,10 +132,8 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBryUtyo7',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCBCyUtZRy': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION4]]: {
     missionIndex: 4,
-    stage: 1,
     img: 'mission4',
     reward: '', 
     describeTitle: 'Lend At Least $10 With iGain IRS!', 
@@ -138,10 +150,8 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBCyUtZRy',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCdueUtHjz': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION5]]: {
     missionIndex: 5,
-    stage: 1,
     img: 'mission5',
     reward: '', 
     describeTitle: 'Vote On A Governance Proposal!', 
@@ -159,10 +169,8 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCdueUtHjz',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCD5yUt73A': {
-    name: '',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION6]]: {
     missionIndex: 6,
-    stage: 1,
     img: 'mission6',
     reward: '', 
     describeTitle: 'Participate In At Least 1 AMA!', 
@@ -182,70 +190,53 @@ export const OAT_INFO: {[address: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCD5yUt73A',
     priority: PriorityOptions.REQUIRED,
   },
-  'GCTANUUJkf': {
-    name: 'Golden Hoe',
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION7]]: {
+    missionIndex: 7,
+    img: 'mission7',
+    reward: '', 
+    describeTitle: 'Provide At Least $10 Of Liquidity On iGain IRS!', 
+    describeContent: `Are you ready to leave your native planet? Are you sure you haven’t forgotten anything? 🤔\n
+    That’s right. Something’s missing.\n
+    Since DeFi products are by nature… decentralized, they can’t rely on a central party to provide the liquidity users can\
+    expect at any time and keep the platform stable. That liquidity comes from other users themselves. Otherwise, users will\
+    be subject to price slippages and lack of liquidity.
+    In return, those liquidity providers are rewarded and earn transaction fees paid by other users using their liquidity!\n
+    Therefore, to make sure your DAO doesn’t overheat, you need some cooling liquidity!\n
+    On iGain IRS, there is a “Pool” section where users can provide liquidity in the stablecoin of their choice and help other\
+    users with access to liquidity they need (to sell Long/Short tokens for example), in exchange of their transaction fees.`,
+    hint: [
+      `Go to the iGain liquidity pool page, and provide at least $10 of liquidity, which will be converted into LP tokens 🔵.`,
+      `Holding those tokens will make you earn transaction fees paid by other users until the iGain term has reached maturity. You can sell later if you need your liquidity back.`,
+      `If you have at least $10 of LP tokens on your wallet address, this NFT will be yours!`
+    ],
+    missionLink: 'https://igain.finance/irs/fixed-apy?utm_source=galaxy&utm_medium=nft&utm_campaign=play2earn_1_4',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCxTdUwieL',
+    priority: PriorityOptions.REQUIRED,
+  },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]]: {
     missionIndex: 1,
-    stage: 1,
-    img: '',
+    img: 'mission8',
     reward: '', 
-    describeTitle: 'Test 1', 
-    describeContent: 
-      'gm Hakka Farmer and welcome to your native planet! 🪐 To be able to rule and explore the DeFi space, you will need an engine called a DAO! A DAO is a Decentralized Autonomous Organization, a project controlled by all its members and that is not influenced by any central entity. It is the DeFi equivalent of a company in Traditional Finance, with the notable difference that anyone, anywhere with a wallet address can transparently join in to develop it together!'
-    ,
+    describeTitle: 'Follow Hakka Finance On Twitter!',
+    describeContent: `So cool! You have landed on a brand new planet! You also look different!\n
+    Your new environment somehow looks familiar, but you have no idea where to go… How about following a guide?\n
+    This chirping blue bird seems to know his way around, let's follow him! 🐦`,
     hint: [
-      'Hakka Finance is one example of DAO. Its major decisions are taken via proposals its members can vote on in a website called Snapshot!', 
-      'To complete this mission, go to the Hakka Snapshot page and click on the "Join" button! Then, you will automatically be able to claim the NFT!',
+      `First, congrats for leveling up!`,
+      `This first mission will be easy: all you need is to follow @hakkafinance on Twitter (and make sure to sync your account to your Project Galaxy account on the Account Settings section)!`,
     ],
-    missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCTANUUJkf/',
-    priority: PriorityOptions.REQUIRED,
-  },
-  'GCSH6Utrps': {
-    name: 'Golden Hat',
-    missionIndex: 2,
-    stage: 1,
-    img: '',
-    reward: '', 
-    describeTitle: 'Test 2', 
-    describeContent: "Alright! You're gonna be part of this interplanetary space journey with Hakka thanks to your new rocket! But to take off,\
-    your engine needs fuel... 🛢 That's right, joining a DAO is the first step. But to be able to vote and make your voice count,\
-    you need voting power! How to obtain it? By acquiring some HAKKA tokens and staking it to prove your long-term involvment in\
-    the project (and be rewarded with more tokens in the process)! The more sHAKKA (staked HAKKA) you have, the more voting power\
-    your get! And the longer you stake, the more you are rewarded!",
-    hint: [
-      'Use your wallet to acquire at least 1,000 HAKKA tokens on the network of your choice (Ethereum Mainnet, Polygon or BNB),\
-      and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
-      able to claim the NFT!'
-    ],
-    missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCSH6Utrps/',
-    priority: PriorityOptions.REQUIRED,
-  },
-  'GCuq6UU5zS': {
-    name: 'Golden Hat',
-    missionIndex: 2,
-    stage: 1,
-    img: '',
-    reward: '', 
-    describeTitle: 'Test 3', 
-    describeContent: "Alright! You're gonna be part of this interplanetary space journey with Hakka thanks to your new rocket! But to take off,\
-    your engine needs fuel... 🛢 That's right, joining a DAO is the first step. But to be able to vote and make your voice count,\
-    you need voting power! How to obtain it? By acquiring some HAKKA tokens and staking it to prove your long-term involvment in\
-    the project (and be rewarded with more tokens in the process)! The more sHAKKA (staked HAKKA) you have, the more voting power\
-    your get! And the longer you stake, the more you are rewarded!",
-    hint: [
-      'Use your wallet to acquire at least 1,000 HAKKA tokens on the network of your choice (Ethereum Mainnet, Polygon or BNB),\
-      and then stake it for the amount of time you prefer, from 3 months to 4 years! After staking, you will automatically be \
-      able to claim the NFT!'
-    ],
-    missionLink: '/staking',
-    claimLink: 'https://galaxy.eco/alpacafinance/campaign/GCuq6UU5zS',
+    missionLink: 'https://twitter.com/hakkafinance',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCv7dUwr2V',
     priority: PriorityOptions.REQUIRED,
   },
 }
 
-const testMissionList = ['GCTANUUJkf', 'GCSH6Utrps','GCuq6UU5zS']
-export const notificationMissionAddresses = ['GCdueUtHjz', 'GCD5yUt73A']
+export const notificationMissionAddresses = [
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION5],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION6],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION7],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION8],
+]
 
 export interface LevelInfoType {
   title: string; 
@@ -263,9 +254,15 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
   1: {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
-    missionList: process.env.GATSBY_ENV === 'development' 
-      ? ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', 'GCD5yUt73A', ...testMissionList] 
-      : ['GCGnZUtqDE', 'GCr8yUtQN5', 'GCBryUtyo7', 'GCBCyUtZRy', 'GCdueUtHjz', 'GCD5yUt73A'],
+    missionList: [
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION3],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION4],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION5],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION6],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION7],
+    ],
     expectedMissionAmount: 7,
     profile: 'profileLv1',
     levelColor: 'rgba(108, 232, 180, 0.13)',
@@ -275,7 +272,7 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
   2: {
     title: 'Hakka Traveler',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
-    missionList: [],
+    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
     levelColor: 'rgba(73, 144, 235, 0.13)',

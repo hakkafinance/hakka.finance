@@ -14,11 +14,11 @@ import { CampaignsInfoType } from '../../../hooks/useProjectGalaxyCampaignsInfo'
 
 interface MissionSectionProps {
   campaignsInfo: CampaignsInfoType | undefined
-  isCampaignsInfoLoaded: boolean
+  isLoaded: boolean
   userLevel: number
 }
 
-const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded, userLevel }: MissionSectionProps) => {
+const MissionSection = ({ campaignsInfo, isLoaded, userLevel }: MissionSectionProps) => {
   return (
     <div>
       <div sx={styles.missionHeader}>
@@ -47,7 +47,7 @@ const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded, userLevel }: Mis
                     <MissionItem
                       oatAddress={oatAddress}
                       missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
-                      isCampaignsInfoLoaded={isCampaignsInfoLoaded}
+                      isLoaded={isLoaded}
                     />
                     <hr sx={styles.hr} />
                   </div>
