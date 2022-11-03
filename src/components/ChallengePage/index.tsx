@@ -33,7 +33,7 @@ const Challenge = () => {
 
   const userLevel = useMemo(() => {
     const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
-    if (!campaignsInfo) {
+    if (!campaignsInfo || levelList.length === 0) {
       return 1
     }
     for (let i = 0; i < levelList.length; i++) {
@@ -45,15 +45,10 @@ const Challenge = () => {
           ) {
             const userLevel = i + 1
             return userLevel
-        } else if (
-          i === levelList.length - 1 && 
-          j === levelList[levelList.length - 1].length - 1
-        ) {
-          return levelList.length
         }
       }
     }
-    return 1
+    return levelList.length
   }, [campaignsInfo])
 
   const completedTaskAmount = useMemo(() => {
