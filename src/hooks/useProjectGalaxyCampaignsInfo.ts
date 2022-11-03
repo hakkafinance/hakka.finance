@@ -6,7 +6,7 @@ import { PROJECT_GALAXY_CAMPAIGN_INFO } from "../apollo/queries";
 import projectGalaxyClient from "../gatsby-plugin-apollo/client";
 import { useBlockNumber } from "../state/application/hooks";
 import { useWeb3React } from "@web3-react/core";
-import { MissionStatusOptions } from "../constants/challenge";
+import { MissionOptions, MissionStatusOptions, MISSION_CAMPAIGN_ID } from "../constants/challenge";
 
 export interface CampaignsInfoType {[key: string]: {maxCount: number, usedCount: number, status: MissionStatusOptions}}
 
@@ -22,41 +22,41 @@ const useProjectGalaxyCampaignsInfo = () => {
     }}, [projectGalaxyClient, account])
 
   const campaignInfo_GCGnZUtqDE = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCGnZUtqDE'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1]},
     ...querySetting
   })
 
   const campaignInfo_GCr8yUtQN5 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCr8yUtQN5'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION2]},
     ...querySetting
   })
 
   const campaignInfo_GCBryUtyo7 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCBryUtyo7'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION3]},
     ...querySetting
   })
 
   const campaignInfo_GCBCyUtZRy = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCBCyUtZRy'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION4]},
     ...querySetting
   })
 
   const campaignInfo_GCdueUtHjz = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCdueUtHjz'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION5]},
     ...querySetting
   })
 
   const campaignInfo_GCD5yUt73A = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCD5yUt73A'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION6]},
     ...querySetting
   })
   const campaignInfo_GCxTdUwieL = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCxTdUwieL'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION7]},
     ...querySetting
   })
 
   const campaignInfo_GCv7dUwr2V = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: 'GCv7dUwr2V'},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]},
     ...querySetting
   })
 

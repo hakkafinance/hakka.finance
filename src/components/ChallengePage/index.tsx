@@ -32,25 +32,28 @@ const Challenge = () => {
   }, [])
 
   const userLevel = useMemo(() => {
-    let userLevel = 1
-    let isBreak = false
     const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
+    if (!campaignsInfo) {
+      return 1
+    }
     for (let i = 0; i < levelList.length; i++) {
-      for (let z = 0; z < levelList[i].length; z++) {
-        const id = levelList[i][z]
+      for (let j = 0; j < levelList[i].length; j++) {
+        const id = levelList[i][j]
         if (
-          campaignsInfo &&
           OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
           campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
           ) {
-            userLevel = i + 1
-            isBreak = true
-            break
+            const userLevel = i + 1
+            return userLevel
+        } else if (
+          i === levelList.length - 1 && 
+          j === levelList[levelList.length - 1].length - 1
+        ) {
+          return levelList.length
         }
       }
-      if (isBreak) break
     }
-    return userLevel
+    return 1
   }, [campaignsInfo])
 
   const completedTaskAmount = useMemo(() => {
