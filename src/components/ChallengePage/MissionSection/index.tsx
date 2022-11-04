@@ -52,9 +52,11 @@ const MissionSection = ({ campaignsInfo, isLoaded, userLevel }: MissionSectionPr
                     <hr sx={styles.hr} />
                   </div>
                 ))}
-                <MissionItem
-                  missionStatus={MissionStatusOptions.UPCOMING} 
-                />
+                {LevelInfo[levelValue].missionList.length < LevelInfo[levelValue].expectedMissionAmount && (
+                  <MissionItem
+                    missionStatus={MissionStatusOptions.UPCOMING} 
+                  />
+                )}
               </Accordion>
             </div>
           )
