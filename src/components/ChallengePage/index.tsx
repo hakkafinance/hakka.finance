@@ -41,7 +41,8 @@ const Challenge = () => {
         const id = levelList[i][j]
         if (
           OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
-          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED
+          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED || 
+          campaignsInfo[id]?.status === MissionStatusOptions.FINISHED
           ) {
             const userLevel = i + 1
             return userLevel
@@ -56,9 +57,8 @@ const Challenge = () => {
     LevelInfo[userLevel].missionList.forEach((id) => { 
       if (
         campaignsInfo?.[id]?.status &&
-        (campaignsInfo[id].status === MissionStatusOptions.FINISHED ||
-          campaignsInfo[id].status === MissionStatusOptions.COMPLETED)) {
-            completedTaskAmount += 1
+        campaignsInfo[id].status === MissionStatusOptions.COMPLETED) {
+          completedTaskAmount += 1
       }
     })
     return completedTaskAmount
