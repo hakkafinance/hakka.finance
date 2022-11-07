@@ -17,7 +17,7 @@ export default function PlayToEarnLevelUpModal() {
   function getModalContent() {
     return (
       <div sx={styles.container}>
-        <img src={images.levelUpGif} />
+        <img height="270px" src={images.levelUpGif} />
         <p sx={styles.title}>Mission Hakka-plished! 🎉</p>
         <p sx={styles.subtitle}>Level Up!</p>
         <div sx={styles.decorativeThreadContainer}>

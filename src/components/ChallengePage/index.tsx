@@ -3,7 +3,6 @@ import { jsx } from 'theme-ui';
 import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles'
 import Web3Status from '../Web3Status';
-import IntroPage from './IntroPage';
 import MissionSection from './MissionSection';
 import CharacterStatus from './CharacterStatus';
 import images from '../../images';
@@ -16,7 +15,6 @@ import { usePlayToEarnLevelUpModalOpen, usePlayToEarnLevelUpModalToggle } from '
 import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Challenge = () => {
-  const [isShowMissionPage, setIsShowMissionPage] = useState<boolean>(true)
   const [isUserLevelUp, setIsUserLevelUp] = useState<boolean>(false)
   const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState<boolean>(false)
   const [isLevelUpAnimationCompleted, setIsLevelUpAnimationCompleted] = useState<boolean>(false)
@@ -24,12 +22,6 @@ const Challenge = () => {
   const campaignsInfo = useProjectGalaxyCampaignsInfo()
   const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
   const isPlayToEarnModalOpen = usePlayToEarnLevelUpModalOpen();
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const isIntroPageDisabled = urlParams.get('isIntroPageDisabled')
-    setIsShowMissionPage(!!isIntroPageDisabled)
-  }, [])
 
   const userLevel = useMemo(() => {
     const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
@@ -77,8 +69,12 @@ const Challenge = () => {
 
     if (!localStorageLevelInfo) {
       let levelInfo = {}
-      levelInfo[account] = userLevel
+      levelInfo[account] = 1
       window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      if (userLevel > 1) {
+        togglePlayToEarnLevelUpModal()
+        setIsUserLevelUp(true)
+      }
       return
     }
 
@@ -91,7 +87,9 @@ const Challenge = () => {
     }
 
     if (levelInfo[account] < userLevel) {
-      togglePlayToEarnLevelUpModal()
+      if (!isPlayToEarnModalOpen) {
+        togglePlayToEarnLevelUpModal()
+      }
       setIsUserLevelUp(true)
     }
   }, [isBrowser, account, userLevel, isCampaignsInfoLoaded])
@@ -120,42 +118,38 @@ const Challenge = () => {
           <p>Play To Earn</p>
           <Web3Status />
         </div>
-        {isShowMissionPage ? (
-          <div>
-            <div sx={styles.subTitleWrapper}>
-              <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master! Complete the missions below to level up, collect NFTs, 
-                and learn how to make money on DeFi!&nbsp;
-              </span>
-              <a 
-                sx={styles.learnMoreLink} 
-                target="_blank" 
-                href="https://hakkafinance.medium.com/play-to-earn-with-hakka-finance-a3b3cf50cfb5" 
-                rel="noreferrer"
-              >
-                <span>Read more  </span>
-                <img src={images.iconLinkSmallGreen} />
-              </a>
-            </div>
-            <CharacterStatus 
-              address={account ? shortenAddress(account) : '-'}
-              level={userLevel}
-              completedTaskAmount={completedTaskAmount}
-              isLoaded={isCampaignsInfoLoaded}
-              isUserLevelUp={isUserLevelUp}
-              isAnimationCanBePlayed={isAnimationCanBePlayed}
-              setIsLevelUpAnimationCompleted={setIsLevelUpAnimationCompleted}
-            />
-            <div sx={styles.missionSectionWrapper}>
-              <MissionSection 
-                campaignsInfo={campaignsInfo} 
-                isLoaded={isCampaignsInfoLoaded} 
-                userLevel={userLevel} 
-              />
-            </div>
+        <div>
+          <div sx={styles.subTitleWrapper}>
+            <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master! Complete the missions below to level up, collect NFTs,
+              and learn how to make money on DeFi!&nbsp;
+            </span>
+            <a
+              sx={styles.learnMoreLink}
+              target="_blank"
+              href="https://hakkafinance.medium.com/play-to-earn-with-hakka-finance-a3b3cf50cfb5"
+              rel="noreferrer"
+            >
+              <span>Read more  </span>
+              <img src={images.iconLinkSmallGreen} />
+            </a>
           </div>
-        ) : (
-          <IntroPage setIsShowMissionPage={setIsShowMissionPage} />
-        )}
+          <CharacterStatus
+            address={account ? shortenAddress(account) : '-'}
+            level={userLevel}
+            completedTaskAmount={completedTaskAmount}
+            isLoaded={isCampaignsInfoLoaded}
+            isUserLevelUp={isUserLevelUp}
+            isAnimationCanBePlayed={isAnimationCanBePlayed}
+            setIsLevelUpAnimationCompleted={setIsLevelUpAnimationCompleted}
+          />
+          <div sx={styles.missionSectionWrapper}>
+            <MissionSection
+              campaignsInfo={campaignsInfo}
+              isLoaded={isCampaignsInfoLoaded}
+              userLevel={userLevel}
+            />
+          </div>
+        </div>
       </div>
       <PlayToEarnLevelUpModal />
     </div>

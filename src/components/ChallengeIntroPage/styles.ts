@@ -1,6 +1,55 @@
-import images from "../../../images";
+import images from "../../images";
 
 export default {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginLeft: '34px',
+
+    '@media screen and (max-width: 1200px)': {
+      marginLeft: '40px',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      marginLeft: '0',
+    },
+  },
+
+  challengePageWrapper: {
+    width: '860px',
+    color: '#253e47',
+    paddingBottom: '100px',
+
+    '@media screen and (max-width: 1200px)': {
+      width: '85%',
+      maxWidth: 'none',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      width: '100%',
+      padding: '0 16px 100px 16px',
+    },
+  },
+
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+
+    p: {
+      margin: '0 0 20px 0',
+      fontSize: [5, 6],
+      fontWeight: '600',
+      lineHeight: '1.25',
+    },
+
+    '@media screen and (max-width: 576px)': {
+      display: 'block',
+      marginBottom: '20px',
+    },
+  },
+
   introGraphWrapper: {
     padding: '40px 30px 65px 30px',
     backgroundImage: `linear-gradient(90deg, #44D2BA 1.76%, #75E3B9 28.53%, #8CEBB9 63.21%, rgba(255, 255, 255, 0) 67.64%), url(${images.iconIntroGraph})`,
