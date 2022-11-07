@@ -77,8 +77,12 @@ const Challenge = () => {
 
     if (!localStorageLevelInfo) {
       let levelInfo = {}
-      levelInfo[account] = userLevel
+      levelInfo[account] = 1
       window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      if (userLevel > 1) {
+        togglePlayToEarnLevelUpModal()
+        setIsUserLevelUp(true)
+      }
       return
     }
 
