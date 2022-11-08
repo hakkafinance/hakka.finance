@@ -270,8 +270,8 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
     characterPanelBorderColor: 'rgba(108, 232, 180, 0.13)'
   },
   2: {
-    title: 'Hakka Traveler',
-    introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics DAOs and DeFi!',
+    title: 'Humble Hakka Rancher',
+    introduction: 'Congrats and welcome to the Hakka family! You have now landed on a new DeFi planet with massive harvesting potential. Time to farm and sharpen your skills!',
     missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
