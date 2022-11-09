@@ -23,6 +23,10 @@ const Challenge = () => {
   const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
   const isPlayToEarnModalOpen = usePlayToEarnLevelUpModalOpen();
 
+  const isCampaignsInfoLoaded = useMemo(() => {
+    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
+  }, [campaignsInfo])
+
   const userLevel = useMemo(() => {
     const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
     if (!campaignsInfo || Object.keys(campaignsInfo).length === 0 || levelList.length <= 1) {
@@ -44,55 +48,38 @@ const Challenge = () => {
     return levelList.length
   }, [campaignsInfo])
 
-  const completedTaskAmount = useMemo(() => {
-    let completedTaskAmount = 0;
-    LevelInfo[userLevel].missionList.forEach((id) => { 
-      if (
-        campaignsInfo?.[id]?.status &&
-        campaignsInfo[id].status === MissionStatusOptions.COMPLETED) {
-          completedTaskAmount += 1
-      }
-    })
-    return completedTaskAmount
-  }, [campaignsInfo])
-
-  const isCampaignsInfoLoaded = useMemo(() => {
-    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
-  }, [campaignsInfo])
-
-  const isBrowser = typeof window !== 'undefined';
   useEffect(() => {
-    if (!isBrowser || !isCampaignsInfoLoaded || !account) {
-      return
+    if(!account) { 
+      return 
     }
     const localStorageLevelInfo = window.localStorage.getItem('user-level')
-
-    if (!localStorageLevelInfo) {
-      let levelInfo = {}
+    let levelInfo = localStorageLevelInfo ? JSON.parse(localStorageLevelInfo) : {}
+    if (!levelInfo[account]) {
       levelInfo[account] = 1
       window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
-      if (userLevel > 1) {
-        togglePlayToEarnLevelUpModal()
-        setIsUserLevelUp(true)
-      }
+    }
+  }, [account])
+
+  useEffect(() => {
+    const isBrowser = typeof window !== 'undefined';
+    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+    if (
+      !isBrowser || 
+      !isCampaignsInfoLoaded || 
+      !account || 
+      !localStorageLevelInfo
+    ) {
       return
     }
 
     const levelInfo = JSON.parse(localStorageLevelInfo)
-
-    if (!levelInfo[account]) {
-      levelInfo[account] = userLevel
-      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
-      return
-    }
-
     if (levelInfo[account] < userLevel) {
       if (!isPlayToEarnModalOpen) {
         togglePlayToEarnLevelUpModal()
       }
       setIsUserLevelUp(true)
     }
-  }, [isBrowser, account, userLevel, isCampaignsInfoLoaded])
+  }, [userLevel, isCampaignsInfoLoaded])
 
   useEffect(() => {
     if(isUserLevelUp && !isPlayToEarnModalOpen) {
@@ -109,7 +96,31 @@ const Challenge = () => {
       levelInfo[account] = userLevel
       window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
     }
-  }, [isLevelUpAnimationCompleted, userLevel, account])
+  }, [isLevelUpAnimationCompleted, userLevel])
+
+  const completedTaskAmount = useMemo(() => {
+    let completedTaskAmount = 0;
+    LevelInfo[userLevel].missionList.forEach((id) => { 
+      if (
+        campaignsInfo?.[id]?.status &&
+        campaignsInfo[id].status === MissionStatusOptions.COMPLETED) {
+          completedTaskAmount += 1
+      }
+    })
+    return completedTaskAmount
+  }, [campaignsInfo])
+
+  console.log('test1-----------------------------------------------------------------------', )
+  console.log('test1-account', account)
+  console.log('test1-campaignsInfo', campaignsInfo)
+  console.log('test1-userLevel', userLevel)
+  console.log('test1-isCampaignsInfoLoaded', isCampaignsInfoLoaded)
+  console.log('test1-isUserLevelUp', isUserLevelUp)
+  console.log('test1-isAnimationCanBePlayed', isAnimationCanBePlayed)
+  console.log('test1-isLevelUpAnimationCompleted', isLevelUpAnimationCompleted)
+  console.log('test1-isPlayToEarnModalOpen', isPlayToEarnModalOpen)
+  console.log('test1-localStorage',  JSON.parse(window.localStorage.getItem('user-level') || ''))
+  console.log('test1----------------------------------------------------------------------', )
 
   return (
     <div sx={styles.container}>
