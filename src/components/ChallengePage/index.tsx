@@ -110,19 +110,6 @@ const Challenge = () => {
     return completedTaskAmount
   }, [campaignsInfo])
 
-  console.log('test1-----------------------------------------------------------------------', )
-  console.log('test1-account', account)
-  console.log('test1-campaignsInfo', campaignsInfo)
-  console.log('test1-userLevel', userLevel)
-  console.log('test1-isCampaignsInfoLoaded', isCampaignsInfoLoaded)
-  console.log('test1-isUserLevelUp', isUserLevelUp)
-  console.log('test1-isAnimationCanBePlayed', isAnimationCanBePlayed)
-  console.log('test1-isLevelUpAnimationCompleted', isLevelUpAnimationCompleted)
-  console.log('test1-isPlayToEarnModalOpen', isPlayToEarnModalOpen)
-  const localData = window.localStorage.getItem('user-level')
-  console.log('test1-localStorage',  localData ? JSON.parse(localData) : 'have no localStorage')
-  console.log('test1----------------------------------------------------------------------', )
-
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
