@@ -7,19 +7,22 @@ import styles from './styles';
 function CardInfo(props) {
   const cardHeadContent = [
     {
-      imageTop: 'iconForwardGray',
-      title: 'Roam Around <br/> Hakka Ecosystem',
-      subContent: 'Check out unique HAKKA products',
-      click: () => { location.href = 'products' },
-      icon: 'iconLight',
+      imageBottom: 'iconForwardGray',
+      title: 'Hakka World Cup',
+      subTitle: 'Group Stage',
+      subContent: 'Bet by claiming NFTs on Galxe & get rewarded!',
+      click: () => { window.open('https://galxe.com/hakkafinance/campaign/GCmrxUw5Vs', '_blank').focus()},
+      bgColor: '#B5F8CE',
+      bgImage: `url(${images.iconHomePageLinkIntelligenceBgImg})`
     },
 
     {
-      imageTop: 'iconArrowDown',
+      imageBottom: 'iconArrowDown',
       title: 'What’s <br/> HAKKA Token',
       subContent: 'Check to learn more about HAKKA',
       click: () => { location.href = '#whatHakka'; },
-      icon: 'iconToken',
+      bgColor: '#FFFFFF',
+      bgImage: '',
     },
   ];
 
@@ -27,31 +30,18 @@ function CardInfo(props) {
     <a sx={styles.anchor} key={item.title}>
       <Box
         key={item.title}
-        flexDirection="column"
-        justifyContent="space-between"
         sx={styles.cardContainer}
+        style={{ backgroundColor: item.bgColor, backgroundImage: item.bgImage }}
         onClick={() => { item.click(); }}
       >
-        <Flex justifyContent="flex-end">
-          <img sx={styles.cardImg} src={images[item.imageTop]} alt="" />
-        </Flex>
-        <Box>
-          <img src={images[item.icon]} alt="" />
-          <Box sx={styles.cardHeading} mt='2' mb="2" dangerouslySetInnerHTML={{ __html: item.title }} />
-          <Flex
-            sx={styles.subContent}
-            className="sub-content"
-            pt="0"
-            justifyContent="space-between"
-            alignItems="center"
-            onClick={() => { item.click(); }}
-          >
-
-            <div className="text" sx={styles.subTextGreen}>
-              {item.subContent}
-            </div>
-          </Flex>
+        <Box sx={styles.cardHeading}>
+          <Box dangerouslySetInnerHTML={{ __html: item.title }} />
+          <p sx={styles.subTitle}>{item.subTitle}</p>
+          <p sx={styles.subTextGreen} className="sub-content text">
+            {item.subContent}
+          </p>
         </Box>
+        <img sx={styles.cardImg} src={images[item.imageBottom]} />
       </Box>
     </a>
   ));
@@ -60,22 +50,16 @@ function CardInfo(props) {
       <Box sx={styles.card_responsive}>
         <Box onClick={() => { location.href = 'play2earn'; }}>
           <Card sx={styles.cardFirstContainer}>
-            <Flex justifyContent="flex-end">
-              <img sx={styles.forwardImg} src={images.iconArrowRightWhite} alt="" />
-            </Flex>
-            <img src={images.iconRocket} width='20px' height='20px' />
-            <Box sx={styles.cardFirstHeading}>
-              Play To Earn!
+            <Box>
+              <Box sx={styles.cardFirstHeading}>
+                Play To Earn!
+              </Box>
+              <Box style={{ height: '22px' }}></Box>
+              <p sx={styles.subText} className="sub-content text">
+                Become a DeFi master and win NFTS by completing simple missions
+              </p>
             </Box>
-            <Flex
-              sx={styles.subContent}
-              pt="0"
-              className="sub-content"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <span sx={styles.subText} className="text">Become a DeFi master and win NFTS by completing simple missions</span>
-            </Flex>
+            <img src={images.iconRocket} width='20px' height='20px' />
           </Card>
         </Box>
 
