@@ -119,7 +119,8 @@ const Challenge = () => {
   console.log('test1-isAnimationCanBePlayed', isAnimationCanBePlayed)
   console.log('test1-isLevelUpAnimationCompleted', isLevelUpAnimationCompleted)
   console.log('test1-isPlayToEarnModalOpen', isPlayToEarnModalOpen)
-  console.log('test1-localStorage',  JSON.parse(window.localStorage.getItem('user-level') || ''))
+  const localData = window.localStorage.getItem('user-level')
+  console.log('test1-localStorage',  localData ? JSON.parse(localData) : 'have no localStorage')
   console.log('test1----------------------------------------------------------------------', )
 
   return (
