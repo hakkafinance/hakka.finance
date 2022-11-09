@@ -232,8 +232,6 @@ export const OAT_INFO: {[key: string]: {
 }
 
 export const notificationMissionAddresses = [
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION5],
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION6],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION7],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION8],
 ]
