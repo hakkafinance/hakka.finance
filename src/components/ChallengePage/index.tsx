@@ -92,6 +92,7 @@ const Challenge = () => {
     if (isLevelUpAnimationCompleted && account && localStorageLevelInfo) {
       setIsAnimationCanBePlayed(false)
       setIsUserLevelUp(false)
+      setIsLevelUpAnimationCompleted(false)
       const levelInfo = JSON.parse(localStorageLevelInfo)
       levelInfo[account] = userLevel
       window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
