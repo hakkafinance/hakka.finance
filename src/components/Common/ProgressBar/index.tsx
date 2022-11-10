@@ -9,6 +9,8 @@ interface ProgressBarProps {
   totalTaskAmount: number;
   completedTaskAmount: number;
   isLoaded: boolean;
+  isUserLevelUp: boolean;
+  isAnimationCanBePlayed: boolean;
 }
 
 const ProgressBar = ({ 
@@ -17,6 +19,8 @@ const ProgressBar = ({
   totalTaskAmount, 
   completedTaskAmount,
   isLoaded,
+  isUserLevelUp,
+  isAnimationCanBePlayed,
 }: ProgressBarProps) => {
   const [progressRate, progressColor, isCompletedTaskAmountLgThanZero, taskCounter] = useMemo(() => {
     const progressRate =  completedTaskAmount / totalTaskAmount * 100
@@ -28,12 +32,32 @@ const ProgressBar = ({
     return [progressRate, progressColor, isCompletedTaskAmountLgThanZero, taskCounter]
   }, [completedTaskAmount, totalTaskAmount, colorList])
 
+  const progressBarWidth = useMemo(() => {
+    if (isUserLevelUp) {
+      const width = isAnimationCanBePlayed ? 100 : ((totalTaskAmount - 1) / totalTaskAmount) * 100
+      return width + '%'
+    } else {
+      return isCompletedTaskAmountLgThanZero ? progressRate + '%' : '20px'
+    }
+  }, [isAnimationCanBePlayed, progressRate, isUserLevelUp, isCompletedTaskAmountLgThanZero])
+
+  const animateProgressColor = useMemo(() => {
+    return isAnimationCanBePlayed ? '#3EBD93' : '#51BCDE'
+  }, [isAnimationCanBePlayed])
+
   return (
     <div sx={styles.progressBarContainer} style={{ backgroundColor: backgroundColor, display: !isLoaded ? 'none' : '' }}>
-      {!isCompletedTaskAmountLgThanZero && <div sx={styles.progressBarZeroStatus}>0</div>}
-      <div sx={styles.progressBar} style={{ backgroundColor: progressColor, width: progressRate + '%' }}>
-        {isCompletedTaskAmountLgThanZero && (
-          <span>{taskCounter}</span>
+      <div 
+        sx={styles.progressBar} 
+        style={{ 
+          backgroundColor: isUserLevelUp ? animateProgressColor : progressColor, 
+          width: progressBarWidth, 
+          transition: isCompletedTaskAmountLgThanZero || isUserLevelUp
+            ? 'width 1s ease, background-color 1s ease'
+            : 'none'
+        }}>
+        {!isUserLevelUp && (
+          <span>{isCompletedTaskAmountLgThanZero ? taskCounter : 0}</span>
         )}
       </div>
     </div>

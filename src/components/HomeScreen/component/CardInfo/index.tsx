@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui';
 import { Box, Card, Flex } from 'rebass';
 import images from '../../../../images';
 import styles from './styles';
+import { navigate } from 'gatsby';
 
 function CardInfo(props) {
   const cardHeadContent = [
@@ -48,7 +49,7 @@ function CardInfo(props) {
   return (
     <Box>
       <Box sx={styles.card_responsive}>
-        <Box onClick={() => { location.href = 'play2earn'; }}>
+        <Box onClick={() => navigate('/play2earn-intro')}> 
           <Card sx={styles.cardFirstContainer}>
             <Box>
               <Box sx={styles.cardFirstHeading}>

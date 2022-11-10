@@ -11,22 +11,10 @@ export default {
   levelContainer: {
     position: 'absolute',
     top: '-20px',
-    left: '60px',
+    left: '50%',
+    transform: 'translate(-50%)',
     zIndex: '2',
-    borderRadius: '20px',
-    backgroundImage: 'linear-gradient(0deg, #0B555A, #0B555A)',
-    border: '1px solid lightGreen',
     color: 'white',
-    padding: '0 12px',
-    height: '40px',
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: '92px',
-
-    '@media screen and (max-width: 576px)': {
-      left: '130px',
-    },
   },
 
   mainLayout: {
@@ -34,9 +22,8 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '5px',
-    border: '1px solid lightGreen',
+    border: '1px solid',
     borderRadius: '100px',
-    backgroundColor: 'rgba(108, 232, 180, 0.13)',
 
     '@media screen and (max-width: 576px)': {
       flexDirection: 'column',
@@ -49,6 +36,8 @@ export default {
     position: 'relative',
     minWidth: '200px',
     height: '200px',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '200px',
   },
 
   infoSection: {

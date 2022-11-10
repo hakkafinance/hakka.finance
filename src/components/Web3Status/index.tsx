@@ -13,6 +13,7 @@ import InfoModal from '../InfoModal';
 import CurrentNetwork from '../CurrentNetwork';
 import images from '../../images';
 import styles from './styles';
+import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const { active, account } = useWeb3React();

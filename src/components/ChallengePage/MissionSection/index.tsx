@@ -14,10 +14,11 @@ import { CampaignsInfoType } from '../../../hooks/useProjectGalaxyCampaignsInfo'
 
 interface MissionSectionProps {
   campaignsInfo: CampaignsInfoType | undefined
-  isCampaignsInfoLoaded: boolean
+  isLoaded: boolean
+  userLevel: number
 }
 
-const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSectionProps) => {
+const MissionSection = ({ campaignsInfo, isLoaded, userLevel }: MissionSectionProps) => {
   return (
     <div>
       <div sx={styles.missionHeader}>
@@ -31,24 +32,36 @@ const MissionSection = ({ campaignsInfo, isCampaignsInfoLoaded }: MissionSection
         )}
       </div>
       {isMobile && <MissionStatusHint />}
-      {Object.keys(LevelInfo).map((levelValue, index) =>
-        <div sx={styles.missionItemWrapper}>
-          <Accordion headerContent={`level ${levelValue}`} key={index}>
-            {LevelInfo[levelValue].missionList.map((oatAddress, index) => (
-              <div key={index}>
-                <MissionItem
-                  oatAddress={oatAddress}
-                  missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
-                  isCampaignsInfoLoaded={isCampaignsInfoLoaded}
-                />
-                <hr sx={styles.hr} />
-              </div>
-            ))}
-            <MissionItem
-              missionStatus={MissionStatusOptions.UPCOMING} 
-            />
-          </Accordion>
-        </div>
+      {Object.keys(LevelInfo).reverse().map((levelValue, index) => {
+        if (userLevel >= parseInt(levelValue)) {
+          return (
+            <div sx={styles.missionItemWrapper}>
+              <Accordion 
+                headerContent={`level ${levelValue}`} 
+                headerBgColor={LevelInfo[levelValue].levelColor} 
+                isDefaultOpen={userLevel === parseInt(levelValue)}
+                key={index}
+              >
+                {LevelInfo[levelValue].missionList.map((oatAddress, index) => (
+                  <div key={index}>
+                    <MissionItem
+                      oatAddress={oatAddress}
+                      missionStatus={campaignsInfo?.[oatAddress]?.status || MissionStatusOptions.UNFINISHED}
+                      isLoaded={isLoaded}
+                    />
+                    <hr sx={styles.hr} />
+                  </div>
+                ))}
+                {LevelInfo[levelValue].missionList.length < LevelInfo[levelValue].expectedMissionAmount && (
+                  <MissionItem
+                    missionStatus={MissionStatusOptions.UPCOMING} 
+                  />
+                )}
+              </Accordion>
+            </div>
+          )
+        }
+      }
       )}
     </div>
   )
