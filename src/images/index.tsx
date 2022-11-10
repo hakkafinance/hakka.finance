@@ -198,5 +198,6 @@ const images = {
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
   iconHomePageLinkBgImg: require('./challenge/homePageLink/iconHomePageLinkBgImg.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
+  iconHomePageLinkIntelligenceBgImg: require('./challenge/homePageLink/iconHomePageLinkIntelligenceBg.png').default,
 };
 export default images;
