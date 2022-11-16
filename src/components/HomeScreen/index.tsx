@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Flex } from 'rebass';
 import images from '../../images';
 import styles from './styles';
@@ -91,6 +91,13 @@ const HomeScreen = (props) => {
   ));
 
   const [subscribeEmailAddress, setSubscribeEmailAddress] = useState('');
+
+  useEffect(() => {
+    const anchor = location.hash
+    if (anchor) {
+      window.location.href = anchor;
+    }
+  }, [])
 
   return (
     <>
