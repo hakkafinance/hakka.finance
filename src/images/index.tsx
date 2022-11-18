@@ -44,6 +44,9 @@ const images = {
   iconTriangleUp: require('./icons/iconTriangleUp.svg').default,
   iconMockProfile: require('./icons/iconMockProfile.svg').default,
   iconOat: require('./icons/iconOat.svg').default,
+  iconP2eBanner: require('./icons/iconP2eBanner.png').default,
+  iconWorldCupBanner: require('./icons/iconWorldCupBanner.png').default,
+  iconWhatHakkaBanner: require('./icons/iconWhatHakkaBanner.png').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,

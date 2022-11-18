@@ -1,52 +1,17 @@
-import images from "../../../../images";
-
 export default {
   card_responsive: {
     display: 'grid',
     gridGap: 3,
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr',
     maxWidth: '1200px',
     '@media screen and (max-width: 1180px)': {
-      gridTemplateColumns: '1fr',
-      // maxWidth: '400px'
-    },
-  },
-  // big green card
-  cardFirstContainer: {
-    padding: '20px',
-    border: '1px solid #6ad7a8',
-    borderRadius: '8px',
-    height: '100%',
-    maxHeight: '250px',
-    minHeight: '200px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: '#8CEBB9',
-    backgroundImage: `url(${images.iconHomePageLinkBgImg}),
-      linear-gradient(94.3deg, #44D2BA 7.15%, rgba(68, 210, 186, 0) 84.7%)`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right, left',
-    backgroundSize: 'contain, auto',
-    cursor: 'pointer',
-    boxShadow: '0 8px 16px -8px rgba(123, 135, 148, 0.25)',
-    transition: 'all 0.25s ease-out ',
+      gridTemplateColumns: '1fr 1fr',
+      gridTemplateRows: '1fr 1.5fr',
 
-    '& .sub-content': {
-      opacity: '.5',
-      transition: 'all 0.25s ease-out',
-    },
-
-    ':hover': {
-      '& .sub-content': {
-        opacity: 1,
+      '& .first-card': {
+        gridColumnStart: '1',
+        gridColumnEnd: '3',
       },
-
-      ':active': {
-        transform: 'scale(.98)',
-      },
-
-      borderColor: '#3ebd93',
     },
   },
 
@@ -55,11 +20,11 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    maxHeight: '250px',
-    minHeight: '200px',
-    padding: '24px 20px 16px 20px',
-    border: '1px solid #ebf0f2',
     height: '100%',
+    maxHeight: '300px',
+    minHeight: '200px',
+    padding: '20px 16px 16px 20px;',
+    border: '1px solid #ebf0f2',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'all 0.25s ease-out',
@@ -114,8 +79,8 @@ export default {
   },
 
   subTitle: {
-    color: 'rgba(0, 75, 79, 0.6)',
     margin: '0 0 16px 0',
+    height: '24px',
   },
 
   cardFirstHeading: {
