@@ -199,8 +199,6 @@ const images = {
   mission7: require('./challenge/missions/mission7.gif').default,
   mission8: require('./challenge/missions/mission8.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
-  iconHomePageLinkBgImg: require('./challenge/homePageLink/iconHomePageLinkBgImg.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
-  iconHomePageLinkIntelligenceBgImg: require('./challenge/homePageLink/iconHomePageLinkIntelligenceBg.png').default,
 };
 export default images;
