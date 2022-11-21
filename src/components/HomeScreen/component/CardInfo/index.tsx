@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { Box, Card, Flex } from 'rebass';
+import { Box } from 'rebass';
 import images from '../../../../images';
 import styles from './styles';
 import { navigate } from 'gatsby';
@@ -8,27 +8,37 @@ import { navigate } from 'gatsby';
 function CardInfo(props) {
   const cardHeadContent = [
     {
+      imageBottom: 'iconRocket',
+      title: 'Play To Earn!',
+      subTitle: '',
+      subContent: 'Become a DeFi master and win NFTs by completing simple missions!',
+      click: () => {navigate('/play2earn-intro')},
+      bgColor: '#44D2BA',
+      bgImage: `url(${images.iconP2eBanner})`
+    },
+    {
       imageBottom: 'iconForwardGray',
       title: 'Hakka World Cup',
-      subTitle: 'Group Stage',
-      subContent: 'Bet by claiming NFTs on Galxe & get rewarded!',
-      click: () => { window.open('https://galxe.com/hakkafinance/campaign/GCmrxUw5Vs', '_blank').focus()},
-      bgColor: '#B5F8CE',
-      bgImage: `url(${images.iconHomePageLinkIntelligenceBgImg})`
+      subTitle: 'Knockout Stage',
+      subTitleColor: 'rgba(0, 75, 79, 0.6)',
+      subContent: 'Bet on games with Hakka Intelligence and earn tokens!',
+      click: () => { window.open('https://intelligence.hakka.finance/', '_blank').focus()},
+      bgColor: 'rgba(127, 20, 49, 0.3)',
+      bgImage: `url(${images.iconWorldCupBanner})`
     },
-
     {
       imageBottom: 'iconArrowDown',
-      title: 'What’s <br/> HAKKA Token',
+      title: 'What’s',
+      subTitle: 'HAKKA Token',
       subContent: 'Check to learn more about HAKKA',
       click: () => { location.href = '#whatHakka'; },
-      bgColor: '#FFFFFF',
-      bgImage: '',
+      bgColor: 'rgba(62, 189, 147, 0.1)',
+      bgImage: `url(${images.iconWhatHakkaBanner})`
     },
   ];
 
   const renderCard = () => cardHeadContent.map((item, i) => (
-    <a sx={styles.anchor} key={item.title}>
+    <a sx={styles.anchor} className={i === 0 ? 'first-card' : ''} key={item.title}>
       <Box
         key={item.title}
         sx={styles.cardContainer}
@@ -37,7 +47,7 @@ function CardInfo(props) {
       >
         <Box sx={styles.cardHeading}>
           <Box dangerouslySetInnerHTML={{ __html: item.title }} />
-          <p sx={styles.subTitle}>{item.subTitle}</p>
+          <p sx={{...styles.subTitle, color: item.subTitleColor}} >{item.subTitle}</p>
           <p sx={styles.subTextGreen} className="sub-content text">
             {item.subContent}
           </p>
@@ -46,34 +56,10 @@ function CardInfo(props) {
       </Box>
     </a>
   ));
-  return (
-    <Box>
-      <Box sx={styles.card_responsive}>
-        <Box onClick={() => navigate('/play2earn-intro')}> 
-          <Card sx={styles.cardFirstContainer}>
-            <Box>
-              <Box sx={styles.cardFirstHeading}>
-                Play To Earn!
-              </Box>
-              <Box style={{ height: '22px' }}></Box>
-              <p sx={styles.subText} className="sub-content text">
-                Become a DeFi master and win NFTS by completing simple missions
-              </p>
-            </Box>
-            <img src={images.iconRocket} width='20px' height='20px' />
-          </Card>
-        </Box>
 
-        <Box
-          sx={{
-            display: 'grid',
-            gridGap: 3,
-            gridTemplateColumns: '1fr 1fr',
-          }}
-        >
-          {renderCard()}
-        </Box>
-      </Box>
+  return (
+    <Box sx={styles.card_responsive}>
+      {renderCard()}
     </Box>
   );
 }
