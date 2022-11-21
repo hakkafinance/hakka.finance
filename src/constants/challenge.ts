@@ -45,25 +45,27 @@ export const PriorityInfo: {[key in PriorityOptions]: { content: string, color: 
 }
 
 export enum MissionOptions {
-  MISSION1,
-  MISSION2,
-  MISSION3,
-  MISSION4,
-  MISSION5,
-  MISSION6,
-  MISSION7,
-  MISSION8,
+  MISSION1_1,
+  MISSION1_2,
+  MISSION1_3,
+  MISSION1_4,
+  MISSION1_5,
+  MISSION1_6,
+  MISSION1_7,
+  MISSION2_1,
+  MISSION2_2,
 }
 
 export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
-  [MissionOptions.MISSION1]: 'GCGnZUtqDE',
-  [MissionOptions.MISSION2]: 'GCr8yUtQN5',
-  [MissionOptions.MISSION3]: 'GCBryUtyo7',
-  [MissionOptions.MISSION4]: 'GCBCyUtZRy',
-  [MissionOptions.MISSION5]: 'GCdueUtHjz',
-  [MissionOptions.MISSION6]: 'GCD5yUt73A',
-  [MissionOptions.MISSION7]: 'GCxTdUwieL',
-  [MissionOptions.MISSION8]: 'GCv7dUwr2V',
+  [MissionOptions.MISSION1_1]: 'GCGnZUtqDE',
+  [MissionOptions.MISSION1_2]: 'GCr8yUtQN5',
+  [MissionOptions.MISSION1_3]: 'GCBryUtyo7',
+  [MissionOptions.MISSION1_4]: 'GCBCyUtZRy',
+  [MissionOptions.MISSION1_5]: 'GCdueUtHjz',
+  [MissionOptions.MISSION1_6]: 'GCD5yUt73A',
+  [MissionOptions.MISSION1_7]: 'GCxTdUwieL',
+  [MissionOptions.MISSION2_1]: 'GCv7dUwr2V',
+  [MissionOptions.MISSION2_2]: 'GCfzYUwL4v',
 }
 
 export const OAT_INFO: {[key: string]: { 
@@ -77,9 +79,9 @@ export const OAT_INFO: {[key: string]: {
   claimLink?: string,
   priority: PriorityOptions,
 }} = {
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_1]]: {
     missionIndex: 1,
-    img: 'mission1',
+    img: 'mission1_1',
     reward: '', 
     describeTitle: 'Join The Hakka DAO Snapshot!', 
     describeContent: 
@@ -96,9 +98,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCGnZUtqDE',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_2]]: {
     missionIndex: 2,
-    img: 'mission2',
+    img: 'mission1_2',
     reward: '', 
     describeTitle: 'Stake At Least 1,000 HAKKA!', 
     describeContent: `Alright! You're gonna be part of this interplanetary space journey with Hakka thanks to your new rocket! \n
@@ -115,9 +117,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCr8yUtQN5',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION3]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_3]]: {
     missionIndex: 3,
-    img: 'mission3',
+    img: 'mission1_3',
     reward: '', 
     describeTitle: 'Complete The Hakka Exam!', 
     describeContent: `All good! You have your rocket, and your fuel... but do you even know the basics of how to pilot a DeFi rocket? \n
@@ -132,9 +134,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBryUtyo7',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION4]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_4]]: {
     missionIndex: 4,
-    img: 'mission4',
+    img: 'mission1_4',
     reward: '', 
     describeTitle: 'Lend At Least $10 With iGain IRS!', 
     describeContent: `It's dangerous to go alone! Take this! 🛡 \n
@@ -150,9 +152,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCBCyUtZRy',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION5]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_5]]: {
     missionIndex: 5,
-    img: 'mission5',
+    img: 'mission1_5',
     reward: '', 
     describeTitle: 'Vote On A Governance Proposal!', 
     describeContent: `Okay! The DAO rocket is almost ready to take off.. 🛫 \n
@@ -169,9 +171,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galaxy.eco/hakkafinance/campaign/GCdueUtHjz',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION6]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_6]]: {
     missionIndex: 6,
-    img: 'mission6',
+    img: 'mission1_6',
     reward: '', 
     describeTitle: 'Participate In At Least 1 AMA!', 
     describeContent: `You're all set to take off with your brand new rocket and your DAO crew! 🚀\n
@@ -190,9 +192,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCD5yUt73A',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION7]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7]]: {
     missionIndex: 7,
-    img: 'mission7',
+    img: 'mission1_7',
     reward: '', 
     describeTitle: 'Provide At Least $10 Of Liquidity On iGain IRS!', 
     describeContent: `Are you ready to leave your native planet? Are you sure you haven’t forgotten anything? 🤔\n
@@ -213,9 +215,9 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCxTdUwieL',
     priority: PriorityOptions.REQUIRED,
   },
-  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]]: {
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1]]: {
     missionIndex: 1,
-    img: 'mission8',
+    img: 'mission2_1',
     reward: '', 
     describeTitle: 'Follow Hakka Finance On Twitter!',
     describeContent: `So cool! You have landed on a brand new planet! You also look different!\n
@@ -229,11 +231,30 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCv7dUwr2V',
     priority: PriorityOptions.REQUIRED,
   },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2]]: {
+    missionIndex: 2,
+    img: 'mission2_2',
+    reward: '', 
+    describeTitle: 'Farm Some HAKKA Tokens!',
+    describeContent: `That little blue bird has been showing you around for a while now. What a gorgeous planet!\n
+    So much arable land... a Hakka farmer's paradise! 🥰\n
+    Remember that sHAKKA fuel you put on your rocket in Level 1 Mission 2? It is a token that can actually be used\
+    to farm and generate even more HAKKA, at triple-digit annual returns, just by planting them in farming pools! 🚜`,
+    hint: [
+      `Farm some HAKKA from a sHAKKA farming pool (on Ethereum ⚫️, Polygon 🟣, or BNB 🟡)!`,
+      `Your sHAKKA farming deposit must be at least of 1,000 to claim your NFT!`,
+      `Warning: For Mainnet, only sHAKKA v2 will make this NFT claimable!`,
+    ],
+    missionLink: 'https://hakka.finance/farms/?utm_source=galaxy&utm_medium=nft&utm_campaign=play2earn_2_2',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCfzYUwL4v',
+    priority: PriorityOptions.REQUIRED,
+  },
 }
 
 export const notificationMissionAddresses = [
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION7],
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION8],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2],
 ]
 
 export interface LevelInfoType {
@@ -253,13 +274,13 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
     title: 'Newbie DeFi Farmer',
     introduction: 'Your DeFi journey across the Galaxy starts here, young farmer! Before taking off, prepare yourself by learning the basics of DAOs and DeFi!',
     missionList: [
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION3],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION4],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION5],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION6],
-      MISSION_CAMPAIGN_ID[MissionOptions.MISSION7],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_1],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_2],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_3],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_4],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_5],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_6],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7],
     ],
     expectedMissionAmount: 7,
     profile: 'profileLv1',
@@ -270,7 +291,7 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
   2: {
     title: 'Humble Hakka Rancher',
     introduction: 'Congrats and welcome to the Hakka family! You have now landed on a new DeFi planet with massive harvesting potential. Time to farm and sharpen your skills!',
-    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]],
+    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2]],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
     levelColor: 'rgba(73, 144, 235, 0.13)',
