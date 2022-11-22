@@ -22,41 +22,46 @@ const useProjectGalaxyCampaignsInfo = () => {
     }}, [projectGalaxyClient, account])
 
   const campaignInfo_GCGnZUtqDE = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_1]},
     ...querySetting
   })
 
   const campaignInfo_GCr8yUtQN5 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION2]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_2]},
     ...querySetting
   })
 
   const campaignInfo_GCBryUtyo7 = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION3]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_3]},
     ...querySetting
   })
 
   const campaignInfo_GCBCyUtZRy = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION4]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_4]},
     ...querySetting
   })
 
   const campaignInfo_GCdueUtHjz = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION5]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_5]},
     ...querySetting
   })
 
   const campaignInfo_GCD5yUt73A = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION6]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_6]},
     ...querySetting
   })
   const campaignInfo_GCxTdUwieL = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION7]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7]},
     ...querySetting
   })
 
   const campaignInfo_GCv7dUwr2V = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
-    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION8]},
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1]},
+    ...querySetting
+  })
+
+  const campaignInfo_GCfzYUwL4v = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2]},
     ...querySetting
   })
 
@@ -76,6 +81,7 @@ const useProjectGalaxyCampaignsInfo = () => {
       campaignInfo_GCD5yUt73A,
       campaignInfo_GCxTdUwieL,
       campaignInfo_GCv7dUwr2V,
+      campaignInfo_GCfzYUwL4v,
     ];
     const queryResults = {}
     campaignInfos.forEach((campaignInfo) => {
@@ -103,6 +109,7 @@ const useProjectGalaxyCampaignsInfo = () => {
     campaignInfo_GCD5yUt73A,
     campaignInfo_GCxTdUwieL,
     campaignInfo_GCv7dUwr2V,
+    campaignInfo_GCfzYUwL4v,
   ]);
 
   return campaignsInfo
