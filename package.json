@@ -1,9 +1,9 @@
 {
   "name": "hakka",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "private": true,
   "description": "Hakka",
-  "author": "Thanh Tam",
+  "author": "Pelith",
   "keywords": [
     "gatsby"
   ],
