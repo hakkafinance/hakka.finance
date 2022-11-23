@@ -44,6 +44,9 @@ const images = {
   iconTriangleUp: require('./icons/iconTriangleUp.svg').default,
   iconMockProfile: require('./icons/iconMockProfile.svg').default,
   iconOat: require('./icons/iconOat.svg').default,
+  iconP2eBanner: require('./icons/iconP2eBanner.png').default,
+  iconWorldCupBanner: require('./icons/iconWorldCupBanner.png').default,
+  iconWhatHakkaBanner: require('./icons/iconWhatHakkaBanner.png').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -197,8 +200,6 @@ const images = {
   mission2_1: require('./challenge/missions/mission8.gif').default,
   mission2_2: require('./challenge/missions/mission9.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
-  iconHomePageLinkBgImg: require('./challenge/homePageLink/iconHomePageLinkBgImg.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
-  iconHomePageLinkIntelligenceBgImg: require('./challenge/homePageLink/iconHomePageLinkIntelligenceBg.png').default,
 };
 export default images;
