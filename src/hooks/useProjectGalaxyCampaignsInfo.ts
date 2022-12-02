@@ -65,6 +65,11 @@ const useProjectGalaxyCampaignsInfo = () => {
     ...querySetting
   })
 
+  const campaignInfo_GCAQRUwKaU = useQuery(PROJECT_GALAXY_CAMPAIGN_INFO, {
+    variables: { account, campaignId: MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3]},
+    ...querySetting
+  })
+
   const throttleSetCampaignsInfo = useMemo(
     () => throttle(setCampaignsInfo, 2000),
     []
@@ -82,6 +87,7 @@ const useProjectGalaxyCampaignsInfo = () => {
       campaignInfo_GCxTdUwieL,
       campaignInfo_GCv7dUwr2V,
       campaignInfo_GCfzYUwL4v,
+      campaignInfo_GCAQRUwKaU,
     ];
     const queryResults = {}
     campaignInfos.forEach((campaignInfo) => {
@@ -110,6 +116,7 @@ const useProjectGalaxyCampaignsInfo = () => {
     campaignInfo_GCxTdUwieL,
     campaignInfo_GCv7dUwr2V,
     campaignInfo_GCfzYUwL4v,
+    campaignInfo_GCAQRUwKaU,
   ]);
 
   return campaignsInfo

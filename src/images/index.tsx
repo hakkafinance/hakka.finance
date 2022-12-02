@@ -199,6 +199,7 @@ const images = {
   mission1_7: require('./challenge/missions/mission7.gif').default,
   mission2_1: require('./challenge/missions/mission8.gif').default,
   mission2_2: require('./challenge/missions/mission9.gif').default,
+  mission2_3: require('./challenge/missions/mission10.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
 };
