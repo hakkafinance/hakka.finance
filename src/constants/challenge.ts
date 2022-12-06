@@ -54,6 +54,7 @@ export enum MissionOptions {
   MISSION1_7,
   MISSION2_1,
   MISSION2_2,
+  MISSION2_3,
 }
 
 export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
@@ -66,6 +67,7 @@ export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
   [MissionOptions.MISSION1_7]: 'GCxTdUwieL',
   [MissionOptions.MISSION2_1]: 'GCv7dUwr2V',
   [MissionOptions.MISSION2_2]: 'GCfzYUwL4v',
+  [MissionOptions.MISSION2_3]: 'GCAQRUwKaU',
 }
 
 export const OAT_INFO: {[key: string]: { 
@@ -249,12 +251,31 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCfzYUwL4v',
     priority: PriorityOptions.REQUIRED,
   },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3]]: {
+    missionIndex: 3,
+    img: 'mission2_3',
+    reward: '', 
+    describeTitle: 'Bet At Least 5,000 HAKKA On Hakka Intelligence!',
+    describeContent: `Done farming? Great! Now you have a playground to bet on anything! 🏟\n
+    Hakka Finance has a betting/prediction platform called Hakka Intelligence. It can be used to predict baskets of\
+    crypto prices, sports events, or, in fact, any real-world event traceable by a blockchain oracle! The Hakka\
+    community has the possibility to decide together!\n
+    On Hakka Intelligence, the more accurate your predictions compared to other users, the more you earn!`,
+    hint: [
+      `Go to Hakka Intelligence, choose an open round if there is any (otherwise, ask for one on Twitter or Discord).`,
+      `Bet at least 5,000 HAKKA tokens, and you should be eligible to complete this mission!`,
+    ],
+    missionLink: 'https://intelligence.hakka.finance/',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCAQRUwKaU',
+    priority: PriorityOptions.REQUIRED,
+  },
 }
 
 export const notificationMissionAddresses = [
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3],
 ]
 
 export interface LevelInfoType {
@@ -291,7 +312,7 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
   2: {
     title: 'Humble Hakka Rancher',
     introduction: 'Congrats and welcome to the Hakka family! You have now landed on a new DeFi planet with massive harvesting potential. Time to farm and sharpen your skills!',
-    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2]],
+    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3]],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
     levelColor: 'rgba(73, 144, 235, 0.13)',
