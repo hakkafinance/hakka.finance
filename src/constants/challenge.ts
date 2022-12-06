@@ -198,7 +198,7 @@ export const OAT_INFO: {[key: string]: {
     missionIndex: 7,
     img: 'mission1_7',
     reward: '', 
-    describeTitle: 'Provide At Least $10 Of Liquidity On iGain IRS!', 
+    describeTitle: 'Provide Liquidity On iGain IRS!', 
     describeContent: `Are you ready to leave your native planet? Are you sure you haven’t forgotten anything? 🤔\n
     That’s right. Something’s missing.\n
     Since DeFi products are by nature… decentralized, they can’t rely on a central party to provide the liquidity users can\
@@ -255,7 +255,7 @@ export const OAT_INFO: {[key: string]: {
     missionIndex: 3,
     img: 'mission2_3',
     reward: '', 
-    describeTitle: 'Bet At Least 5,000 HAKKA On Hakka Intelligence!',
+    describeTitle: 'Bet On Hakka Intelligence!',
     describeContent: `Done farming? Great! Now you have a playground to bet on anything! 🏟\n
     Hakka Finance has a betting/prediction platform called Hakka Intelligence. It can be used to predict baskets of\
     crypto prices, sports events, or, in fact, any real-world event traceable by a blockchain oracle! The Hakka\
