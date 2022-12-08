@@ -95,10 +95,10 @@ const useProjectGalaxyCampaignsInfo = () => {
         queryResults[campaignInfo.variables.campaignId] = { 
           maxCount: campaignInfo.data.campaign.whitelistInfo.maxCount, 
           usedCount: campaignInfo.data.campaign.whitelistInfo.usedCount,
-          status: campaignInfo.data.campaign.whitelistInfo.maxCount === 0 
-            ? MissionStatusOptions.UNFINISHED
-            : campaignInfo.data.campaign.whitelistInfo.usedCount > 0
+          status: campaignInfo.data.campaign.whitelistInfo.usedCount > 0
             ? MissionStatusOptions.COMPLETED
+            : campaignInfo.data.campaign.whitelistInfo.maxCount === 0
+            ? MissionStatusOptions.UNFINISHED
             : MissionStatusOptions.FINISHED
         }
       }
