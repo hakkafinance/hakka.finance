@@ -407,7 +407,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 18,
     rewardsAddress: IGAIN_FANTOM_DAI_POOL_1,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [IGAIN_FANTOM_ETH_POOL_1]: {
     name: 'iGain IRS ETH',
@@ -424,6 +424,6 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 18,
     rewardsAddress: IGAIN_FANTOM_ETH_POOL_1,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
 }
