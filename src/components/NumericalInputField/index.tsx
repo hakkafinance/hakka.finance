@@ -12,7 +12,7 @@ import { useActiveWeb3React } from '../../hooks/web3Manager';
 
 interface NumericalInputFieldProps {
   value: string ;
-  onUserInput: (input: any) => void;
+  onUserInput: (input: string) => void;
   tokenBalance: CurrencyAmount;
   approve: any;
   approveState: ApprovalState;
@@ -83,7 +83,7 @@ const NumericalInputField = (props: NumericalInputFieldProps) => {
           : ''}
         <button
           sx={styles.maxButton}
-          onClick={() => { onUserInput(tokenBalance?.toSignificant(1000)); }}
+          onClick={() => { onUserInput(tokenBalance?.toSignificant(1000) || ''); }}
         >
           MAX
         </button>
