@@ -21,7 +21,7 @@ function CardInfo(props) {
       title: 'Hakka World Cup',
       subTitle: '',
       subTitleColor: 'rgba(0, 75, 79, 0.6)',
-      subContent: 'Thanks for participating! Earn your rewards on 12 / 22',
+      subContent: 'Thanks for participating! Earn your rewards on 12/22',
       click: () => { window.open('https://intelligence.hakka.finance/', '_blank').focus()},
       bgColor: 'rgba(127, 20, 49, 0.3)',
       bgImage: `url(${images.iconWorldCupBanner})`
