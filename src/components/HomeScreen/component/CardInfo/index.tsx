@@ -19,9 +19,9 @@ function CardInfo(props) {
     {
       imageBottom: 'iconForwardGray',
       title: 'Hakka World Cup',
-      subTitle: 'Knockout Stage',
+      subTitle: '',
       subTitleColor: 'rgba(0, 75, 79, 0.6)',
-      subContent: 'Bet on games with Hakka Intelligence and earn tokens!',
+      subContent: 'Thanks for participating! Earn your rewards on 12/22',
       click: () => { window.open('https://intelligence.hakka.finance/', '_blank').focus()},
       bgColor: 'rgba(127, 20, 49, 0.3)',
       bgImage: `url(${images.iconWorldCupBanner})`
