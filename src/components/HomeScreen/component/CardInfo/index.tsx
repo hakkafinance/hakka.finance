@@ -18,13 +18,12 @@ function CardInfo(props) {
     },
     {
       imageBottom: 'iconForwardGray',
-      title: 'Hakka World Cup',
-      subTitle: '',
-      subTitleColor: 'rgba(0, 75, 79, 0.6)',
-      subContent: 'Thanks for participating! Earn your rewards on 12/22',
-      click: () => { window.open('https://intelligence.hakka.finance/', '_blank').focus()},
-      bgColor: 'rgba(127, 20, 49, 0.3)',
-      bgImage: `url(${images.iconWorldCupBanner})`
+      title: 'Roam Around',
+      subTitle: 'Hakka Ecosystem',
+      subContent: 'Check out unique HAKKA products',
+      click: () => {navigate('/products')},
+      bgColor: 'rgba(62, 189, 147, 0.1)',
+      bgImage: `url(${images.iconHakkaProduct})`
     },
     {
       imageBottom: 'iconArrowDown',
