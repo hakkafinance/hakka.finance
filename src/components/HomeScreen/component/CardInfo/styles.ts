@@ -81,6 +81,10 @@ export default {
   subTitle: {
     margin: '0 0 16px 0',
     height: '24px',
+
+    '@media screen and (max-width: 576px)': {
+      lineHeight: '16px',
+    },
   },
 
   cardFirstHeading: {
