@@ -275,7 +275,7 @@ export const OAT_INFO: {[key: string]: {
     missionIndex: 4,
     img: 'mission2_4',
     reward: '', 
-    describeTitle: 'Get Insured on 3F Mutual!',
+    describeTitle: 'Get Insured On 3F Mutual!',
     describeContent: `As you enjoyed your life on the blue planet, farming and betting, you never could have predicted\
     the disaster that was about to strike! ☄️😱\n
     Without warning, stablecoin asteroids de-pegged out of their orbit and began falling from the sky, crashing down onto\
