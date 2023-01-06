@@ -55,6 +55,7 @@ export enum MissionOptions {
   MISSION2_1,
   MISSION2_2,
   MISSION2_3,
+  MISSION2_4,
 }
 
 export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
@@ -68,6 +69,7 @@ export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
   [MissionOptions.MISSION2_1]: 'GCv7dUwr2V',
   [MissionOptions.MISSION2_2]: 'GCfzYUwL4v',
   [MissionOptions.MISSION2_3]: 'GCAQRUwKaU',
+  [MissionOptions.MISSION2_4]: 'GCpPdU4V8t',
 }
 
 export const OAT_INFO: {[key: string]: { 
@@ -269,6 +271,28 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCAQRUwKaU',
     priority: PriorityOptions.REQUIRED,
   },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4]]: {
+    missionIndex: 4,
+    img: 'mission2_4',
+    reward: '', 
+    describeTitle: 'Get Insured On 3F Mutual!',
+    describeContent: `As you enjoyed your life on the blue planet, farming and betting, you never could have predicted\
+    the disaster that was about to strike! ☄️😱\n
+    Without warning, stablecoin asteroids de-pegged out of their orbit and began falling from the sky, crashing down onto\
+    the planet and the market! 😨\n
+    Don't panic! You gotta act fast and protect yourself! 🛡\n
+    Luckily, you can run to the powerful field force of 3F Mutual, a decentralized insurance pool with the energy of thousands\
+    of ETH (!), to shield you from the impending danger and see the stablecoin asteroids bouncing harmlessly off the field force 💥`,
+    hint: [
+      `Go to 3F Mutual and invest at least 0.001 ETH into the pool (regardless of the number of insurance units and days of protection) and the NFT is yours!`,
+      `💰 Your wallet and ALL the active insured will automatically receive thousands of ETH if MakerDAO, one of the building blocks of DeFi and creator of the DAI stablecoin, shuts down.`,
+      `PS: a small percentage of the ETH invested goes to the Hakka Guild Bank, collectively owned by all HAKKA token holders, giving it intrinsic value!
+      Bonus: 15% of the premium paid by users after you will be distributed to all those who previously bought insurance units, including you!`
+    ],
+    missionLink: 'https://3fmutual.com/',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCpPdU4V8t',
+    priority: PriorityOptions.REQUIRED,
+  },
 }
 
 export const notificationMissionAddresses = [
@@ -276,6 +300,7 @@ export const notificationMissionAddresses = [
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
 ]
 
 export interface LevelInfoType {
@@ -312,7 +337,12 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
   2: {
     title: 'Humble Hakka Rancher',
     introduction: 'Congrats and welcome to the Hakka family! You have now landed on a new DeFi planet with massive harvesting potential. Time to farm and sharpen your skills!',
-    missionList: [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2], MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3]],
+    missionList: [
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1], 
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2], 
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3], 
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
+    ],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
     levelColor: 'rgba(73, 144, 235, 0.13)',
