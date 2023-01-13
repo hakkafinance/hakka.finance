@@ -23,13 +23,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-polyfill-io',
-    {
-      resolve: 'gatsby-plugin-apollo',
-      options: {
-        uri: 'https://graphigo.prd.galaxy.eco/query'
-        // Staging environment: https://graphigo.stg.galaxy.eco/query
-      }
-    },
+    'gatsby-plugin-apollo',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

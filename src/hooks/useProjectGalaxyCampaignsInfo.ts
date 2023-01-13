@@ -29,8 +29,8 @@ const useProjectGalaxyCampaignsInfo = () => {
     if (account === AddressZero || !account || !campaignsData?.data ) return;
     const queryResults = {}
     campaignsData.data.space.campaigns.list.forEach((campaignInfo) => {
-      queryResults[campaignInfo.id] = { 
-        maxCount: campaignInfo.whitelistInfo.maxCount, 
+      queryResults[campaignInfo.id] = {
+        maxCount: campaignInfo.whitelistInfo.maxCount,
         usedCount: campaignInfo.whitelistInfo.usedCount,
         status: campaignInfo.whitelistInfo.usedCount > 0
           ? MissionStatusOptions.COMPLETED
@@ -41,8 +41,8 @@ const useProjectGalaxyCampaignsInfo = () => {
     })
     setCampaignsInfo(queryResults);
   }, [
-    latestBlockNumber, 
-    account, 
+    latestBlockNumber,
+    account,
     campaignsData
   ]);
 

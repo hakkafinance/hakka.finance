@@ -1,7 +1,11 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import fetch from 'isomorphic-fetch';
 
 const projectGalaxyClient = new ApolloClient({
-  uri: process.env.PROJECT_GALAXY_ENDPOINT,
+  link: new HttpLink({
+    uri: process.env.GATSBY_PROJECT_GALAXY_ENDPOINT,
+    fetch
+  }),
   cache: new InMemoryCache(),
 })
 
