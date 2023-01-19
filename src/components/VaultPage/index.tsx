@@ -7,6 +7,7 @@ import { Token } from '@uniswap/sdk';
 import { AddressZero, WeiPerEther } from '@ethersproject/constants';
 import { parseUnits } from '@ethersproject/units';
 import BigNumber from 'bignumber.js';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import images from '../../images/index';
 import styles from './styles';
 import { MyButton } from '../Common';
@@ -15,7 +16,6 @@ import NumericalInputField from '../NumericalInputField/index';
 import NewTokenAddressInput from './NewTokenAddressInput';
 import Web3Status from '../Web3Status';
 import RewardValue from './RewardValue';
-import { useActiveWeb3React } from '../../hooks/web3Manager';
 import { useTokenApprove, ApprovalState } from '../../hooks/useTokenApprove';
 import { useHakkaBurn, BurnState } from '../../hooks/guildbank/useHakkaBurn';
 import { shortenAddress, getEtherscanLink } from '../../utils';
@@ -35,8 +35,8 @@ import {
   ETHADDRESS,
 } from '../../constants';
 
-const VaultPage = (props) => {
-  const { account, library, chainId } = useActiveWeb3React();
+const VaultPage = () => {
+  const { account, chainId, error } = useWeb3React();
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -166,11 +166,13 @@ const VaultPage = (props) => {
   )
 
   const isCorrectNetwork = useMemo<boolean>(() => {
-    if(chainId) { 
-      return BURNER_ADDRESS[chainId as ChainId] !== AddressZero;
+    if(!chainId) { 
+      return false;
     }
-    return true;
+    return BURNER_ADDRESS[chainId as ChainId] !== AddressZero;
   }, [chainId])
+
+  const isConnected = !!account || error instanceof UnsupportedChainIdError;
 
   // error message
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
@@ -282,7 +284,7 @@ const VaultPage = (props) => {
                 styleKit={'green'}
                 isDisabledWhenNotPrepared={false}
                 onClick={burn}
-                isConnected={!!account}
+                isConnected={isConnected}
                 connectWallet={toggleWalletModal}
                 isApproved={approveState === ApprovalState.APPROVED}
                 approveToken={approve}

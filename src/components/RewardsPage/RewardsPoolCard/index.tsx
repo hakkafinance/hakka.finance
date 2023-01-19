@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useWeb3React } from '@web3-react/core';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { jsx } from 'theme-ui';
 import styles from './styles';
 import images from '../../../images/index';
@@ -40,11 +40,12 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => {
     currentChain,
   } = props;
 
-  const { chainId, account } = useWeb3React();
+  const { chainId, account, error } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
   const MainButton = withWrongNetworkCheckWrapper(
     withConnectWalletCheckWrapper(MyButton)
   );
+  const isConnected = !!account || error instanceof UnsupportedChainIdError;
 
   return(
     <div sx={styles.container}>
@@ -75,7 +76,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => {
       </div>
       <MainButton
         isDisabledWhenNotPrepared={false}
-        isConnected={!!account}
+        isConnected={isConnected}
         connectWallet={toggleWalletModal}
         isCorrectNetwork={chainId === currentChain}
         targetNetwork={currentChain}
