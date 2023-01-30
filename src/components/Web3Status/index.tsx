@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useWeb3React } from '@web3-react/core';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import React from 'react';
 import { NetworkContextName } from '../../constants';
 import useENSName from '../../hooks/useENSName';
@@ -16,19 +16,21 @@ import styles from './styles';
 import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
-  const { active, account } = useWeb3React();
+  const { active, account, error } = useWeb3React();
   const contextNetwork = useWeb3React(NetworkContextName);
   const { ENSName } = useENSName(account ?? undefined);
   const { unstoppableDomain } = useUnstoppableDomains(account ?? undefined);
   const toggleWalletModal = useWalletModalToggle();
   const toggleInfoModal = useInfoModalToggle();
 
+  const isUnsupportedChainError = error instanceof UnsupportedChainIdError;
+
   if (!contextNetwork.active && !active) {
     return null;
   }
 
   return (
-    <>
+    <div>
       <div sx={styles.container}>
         <CurrentNetwork unsupported={unsupported} />
         <div sx={styles.accountContainer}>
@@ -36,6 +38,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
             <MyButton
               id={account ? 'web3-status-connected' : 'connect-wallet'}
               onClick={toggleWalletModal}
+              disabled={isUnsupportedChainError}
             >
               {account ? ENSName || unstoppableDomain || shortenAddress(account) : 'Connect'}
             </MyButton>
@@ -49,7 +52,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
       />
 
       <InfoModal />
-    </>
+    </div>
   );
 };
 

@@ -52,10 +52,10 @@ export default function WalletModal({
 
   // close on connection, when logged out before
   useEffect(() => {
-    if (account && !previousAccount && walletModalOpen) {
+    if (error instanceof UnsupportedChainIdError || account && !previousAccount && walletModalOpen) {
       toggleWalletModal();
     }
-  }, [account, previousAccount, toggleWalletModal, walletModalOpen]);
+  }, [account, previousAccount, toggleWalletModal, walletModalOpen, error]);
 
   // always reset to account view
   useEffect(() => {

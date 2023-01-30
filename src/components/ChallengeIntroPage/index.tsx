@@ -1,19 +1,26 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import React from 'react'
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import _omit from 'lodash/omit';
 import { MyButton } from '../Common';
 import styles from './styles';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import { useWalletModalToggle } from '../../state/application/hooks';
 import Web3Status from '../Web3Status';
 import { navigate } from 'gatsby';
+import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
+import { ChainId, ChainNameWithIcon } from '../../constants';
 
-const StartButton = withConnectWalletCheckWrapper(MyButton);
+const StartButton = withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton));
 
 const ChallengeIntroPage = () => {
-  const { account } = useWeb3React();
+  const { account, chainId, error } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
+  const isConnected = !!account || error instanceof UnsupportedChainIdError;
+  const supportedChain = Object.keys(_omit(ChainNameWithIcon, [ChainId.KOVAN, ChainId.RINKEBY])).map((ele) => parseInt(ele));
+  const isCorrectNetwork = chainId ? supportedChain.includes(chainId) : false;
+
   return (
     <div sx={styles.container}>
       <div sx={styles.challengePageWrapper}>
@@ -32,8 +39,10 @@ const ChallengeIntroPage = () => {
               <StartButton
                 onClick={() => navigate(`/play2earn`)} 
                 styleKit='green'
-                isConnected={!!account}
+                isConnected={isConnected}
                 connectWallet={toggleWalletModal}
+                isCorrectNetwork={isCorrectNetwork}
+                targetNetwork={ChainId.POLYGON}
               >
                 START NOW
               </StartButton>

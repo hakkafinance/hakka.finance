@@ -47,7 +47,7 @@ export default function useRequestNetworkConfig(targetNetwork: ChainId): any {
               symbol: 'Matic',
               decimals: 18,
             },
-            rpcUrls: ['https://rpc-mainnet.matic.network'],
+            rpcUrls: ['https://rpc.ankr.com/polygon'],
             blockExplorerUrls: ['https://polygonscan.com/'],
           },
         ],

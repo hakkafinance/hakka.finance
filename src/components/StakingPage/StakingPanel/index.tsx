@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useState, useMemo, useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { parseUnits } from 'ethers/lib/utils';
 import { jsx } from 'theme-ui';
 import {
@@ -36,7 +36,8 @@ const StakeButton = withApproveTokenCheckWrapper(
 
 export default function StakingPanel (props: IProps) {
   const { toggleWalletModal, chainId: activeChainId, isCorrectNetwork } = props;
-  const { account } = useWeb3React();
+  const { account, error } = useWeb3React();
+  const isConnected = !!account || error instanceof UnsupportedChainIdError;
 
   const hakkaBalance = useTokenBalance(account, HAKKA[activeChainId]);
 
@@ -98,7 +99,7 @@ export default function StakingPanel (props: IProps) {
           styleKit={'green'}
           isDisabledWhenNotPrepared={false}
           onClick={stake}
-          isConnected={!!account}
+          isConnected={isConnected}
           connectWallet={toggleWalletModal}
           isApproved={approveState === ApprovalState.APPROVED}
           approveToken={approve}
