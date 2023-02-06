@@ -56,6 +56,7 @@ export enum MissionOptions {
   MISSION2_2,
   MISSION2_3,
   MISSION2_4,
+  MISSION2_5,
 }
 
 export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
@@ -70,6 +71,7 @@ export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
   [MissionOptions.MISSION2_2]: 'GCfzYUwL4v',
   [MissionOptions.MISSION2_3]: 'GCAQRUwKaU',
   [MissionOptions.MISSION2_4]: 'GCpPdU4V8t',
+  [MissionOptions.MISSION2_5]: 'GC8tjU4Cc5',
 }
 
 export const OAT_INFO: {[key: string]: { 
@@ -293,14 +295,31 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GCpPdU4V8t',
     priority: PriorityOptions.REQUIRED,
   },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_5]]: {
+    missionIndex: 5,
+    img: 'mission2_5',
+    reward: '', 
+    describeTitle: 'Claim Your Farmed HAKKA tokens!',
+    describeContent: `Remember? In Mission 2, you were farming from the soil of this blue planet thanks to your staked HAKKA or your LP tokens. 🌱\n
+    Now, time to reap what you have sown! With your trusty tools, a wealth of DeFi knowledge and armed with some patience, you are always looking\
+    for the best farming opportunities! 💰 \n
+    As you harvest, you're earning rewards and watching your crypto stash pile up. Congrats! You can be proud of your gains! 👏\n`,
+    hint: [
+      `First, make sure to head to your farming pool. Click on "Deposit/Withdraw."`,
+      `Once there, withdraw your farming rewards from the pool by clicking on the green button.`,
+      `Then, check out the "Vesting" page. You will be able to see your Vesting Balance, also known as the tokens promised to you! 💵`,
+      `However, to stabilize the supply of circulating HAKKA tokens, 17.38% of the vesting balance can be claimed every 19 days. Being a farmer requires patience ⏳`,
+      `To complete this mission, claim at least 500 HAKKA tokens (on any chain) from your Vesting Balance! 🏁`,
+    ],
+    missionLink: 'https://hakka.finance/vesting',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GC8tjU4Cc5',
+    priority: PriorityOptions.REQUIRED,
+  },
 }
 
 export const notificationMissionAddresses = [
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION1_7],
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_1],
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2],
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_5],
 ]
 
 export interface LevelInfoType {
@@ -342,6 +361,7 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_2], 
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3], 
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_5],
     ],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
