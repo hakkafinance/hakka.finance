@@ -299,7 +299,7 @@ export const OAT_INFO: {[key: string]: {
     missionIndex: 5,
     img: 'mission2_5',
     reward: '', 
-    describeTitle: 'Claim Your Farmed HAKKA tokens!',
+    describeTitle: 'Claim Your Farmed HAKKA Tokens!',
     describeContent: `Remember? In Mission 2, you were farming from the soil of this blue planet thanks to your staked HAKKA or your LP tokens. 🌱\n
     Now, time to reap what you have sown! With your trusty tools, a wealth of DeFi knowledge and armed with some patience, you are always looking\
     for the best farming opportunities! 💰 \n
