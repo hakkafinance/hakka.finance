@@ -24,6 +24,7 @@ import withApproveTokenCheckWrapper from '../../hoc/withApproveTokenCheckWrapper
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
 import { VaultType } from '../../hooks/staking/useStakingVault';
+import { Zero } from '@ethersproject/constants';
 import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp';
 interface RestakeModalInterface {
   index: number;
@@ -117,7 +118,7 @@ const RestakeModal = ({
   const [restakeState, restake] = useHakkaRestake(
     NEW_SHAKKA_ADDRESSES[chainId],
     index,
-    isKeepAmountTheSame ? vault?.hakkaAmount : parseUnits(safeInputAmount, 18),
+    isKeepAmountTheSame ? Zero : parseUnits(safeInputAmount, 18),
     isKeepPeriodTheSame ? escapeBlockUpdateTimeLeft : period
   );
 

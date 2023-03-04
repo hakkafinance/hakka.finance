@@ -8,8 +8,7 @@ import { ExternalLink } from 'react-feather';
 import { useStakeContract } from '../useContract';
 import { getEtherscanLink, shortenTxId } from '../../utils';
 import { TransactionState } from '../../constants';
-
-export default function useHakkaRestake(
+export default function useHakkaRestake (
   stakeAddress: string,
   index: number,
   amountParsed: BigNumber,
@@ -27,7 +26,7 @@ export default function useHakkaRestake(
 
   const stakeContract = useStakeContract(stakeAddress);
   const restake = useCallback(async (): Promise<void> => {
-    setTransactionState(TransactionState.UNKNOWN)
+    setTransactionState(TransactionState.UNKNOWN);
     if (Number.isNaN(+index)) {
       console.error('no index');
       return;
@@ -36,7 +35,7 @@ export default function useHakkaRestake(
     try {
       const estimatedGas = await stakeContract.estimateGas.restake(index, amountParsed, sec);
       const tx = await stakeContract.restake(index, amountParsed, sec, {
-        gasLimit: estimatedGas.mul(BigNumber.from(15000)).div(BigNumber.from(10000)),  // * 1.5
+        gasLimit: estimatedGas.mul(BigNumber.from(15000)).div(BigNumber.from(10000)), // * 1.5
       });
       setCurrentTransaction(tx.hash);
       toast(
@@ -48,11 +47,11 @@ export default function useHakkaRestake(
         >
         {shortenTxId(tx.hash)} <ExternalLink size={16} />
         </a>
-      , { containerId: 'tx' });
+        , { containerId: 'tx' });
       await tx.wait();
       setTransactionState(TransactionState.SUCCESS);
     } catch (err) {
-      toast.error(<div>{err.data ? JSON.stringify(err.data) : err.message}</div>,  { containerId: 'error' });
+      toast.error(<div>{err.data ? JSON.stringify(err.data) : err.message}</div>, { containerId: 'error' });
       setTransactionState(TransactionState.ERROR);
     } finally {
       setCurrentTransaction(null);
