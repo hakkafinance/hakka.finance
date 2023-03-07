@@ -82,7 +82,7 @@ const RedeemModal = ({
   const sHakkaBalanceForDisplay = sHakkaBalanceInfo?.[chainId] ? 
     parseFloat(formatUnits(sHakkaBalanceInfo[chainId] as BigNumber)).toFixed(4) : '-'
 
-  const sHakkaCurrencyAmount = useMemo(() => {
+  const sHakkaPositionLimit = useMemo(() => {
     const userShakkaBalance = sHakkaBalanceInfo?.[chainId] || Zero
     const vaultShakkaAmount = vault ? vault.wAmount : Zero
 
@@ -111,7 +111,7 @@ const RedeemModal = ({
           <NumericalInputField
             value={inputAmount}
             onUserInput={setInputAmount}
-            tokenBalance={sHakkaCurrencyAmount}
+            tokenBalance={sHakkaPositionLimit}
             approve={() => {}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
             setIsCorrectInput={setIsCorrectInput}
