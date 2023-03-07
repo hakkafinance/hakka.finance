@@ -41,6 +41,17 @@ export default {
     },
   },
 
+  positionShakka: {
+    paddingBottom: '29px',
+    fontSize: '14px',
+    fontWeight: '400',
+
+    span: {
+      fontSize: '16px',
+      fontWeight: '600',
+    },
+  },
+
   hakkaBalanceContainer: {
     display: 'flex',
     justifyContent: 'space-between',

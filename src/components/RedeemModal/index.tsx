@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
+import { Zero } from '@ethersproject/constants';
+import { BigNumber } from 'ethers';
 import {
   useRedeemModalOpen,
   useRedeemModalToggle,
@@ -24,6 +26,7 @@ import { tryParseAmount } from '../../utils';
 import { VaultType } from '../../hooks/staking/useStakingVault';
 import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
+import useSHakkaBalance from '../../hooks/useSHakkaBalance';
 
 interface RedeemModalInterface {
   vaults?: VaultType[];
@@ -63,9 +66,6 @@ const RedeemModal = ({
     index,
     parseUnits(inputAmount || '0')
   );
-  const sHakkaCurrencyAmount = vault
-    ? tryParseAmount(formatUnits(vault.wAmount))
-    : tryParseAmount('0');
 
   useEffect(() => {
     if (unstakeState === TransactionState.SUCCESS && redeemModalOpen) {
@@ -78,6 +78,21 @@ const RedeemModal = ({
   const btnContent =
     unstakeState === TransactionState.PENDING ? 'Pending' : 'Confirm';
 
+  const { sHakkaBalanceInfo } = useSHakkaBalance();
+  const sHakkaBalanceForDisplay = sHakkaBalanceInfo?.[chainId] ? 
+    parseFloat(formatUnits(sHakkaBalanceInfo[chainId] as BigNumber)).toFixed(4) : '-'
+
+  const sHakkaPositionLimit = useMemo(() => {
+    const userShakkaBalance = sHakkaBalanceInfo?.[chainId] || Zero
+    const vaultShakkaAmount = vault ? vault.wAmount : Zero
+
+    if(userShakkaBalance.lt(vaultShakkaAmount)) {
+      return tryParseAmount(formatUnits(userShakkaBalance))
+    } else {
+      return tryParseAmount(formatUnits(vaultShakkaAmount))
+    }
+  }, [vault, sHakkaBalanceInfo?.[chainId]])
+
   return (
     <Modal isOpen={redeemModalOpen} onDismiss={toggleRedeemModal}>
       <div sx={styles.container}>
@@ -85,17 +100,18 @@ const RedeemModal = ({
           <h2>Redeem</h2>
           <img src={images.iconDeleteRound} onClick={toggleRedeemModal} />
         </div>
+        <p sx={styles.positionShakka}><span>{(vault && parseFloat(formatUnits(vault.wAmount)).toFixed(4)) || '-'} sHAKKA</span>&nbsp;got from this position</p>
         <div sx={styles.hakkaBalanceContainer}>
           <span>Burn</span>
           <span>
-            sHAKKA Balance: {(vault && parseFloat(formatUnits(vault.wAmount)).toFixed(4)) || '-'}
+            sHAKKA Balance: {sHakkaBalanceForDisplay}
           </span>
         </div>
         <div sx={styles.numericalInputWrapper}>
           <NumericalInputField
             value={inputAmount}
             onUserInput={setInputAmount}
-            tokenBalance={sHakkaCurrencyAmount}
+            tokenBalance={sHakkaPositionLimit}
             approve={() => {}} // TODO: check this
             approveState={ApprovalState.APPROVED} // TODO: check this
             setIsCorrectInput={setIsCorrectInput}
