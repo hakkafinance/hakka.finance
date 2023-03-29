@@ -47,6 +47,7 @@ const images = {
   iconP2eBanner: require('./icons/iconP2eBanner.png').default,
   iconWhatHakkaBanner: require('./icons/iconWhatHakkaBanner.png').default,
   iconHakkaProduct: require('./icons/iconHakkaProduct.png').default,
+  iconShitcoinmonBanner: require('./icons/iconShitcoinmonBanner.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -94,6 +95,7 @@ const images = {
   iconIntelligence: require('./icons/iconIntelligence.svg').default,
   iconMutual: require('./icons/iconMutual.png').default,
   iconHarvester: require('./icons/iconHarvester.svg').default,
+  iconShitcoinmon: require('./icons/iconShitcoinmon.svg').default,
   imageTokenGrey: require('./icons/imageTokenGrey.svg').default,
   imageAlienGrey: require('./icons/imageAlienGrey.svg').default,
   iconEtherscan: require('./icons/iconEtherscan.png').default,

@@ -18,12 +18,13 @@ function CardInfo(props) {
     },
     {
       imageBottom: 'iconForwardGray',
-      title: 'Roam Around',
-      subTitle: 'Hakka Ecosystem',
-      subContent: 'Check out unique HAKKA products',
-      click: () => {navigate('/products')},
-      bgColor: 'rgba(62, 189, 147, 0.1)',
-      bgImage: `url(${images.iconHakkaProduct})`
+      title: 'Shitcoinmon!',
+      subTitle: '',
+      subContent: 'Turn your worst investments into mighty NFT monsters',
+      // TODO: Shitcoinmon website is not ready
+      click: () => {},
+      bgColor: 'rgba(29, 161, 242, 0.2)',
+      bgImage: `url(${images.iconShitcoinmonBanner})`
     },
     {
       imageBottom: 'iconArrowDown',

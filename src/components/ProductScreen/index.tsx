@@ -74,6 +74,15 @@ const ProductScreen = (props) => {
       id: 7,
       infoTag: ['Aggregator', 'YieldFarming'],
     },
+    {
+      icon: images.iconShitcoinmon,
+      cardName: 'Shitcoinmon',
+      info: 'The crappier your token, the stronger your Shitcoinmon! \nComing Soon',
+      // TODO: Shitcoinmon website is not ready
+      vist: '',
+      id: 8,
+      infoTag: ['Shitcoin', 'Gaming'],
+    },
   ];
 
   const botArr = [
