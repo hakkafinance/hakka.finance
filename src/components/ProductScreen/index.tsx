@@ -74,26 +74,17 @@ const ProductScreen = (props) => {
       id: 7,
       infoTag: ['Aggregator', 'YieldFarming'],
     },
+  ];
+
+  const botArr = [
     {
       icon: images.iconShitcoinmon,
       cardName: 'Shitcoinmon',
       info: 'The crappier your token, the stronger your Shitcoinmon! \nComing Soon',
       // TODO: Shitcoinmon website is not ready
       vist: '',
-      id: 8,
-      infoTag: ['Shitcoin', 'Gaming'],
-    },
-  ];
-
-  const botArr = [
-    {
-      icon: images.iconCryptoStructure,
-      cardName: 'Crypto Structured Fund',
-      info: 'Crypto Structured Fund (CSF) is a decentralized financial instrument providing a "moderate risk with higher return" way to let conservative investors get involved in the growth of cryptocurrencies.',
-      vist: 'https://csf-v2.netlify.app/',
       comingProductId: 1,
-      infoTag: ['Futures', 'Fund'],
-      visitButtonContent: 'Visit Alpha CSF',
+      infoTag: ['Shitcoin', 'Gaming'],
     },
   ];
 
