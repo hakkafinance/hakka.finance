@@ -81,8 +81,7 @@ const ProductScreen = (props) => {
       icon: images.iconShitcoinmon,
       cardName: 'Shitcoinmon',
       info: 'The crappier your token, the stronger your Shitcoinmon! \nComing Soon',
-      // TODO: Shitcoinmon website is not ready
-      vist: '',
+      vist: 'https://shitcoinmon.com/',
       comingProductId: 1,
       infoTag: ['Shitcoin', 'Gaming'],
     },

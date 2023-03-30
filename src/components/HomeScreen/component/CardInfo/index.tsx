@@ -21,8 +21,7 @@ function CardInfo(props) {
       title: 'Shitcoinmon!',
       subTitle: '',
       subContent: 'Turn your worst investments into mighty NFT monsters',
-      // TODO: Shitcoinmon website is not ready
-      click: () => {},
+      click: () => { window.open('https://shitcoinmon.com/', '_blank').focus() },
       bgColor: 'rgba(29, 161, 242, 0.2)',
       bgImage: `url(${images.iconShitcoinmonBanner})`
     },
