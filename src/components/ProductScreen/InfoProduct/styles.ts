@@ -67,7 +67,7 @@ export default {
     color: 'black',
     paddingLeft: '20px',
     paddingRight: '20px',
-    // padding: '0 34px'
+    whiteSpace: 'pre-line'
   },
   tag_box: {
     backgroundColor: 'active_green',
