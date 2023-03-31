@@ -78,13 +78,12 @@ const ProductScreen = (props) => {
 
   const botArr = [
     {
-      icon: images.iconCryptoStructure,
-      cardName: 'Crypto Structured Fund',
-      info: 'Crypto Structured Fund (CSF) is a decentralized financial instrument providing a "moderate risk with higher return" way to let conservative investors get involved in the growth of cryptocurrencies.',
-      vist: 'https://csf-v2.netlify.app/',
+      icon: images.iconShitcoinmon,
+      cardName: 'Shitcoinmon',
+      info: 'The crappier your token, the stronger your Shitcoinmon! \nComing Soon',
+      vist: 'https://shitcoinmon.com/',
       comingProductId: 1,
-      infoTag: ['Futures', 'Fund'],
-      visitButtonContent: 'Visit Alpha CSF',
+      infoTag: ['Shitcoin', 'Gaming'],
     },
   ];
 
