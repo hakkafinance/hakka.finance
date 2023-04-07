@@ -26,7 +26,9 @@ import {
   IGAIN_FANTOM_DAI_POOL_1,
   IGAIN_FANTOM_USDT_POOL_1,
   IGAIN_FANTOM_ETH_POOL_1,
-  NEW_SHAKKA_ADDRESSES
+  NEW_SHAKKA_ADDRESSES,
+  IGAIN_POLYGON_USDC_POOL_5,
+  IGAIN_POLYGON_DAI_POOL_4
 } from '../../constants';
 
 export type Pool = {
@@ -188,6 +190,40 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
   },
   // POLYGON term start from here
   // latest at top
+  [IGAIN_POLYGON_USDC_POOL_5]: {
+    name: 'iGain IRS USDC',
+    subtitle: new Date(1696113319000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
+    closeTime: '1696113319000',
+    chain: ChainId.POLYGON,
+    website: 'iGain IRS',
+    url: 'https://igain.finance/irs/apy-trade-pools/detail/0x4F3AC7cC2060D5f37637d38730f7f24875031659?targetChain=137',
+    tokenAddress: '0x4F3AC7cC2060D5f37637d38730f7f24875031659',
+    tokenSymbol: 'LP',
+    decimal: 6,
+    rewardsAddress: IGAIN_POLYGON_USDC_POOL_5,
+    rewardsSymbol: 'HAKKA',
+    archived: false,
+  },
+  [IGAIN_POLYGON_DAI_POOL_4]: {
+    name: 'iGain IRS DAI',
+    subtitle: new Date(1696113705000).toLocaleString(
+      'en-US',
+      timeOption,
+    ),
+    closeTime: '1696113705000',
+    chain: ChainId.POLYGON,
+    website: 'iGain IRS',
+    url: 'https://igain.finance/irs/apy-trade-pools/detail/0xaa7CC063B9c9Fc2d47B29cBeFE3DE2Aa4b98ad99?targetChain=137',
+    tokenAddress: '0xaa7CC063B9c9Fc2d47B29cBeFE3DE2Aa4b98ad99',
+    tokenSymbol: 'LP',
+    decimal: 18,
+    rewardsAddress: IGAIN_POLYGON_DAI_POOL_4,
+    rewardsSymbol: 'HAKKA',
+    archived: false,
+  },
   [IGAIN_POLYGON_USDT_POOL_2]: {
     name: 'iGain IRS USDT',
     subtitle: new Date(1648755529000).toLocaleString(
@@ -390,7 +426,7 @@ export const REWARD_POOLS: { [key: string]: Pool } = {
     decimal: 6,
     rewardsAddress: IGAIN_FANTOM_USDT_POOL_1,
     rewardsSymbol: 'HAKKA',
-    archived: false,
+    archived: true,
   },
   [IGAIN_FANTOM_DAI_POOL_1]: {
     name: 'iGain IRS DAI',

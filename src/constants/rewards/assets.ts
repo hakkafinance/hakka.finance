@@ -37,6 +37,8 @@ import {
   ETH_SHAKKA_POOL,
   BSC_SHAKKA_POOL,
   POLYGON_SHAKKA_POOL,
+  IGAIN_POLYGON_USDC_POOL_5,
+  IGAIN_POLYGON_DAI_POOL_4,
 } from '..';
 
 export type PoolAssets = {
@@ -174,7 +176,19 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
     getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
     getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
   },
+  [IGAIN_POLYGON_USDC_POOL_5]: {
+    icon: images.iconIgainLp,
+    decimal: 6,
+    getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
+  },
   [IGAIN_POLYGON_DAI_POOL_3]: {
+    icon: images.iconIgainLp,
+    decimal: 18,
+    getApr: getGainAprFunc(IGAIN_POLYGON_DAI_POOL_3, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_DAI_POOL_3, ChainId.POLYGON),
+  },
+  [IGAIN_POLYGON_DAI_POOL_4]: {
     icon: images.iconIgainLp,
     decimal: 18,
     getApr: getGainAprFunc(IGAIN_POLYGON_DAI_POOL_3, ChainId.POLYGON),
