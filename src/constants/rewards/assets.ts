@@ -179,8 +179,8 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
   [IGAIN_POLYGON_USDC_POOL_5]: {
     icon: images.iconIgainLp,
     decimal: 6,
-    getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
-    getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_4, ChainId.POLYGON),
+    getApr: getGainAprFunc(IGAIN_POLYGON_USDC_POOL_5, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_USDC_POOL_5, ChainId.POLYGON),
   },
   [IGAIN_POLYGON_DAI_POOL_3]: {
     icon: images.iconIgainLp,
@@ -191,8 +191,8 @@ export const POOL_ASSETES: { [key: string]: PoolAssets } = {
   [IGAIN_POLYGON_DAI_POOL_4]: {
     icon: images.iconIgainLp,
     decimal: 18,
-    getApr: getGainAprFunc(IGAIN_POLYGON_DAI_POOL_3, ChainId.POLYGON),
-    getTvl: getGainTvlFunc(IGAIN_POLYGON_DAI_POOL_3, ChainId.POLYGON),
+    getApr: getGainAprFunc(IGAIN_POLYGON_DAI_POOL_4, ChainId.POLYGON),
+    getTvl: getGainTvlFunc(IGAIN_POLYGON_DAI_POOL_4, ChainId.POLYGON),
   },
   [IGAIN_FANTOM_DAI_POOL_1]: {
     icon: images.iconIgainLp,
