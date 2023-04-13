@@ -3,13 +3,13 @@ import { jsx } from 'theme-ui';
 import React from 'react'
 import _omit from 'lodash/omit';
 import styles from './styles';
-import withWrongNetworkCheckWrapper from '../../hoc/withWrongNetworkCheckWrapper';
-import withConnectWalletCheckWrapper from '../../hoc/withConnectWalletCheckWrapper';
-import { MyButton } from '../Common';
-import { ChainId, ChainNameWithIcon } from '../../constants';
+import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
+import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
+import { MyButton } from '../../Common';
+import { ChainId, ChainNameWithIcon } from '../../../constants';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
-import { useWalletModalToggle } from '../../state/application/hooks';
-import images from '../../images';
+import { useWalletModalToggle } from '../../../state/application/hooks';
+import images from '../../../images';
 
 const StartButton = withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton));
 
