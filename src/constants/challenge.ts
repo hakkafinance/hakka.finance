@@ -57,6 +57,7 @@ export enum MissionOptions {
   MISSION2_3,
   MISSION2_4,
   MISSION2_5,
+  MISSION2_6,
 }
 
 export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
@@ -72,6 +73,7 @@ export const MISSION_CAMPAIGN_ID: {[key in MissionOptions]: string} = {
   [MissionOptions.MISSION2_3]: 'GCAQRUwKaU',
   [MissionOptions.MISSION2_4]: 'GCpPdU4V8t',
   [MissionOptions.MISSION2_5]: 'GC8tjU4Cc5',
+  [MissionOptions.MISSION2_6]: 'GCBsXUfbxZ',
 }
 
 export const OAT_INFO: {[key: string]: { 
@@ -315,11 +317,30 @@ export const OAT_INFO: {[key: string]: {
     claimLink: 'https://galxe.com/hakkafinance/campaign/GC8tjU4Cc5',
     priority: PriorityOptions.REQUIRED,
   },
+  [MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_6]]: {
+    missionIndex: 6,
+    img: 'mission2_6',
+    reward: '', 
+    describeTitle: 'Join us on Discord!',
+    describeContent: `You have spent days farming and tending to your crypto crops 🌽\n
+    But your mind is always wandering, wondering what else is out there in the universe 🪐\n
+    One day, after taking a walk in your farming field, you come across a spaceship that somehow looks\
+    like... the Discord logo? 👾 It seems to be filled with other Hakka farmers just like you, welcoming with open arms like a family!\n
+    The spaceship seems to be taking off soon to the third planet of your journey. Let's get inside!`,
+    hint: [
+      `Join the Hakka Finance Discord server, and connect your wallet in the corresponding channel to obtain the "P2E Level 2 role!"`,
+      `This role will allow you to complete this mission! ✅`,
+      `PS: Make sure your Discord profile is linked to your Galxe account!`,
+    ],
+    missionLink: 'https://discord.gg/3KuW3spUdu',
+    claimLink: 'https://galxe.com/hakkafinance/campaign/GCBsXUfbxZ',
+    priority: PriorityOptions.REQUIRED,
+  },
 }
 
 export const notificationMissionAddresses = [
-  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
   MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_5],
+  MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_6],
 ]
 
 export interface LevelInfoType {
@@ -362,6 +383,7 @@ export const LevelInfo: {[level: number]: LevelInfoType} = {
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_3], 
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_4],
       MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_5],
+      MISSION_CAMPAIGN_ID[MissionOptions.MISSION2_6], 
     ],
     expectedMissionAmount: 7,
     profile: 'profileLv2',
