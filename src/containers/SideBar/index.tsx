@@ -88,6 +88,13 @@ export const botSideBarItems = [
     underConstruction: true,
   },
   {
+    name: 'Year in Review',
+    icon: images.iconYearlyReview,
+    path: 'yearly-review',
+    connectOutsideWebsite: false,
+    underConstruction: false,
+  },
+  {
     name: 'Bug Bounty',
     icon: images.iconBug,
     href: 'https://immunefi.com/bounty/hakkafinance/',
