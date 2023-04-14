@@ -50,6 +50,7 @@ const images = {
   iconHakkaProduct: require('./icons/iconHakkaProduct.png').default,
   iconShitcoinmonBanner: require('./icons/iconShitcoinmonBanner.svg').default,
   iconYearReviewBanner: require('./icons/iconYearReviewBanner.png').default,
+  imageHowHakka: require('./icons/imageHowHakka.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
