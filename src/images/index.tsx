@@ -9,6 +9,7 @@ const images = {
   iconFarms: require('./icons/iconFarms.svg').default,
   iconVault: require('./icons/iconVault.svg').default,
   iconChallenge: require('./icons/iconChallenge.svg').default,
+  iconYearlyReview: require('./icons/iconYearlyReview.svg').default,
   iconLinkSmall: require('./icons/iconLinkSmall.svg').default,
   iconForum: require('./icons/iconForum.svg').default,
   iconOgImage: require('./logos/ogImage.png').default,
@@ -48,6 +49,7 @@ const images = {
   iconWhatHakkaBanner: require('./icons/iconWhatHakkaBanner.png').default,
   iconHakkaProduct: require('./icons/iconHakkaProduct.png').default,
   iconShitcoinmonBanner: require('./icons/iconShitcoinmonBanner.svg').default,
+  iconYearReviewBanner: require('./icons/iconYearReviewBanner.png').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
