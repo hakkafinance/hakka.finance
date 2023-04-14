@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Web3Status from '../Web3Status'
 import styles from './styles';
 import YearlyReviewIntroSection from './YearlyReviewIntroSection';
+import YearlyReviewDetailSection from './YearlyReviewDetailSection';
 
 
 const YearlyReviewPage = () => {
@@ -16,7 +17,7 @@ const YearlyReviewPage = () => {
           <p>Year in Review</p>
           <Web3Status />
         </div>
-        {isShowDetailPage ? (<div>Detail Page</div>) : (<YearlyReviewIntroSection setIsShowDetailPage={setIsShowDetailPage} />)}
+        {isShowDetailPage ? (<YearlyReviewDetailSection />) : (<YearlyReviewIntroSection setIsShowDetailPage={setIsShowDetailPage} />)}
       </div>
     </div>
   )
