@@ -5,6 +5,7 @@ const TOGGLE_CLAIM_MODAL = 'TOGGLE_CLAIM_MODAL';
 const TOGGLE_REDEEM_MODAL = 'TOGGLE_REDEEM_MODAL';
 const TOGGLE_RESTAKE_MODAL = 'TOGGLE_RESTAKE_MODAL';
 const TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL = 'TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL';
+const TOGGLE_YEARLY_REVIEW_SCORE_MODAL = 'TOGGLE_YEARLY_REVIEW_SCORE_MODAL';
 const ADD_POPUP = 'ADD_POPUP';
 const REMOVE_POPUP = 'REMOVE_POPUP';
 
@@ -59,6 +60,10 @@ export interface TogglePlayToEarnLevelUpModalAction {
   type: 'TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL';
 }
 
+export interface ToggleYearlyReviewScoreModalAction {
+  type: 'TOGGLE_YEARLY_REVIEW_SCORE_MODAL';
+}
+
 export interface AddPopupAction {
   type: 'ADD_POPUP';
   payload: AddPopupPayload;
@@ -100,6 +105,10 @@ const togglePlayToEarnLevelUpModalAction = (): TogglePlayToEarnLevelUpModalActio
   type: TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL,
 });
 
+const toggleYearlyReviewScoreModalAction = (): ToggleYearlyReviewScoreModalAction => ({
+  type: TOGGLE_YEARLY_REVIEW_SCORE_MODAL,
+});
+
 const addPopupAction = (payload: AddPopupPayload): AddPopupAction => ({
   type: ADD_POPUP,
   payload,
@@ -118,6 +127,7 @@ export {
   TOGGLE_REDEEM_MODAL,
   TOGGLE_RESTAKE_MODAL,
   TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL,
+  TOGGLE_YEARLY_REVIEW_SCORE_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
   updateBlockNumberAction,
@@ -127,6 +137,7 @@ export {
   toggleRedeemModalAction,
   toggleRestakeModalAction,
   togglePlayToEarnLevelUpModalAction,
+  toggleYearlyReviewScoreModalAction,
   addPopupAction,
   removePopupAction,
 };

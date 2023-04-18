@@ -12,6 +12,7 @@ import {
   toggleRedeemModalAction,
   toggleRestakeModalAction,
   togglePlayToEarnLevelUpModalAction,
+  toggleYearlyReviewScoreModalAction,
   addPopupAction,
   removePopupAction,
 } from './actions';
@@ -25,6 +26,7 @@ interface ApplicationContextProps {
   toggleRedeemModal: ()=> void;
   toggleRestakeModal: ()=> void;
   togglePlayToEarnLevelUpModal: ()=> void;
+  toggleYearlyReviewScoreModal: ()=> void;
   addPopup: (payload: AddPopupPayload) => void;
   removePopup: (payload: RemovePopupPayload) => void;
 }
@@ -64,6 +66,10 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
     dispatch(togglePlayToEarnLevelUpModalAction());
   }, []);
 
+  const toggleYearlyReviewScoreModal = useCallback(() => {
+    dispatch(toggleYearlyReviewScoreModalAction());
+  }, []);
+
   const addPopup = useCallback((payload) => {
     dispatch(addPopupAction(payload));
   }, []);
@@ -84,6 +90,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleRedeemModal,
           toggleRestakeModal,
           togglePlayToEarnLevelUpModal,
+          toggleYearlyReviewScoreModal,
           addPopup,
           removePopup,
         }),
@@ -96,6 +103,7 @@ const ApplicationContextProvider: React.FC = ({ children }) => {
           toggleRedeemModal,
           toggleRestakeModal,
           togglePlayToEarnLevelUpModal,
+          toggleYearlyReviewScoreModal,
           addPopup,
           removePopup,
         ],

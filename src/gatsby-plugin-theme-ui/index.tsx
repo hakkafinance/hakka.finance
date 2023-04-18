@@ -38,10 +38,6 @@ export default {
     backgroundImage: 'linear-gradient(to right, #6ad7c1, #8cebb9)',
   },
   fonts: {
-    // body: 'system-ui, sans-serif',
-    // heading: 'system-ui, sans-serif',
-    // monospace: 'Menlo, monospace'
-    // body: 'Open Sans, sans-serif',
     body: 'Open Sans, system-ui',
     heading: 'Georgia, serif',
     monospace: 'Menlo, monospace',
