@@ -209,5 +209,11 @@ const images = {
   mission2_5: require('./challenge/missions/mission12.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
+
+  // yearly review
+  iconReview1: require('./icons/iconReview1.svg').default,
+  iconReview2: require('./icons/iconReview2.svg').default,
+  iconReview3: require('./icons/iconReview3.svg').default,
+  iconReview4: require('./icons/iconReview4.svg').default,
 };
 export default images;
