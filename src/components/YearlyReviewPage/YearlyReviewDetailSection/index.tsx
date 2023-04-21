@@ -10,42 +10,16 @@ import { MyButton } from '../../Common';
 import { ChainId, ChainNameWithIcon } from '../../../constants';
 import { useWalletModalToggle, useYearlyReviewScoreModalToggle } from '../../../state/application/hooks';
 import ReviewItem from '../ReviewItem';
-import images from '../../../images';
 import ScoreModal from '../ScoreModal';
+import EmptyState from './EmptyState';
+import Spinner from '../../Common/Spinner';
+import useYearlyReviewData, { ReviewResultType } from '../../../hooks/useYearlyReviewData';
 
-// TODO: mock data
-const MOCK_DATA = [
-  {
-    title: 'Your total transaction amount and products you have used on Hakka last year:',
-    icon: images.iconReview1,
-    performance: 'IRS, IG, Farming, Staking, total for 5000 USD',
-    comment: 'What a productive farmer! You are in the top 1% users!',
-    shortContent: 'Used IRS, IG, Farming, Staking',
-  },
-  {
-    title: 'Gas you have burned for Hakka last year:',
-    icon: images.iconReview2,
-    performance: 'Ethereum: 1.2 ether, Polygon: 0.8 matic',
-    comment: 'Such a hard worker! Your activity requires more gas than 90% of users.',
-    shortContent: 'Used 1.2 ETH and 5.8 Matic as gas',
-  },
-  {
-    title: 'OATs you have claimed from Hakka last year:',
-    icon: images.iconReview3,
-    performance: 'x of 33 OATs',
-    comment: 'Our respects to you, loyal Hakkafam!',
-    shortContent: 'Got 2 OATs',
-  },
-  {
-    title: 'Your first Hakka product:',
-    icon: images.iconReview4,
-    performance: 'IRS, 2020/03/02',
-    comment: 'Thanks for your loyalty and patience dear Hakka rancher!',
-    shortContent: '2020/04/01 was my first day meeting Hakka'
-  },
-]
+interface YearlyReviewMainSectionProps {
+  reviewResult: ReviewResultType[]
+}
 
-const YearlyReviewDetailSection = () => {
+const YearlyReviewMainSection = ({ reviewResult }: YearlyReviewMainSectionProps) => {
   const { account, chainId, error } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
   const isConnected = !!account || error instanceof UnsupportedChainIdError;
@@ -58,7 +32,7 @@ const YearlyReviewDetailSection = () => {
     <div>
       <p sx={styles.title}>Well done, Hakka Farmer!</p>
       <div sx={styles.reviewList}>
-        {MOCK_DATA.map((ele, index) => (
+        {reviewResult.map((ele, index) => (
           <div key={index}>
             <ReviewItem 
               title={ele.title} 
@@ -82,6 +56,28 @@ const YearlyReviewDetailSection = () => {
         </CountScoreButton>
       </div>
       <ScoreModal p2eLevel='1' performanceList={MOCK_DATA} />
+    </div>
+  )
+}
+
+
+const YearlyReviewDetailSection = () => {
+  const { account } = useWeb3React();
+  const { reviewResult, isLoading, p2eLv } = useYearlyReviewData(account)
+
+  let displayContent
+  if (isLoading) {
+    displayContent = <Spinner />
+  } else if (reviewResult.length === 0) {
+    displayContent = <EmptyState /> 
+  } else {
+    displayContent = <YearlyReviewMainSection reviewResult={reviewResult} />
+  }
+
+  return (
+    <div>
+      {displayContent}
+      <ScoreModal p2eLevel={p2eLv} performanceList={reviewResult} />
     </div>
   )
 }

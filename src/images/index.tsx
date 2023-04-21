@@ -52,6 +52,7 @@ const images = {
   iconShitcoinmonBanner: require('./icons/iconShitcoinmonBanner.svg').default,
   iconYearReviewBanner: require('./icons/iconYearReviewBanner.png').default,
   imageHowHakka: require('./icons/imageHowHakka.svg').default,
+  iconNoData: require('./icons/iconNoData.svg').default,
 
   // web applications icon
   iconMedium: require('./icons/iconMedium.svg').default,
@@ -222,7 +223,6 @@ const images = {
   iconRankA: require('./icons/iconRankA.svg').default,
   iconRankB: require('./icons/iconRankB.svg').default,
   iconRankC: require('./icons/iconRankC.svg').default,
-  iconRankD: require('./icons/iconRankD.svg').default,
   iconYearlyReviewTitle: require('./icons/iconYearlyReviewTitle.svg').default,
 };
 export default images;

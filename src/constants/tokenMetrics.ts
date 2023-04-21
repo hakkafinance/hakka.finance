@@ -7,6 +7,8 @@ export const chainsInfo = [
     imgChain: 'iconEthereum',
     chainName: 'Ethereum Mainnet',
     imgBg: '#f2f2f2',
+    nativeTokenSymbol: 'ETH',
+    shortName: 'Ethereum',
   },
   {
     id: 'bsc',
@@ -14,6 +16,8 @@ export const chainsInfo = [
     imgChain: 'iconBinanceGold',
     chainName: 'BNB Chain',
     imgBg: '#fcf7de',
+    nativeTokenSymbol: 'BNB',
+    shortName: 'BNB Chain',
   },
   {
     id: 'polygon',
@@ -21,6 +25,8 @@ export const chainsInfo = [
     imgChain: 'iconPolygon',
     chainName: 'Polygon Network',
     imgBg: '#f2ebff',
+    nativeTokenSymbol: 'MATIC',
+    shortName: 'Polygon',
   },
   {
     id: 'fantom',
@@ -28,6 +34,8 @@ export const chainsInfo = [
     imgChain: 'iconFantom',
     chainName: 'Fantom',
     imgBg: '#CFDFFC',
+    nativeTokenSymbol: 'FTM',
+    shortName: 'Fantom',
   },
 ];
 
