@@ -223,7 +223,6 @@ const images = {
   iconRankA: require('./icons/iconRankA.svg').default,
   iconRankB: require('./icons/iconRankB.svg').default,
   iconRankC: require('./icons/iconRankC.svg').default,
-  iconRankD: require('./icons/iconRankD.svg').default,
   iconYearlyReviewTitle: require('./icons/iconYearlyReviewTitle.svg').default,
 };
 export default images;
