@@ -55,6 +55,7 @@ const YearlyReviewMainSection = ({ reviewResult }: YearlyReviewMainSectionProps)
           Count your score
         </CountScoreButton>
       </div>
+      <ScoreModal p2eLevel='1' performanceList={MOCK_DATA} />
     </div>
   )
 }
