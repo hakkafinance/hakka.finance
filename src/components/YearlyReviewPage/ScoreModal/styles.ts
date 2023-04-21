@@ -31,8 +31,9 @@ export default {
   },
 
   closeBtn: {
+    cursor: 'pointer',
+
     ':hover': {
-      cursor: 'pointer',
       opacity: '0.6',
     },
   },
@@ -153,12 +154,13 @@ export default {
   shareSection: {
     display: 'flex',
     alignItems: 'center',
-    padding: '20px 0 20px 0',
+    padding: '20px 0',
 
     img: {
       opacity: '0.6',
+      cursor: 'pointer',
+
       ':hover': {
-        cursor: 'pointer',
         opacity: '1',
       },
     },
