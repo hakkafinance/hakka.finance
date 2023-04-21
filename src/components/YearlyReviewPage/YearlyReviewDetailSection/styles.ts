@@ -48,5 +48,28 @@ export default {
     '@media screen and (max-width: 576px)': {
       gap: '48px',
     },
-  }
+  },
+
+  emptyPageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  noDataWarning: {
+    margin: '16px 0 48px 0',
+    fontSize: '24px',
+    fontWeight: '700',
+    lineHeight: '28px',
+    color: 'rgba(82, 102, 109, 1)',
+
+    '@media screen and (max-width: 576px)': {
+      fontSize: '20px',
+      margin: '16px 0 24px 0',
+    },
+  },
+
+  goToProductsBtnWrapper: {
+    width: '200px'
+  },
 }

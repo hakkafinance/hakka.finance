@@ -12,7 +12,7 @@ import { MyButton } from '../../Common';
 import useHtmlToImage from '../../../hooks/useHtmlToImage';
 
 type Props = {
-  p2eLevel: string
+  p2eLevel: number | undefined
   performanceList: {icon: string, shortContent: string}[]
 }
 
