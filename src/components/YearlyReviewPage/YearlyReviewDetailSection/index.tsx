@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import _omit from 'lodash/omit';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import styles from './styles';
@@ -13,38 +13,6 @@ import ReviewItem from '../ReviewItem';
 import images from '../../../images';
 import ScoreModal from '../ScoreModal';
 
-// TODO: mock data
-const MOCK_DATA = [
-  {
-    title: 'Your total transaction amount and products you have used on Hakka last year:',
-    icon: images.iconReview1,
-    performance: 'IRS, IG, Farming, Staking, total for 5000 USD',
-    comment: 'What a productive farmer! You are in the top 1% users!',
-    shortContent: 'Used IRS, IG, Farming, Staking',
-  },
-  {
-    title: 'Gas you have burned for Hakka last year:',
-    icon: images.iconReview2,
-    performance: 'Ethereum: 1.2 ether, Polygon: 0.8 matic',
-    comment: 'Such a hard worker! Your activity requires more gas than 90% of users.',
-    shortContent: 'Used 1.2 ETH and 5.8 Matic as gas',
-  },
-  {
-    title: 'OATs you have claimed from Hakka last year:',
-    icon: images.iconReview3,
-    performance: 'x of 33 OATs',
-    comment: 'Our respects to you, loyal Hakkafam!',
-    shortContent: 'Got 2 OATs',
-  },
-  {
-    title: 'Your first Hakka product:',
-    icon: images.iconReview4,
-    performance: 'IRS, 2020/03/02',
-    comment: 'Thanks for your loyalty and patience dear Hakka rancher!',
-    shortContent: '2020/04/01 was my first day meeting Hakka'
-  },
-]
-
 const YearlyReviewDetailSection = () => {
   const { account, chainId, error } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
@@ -54,11 +22,125 @@ const YearlyReviewDetailSection = () => {
   const CountScoreButton = withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton));
   const toggleScoreModal = useYearlyReviewScoreModalToggle();
 
+  interface ReviewDataType {
+    first_met_hakka: number
+    gas: { eth: number, bsc: number, polygon: number, ftm: number }
+    oats: number
+    usedDApp: string[]
+  }
+
+  const [reviewData, setReviewData] = useState<ReviewDataType | null>(null);
+  const [reviewResult, setReviewResult] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+   fetch(`https://achievement.hakka.finance/${account}`)
+   .then((response) => {
+    if (!response.ok) {
+      throw new Error(
+        `This is an HTTP error: The status is ${response.status}`
+      );
+    }
+    return response.json()
+   })
+   .then((actualData) => setReviewData(actualData))
+   .catch((err) => {
+    console.log(err.message);
+    setReviewData(null);
+   })
+   .finally(() => {
+    setLoading(false);
+  });
+  }, []);
+
+  interface ReviewResultType {
+    title: string
+    icon: string
+    comment: string
+    performance: string
+    shortContent: string
+  }
+
+  useEffect(() => {
+    if (!reviewData) {
+      return
+    }
+
+    let reviewResult: { transactionAmount?: ReviewResultType, gas?: ReviewResultType, oats?: ReviewResultType, firstProduct?: ReviewResultType } = {}
+
+    if (reviewData.usedDApp) {
+      const transactionAmountInfo = {
+        transactionAmount: {
+          title: 'Your total transaction amount and products you have used on Hakka last year:',
+          icon: images.iconReview1,
+          // TODO: data is not ready
+          performance: '',
+          shortContent: `Used ${reviewData.usedDApp.join(', ')}`,
+          comment: '',
+      },}
+      Object.assign(reviewResult, transactionAmountInfo);
+    }
+
+    if (reviewData.gas) {
+      let gasPerformance = ''
+      let gasShortContent = ''
+      Object.keys(reviewData.gas).map((ele) => {
+        if (reviewData.gas[ele] > 0) {
+          // TODO: check token info
+          // example: 'Ethereum: 1.2 ether, Polygon: 0.8 matic',
+          gasPerformance += `${ele}: ${parseFloat(reviewData.gas[ele]).toFixed(4)} Matic`
+          gasShortContent += `Used ${parseFloat(reviewData.gas[ele]).toFixed(4)} Matic as gas`
+        }
+      })
+
+      const gasInfo = {
+        gas: {
+          title: 'Gas you have burned for Hakka last year:',
+          icon: images.iconReview2,
+          performance: gasPerformance,
+          shortContent: gasShortContent,
+          comment: '',
+      },}
+      Object.assign(reviewResult, gasInfo);
+    }
+
+    if (reviewData.oats) {
+      const oatsInfo = {
+        oats: {
+          title: 'OATs you have claimed from Hakka last year:',
+          icon: images.iconReview3,
+          performance: `${reviewData.oats} of 33 OATs`,
+          shortContent: `Got ${reviewData.oats} OATs`,
+          comment: 'Our respects to you, loyal Hakkafan!',
+      },}
+      Object.assign(reviewResult, oatsInfo);
+    }
+
+    if (reviewData.first_met_hakka) {
+      const date = new Date(reviewData.first_met_hakka * 1000);
+      const formattedDate = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDay()
+
+      const firstProductInfo = {
+        firstProduct: {
+          title: 'Your first Hakka product:',
+          icon: images.iconReview4,
+          // TODO: first dapp is not ready
+          performance: `Project A, ${formattedDate}`,
+          shortContent: `${formattedDate} was my first day meeting Hakka`,
+          comment: 'Thanks for your loyalty and patience dear Hakka rancher!',
+      },}
+      Object.assign(reviewResult, firstProductInfo);
+    }
+    setReviewResult(Object.values(reviewResult))
+  }, [reviewData])
+
+  console.log('reviewData', reviewData)
+
   return (
     <div>
       <p sx={styles.title}>Well done, Hakka Farmer!</p>
       <div sx={styles.reviewList}>
-        {MOCK_DATA.map((ele, index) => (
+        {reviewResult.map((ele, index) => (
           <div key={index}>
             <ReviewItem 
               title={ele.title} 
@@ -81,7 +163,7 @@ const YearlyReviewDetailSection = () => {
           Count your score
         </CountScoreButton>
       </div>
-      <ScoreModal p2eLevel='1' performanceList={MOCK_DATA} />
+      <ScoreModal p2eLevel='1' performanceList={reviewResult} />
     </div>
   )
 }
