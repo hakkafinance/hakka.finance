@@ -1,6 +1,7 @@
 const images = {
   hakkaLogo: require('./logos/hakkaLogo.svg').default,
   logoGray: require('./logos/logoGray.svg').default,
+  logoGreen: require('./logos/logoHakkaGreen.svg').default,
   iconHome: require('./icons/iconHome.svg').default,
   iconProduct: require('./icons/iconProduct.svg').default,
   iconGovernance: require('./icons/iconGovernance.svg').default,
@@ -87,6 +88,7 @@ const images = {
   iconVaultArchive: require('./icons/iconVaultArchive.svg').default,
   iconToGovernance: require('./icons/iconToGovernance.svg').default,
   iconRocket: require('./icons/iconRocket.svg').default,
+  iconArrowRightGreen: require('./icons/iconArrowRightGreen.svg').default,
 
   /// home icon
   iconLight: require('./icons/iconLight.svg').default,
@@ -215,5 +217,12 @@ const images = {
   iconReview2: require('./icons/iconReview2.svg').default,
   iconReview3: require('./icons/iconReview3.svg').default,
   iconReview4: require('./icons/iconReview4.svg').default,
+  bgShareCard: require('./icons/bgYearlyReviewShareCard.svg').default,
+  iconRankS: require('./icons/iconRankS.svg').default,
+  iconRankA: require('./icons/iconRankA.svg').default,
+  iconRankB: require('./icons/iconRankB.svg').default,
+  iconRankC: require('./icons/iconRankC.svg').default,
+  iconRankD: require('./icons/iconRankD.svg').default,
+  iconYearlyReviewTitle: require('./icons/iconYearlyReviewTitle.svg').default,
 };
 export default images;
