@@ -17,9 +17,10 @@ import useYearlyReviewData, { ReviewResultType } from '../../../hooks/useYearlyR
 
 interface YearlyReviewMainSectionProps {
   reviewResult: ReviewResultType[]
+  p2eLv: number | undefined
 }
 
-const YearlyReviewMainSection = ({ reviewResult }: YearlyReviewMainSectionProps) => {
+const YearlyReviewMainSection = ({ reviewResult, p2eLv }: YearlyReviewMainSectionProps) => {
   const { account, chainId, error } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
   const isConnected = !!account || error instanceof UnsupportedChainIdError;
@@ -55,7 +56,7 @@ const YearlyReviewMainSection = ({ reviewResult }: YearlyReviewMainSectionProps)
           Count your score
         </CountScoreButton>
       </div>
-      <ScoreModal p2eLevel='1' performanceList={MOCK_DATA} />
+      <ScoreModal p2eLevel={p2eLv} performanceList={reviewResult} />
     </div>
   )
 }
@@ -71,13 +72,12 @@ const YearlyReviewDetailSection = () => {
   } else if (reviewResult.length === 0) {
     displayContent = <EmptyState /> 
   } else {
-    displayContent = <YearlyReviewMainSection reviewResult={reviewResult} />
+    displayContent = <YearlyReviewMainSection reviewResult={reviewResult} p2eLv={p2eLv} />
   }
 
   return (
     <div>
       {displayContent}
-      <ScoreModal p2eLevel={p2eLv} performanceList={reviewResult} />
     </div>
   )
 }
