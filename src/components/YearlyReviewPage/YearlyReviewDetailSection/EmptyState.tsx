@@ -10,7 +10,7 @@ const EmptyState = () => {
   return (
     <div sx={styles.emptyPageWrapper}>
       <img src={images.iconNoData}></img>
-      <p sx={styles.noDataWarning}>We did't find any data by this address</p>
+      <p sx={styles.noDataWarning}>No data found with this address</p>
       <div sx={styles.goToProductsBtnWrapper}> 
         <MyButton
           styleKit='green'

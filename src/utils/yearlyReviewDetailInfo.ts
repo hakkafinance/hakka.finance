@@ -82,7 +82,8 @@ export const getOatsInfo = (oatsAmount: number) => {
 
 export const getFirstProductInfo = (firstMetHakkaDate: number, firstDApp: string) => {
   const date = new Date(firstMetHakkaDate * 1000);
-  const formattedDate = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDay()
+  const formattedDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
   const firstProductInfo = {
     firstProduct: {
       title: 'Your first Hakka product:',
