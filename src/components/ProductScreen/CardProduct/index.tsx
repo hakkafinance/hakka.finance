@@ -34,7 +34,7 @@ const CardPorduct = (props) => {
             <img sx={styles.img_icon} src={icon} />
           </Box>
           <Box>
-            <Flex onClick={() => { vist ? window.open(vist, '_blank').focus() : handleIsShowInfo(); }} sx={styles.link} alignItems="center">
+            <Flex onClick={() => { vist ? window.open(vist, '_blank', 'noopener, noreferrer') : handleIsShowInfo(); }} sx={styles.link} alignItems="center">
               {vist
                 && (
                 <>

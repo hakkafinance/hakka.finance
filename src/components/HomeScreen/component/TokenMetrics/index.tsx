@@ -36,7 +36,7 @@ const TokenMetricContent = (props) => {
           {' '}
 
           <Flex sx={styles.tokenMetricsInfoAddress} alignItems="center">
-            <Link variant="nav" href={tokenMetrics.addressLink} target="_blank" sx={styles.info_link}>
+            <Link variant="nav" href={tokenMetrics.addressLink} target="_blank" rel="noreferrer noopener" sx={styles.info_link}>
               {tokenMetrics.address}
               <img
                 sx={styles.iconScan}

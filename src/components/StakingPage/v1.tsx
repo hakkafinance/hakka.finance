@@ -119,7 +119,7 @@ const Staking = () => {
                   data-for="governance"
                   className="ml-auto"
                   href={governanceLink}
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                   target="_blank"
                   sx={styles.governanceButton}
                 >

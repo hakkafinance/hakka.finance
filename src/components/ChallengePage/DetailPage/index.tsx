@@ -63,14 +63,14 @@ const ChallengeDetailPage = ({ oatAddress }: ChallengeDetailPageProps) => {
             <h4 sx={styles.missionTitle}>{OAT_INFO[oatAddress].describeTitle}</h4>
             <div sx={styles.buttonWrapper}>
               <MyButton 
-                onClick={() => window.open(OAT_INFO[oatAddress].missionLink, '_blank').focus()} 
+                onClick={() => window.open(OAT_INFO[oatAddress].missionLink, '_blank', 'noopener, noreferrer')} 
                 styleKit={isMissionUnfinished ? 'green' : ''}
                 disabled={!isMissionUnfinished}
               >
                 Start Here
               </MyButton>
               <MyButton 
-                onClick={() => window.open(OAT_INFO[oatAddress].claimLink, '_blank').focus()} 
+                onClick={() => window.open(OAT_INFO[oatAddress].claimLink, '_blank', 'noopener, noreferrer')} 
                 styleKit={isMissionUnfinished ? '' : 'green'}
               >
                 {missionStatus === MissionStatusOptions.FINISHED ? 'Claim NFT' : 'View NFT'}

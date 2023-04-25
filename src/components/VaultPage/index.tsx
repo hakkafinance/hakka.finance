@@ -197,6 +197,7 @@ const VaultPage = () => {
                 sx={!isCorrectNetwork ? styles.contractAddressDisabled : styles.contractAddress}
                 href={getEtherscanLink(chainId, GUILDBANK[chainId], 'address')}
                 target={"_blank"}
+                rel="noreferrer noopener"
               >
                 {(!chainId || !isCorrectNetwork)
                   ? '-'
@@ -301,7 +302,7 @@ const VaultPage = () => {
           <hr sx={styles.hr} />
           <div sx={styles.knowMoreRow}>
             <span sx={styles.knowMoreTitle}>More Information</span>
-            <div sx={styles.wikiLinkArea} onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank').focus(); }}>
+            <div sx={styles.wikiLinkArea} onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki', '_blank', 'noopener, noreferrer')}}>
               <span sx={styles.visitWikiLink}>Visit Wiki</span>
               <img src={images.iconForwardGreen} alt="link" />
             </div>

@@ -59,6 +59,7 @@ const ClaimModal = (props:ClaimModalInterface) => {
             href='https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76'
             sx={styles.learnMoreLink}
             target="_blank"
+            rel="noreferrer noopener"
           >
             <span>Learn more </span>
             <img src={images.iconLinkNormal} />
