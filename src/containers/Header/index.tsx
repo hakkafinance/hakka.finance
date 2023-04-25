@@ -43,7 +43,7 @@ const Header = (props) => {
     toggleSidebar();
   };
   const renderListIcon = () => listIcon.map((item, i) => (
-    <a key={i} target="_blank" href={item.href} rel="noreferrer">
+    <a key={i} target="_blank" href={item.href} rel="noreferrer noopener">
       <img sx={styles.imgIcon} src={images[item.url]} />
     </a>
   ));

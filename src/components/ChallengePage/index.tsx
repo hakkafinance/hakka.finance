@@ -127,7 +127,7 @@ const Challenge = () => {
               sx={styles.learnMoreLink}
               target="_blank"
               href="https://hakkafinance.medium.com/play-to-earn-with-hakka-finance-a3b3cf50cfb5"
-              rel="noreferrer"
+              rel="noreferrer noopener"
             >
               <span>Read more  </span>
               <img src={images.iconLinkSmallGreen} />

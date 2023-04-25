@@ -7,7 +7,7 @@ import styles from './styles';
 function CoinComponent(props) {
   const { item } = props;
   return (
-    <Link sx={styles.custom_link} href={item.link} target="_blank">
+    <Link sx={styles.custom_link} href={item.link} target="_blank" rel="noreferrer noopener">
       <Flex
         key={item.coinName}
         sx={styles.coinContainer}

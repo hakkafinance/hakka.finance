@@ -47,7 +47,7 @@ const SecurityItem = ({ organization }: SecurityItemProps) =>
         <Box>{SECURITY_ORGANIZATION_INFO[organization].icon}</Box>
       </Flex>
     </Flex>
-    <Link sx={styles.linkButton} href={SECURITY_ORGANIZATION_INFO[organization].link} target="_blank">
+    <Link sx={styles.linkButton} href={SECURITY_ORGANIZATION_INFO[organization].link} target="_blank" rel="noreferrer noopener">
       <Flex>
         <Text sx={styles.buttonContent}>{SECURITY_ORGANIZATION_INFO[organization].btnContent}</Text>
         <img src={images.iconLinkSmall} />

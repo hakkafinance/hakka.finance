@@ -58,7 +58,7 @@ const RewardsPoolCard = (props: RewardsPoolCardProps) => {
       </div>
       <p sx={styles.title}>{title}</p>
       {subtitle && <p sx={styles.subtitle}>{subtitle}</p>}
-      <a sx={styles.link} target='_blank' href={url}>
+      <a sx={styles.link} target='_blank' rel="noreferrer noopener" href={url}>
         <span>{linkContent}</span>
         <img src={images.iconLinkNormal} />
       </a>

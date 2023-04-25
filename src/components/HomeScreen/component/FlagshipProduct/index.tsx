@@ -8,7 +8,7 @@ import styles from './styles';
 function FlagshipProduct(props) {
   const { item, i, link } = props;
   return (
-    <Flex onClick={() => { window.open(link, '_blank').focus(); }} alignItems="center" key={i} sx={styles.product} mt="2">
+    <Flex onClick={() => { window.open(link, '_blank', 'noopener, noreferrer')}} alignItems="center" key={i} sx={styles.product} mt="2">
       <img sx={styles.imageProduct} src={images[item.image]} alt="" />
       <Box sx={styles.productHeading} ml="3">{item.title}</Box>
     </Flex>
