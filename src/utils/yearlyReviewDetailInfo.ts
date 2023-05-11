@@ -1,50 +1,42 @@
+import { ChainId } from "../constants"
 import { chainsInfo } from "../constants/tokenMetrics"
 import images from "../images"
 
-export const getTransactionAmountInfo = (usedDApp: string[], transactionAmount: number) => {
+export const getTransactionAmountInfo = (usedDApp: string, transactionAmount: number, transactionPr: number ) => {
   if (usedDApp.length === 0) {
     return
   }
+
+  const usedDAppList = usedDApp.split(',')
   const DAPP_DISPLAY_UPPER_LIMIT = 5
-  const transactionPerformance = `${usedDApp.join(', ')} total for ${transactionAmount} USD`
-  const transactionShortContent = usedDApp.slice(0, DAPP_DISPLAY_UPPER_LIMIT).join(', ')
-  const isUsedDAppLgThanLimit = usedDApp.length >= DAPP_DISPLAY_UPPER_LIMIT
+  const transactionPerformance = `${usedDAppList.join(', ')} total for ${transactionAmount.toFixed(2)} USD`
+  const transactionShortContent = usedDAppList.slice(0, DAPP_DISPLAY_UPPER_LIMIT).join(', ')
+  const isUsedDAppLgThanLimit = usedDAppList.length >= DAPP_DISPLAY_UPPER_LIMIT
+  const transactionComment = transactionPr > 90 
+    ? `What a productive farmer! You are in the top ${100 - transactionPr}% users!`
+    : ''
   const transactionAmountInfo = {
     transactionAmount: {
       title: 'Your total transaction amount and products you have used on Hakka last year:',
       icon: images.iconReview1,
       performance: transactionPerformance,
       shortContent: `Used ${transactionShortContent} ${isUsedDAppLgThanLimit ? ', etc.' : ''}`,
-      comment: '',
+      comment: transactionComment,
   }}
 
   return transactionAmountInfo
 }
 
-export const getGasInfo = (gasData: {
-  eth: number | string;
-  bsc: number | string;
-  polygon: number | string;
-  ftm: number | string;
-}) => {
-  // This is a temporary function, the api data should be changed to chainId as key
-  const apiKeyToChainIdIndex = { eth: 1, bsc: 56, polygon: 137, ftm: 250 }
-  const gasDataByChainId = {}
-  Object.keys(gasData).map((ele) => {
-    const chainId = apiKeyToChainIdIndex[ele]
-    gasDataByChainId[chainId] = parseFloat(parseFloat(gasData[ele]).toFixed(4))
-  })
-  // -- end --
-
+export const getGasInfo = (gasData: { [chainId in ChainId]: number }, gasPr: number) => {
   let gasPerformance = ''
   let gasShortContent = ''
   let usedChainCounter = 0
-  Object.keys(gasDataByChainId).map((chainId) => {
-    if (gasDataByChainId[chainId] > 0) {
+  Object.keys(gasData).map((chainId) => {
+    if (gasData[chainId] > 0) {
       const targetChainInfo = chainsInfo.find(chainInfo => chainInfo.chainId === parseInt(chainId))
       const comma = usedChainCounter > 0 ? ',' : ''
-      gasPerformance += `${comma} ${targetChainInfo?.shortName}: ${gasDataByChainId[chainId]} ${targetChainInfo?.nativeTokenSymbol}`
-      gasShortContent += `${comma} ${gasDataByChainId[chainId]} ${targetChainInfo?.nativeTokenSymbol} `
+      gasPerformance += `${comma} ${targetChainInfo?.shortName}: ${gasData[chainId].toFixed(2)} USD`
+      gasShortContent += `${comma} ${gasData[chainId].toFixed(2)} USD `
       usedChainCounter += 1
     }
   })
@@ -53,13 +45,17 @@ export const getGasInfo = (gasData: {
     return 
   }
 
+  const gasInfoComment = gasPr > 90 
+    ? `Such a hard worker! Your activity requires more gas than ${gasPr}% of users.`
+    : ''
+
   const gasInfo = {
     gas: {
       title: 'Gas you have burned for Hakka last year:',
       icon: images.iconReview2,
       performance: gasPerformance,
       shortContent: `Used ${gasShortContent} as gas`,
-      comment: '',
+      comment: gasInfoComment
   }}
 
   return gasInfo
@@ -80,8 +76,8 @@ export const getOatsInfo = (oatsAmount: number) => {
   return oatsInfo
 }
 
-export const getFirstProductInfo = (firstMetHakkaDate: number, firstDApp: string) => {
-  const date = new Date(firstMetHakkaDate * 1000);
+export const getFirstProductInfo = (firstMetHakkaDate: string, firstDApp: string) => {
+  const date = new Date(parseInt(firstMetHakkaDate) * 1000);
   const formattedDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
   const firstProductInfo = {
