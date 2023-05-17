@@ -37,7 +37,6 @@ const ScoreModal = ({ p2eLevel, performanceList, userRank }: Props) => {
           <img src={images.iconDeleteRound} onClick={toggleScoreModal} sx={styles.closeBtn} />
         </div>
         <div sx={styles.shareCard} ref={eleRef}>
-          {/* TODO: check user rank */}
           <img src={YEARLY_REVIEW_RANK_IMAGE[userRank]} sx={styles.rankIconWrapper} />
           <div sx={styles.modalTitleWrapper}>
             <img src={images.logoGreen} />
