@@ -8,7 +8,7 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     color: 'rgba(37, 62, 71, 0.5)',
-    overflow: 'hidden',
+    overflow: 'auto',
 
     '@media screen and (max-width: 576px)': {
       padding: '20px 6px',
@@ -51,6 +51,10 @@ export default {
 
   modalTitle: {
     margin: '8px 0 2px 0',
+
+    '@media screen and (max-width: 576px)': {
+      width: '90%',
+    },
   },
 
   dateWrapper: {
@@ -74,6 +78,7 @@ export default {
     width: '348px',
     borderRadius: '8px',
     overflow: 'hidden',
+    minHeight: '464px',
 
     '@media screen and (max-width: 576px)': {
       width: '98%',
