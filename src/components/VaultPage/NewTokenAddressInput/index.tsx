@@ -21,12 +21,12 @@ interface NewTokenAddressInputProps {
 }
 
 const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
-  const { 
-    addressInputValue, 
-    setIsShowNewTokenArea, 
-    setRewardTokens, 
+  const {
+    addressInputValue,
+    setIsShowNewTokenArea,
+    setRewardTokens,
     setAddressInputValue,
-    rewardTokens 
+    rewardTokens
   } = props;
   const { library } = useActiveWeb3React();
   const [tokenInfo, setTokenInfo] = useState<(string | number)[]>(['']);

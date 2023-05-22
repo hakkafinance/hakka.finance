@@ -1,3 +1,5 @@
+import { ThemeUIStyleObject } from 'theme-ui';
+
 export default {
   copyIcon: {
     color: '#888D9B',
@@ -154,4 +156,4 @@ export default {
       textDeaccountGroupingRowcoration: 'underline',
     },
   },
-};
+} satisfies Record<string, ThemeUIStyleObject>;

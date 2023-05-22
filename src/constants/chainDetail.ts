@@ -19,10 +19,12 @@ export const NETWORK_CHAIN_ID: number = parseInt(
   process.env.GATSBY_CHAIN_ID ?? '1'
 );
 
-export const chainUrlMap: Record<number, string | string[]> = {
+export const CHAIN_URL_DICT: Record<number, string> = {
   [ChainId.MAINNET]: NETWORK_URL,
   [ChainId.BSC]: BSC_NETWORK_URL,
   [ChainId.POLYGON]: POLYGON_NETWORK_URL,
   [ChainId.FANTOM]: FANTOM_NETWORK_URL,
   [NETWORK_CHAIN_ID]: NETWORK_URL,
 };
+
+export const CHAIN_URL_MAP = new Map(Object.entries(CHAIN_URL_DICT));

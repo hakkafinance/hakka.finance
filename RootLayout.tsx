@@ -1,31 +1,26 @@
-import React from 'react'
-import { ContextProviders } from './src/state/'
-import ApplicationUpdater from './src/state/application/updater'
-import MulticallUpdater from './src/state/multicall/updater'
-import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
-import { NetworkContextName } from './src/constants'
-import getLibrary from './src/utils/getLibrary'
+import React, { ReactNode } from 'react';
+import { ContextProviders } from './src/state/';
+import ApplicationUpdater from './src/state/application/updater';
+import MulticallUpdater from './src/state/multicall/updater';
+import { Web3ReactProvider } from '@web3-react/core';
+import { CONNECTORS } from './src/connectors';
 
-const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
-
-function Updaters() {
+function Updaters () {
   return (
     <>
       <ApplicationUpdater />
       <MulticallUpdater />
     </>
-  )
+  );
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout ({ children }: { children?: ReactNode }) {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ProviderNetwork getLibrary={getLibrary}>
-        <ContextProviders>
-          <Updaters />
-          {children}
-        </ContextProviders>
-      </Web3ProviderNetwork>
+    <Web3ReactProvider connectors={CONNECTORS}>
+      <ContextProviders>
+        <Updaters />
+        {children}
+      </ContextProviders>
     </Web3ReactProvider>
-  )
+  );
 }
