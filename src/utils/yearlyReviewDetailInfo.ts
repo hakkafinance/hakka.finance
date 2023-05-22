@@ -1,6 +1,7 @@
 import { ChainId } from "../constants"
 import { chainsInfo } from "../constants/tokenMetrics"
 import images from "../images"
+import removeAndReplaceArrayElement from "./removeAndReplaceArrayElement"
 
 export const getTransactionAmountInfo = (usedDApp: string, transactionAmount: number, transactionPr: number ) => {
   if (usedDApp.length === 0) {
@@ -8,6 +9,9 @@ export const getTransactionAmountInfo = (usedDApp: string, transactionAmount: nu
   }
 
   const usedDAppList = usedDApp.split(',')
+  removeAndReplaceArrayElement(usedDAppList, 'iGain IRS Proxy')
+  removeAndReplaceArrayElement(usedDAppList, 'iGain iGain', 'iGain IG')
+
   const DAPP_DISPLAY_UPPER_LIMIT = 5
   const transactionPerformance = `${usedDAppList.join(', ')} total for ${transactionAmount.toFixed(2)} USD`
   const transactionShortContent = usedDAppList.slice(0, DAPP_DISPLAY_UPPER_LIMIT).join(', ')
