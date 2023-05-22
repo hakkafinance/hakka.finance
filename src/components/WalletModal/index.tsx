@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { UAuthConnector } from '@uauth/web3-react';
-import { AbstractConnector } from '@web3-react/abstract-connector';
+import { AbstractConnector } from '@web3-react/types';
 import usePrevious from '../../hooks/usePrevious';
 import {
   useWalletModalOpen,
@@ -27,15 +27,9 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 };
 
-export default function WalletModal({
-  ENSName,
-}: {
-  ENSName?: string;
-}) {
+export default function WalletModal({ ENSName }: { ENSName?: string }) {
   // important that these are destructed from the account-specific web3-react context
-  const {
-    active, account, connector, activate, error,
-  } = useWeb3React();
+  const { active, account, connector, activate, error } = useWeb3React();
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);
 
@@ -52,7 +46,10 @@ export default function WalletModal({
 
   // close on connection, when logged out before
   useEffect(() => {
-    if (error instanceof UnsupportedChainIdError || account && !previousAccount && walletModalOpen) {
+    if (
+      error instanceof UnsupportedChainIdError ||
+      (account && !previousAccount && walletModalOpen)
+    ) {
       toggleWalletModal();
     }
   }, [account, previousAccount, toggleWalletModal, walletModalOpen, error]);
@@ -69,9 +66,9 @@ export default function WalletModal({
   const connectorPrevious = usePrevious(connector);
   useEffect(() => {
     if (
-      walletModalOpen
-      && ((active && !activePrevious)
-        || (connector && connector !== connectorPrevious && !error))
+      walletModalOpen &&
+      ((active && !activePrevious) ||
+        (connector && connector !== connectorPrevious && !error))
     ) {
       setWalletView(WALLET_VIEWS.ACCOUNT);
     }
@@ -91,8 +88,8 @@ export default function WalletModal({
 
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
     if (
-      connector instanceof WalletConnectConnector
-      && connector.walletConnectProvider?.wc?.uri
+      connector instanceof WalletConnectConnector &&
+      connector.walletConnectProvider?.wc?.uri
     ) {
       connector.walletConnectProvider = undefined;
     }
@@ -101,8 +98,8 @@ export default function WalletModal({
       toggleWalletModal();
     }
 
-    connector
-      && activate(connector, undefined, true).catch((error) => {
+    connector &&
+      activate(connector, undefined, true).catch((error) => {
         console.log(error);
         if (error instanceof UnsupportedChainIdError) {
           activate(connector);
@@ -171,10 +168,7 @@ export default function WalletModal({
   }
 
   return (
-    <Modal
-      isOpen={walletModalOpen}
-      onDismiss={toggleWalletModal}
-    >
+    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal}>
       <div sx={styles.wrapper}>{getModalContent()}</div>
     </Modal>
   );

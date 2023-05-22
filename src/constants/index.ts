@@ -107,18 +107,18 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     iconName: 'coinbaseWalletIcon',
     description: 'Use Coinbase Wallet app on mobile device',
   },
-  FORTMATIC: {
-    connector: fortmatic,
-    name: 'Fortmatic',
-    iconName: 'fortmaticIcon',
-    description: 'Login using Fortmatic hosted wallet',
-  },
-  Portis: {
-    connector: portis,
-    name: 'Portis',
-    iconName: 'portisIcon',
-    description: 'Login using Portis hosted wallet',
-  },
+  // FORTMATIC: {
+  //   connector: fortmatic,
+  //   name: 'Fortmatic',
+  //   iconName: 'fortmaticIcon',
+  //   description: 'Login using Fortmatic hosted wallet',
+  // },
+  // Portis: {
+  //   connector: portis,
+  //   name: 'Portis',
+  //   iconName: 'portisIcon',
+  //   description: 'Login using Portis hosted wallet',
+  // },
   UAuth: {
     connector: uauth,
     name: 'Unstoppable Domain',
