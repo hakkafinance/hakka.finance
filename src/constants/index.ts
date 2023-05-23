@@ -9,15 +9,7 @@ import {
   injected,
   uauth,
 } from '../connectors';
-
-export enum ChainId {
-  MAINNET = 1,
-  RINKEBY = 4,
-  KOVAN = 42,
-  BSC = 56,
-  POLYGON = 137,
-  FANTOM = 250,
-}
+import { ChainId } from './chainDetail';
 
 export enum ChainDataFetchingState {
   LOADING,
@@ -393,3 +385,5 @@ export const JSON_RPC_PROVIDER: { [chainId in ChainId]: JsonRpcProvider } = {
   ),
   [ChainId.FANTOM]: new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL),
 };
+
+export * from './chainDetail';

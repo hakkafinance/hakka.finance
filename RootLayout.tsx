@@ -16,7 +16,7 @@ function Updaters () {
 
 export default function RootLayout ({ children }: { children?: ReactNode }) {
   return (
-    <Web3ReactProvider connectors={CONNECTORS}>
+    <Web3ReactProvider connectors={CONNECTORS} network={1}>
       <ContextProviders>
         <Updaters />
         {children}

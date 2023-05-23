@@ -84,7 +84,7 @@ const RewardsPage = () => {
   }, [stakedActivePools, apr]);
 
   const sortedActivePools = useMemo(() => {
-    let sortedActivePools = [];
+    let sortedActivePools:string[] = [];
     switch (sortBy) {
       case SortOptions.LATEST : {
         sortedActivePools = activePools
@@ -99,7 +99,7 @@ const RewardsPage = () => {
   } ,[activePools, sortedByAprActivePools, sortBy]);
 
   const sortedStakedActivePools = useMemo(() => {
-    let sortedStakedActivePools = [];
+    let sortedStakedActivePools: string[] = [];
     switch (sortBy) {
       case SortOptions.LATEST : {
         sortedStakedActivePools = stakedActivePools;

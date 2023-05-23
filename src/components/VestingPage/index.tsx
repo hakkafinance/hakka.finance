@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import {
   JSBI,
   TokenAmount,
@@ -44,11 +44,11 @@ const vestingSupportChainIdSet = new Set(
 );
 
 const VestingPage = () => {
-  const { chainId, account, error } = useWeb3React();
+  const { chainId, account } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
   const [claimState, claim] = useVestingWithdraw(VESTING_ADDRESSES[chainId], account);
 
-  const isConnected = !!account || error instanceof UnsupportedChainIdError;
+  const isConnected = !!account;
   const isChainSupported = vestingSupportChainIdSet.has(chainId);
   const [activeChainTab, setActiveChainTab] = useState(
     isChainSupported ? chainId! : ChainId.MAINNET

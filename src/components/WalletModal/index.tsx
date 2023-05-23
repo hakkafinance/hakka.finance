@@ -2,7 +2,6 @@
 import { jsx } from 'theme-ui';
 import { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { UAuthConnector } from '@uauth/web3-react';
 import { Connector } from '@web3-react/types';
 import usePrevious from '../../hooks/usePrevious';
@@ -68,18 +67,18 @@ export default function WalletModal ({ ENSName }: { ENSName?: string }) {
     console.log(connector);
 
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
-    if (
-      connector instanceof WalletConnectConnector &&
-      connector.walletConnectProvider?.wc?.uri
-    ) {
-      connector.walletConnectProvider = undefined;
-    }
+    // if (
+    //   connector instanceof WalletConnectConnector &&
+    //   connector.walletConnectProvider?.wc?.uri
+    // ) {
+    //   connector.walletConnectProvider = undefined;
+    // }
 
     if (connector instanceof UAuthConnector) {
       toggleWalletModal();
     }
 
-    connector && activate(connector, undefined, true);
+    connector && activate();
   };
 
   // get wallets user can switch too, depending on device/browser

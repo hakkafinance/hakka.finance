@@ -156,4 +156,4 @@ export default {
       textDeaccountGroupingRowcoration: 'underline',
     },
   },
-} satisfies Record<string, ThemeUIStyleObject>;
+} as Record<string, ThemeUIStyleObject>;

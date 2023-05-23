@@ -7,7 +7,7 @@ import { Token } from '@uniswap/sdk';
 import { AddressZero, WeiPerEther } from '@ethersproject/constants';
 import { parseUnits } from '@ethersproject/units';
 import BigNumber from 'bignumber.js';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import images from '../../images/index';
 import styles from './styles';
 import { MyButton } from '../Common';
@@ -36,7 +36,7 @@ import {
 } from '../../constants';
 
 const VaultPage = () => {
-  const { account, chainId, error } = useWeb3React();
+  const { account, chainId } = useWeb3React();
 
   const hakkaBalance = useTokenBalance(
     account as string,
@@ -172,7 +172,7 @@ const VaultPage = () => {
     return BURNER_ADDRESS[chainId as ChainId] !== AddressZero;
   }, [chainId])
 
-  const isConnected = !!account || error instanceof UnsupportedChainIdError;
+  const isConnected = !!account;
 
   // error message
   const noTokenError = useMemo(() => !pickedRewardTokensAddress.length, [pickedRewardTokensAddress]);
