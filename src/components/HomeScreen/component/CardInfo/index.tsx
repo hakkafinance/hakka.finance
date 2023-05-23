@@ -30,7 +30,7 @@ function CardInfo(props) {
       title: 'Shitcoinmon!',
       subTitle: '',
       subContent: 'Turn your worst investments into mighty NFT monsters',
-      click: () => { window.open('https://shitcoinmon.com/', '_blank').focus() },
+      click: () => { window.open('https://shitcoinmon.com/', '_blank', 'noopener, noreferrer')},
       bgColor: 'rgba(29, 161, 242, 0.2)',
       bgImage: `url(${images.iconShitcoinmonBanner})`
     },

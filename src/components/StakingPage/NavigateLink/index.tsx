@@ -6,7 +6,7 @@ import images from '../../../images';
 const NEW_STAKING_MEDIUM_LINK = 'https://hakkafinance.medium.com/hakka-finance-token-staking-model-upgrade-1c34d1bb82f6';
 export default function NavigateLink () {
   function onClick () {
-    window.open(NEW_STAKING_MEDIUM_LINK, '_blank');
+    window.open(NEW_STAKING_MEDIUM_LINK, '_blank', 'noopener, noreferrer');
   }
   return (
     <div sx={styles.wrapper} onClick={onClick}>

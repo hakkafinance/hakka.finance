@@ -50,7 +50,7 @@ export function useHakkaStake(
         <a
           target="_blank"
           href={getEtherscanLink(chainId ?? 1, tx.hash, 'transaction')}
-          rel="noreferrer"
+          rel="noreferrer noopener"
           sx={{ textDecoration: 'none', color: '#253e47' }}
         >
         {shortenTxId(tx.hash)} <ExternalLink size={16} />

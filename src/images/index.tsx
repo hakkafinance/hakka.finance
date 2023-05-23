@@ -210,6 +210,7 @@ const images = {
   mission2_3: require('./challenge/missions/mission10.gif').default,
   mission2_4: require('./challenge/missions/mission11.gif').default,
   mission2_5: require('./challenge/missions/mission12.gif').default,
+  mission2_6: require('./challenge/missions/mission13.gif').default,
   iconIntroGraph: require('./challenge/introGraph/iconIntroGraph.svg').default,
   levelUpGif: require('./challenge/levelUp.gif').default,
 

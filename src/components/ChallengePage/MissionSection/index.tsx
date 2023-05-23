@@ -25,7 +25,7 @@ const MissionSection = ({ campaignsInfo, isLoaded, userLevel }: MissionSectionPr
         <h4>Missions</h4>
         {!isMobile && (
           <div sx={{ width: '160px' }}>
-            <MyButton onClick={() => window.open('https://galaxy.eco/galaxyid', '_blank').focus()} >
+            <MyButton onClick={() => window.open('https://galaxy.eco/galaxyid', '_blank', 'noopener, noreferrer')} >
               View my NFTs
             </MyButton>
           </div>

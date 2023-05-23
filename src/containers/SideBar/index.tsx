@@ -148,7 +148,7 @@ function SideBar(props) {
   ));
 
   const renderBotSideBar = () => botSideBarItems.map((it, idx) => (
-    <Box key={it.name} onClick={it.connectOutsideWebsite ? () => window.open(it.href, '_blank').focus() : onSelectNavItem(it.path)}>
+    <Box key={it.name} onClick={it.connectOutsideWebsite ? () => window.open(it.href, '_blank', 'noopener, noreferrer') : onSelectNavItem(it.path)}>
       <SideBarItem
         selectedNav={selectedNav}
         icon={it.icon}
@@ -185,11 +185,11 @@ function SideBar(props) {
             <Box sx={styles.sidebar_subText} pl="3">News</Box>
 
             <Box sx={styles.medium_content}>
-              <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus(); }} alignItems="center">
+              <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank', 'noopener, noreferrer')}} alignItems="center">
                 <img src={images.iconMedium} />
                 <Box sx={styles.bold_text} ml="12px">Medium</Box>
               </Flex>
-              <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank').focus(); }}>
+              <Flex onClick={() => { window.open('https://medium.com/hakkafinance', '_blank', 'noopener, noreferrer')}}>
                 <img src={images.iconLinkSmall} />
               </Flex>
             </Box>
@@ -199,7 +199,7 @@ function SideBar(props) {
         <Box>
           <Box sx={styles.hl} mt="2" pr="0" />
           <Box p="12px">
-            <MyButton onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank').focus(); }}>
+            <MyButton onClick={() => { window.open('https://hakka-finance.gitbook.io/hakka-wiki/', '_blank', 'noopener, noreferrer')}}>
               <Box sx={{ fontFamily: 'system-ui', fontWeight: '700' }}>Learn More</Box>
             </MyButton>
           </Box>

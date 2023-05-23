@@ -151,7 +151,7 @@ const VestingPage = () => {
             </div>
           </div>
           <div sx={styles.activeArea}>
-            <a sx={styles.linkWrapper} target="_blank" href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76" rel="noreferrer">
+            <a sx={styles.linkWrapper} target="_blank" href="https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76" rel="noreferrer noopener">
               <span>Check vesting terms and learn more</span>
               <img src={images.iconLinkNormal} sx={styles.iconLink} />
             </a>

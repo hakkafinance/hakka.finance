@@ -223,7 +223,7 @@ const PoolDetail = ({ pool }) => {
             </div>
             <div sx={styles.infoItem}>
               <span>Contract</span>
-              <a sx={styles.contractAddress} target='_blank' href={getEtherscanLink(REWARD_POOLS[pool]?.chain || ChainId.MAINNET, pool, 'address')}>{shortenAddress(pool)}</a>
+              <a sx={styles.contractAddress} target='_blank' rel="noreferrer noopener" href={getEtherscanLink(REWARD_POOLS[pool]?.chain || ChainId.MAINNET, pool, 'address')}>{shortenAddress(pool)}</a>
             </div>
           </div>
           <img src={POOL_ASSETES[pool].icon} sx={styles.infoIcon} />
@@ -233,7 +233,7 @@ const PoolDetail = ({ pool }) => {
             <p>Deposit</p>
             <div sx={styles.lpTokenLinkContainer}>
               <span sx={styles.depositInfoValue}>{REWARD_POOLS[pool].name}</span>
-              <a sx={styles.lpTokenLink} target='_blank' href={REWARD_POOLS[pool].url}>
+              <a sx={styles.lpTokenLink} target='_blank' rel="noreferrer noopener" href={REWARD_POOLS[pool].url}>
                 <span> Get Token </span>
                 <img src={images.iconLinkNormal} />
               </a>
@@ -298,7 +298,7 @@ const PoolDetail = ({ pool }) => {
               <img src={images.iconInform} />
               <span>
                 Claim means your HAKKA rewards will be locked in vesting contract.
-                <a sx={styles.learnMoreLink} target='_blank' href='https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76'>learn more</a>
+                <a sx={styles.learnMoreLink} target='_blank' rel="noreferrer noopener" href='https://medium.com/hakkafinance/vesting-contract-9ab2ff24bf76'>learn more</a>
               </span>
             </div>
           </div>
