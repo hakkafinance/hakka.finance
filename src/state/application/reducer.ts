@@ -8,6 +8,7 @@ import {
   ToggleRedeemModalAction,
   ToggleRestakeModalAction,
   TogglePlayToEarnLevelUpModalAction,
+  ToggleYearlyReviewScoreModalAction,
   AddPopupAction,
   RemovePopupAction,
   UPDATE_BLOCK_NUMBER,
@@ -17,6 +18,7 @@ import {
   TOGGLE_REDEEM_MODAL,
   TOGGLE_RESTAKE_MODAL,
   TOGGLE_PLAY_TO_EARN_LEVEL_UP_MODAL,
+  TOGGLE_YEARLY_REVIEW_SCORE_MODAL,
   ADD_POPUP,
   REMOVE_POPUP,
 } from './actions';
@@ -39,6 +41,7 @@ export interface ApplicationState {
   readonly redeemModalOpen: boolean;
   readonly restakeModalOpen: boolean;
   readonly playToEarnLevelUpModalOpen: boolean;
+  readonly yearlyReviewScoreModalOpen: boolean;
 }
 
 export const initialApplicationState: ApplicationState = {
@@ -50,6 +53,7 @@ export const initialApplicationState: ApplicationState = {
   redeemModalOpen: false,
   restakeModalOpen: false,
   playToEarnLevelUpModalOpen: false,
+  yearlyReviewScoreModalOpen: false,
 };
 
 type ApplicationAction =
@@ -60,6 +64,7 @@ type ApplicationAction =
   | ToggleRedeemModalAction
   | ToggleRestakeModalAction
   | TogglePlayToEarnLevelUpModalAction
+  | ToggleYearlyReviewScoreModalAction
   | AddPopupAction
   | RemovePopupAction;
 
@@ -121,6 +126,12 @@ export default function reducer(
       return {
         ..._state,
         playToEarnLevelUpModalOpen: !state.playToEarnLevelUpModalOpen,
+      };
+    }
+    case TOGGLE_YEARLY_REVIEW_SCORE_MODAL: {
+      return {
+        ..._state,
+        yearlyReviewScoreModalOpen: !state.yearlyReviewScoreModalOpen,
       };
     }
     case ADD_POPUP: {

@@ -18,21 +18,21 @@ function CardInfo(props) {
     },
     {
       imageBottom: 'iconForwardGray',
+      title: 'Your year in Review',
+      subTitle: '',
+      subContent: 'Calculate how Hakka you are!',
+      click: () => {navigate('/yearly-review')},
+      bgColor: 'rgba(217, 251, 227, 1)',
+      bgImage: `url(${images.iconYearReviewBanner})`
+    },
+    {
+      imageBottom: 'iconForwardGray',
       title: 'Shitcoinmon!',
       subTitle: '',
       subContent: 'Turn your worst investments into mighty NFT monsters',
       click: () => { window.open('https://shitcoinmon.com/', '_blank', 'noopener, noreferrer')},
       bgColor: 'rgba(29, 161, 242, 0.2)',
       bgImage: `url(${images.iconShitcoinmonBanner})`
-    },
-    {
-      imageBottom: 'iconArrowDown',
-      title: 'What’s',
-      subTitle: 'HAKKA Token',
-      subContent: 'Check to learn more about HAKKA',
-      click: () => { location.href = '#whatHakka'; },
-      bgColor: 'rgba(62, 189, 147, 0.1)',
-      bgImage: `url(${images.iconWhatHakkaBanner})`
     },
   ];
 

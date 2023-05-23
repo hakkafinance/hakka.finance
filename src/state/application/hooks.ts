@@ -81,6 +81,16 @@ export function usePlayToEarnLevelUpModalToggle(): () => void {
   return togglePlayToEarnLevelUpModal;
 }
 
+export function useYearlyReviewScoreModalOpen(): boolean {
+  const yearlyReviewScoreModalOpen = useApplicationContextStateSelector('yearlyReviewScoreModalOpen');
+  return yearlyReviewScoreModalOpen;
+}
+
+export function useYearlyReviewScoreModalToggle(): () => void {
+  const { toggleYearlyReviewScoreModal } = useApplicationContext();
+  return toggleYearlyReviewScoreModal;
+}
+
 // returns a function that allows adding a popup
 export function useAddPopup(): (content: PopupContent, key?: string) => void {
   const { addPopup } = useApplicationContext();

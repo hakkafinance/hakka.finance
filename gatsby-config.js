@@ -41,12 +41,17 @@ module.exports = {
       __key: 'images'
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: `gatsby-omni-font-loader`,
       options: {
-        google: {
-          families: ['Open Sans', 'Open+Sans:wght@400;600;700', 'Droid Serif']
-        }
-      }
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`],
+        web: [
+          {
+            name: `Open Sans`,
+            file: `https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap`,
+          },
+        ],
+      },
     },
     {
       resolve: 'gatsby-plugin-tawk.to',
