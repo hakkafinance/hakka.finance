@@ -24,16 +24,18 @@ import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
 import AddToMetamaskBtn from '../AddToMetamaskBtn'
-export default function WalletModal() {
+
+import { AddressZero } from '@ethersproject/constants'
+
+export default function WalletModal () {
   const { chainId, account } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
 
   const ERC20_INTERFACE = new Interface(ERC20_ABI);
-
   const hakkaBalances = useMultipleContractMultipleData(
     [
-      HAKKA[chainId as ChainId]?.address,
-      VESTING_ADDRESSES[chainId as ChainId],
+      HAKKA[chainId as ChainId]?.address || AddressZero,
+      VESTING_ADDRESSES[chainId as ChainId] || AddressZero,
     ],
     ERC20_INTERFACE,
     'balanceOf',

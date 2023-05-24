@@ -24,11 +24,10 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 };
 
-export default function WalletModal ({ ENSName }: { ENSName?: string }) {
+export default function WalletModal({ ENSName }: { ENSName?: string }) {
   // important that these are destructed from the account-specific web3-react context
+  console.log('wallet modal');
   const { isActive: active, account, connector } = useWeb3React();
-
-  const activate = connector.activate;
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);
 
@@ -78,11 +77,11 @@ export default function WalletModal ({ ENSName }: { ENSName?: string }) {
       toggleWalletModal();
     }
 
-    connector && activate();
+    connector?.activate();
   };
 
   // get wallets user can switch too, depending on device/browser
-  function getOptions () {
+  function getOptions() {
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key];
       return (
@@ -102,7 +101,7 @@ export default function WalletModal ({ ENSName }: { ENSName?: string }) {
     });
   }
 
-  function getModalContent () {
+  function getModalContent() {
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
@@ -118,8 +117,7 @@ export default function WalletModal ({ ENSName }: { ENSName?: string }) {
         <div sx={styles.closeIcon} onClick={toggleWalletModal}>
           <img src={images.iconDeleteRound} />
         </div>
-        {walletView !== WALLET_VIEWS.ACCOUNT
-          ? (
+        {walletView !== WALLET_VIEWS.ACCOUNT ? (
           <div sx={styles.headerRow}>
             <div
               sx={styles.hoverText}
@@ -130,12 +128,11 @@ export default function WalletModal ({ ENSName }: { ENSName?: string }) {
               Back
             </div>
           </div>
-            )
-          : (
+        ) : (
           <div sx={styles.headerRow}>
             <div sx={styles.hoverText}>Connect to a wallet</div>
           </div>
-            )}
+        )}
         <div sx={styles.contentWrapper}>
           <div sx={styles.optionGrid}>{getOptions()}</div>
         </div>
