@@ -22,7 +22,6 @@ export function isAddress(value: any): string | false {
 
 const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   1: '',
-  42: 'kovan.',
   56: '',
   137: '',
   250: '',
@@ -128,14 +127,8 @@ export function getNetworkName(networkId: number) {
     case 3: {
       return 'Ropsten';
     }
-    case 4: {
-      return 'Rinkeby';
-    }
     case 5: {
       return 'Görli';
-    }
-    case 42: {
-      return 'Kovan';
     }
     default: {
       return 'correct network';

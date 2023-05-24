@@ -20,9 +20,9 @@ const ChallengeIntroPage = () => {
   const { account, chainId } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
   const isConnected = !!account || CHAIN_URL_MAP.has(chainId || -1);
-  const supportedChain = Object.keys(
-    _omit(ChainNameWithIcon, [ChainId.KOVAN, ChainId.RINKEBY])
-  ).map((ele) => parseInt(ele));
+  const supportedChain = Object.keys(ChainNameWithIcon).map((ele) =>
+    parseInt(ele)
+  );
   const isCorrectNetwork = chainId ? supportedChain.includes(chainId) : false;
 
   return (
@@ -34,7 +34,7 @@ const ChallengeIntroPage = () => {
         </div>
         <div>
           <div sx={styles.introGraphWrapper}>
-            <h4>{'Let\'s Play To Earn!'}</h4>
+            <h4>{"Let's Play To Earn!"}</h4>
             <p>
               A fantastic journey to become the best DeFi Master of the Galaxy
               is awaiting you, young Hakka Farmer! Level up and learn how to

@@ -28,7 +28,7 @@ import AddToMetamaskBtn from '../AddToMetamaskBtn';
 import { TabGroup } from '../Common/TabGroup';
 import useVestingInfo from '../../hooks/vesting/useVestingInfo';
 
-const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, process.env.GATSBY_ENV === 'development' ? [] : [ChainId.KOVAN, ChainId.RINKEBY])).map((key) => {
+const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
     value: +key as ChainId,
     title: ChainNameWithIcon[+key as ChainId].name,

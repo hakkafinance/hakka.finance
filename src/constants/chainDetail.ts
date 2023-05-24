@@ -1,7 +1,5 @@
 export enum ChainId {
   MAINNET = 1,
-  RINKEBY = 4,
-  KOVAN = 42,
   BSC = 56,
   POLYGON = 137,
   FANTOM = 250,

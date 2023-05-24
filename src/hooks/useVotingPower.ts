@@ -68,12 +68,6 @@ export default function useVotingPower(): {
         getVotingPower(ChainId.BSC, account),
         getVotingPower(ChainId.POLYGON, account),
       ];
-      if (process.env.GATSBY_ENV === 'development') {
-        fetchingList.push(
-          getVotingPower(ChainId.KOVAN, account),
-          getVotingPower(ChainId.RINKEBY, account)
-        );
-      }
       const votingPowerList = await Promise.all(fetchingList);
 
       setVotingPowerInfo(

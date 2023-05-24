@@ -194,7 +194,7 @@ const RewardsPage = () => {
   const RewardsPoolsContainer = ({ pools, active, renderPool}: RewardsPoolsContainerProps) => {
     return(
       <>
-        {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
+        {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
         .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], currentChain, active))}
       </>
     )

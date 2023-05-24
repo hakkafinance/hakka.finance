@@ -16,7 +16,6 @@ export default function useVestingInfo(): {
   const { fetchVestingInfoResult: bscVestingInfo } = useFetchVestingInfo(ChainId.BSC);
   const { fetchVestingInfoResult: fantomVestingInfo } = useFetchVestingInfo(ChainId.FANTOM);
   const { fetchVestingInfoResult: polygonVestingInfo } = useFetchVestingInfo(ChainId.POLYGON);
-  const { fetchVestingInfoResult: kovanVestingInfo } = useFetchVestingInfo(ChainId.KOVAN);
 
   const throttleFunc = useMemo(() => 
     throttle(setVestingInfo, 500)
@@ -28,10 +27,9 @@ export default function useVestingInfo(): {
       bscVestingInfo || [[ChainId.BSC], undefined],
       fantomVestingInfo || [[ChainId.FANTOM], undefined],
       polygonVestingInfo || [[ChainId.POLYGON], undefined],
-      kovanVestingInfo || [[ChainId.KOVAN], undefined]
     ])
     throttleFunc(newVestingInfo);
-  }, [mainnetVestingInfo, bscVestingInfo, fantomVestingInfo, polygonVestingInfo, kovanVestingInfo]);
+  }, [mainnetVestingInfo, bscVestingInfo, fantomVestingInfo, polygonVestingInfo]);
 
   return { vestingInfo };
 }

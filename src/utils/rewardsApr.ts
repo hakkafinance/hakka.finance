@@ -22,14 +22,6 @@ const SECONDS_IN_YEAR = BigNumber.from(
 const ethProvider = new JsonRpcProvider(process.env.GATSBY_NETWORK_URL);
 const ethMulticallProvider = new MulticallProvider(ethProvider, 1);
 
-const getKovanMulticallProvider = () => {
-  if (process.env.GATSBY_ENV !== 'development') {
-    return null;
-  }
-  const kovanProvider = new JsonRpcProvider(process.env.GATSBY_KOVAN_NETWORK_URL);
-  return new MulticallProvider(kovanProvider, ChainId.KOVAN);
-};
-const kovanMulticallProvider = getKovanMulticallProvider();
 const bscProvider = new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL);
 const polygonProvider = new JsonRpcProvider(process.env.GATSBY_POLYGON_NETWORK_URL);
 const fantomProvider = new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL);

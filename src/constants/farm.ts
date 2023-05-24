@@ -7,20 +7,10 @@ export const CHAIN_SWITCH_TAB_INFO: {[chainId in ChainId]: { displayName: string
       img: images.iconTabEthWithBgColor,
       imgGray: images.iconTabEthGray,
     },
-    [ChainId.KOVAN]: {
-      displayName: 'Kovan',
-      img: '',
-      imgGray: '',
-    },
     [ChainId.BSC]: {
       displayName: 'BNB Chain',
       img: images.iconTabBscWithBgColor,
       imgGray: images.iconTabBscGray,
-    },
-    [ChainId.RINKEBY]: {
-      displayName: 'Rinkeby',
-      img: '',
-      imgGray: '',
     },
     [ChainId.POLYGON]: {
       displayName: 'Polygon',

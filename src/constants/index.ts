@@ -27,8 +27,6 @@ export const stakingMonth = [1, 3, 6, 12];
 
 export const ChainName: { [chainId in ChainId]: string } = {
   1: 'Ethereum Mainnet',
-  4: 'Rinkeby',
-  42: 'Kovan Testnet',
   56: 'BNB Chain',
   137: 'Polygon Network',
   250: 'Fantom Network',
@@ -45,14 +43,6 @@ export const ChainNameWithIcon: Record<
   [ChainId.MAINNET]: {
     iconName: 'iconTabEthereum',
     name: 'Ethereum',
-  },
-  [ChainId.RINKEBY]: {
-    iconName: 'iconTabRinkeby',
-    name: 'Rinkeby',
-  },
-  [ChainId.KOVAN]: {
-    iconName: 'iconTabKovan',
-    name: 'Kovan',
   },
   [ChainId.BSC]: {
     iconName: 'iconTabBinance',
@@ -130,20 +120,6 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
     'HAKKA',
     'Hakka Finance'
   ),
-  [ChainId.RINKEBY]: new Token(
-    4,
-    '0xaFF4481D10270F50f203E0763e2597776068CBc5',
-    18,
-    'HAKKA',
-    'Hakka Finance'
-  ),
-  [ChainId.KOVAN]: new Token(
-    42,
-    '0xaFF4481D10270F50f203E0763e2597776068CBc5',
-    18,
-    'HAKKA',
-    'Hakka Finance'
-  ),
   [ChainId.BSC]: new Token(
     56,
     '0x1d1eb8e8293222e1a29d2c0e4ce6c0acfd89aaac',
@@ -169,37 +145,29 @@ export const HAKKA: { [chainId in ChainId]: Token } = {
 
 export const STAKING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xd9958826bce875a75cc1789d5929459e6ff15040',
-  [ChainId.KOVAN]: '0xBf605Cb5f610C0aEDbf6e89af652892FF007B47c',
   [ChainId.BSC]: AddressZero,
-  [ChainId.RINKEBY]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
   [ChainId.FANTOM]: AddressZero,
 };
 
 export const VESTING_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x51F12323820b3c0077864990d9E6aD9604238Ed6',
-  [ChainId.KOVAN]: '0x3DEF87Be78024943E48183E9118D951C39a8197D',
   [ChainId.BSC]: '0x6dbff20CAFf68B99b1e67B50D14A9D7BBdfA94DC',
   [ChainId.POLYGON]: '0xeC4b77e7369325b52A1f9d1Ae080B59954B8001a',
-  [ChainId.RINKEBY]: AddressZero,
   [ChainId.FANTOM]: '0x3792ee68E736b8214D4eDC91b1B3340B525e00BF',
 };
 
 export const BURNER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xde02313f8BF17f31380c63e41CDECeE98Bc2b16d',
-  [ChainId.KOVAN]: '0x793f3a1427592f674113E97A1741D39c91904971',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
-  [ChainId.RINKEBY]: AddressZero,
   [ChainId.FANTOM]: AddressZero,
 };
 
 export const GUILDBANK: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x83D0D842e6DB3B020f384a2af11bD14787BEC8E7',
-  [ChainId.KOVAN]: '0xB062FE463548FCEf976C9BC5B93f29813e142DB8',
   [ChainId.BSC]: AddressZero,
   [ChainId.POLYGON]: AddressZero,
-  [ChainId.RINKEBY]: AddressZero,
   [ChainId.FANTOM]: AddressZero,
 };
 
@@ -232,39 +200,14 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
       [DECIMALS]: 6,
     },
   },
-  [ChainId.KOVAN]: {
-    '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE': {
-      [NAME]: 'Ether',
-      [SYMBOL]: 'ETH',
-      [DECIMALS]: 18,
-    },
-    '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa': {
-      [NAME]: 'Dai Stablecoin',
-      [SYMBOL]: 'DAI',
-      [DECIMALS]: 18,
-    },
-    '0xb7a4F3E9097C08dA09517b5aB877F7a917224ede': {
-      [NAME]: 'USD Coin ',
-      [SYMBOL]: 'USDC',
-      [DECIMALS]: 6,
-    },
-    '0x61460874a7196d6a22D1eE4922473664b3E95270': {
-      [NAME]: 'Compound',
-      [SYMBOL]: 'COMP',
-      [DECIMALS]: 18,
-    },
-  },
   [ChainId.BSC]: {},
   [ChainId.POLYGON]: {},
-  [ChainId.RINKEBY]: {},
   [ChainId.FANTOM]: {},
 };
 
 // TODO: check this address
 export const NEW_SHAKKA_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xb925863a15ebdeae1a638bf2b6fd00d4db897a62',
-  [ChainId.KOVAN]: '0x9680498EE70fb6084869962F63cce7315FDA29F0',
-  [ChainId.RINKEBY]: '0x0b6eAA40319113f5500a2bD1C2f434b42Ec3C1b9',
   [ChainId.BSC]: '0x51DE1EeF029b5cc1Ef359E62aA98101F56f29bE6',
   [ChainId.POLYGON]: '0x7F8093f5F49a9D7F0334f8017fF777F1893032d5',
   [ChainId.FANTOM]: AddressZero,
@@ -274,10 +217,8 @@ export const STAKING_RATE_MODEL_RELEASE_TIME: {
   [address: typeof NEW_SHAKKA_ADDRESSES[ChainId]]: number;
 } = {
   [NEW_SHAKKA_ADDRESSES[ChainId.MAINNET]]: 1655110318,
-  [NEW_SHAKKA_ADDRESSES[ChainId.KOVAN]]: 1653042448,
   [NEW_SHAKKA_ADDRESSES[ChainId.BSC]]: 1655108868,
   [NEW_SHAKKA_ADDRESSES[ChainId.POLYGON]]: 1655455798,
-  [NEW_SHAKKA_ADDRESSES[ChainId.RINKEBY]]: 1653630226,
 };
 
 export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK: {
@@ -305,8 +246,7 @@ export const SHAKKA_POOL = '0xF4D1F9674c8e9f29A69DC2E6f841292e675B7977';
 export const ETH_SHAKKA_POOL = '0x735A80510536a9A18c8824f40DBc92824640c95a';
 export const BSC_SHAKKA_POOL = '0x64A7B6F1A014156415b214e14Eb7477c3A3AceAE';
 export const POLYGON_SHAKKA_POOL = '0xf55eAbB6B9460baDb569b5bfF0AD0efdf2264d5a';
-export const KOVAN_SHAKKA_POOL = '';
-export const RINKEBY_SHAKKA_POOL = '';
+
 export const IGAIN_TEST_POOL = '0xbEe4829ab37a5d1C4bEf6A86bBA479420748b61d'; // example, should be delete after prod released
 export const IGAIN_BNB_BUSD_POOL = '0x4E353C2CCc7DfB6a4d3Ea7802ddEBa226574702E'; // started at 20211104
 
@@ -352,10 +292,8 @@ export const BHS_ADDRESS = '0x35101c731b1548B5e48bb23F99eDBc2f5c341935';
 
 export const SHAKKA_POOLS: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: ETH_SHAKKA_POOL,
-  [ChainId.KOVAN]: KOVAN_SHAKKA_POOL,
   [ChainId.BSC]: BSC_SHAKKA_POOL,
   [ChainId.POLYGON]: POLYGON_SHAKKA_POOL,
-  [ChainId.RINKEBY]: RINKEBY_SHAKKA_POOL,
 };
 
 export const TOKEN_PRICE_SLUGS: string[] = [
@@ -375,13 +313,9 @@ export const TOKEN_PRICE_SLUGS: string[] = [
 
 export const JSON_RPC_PROVIDER: { [chainId in ChainId]: JsonRpcProvider } = {
   [ChainId.MAINNET]: new JsonRpcProvider(process.env.GATSBY_NETWORK_URL),
-  [ChainId.KOVAN]: new JsonRpcProvider(process.env.GATSBY_KOVAN_NETWORK_URL),
   [ChainId.BSC]: new JsonRpcProvider(process.env.GATSBY_BSC_NETWORK_URL),
   [ChainId.POLYGON]: new JsonRpcProvider(
     process.env.GATSBY_POLYGON_NETWORK_URL
-  ),
-  [ChainId.RINKEBY]: new JsonRpcProvider(
-    process.env.GATSBY_RINKEBY_NETWORK_URL
   ),
   [ChainId.FANTOM]: new JsonRpcProvider(process.env.GATSBY_FANTOM_NETWORK_URL),
 };
