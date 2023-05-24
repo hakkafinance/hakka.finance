@@ -28,7 +28,7 @@ const NewTokenAddressInput = (props: NewTokenAddressInputProps) => {
     setAddressInputValue,
     rewardTokens
   } = props;
-  const { library } = useActiveWeb3React();
+  const { provider: library } = useActiveWeb3React();
   const [tokenInfo, setTokenInfo] = useState<(string | number)[]>(['']);
   const [isAddBtnDisabled, setIsAddBtnDisabled] = useState<boolean>(true);
   // const [addTokenError, setAddTokenError] = useState<string>('');
