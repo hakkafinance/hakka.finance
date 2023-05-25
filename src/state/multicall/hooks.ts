@@ -252,11 +252,7 @@ export function useMultipleContractSingleData(
 }
 
 export function useMultipleContractMultipleData(
-  addresses: (string | undefined)[],
-  contractInterface: Interface,
-  methodName: string,
-  callInputs?: OptionalMethodInputs[],
-  options?: ListenerOptions,
+{ addresses, contractInterface, methodName, callInputs, options, enabled = true }: { addresses: (string | undefined)[]; contractInterface: Interface; methodName: string; callInputs?: OptionalMethodInputs[]; options?: ListenerOptions; enabled?: boolean },
 ): CallState[] {
   const fragment = useMemo(() => contractInterface.getFunction(methodName), [
     contractInterface,
@@ -265,6 +261,7 @@ export function useMultipleContractMultipleData(
 
   const calls = useMemo(
     () => (fragment
+      && enabled
       && addresses
       && addresses.length > 0
       && addresses.indexOf(AddressZero) === -1
