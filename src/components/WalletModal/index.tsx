@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { UAuthConnector } from '@uauth/web3-react';
 import { Connector } from '@web3-react/types';
@@ -24,7 +24,7 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 };
 
-export default function WalletModal({ ENSName }: { ENSName?: string }) {
+function WalletModal({ ENSName }: { ENSName?: string }) {
   // important that these are destructed from the account-specific web3-react context
   console.log('wallet modal');
   const { isActive: active, account, connector } = useWeb3React();
@@ -76,8 +76,12 @@ export default function WalletModal({ ENSName }: { ENSName?: string }) {
     if (connector instanceof UAuthConnector) {
       toggleWalletModal();
     }
+    try {
+      await connector?.activate();
+    } catch (error) {
+      console.log(error)
+    }
 
-    connector?.activate();
   };
 
   // get wallets user can switch too, depending on device/browser
@@ -146,3 +150,5 @@ export default function WalletModal({ ENSName }: { ENSName?: string }) {
     </Modal>
   );
 }
+
+export default memo(WalletModal)

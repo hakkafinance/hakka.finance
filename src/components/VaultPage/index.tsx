@@ -35,6 +35,10 @@ import {
   ETHADDRESS,
 } from '../../constants';
 
+const getRewardTokenById = (chainId: ChainId | undefined) => {
+  return VAULT_TOKENS[chainId || 1] || VAULT_TOKENS[1];
+};
+
 const VaultPage = () => {
   const { account, chainId } = useWeb3React();
 
@@ -48,7 +52,7 @@ const VaultPage = () => {
 
   // burn amount
   const [inputAmount, setInputAmount] = useState('0');
-  const [rewardTokens, setRewardTokens] = useState(VAULT_TOKENS[chainId || 1]);
+  const [rewardTokens, setRewardTokens] = useState(getRewardTokenById(chainId));
   const [isShowNewTokenArea, setIsShowNewTokenArea] = useState(false);
   const [newRewardAddressInput, setNewRewardAddressInput] = useState<string>('');
 
@@ -60,7 +64,7 @@ const VaultPage = () => {
 
   // when chainId change, update rewardTokens value
   useEffect(() => {
-    setRewardTokens(VAULT_TOKENS[chainId || 1]);
+    setRewardTokens(getRewardTokenById(chainId));
   }, [chainId]);
 
   // sort the reward tokens address
@@ -166,7 +170,7 @@ const VaultPage = () => {
   )
 
   const isCorrectNetwork = useMemo<boolean>(() => {
-    if(!chainId) { 
+    if(!chainId || !BURNER_ADDRESS[chainId as ChainId]) {
       return false;
     }
     return BURNER_ADDRESS[chainId as ChainId] !== AddressZero;
@@ -201,7 +205,7 @@ const VaultPage = () => {
               >
                 {(!chainId || !isCorrectNetwork)
                   ? '-'
-                  : shortenAddress(GUILDBANK[chainId]) 
+                  : shortenAddress(GUILDBANK[chainId])
                 }
               </a>
             </div>
@@ -211,7 +215,7 @@ const VaultPage = () => {
               <span>
                 HAKKA Balance:
                 {' '}
-                {isCorrectNetwork 
+                {isCorrectNetwork
                   ? (hakkaBalance?.toSignificant(10) || '0.00')
                   : '-'}
               </span>
@@ -264,7 +268,7 @@ const VaultPage = () => {
                   bankBalance={tokenAddress === ETHADDRESS
                     ? ethBalance[GUILDBANK[chainId as ChainId]]?.toFixed(4)
                     : tokensBalanceInBank[tokenAddress]?.toFixed(4) || '0'}
-                  isDefaultToken={Object.keys(VAULT_TOKENS[chainId || 1]).includes(tokenAddress)} // chainId
+                  isDefaultToken={Object.keys(rewardTokens).includes(tokenAddress)} // chainId
                   checked={pickedRewardTokensAddress.includes(tokenAddress)}
                   onChange={() => { toggleToken(tokenAddress); }}
                   rewardTokens={rewardTokens}

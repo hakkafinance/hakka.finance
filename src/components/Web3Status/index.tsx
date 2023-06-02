@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { useWeb3React } from '@web3-react/core';
-import React from 'react';
+import React, { memo } from 'react';
 import useENSName from '../../hooks/useENSName';
 import useUnstoppableDomains from '../../hooks/useUnstoppableDomains';
 import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
@@ -22,7 +22,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   const toggleWalletModal = useWalletModalToggle();
   const toggleInfoModal = useInfoModalToggle();
 
-  const isUnsupportedChainError = CHAIN_URL_MAP.has(chainId || -1);
+  const isUnsupportedChainError = !CHAIN_URL_MAP.has(chainId || -1);
 
   if (!active) {
     return null;
@@ -55,4 +55,4 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   );
 };
 
-export default Web3Status;
+export default memo(Web3Status);

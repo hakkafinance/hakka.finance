@@ -4,20 +4,22 @@ import { useEffect, useState } from 'react';
 export const useActiveWeb3React = useWeb3ReactCore;
 
 export function useEagerConnect () {
-  const { connector, isActive } = useWeb3ReactCore(); // specifically using useWeb3ReactCore because of what this hook does
+  const { connector, isActive, account, chainId } = useWeb3ReactCore(); // specifically using useWeb3ReactCore because of what this hook does
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        await connector.connectEagerly?.();
+        if(!account){
+          await connector.connectEagerly?.();
+        }
       } catch (error) {
         console.error(error);
       } finally {
         setTried(true);
       }
     })();
-  }, [connector]); // intentionally only running on mount (make sure it's only mounted once :))
+  }, [chainId, account]); // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {

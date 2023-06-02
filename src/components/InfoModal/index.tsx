@@ -18,9 +18,10 @@ import Modal from '../Modal';
 import styles from './styles';
 import AddToMetamaskBtn from '../AddToMetamaskBtn';
 
-export default function WalletModal() {
+export default function InfoModal() {
   const { chainId, account, isActive } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
+  const isHakkaExist = !!HAKKA[chainId as ChainId]
 
   const ERC20_INTERFACE = new Interface(ERC20_ABI);
   const hakkaBalances = useMultipleContractMultipleData({
@@ -35,11 +36,10 @@ export default function WalletModal() {
   });
 
   const [hakkaValueAmount, vestingValueAmount] = hakkaBalances?.map(
-    (balance) =>
-      new TokenAmount(
-        HAKKA[(chainId as ChainId) || 1],
-        JSBI.BigInt(balance?.result?.[0] ?? 0)
-      )
+    (balance) => isHakkaExist ? new TokenAmount(
+      HAKKA[(chainId as ChainId) || 1],
+      JSBI.BigInt(balance?.result?.[0] ?? 0)
+    ) : undefined
   );
 
   const { stakingBalance: v2StakingBalance } = useStakingData('v2');
