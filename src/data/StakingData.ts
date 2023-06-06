@@ -38,20 +38,19 @@ export function useStakingData(
   stakingRate: string[];
   vaults: any[];
 } {
-  const { chainId, library, account } = useActiveWeb3React();
+  const { chainId, provider: library, account } = useActiveWeb3React();
 
   if (_chainId === undefined) _chainId = chainId;
 
-  const contract = useMemo(
-    () =>
-      getContract(
-        usedVersion[version].address[_chainId || (1 as ChainId)],
-        usedVersion[version].abi,
-        library,
-        account
-      ),
-    [_chainId, version, library, account]
-  );
+  const contract = useMemo(() => {
+    const versionConfig = usedVersion[version]
+    return getContract(
+      versionConfig.address[_chainId || (1 as ChainId)] || versionConfig.address[(1 as ChainId)],
+      versionConfig.abi,
+      library as any,
+      account
+    );
+  }, [_chainId, version, library, account]);
 
   const stakingBalance = useSingleCallResult(contract, 'stakedHakka', [
     account,

@@ -1,115 +1,136 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useEffect, useMemo, useState } from 'react'
-import styles from './styles'
+import React, { useEffect, useMemo, useState } from 'react';
+import styles from './styles';
 import Web3Status from '../Web3Status';
 import MissionSection from './MissionSection';
 import CharacterStatus from './CharacterStatus';
 import images from '../../images';
-import { LevelInfo } from '../../constants/challenge';
 import { useWeb3React } from '@web3-react/core';
 import { shortenAddress } from '../../utils';
 import useProjectGalaxyCampaignsInfo from '../../hooks/useProjectGalaxyCampaignsInfo';
-import { MissionStatusOptions, OAT_INFO, PriorityOptions } from '../../constants/challenge';
-import { usePlayToEarnLevelUpModalOpen, usePlayToEarnLevelUpModalToggle } from '../../state/application/hooks';
+import {
+  MissionStatusOptions,
+  OAT_INFO,
+  PriorityOptions,
+  LevelInfo,
+} from '../../constants/challenge';
+import {
+  usePlayToEarnLevelUpModalOpen,
+  usePlayToEarnLevelUpModalToggle,
+} from '../../state/application/hooks';
 import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
 
 const Challenge = () => {
-  const [isUserLevelUp, setIsUserLevelUp] = useState<boolean>(false)
-  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState<boolean>(false)
-  const [isLevelUpAnimationCompleted, setIsLevelUpAnimationCompleted] = useState<boolean>(false)
+  const [isUserLevelUp, setIsUserLevelUp] = useState<boolean>(false);
+  const [isAnimationCanBePlayed, setIsAnimationCanBePlayed] = useState<boolean>(
+    false
+  );
+  const [
+    isLevelUpAnimationCompleted,
+    setIsLevelUpAnimationCompleted,
+  ] = useState<boolean>(false);
   const { account } = useWeb3React();
-  const campaignsInfo = useProjectGalaxyCampaignsInfo()
+  const campaignsInfo = useProjectGalaxyCampaignsInfo();
   const togglePlayToEarnLevelUpModal = usePlayToEarnLevelUpModalToggle();
   const isPlayToEarnModalOpen = usePlayToEarnLevelUpModalOpen();
 
   const isCampaignsInfoLoaded = useMemo(() => {
-    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0
-  }, [campaignsInfo])
+    return !!campaignsInfo && Object.keys(campaignsInfo).length > 0;
+  }, [campaignsInfo]);
 
   const userLevel = useMemo(() => {
-    const levelList = Object.keys(LevelInfo).map((level) => LevelInfo[level].missionList)
-    if (!campaignsInfo || Object.keys(campaignsInfo).length === 0 || levelList.length <= 1) {
-      return 1
+    const levelList = Object.keys(LevelInfo).map(
+      (level) => LevelInfo[level].missionList
+    );
+    if (
+      !campaignsInfo ||
+      Object.keys(campaignsInfo).length === 0 ||
+      levelList.length <= 1
+    ) {
+      return 1;
     }
     for (let i = 0; i < levelList.length; i++) {
       for (let j = 0; j < levelList[i].length; j++) {
-        const id = levelList[i][j]
+        const id = levelList[i][j];
         if (
-          OAT_INFO[id]?.priority === PriorityOptions.REQUIRED && 
-          campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED || 
+          (OAT_INFO[id]?.priority === PriorityOptions.REQUIRED &&
+            campaignsInfo[id]?.status === MissionStatusOptions.UNFINISHED) ||
           campaignsInfo[id]?.status === MissionStatusOptions.FINISHED
-          ) {
-            const userLevel = i + 1
-            return userLevel
+        ) {
+          const userLevel = i + 1;
+          return userLevel;
         }
       }
     }
-    return levelList.length
-  }, [campaignsInfo])
+    return levelList.length;
+  }, [campaignsInfo]);
 
   useEffect(() => {
-    if(!account) { 
-      return 
+    if (!account) {
+      return;
     }
-    const localStorageLevelInfo = window.localStorage.getItem('user-level')
-    let levelInfo = localStorageLevelInfo ? JSON.parse(localStorageLevelInfo) : {}
+    const localStorageLevelInfo = window.localStorage.getItem('user-level');
+    const levelInfo = localStorageLevelInfo
+      ? JSON.parse(localStorageLevelInfo)
+      : {};
     if (!levelInfo[account]) {
-      levelInfo[account] = 1
-      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      levelInfo[account] = 1;
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo));
     }
-  }, [account])
+  }, [account]);
 
   useEffect(() => {
     const isBrowser = typeof window !== 'undefined';
-    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+    const localStorageLevelInfo = window.localStorage.getItem('user-level');
     if (
-      !isBrowser || 
-      !isCampaignsInfoLoaded || 
-      !account || 
+      !isBrowser ||
+      !isCampaignsInfoLoaded ||
+      !account ||
       !localStorageLevelInfo
     ) {
-      return
+      return;
     }
 
-    const levelInfo = JSON.parse(localStorageLevelInfo)
+    const levelInfo = JSON.parse(localStorageLevelInfo);
     if (levelInfo[account] < userLevel) {
       if (!isPlayToEarnModalOpen) {
-        togglePlayToEarnLevelUpModal()
+        togglePlayToEarnLevelUpModal();
       }
-      setIsUserLevelUp(true)
+      setIsUserLevelUp(true);
     }
-  }, [userLevel, isCampaignsInfoLoaded])
+  }, [userLevel, isCampaignsInfoLoaded]);
 
   useEffect(() => {
-    if(isUserLevelUp && !isPlayToEarnModalOpen) {
-      setIsAnimationCanBePlayed(true)
+    if (isUserLevelUp && !isPlayToEarnModalOpen) {
+      setIsAnimationCanBePlayed(true);
     }
-  }, [isUserLevelUp, isPlayToEarnModalOpen])
+  }, [isUserLevelUp, isPlayToEarnModalOpen]);
 
   useEffect(() => {
-    const localStorageLevelInfo = window.localStorage.getItem('user-level')
+    const localStorageLevelInfo = window.localStorage.getItem('user-level');
     if (isLevelUpAnimationCompleted && account && localStorageLevelInfo) {
-      setIsAnimationCanBePlayed(false)
-      setIsUserLevelUp(false)
-      setIsLevelUpAnimationCompleted(false)
-      const levelInfo = JSON.parse(localStorageLevelInfo)
-      levelInfo[account] = userLevel
-      window.localStorage.setItem('user-level', JSON.stringify(levelInfo))
+      setIsAnimationCanBePlayed(false);
+      setIsUserLevelUp(false);
+      setIsLevelUpAnimationCompleted(false);
+      const levelInfo = JSON.parse(localStorageLevelInfo);
+      levelInfo[account] = userLevel;
+      window.localStorage.setItem('user-level', JSON.stringify(levelInfo));
     }
-  }, [isLevelUpAnimationCompleted, userLevel])
+  }, [isLevelUpAnimationCompleted, userLevel]);
 
   const completedTaskAmount = useMemo(() => {
     let completedTaskAmount = 0;
-    LevelInfo[userLevel].missionList.forEach((id) => { 
+    LevelInfo[userLevel].missionList.forEach((id) => {
       if (
         campaignsInfo?.[id]?.status &&
-        campaignsInfo[id].status === MissionStatusOptions.COMPLETED) {
-          completedTaskAmount += 1
+        campaignsInfo[id].status === MissionStatusOptions.COMPLETED
+      ) {
+        completedTaskAmount += 1;
       }
-    })
-    return completedTaskAmount
-  }, [campaignsInfo])
+    });
+    return completedTaskAmount;
+  }, [campaignsInfo]);
 
   return (
     <div sx={styles.container}>
@@ -120,8 +141,10 @@ const Challenge = () => {
         </div>
         <div>
           <div sx={styles.subTitleWrapper}>
-            <span>Explore the new Galaxy of Decentralized Finance to become a DeFi Master! Complete the missions below to level up, collect NFTs,
-              and learn how to make money on DeFi!&nbsp;
+            <span>
+              Explore the new Galaxy of Decentralized Finance to become a DeFi
+              Master! Complete the missions below to level up, collect NFTs, and
+              learn how to make money on DeFi!&nbsp;
             </span>
             <a
               sx={styles.learnMoreLink}
@@ -129,7 +152,7 @@ const Challenge = () => {
               href="https://hakkafinance.medium.com/play-to-earn-with-hakka-finance-a3b3cf50cfb5"
               rel="noreferrer noopener"
             >
-              <span>Read more  </span>
+              <span>Read more </span>
               <img src={images.iconLinkSmallGreen} />
             </a>
           </div>
@@ -153,7 +176,7 @@ const Challenge = () => {
       </div>
       <PlayToEarnLevelUpModal />
     </div>
-  )
-}
+  );
+};
 
-export default Challenge
+export default Challenge;

@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import React from 'react';
-import { NetworkContextName } from '../../constants';
+import { useWeb3React } from '@web3-react/core';
+import React, { memo } from 'react';
 import useENSName from '../../hooks/useENSName';
 import useUnstoppableDomains from '../../hooks/useUnstoppableDomains';
 import { useWalletModalToggle, useInfoModalToggle } from '../../state/application/hooks';
@@ -14,18 +13,18 @@ import CurrentNetwork from '../CurrentNetwork';
 import images from '../../images';
 import styles from './styles';
 import PlayToEarnLevelUpModal from '../PlayToEarnLevelUpModal';
+import { CHAIN_URL_MAP } from '../../constants/chainDetail';
 
 const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
-  const { active, account, error } = useWeb3React();
-  const contextNetwork = useWeb3React(NetworkContextName);
+  const { isActive: active, account, chainId } = useWeb3React();
   const { ENSName } = useENSName(account ?? undefined);
   const { unstoppableDomain } = useUnstoppableDomains(account ?? undefined);
   const toggleWalletModal = useWalletModalToggle();
   const toggleInfoModal = useInfoModalToggle();
 
-  const isUnsupportedChainError = error instanceof UnsupportedChainIdError;
+  const isUnsupportedChainError = !CHAIN_URL_MAP.has(chainId || -1);
 
-  if (!contextNetwork.active && !active) {
+  if (!active) {
     return null;
   }
 
@@ -56,4 +55,4 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   );
 };
 
-export default Web3Status;
+export default memo(Web3Status);

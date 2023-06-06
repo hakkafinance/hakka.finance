@@ -1,19 +1,12 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import {
-  JSBI,
-  TokenAmount,
-} from '@uniswap/sdk';
+import { JSBI, TokenAmount } from '@uniswap/sdk';
 import { useWeb3React } from '@web3-react/core';
 import { Interface } from '@ethersproject/abi';
 import { ArrowRightCircle } from 'react-feather';
 import { useStakingData } from '../../data/StakingData';
 import ERC20_ABI from '../../constants/abis/erc20.json';
-import {
-  ChainId,
-  HAKKA,
-  VESTING_ADDRESSES,
-} from '../../constants';
+import { ChainId, HAKKA, VESTING_ADDRESSES } from '../../constants';
 import {
   useInfoModalOpen,
   useInfoModalToggle,
@@ -23,30 +16,31 @@ import useTokenPrice from '../../hooks/useTokenPrice';
 import images from '../../images';
 import Modal from '../Modal';
 import styles from './styles';
-import AddToMetamaskBtn from '../AddToMetamaskBtn'
-export default function WalletModal() {
-  const { chainId, account } = useWeb3React();
+import AddToMetamaskBtn from '../AddToMetamaskBtn';
+
+export default function InfoModal() {
+  const { chainId, account, isActive } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
+  const isHakkaExist = !!HAKKA[chainId as ChainId]
 
   const ERC20_INTERFACE = new Interface(ERC20_ABI);
-
-  const hakkaBalances = useMultipleContractMultipleData(
-    [
+  const hakkaBalances = useMultipleContractMultipleData({
+    addresses: [
       HAKKA[chainId as ChainId]?.address,
       VESTING_ADDRESSES[chainId as ChainId],
     ],
-    ERC20_INTERFACE,
-    'balanceOf',
-    [[account], [account]],
-  );
+    contractInterface: ERC20_INTERFACE,
+    methodName: 'balanceOf',
+    callInputs: [[account], [account]],
+    enabled: Boolean(isActive && account),
+  });
 
-  const [
-    hakkaValueAmount,
-    vestingValueAmount,
-  ] = hakkaBalances?.map((balance) => new TokenAmount(
-    HAKKA[chainId as ChainId || 1],
-    JSBI.BigInt(balance?.result?.[0] ?? 0),
-  ));
+  const [hakkaValueAmount, vestingValueAmount] = hakkaBalances?.map(
+    (balance) => isHakkaExist ? new TokenAmount(
+      HAKKA[(chainId as ChainId) || 1],
+      JSBI.BigInt(balance?.result?.[0] ?? 0)
+    ) : undefined
+  );
 
   const { stakingBalance: v2StakingBalance } = useStakingData('v2');
   const { stakingBalance: v1StakingBalance } = useStakingData('v1');
@@ -68,16 +62,14 @@ export default function WalletModal() {
         <div sx={styles.contentWrapper}>
           <div sx={styles.balance}>
             <img sx={styles.hakkaIcon} src={images.hakkaAccount} />
-            <div sx={styles.hakkaValue}>{hakkaValueAmount?.toFixed(2) || '-'}</div>
+            <div sx={styles.hakkaValue}>
+              {hakkaValueAmount?.toFixed(2) || '-'}
+            </div>
             <AddToMetamaskBtn />
           </div>
           <div sx={styles.displayBetween}>
             <div sx={styles.label}>Price</div>
-            <div sx={styles.data}>
-              {hakkaPrice}
-              {' '}
-              USD
-            </div>
+            <div sx={styles.data}>{hakkaPrice} USD</div>
           </div>
         </div>
         <div sx={styles.divider} />
@@ -86,13 +78,13 @@ export default function WalletModal() {
             <div>
               <div sx={styles.label}>Staking balance (v2)</div>
               <div sx={styles.data}>
-                {v2StakingBalance?.toFixed(2) || '-'}
-                {' '}
-                HAKKA
+                {v2StakingBalance?.toFixed(2) || '-'} HAKKA
               </div>
             </div>
             <button
-              onClick={() => { location.href = '/staking'; }}
+              onClick={() => {
+                location.href = '/staking';
+              }}
               sx={styles.pageBtn}
             >
               Staking V2
@@ -103,31 +95,31 @@ export default function WalletModal() {
             <div>
               <div sx={styles.label}>Staking balance (V1)</div>
               <div sx={styles.data}>
-                {v1StakingBalance?.toFixed(2) || '-'}
-                {' '}
-                HAKKA
+                {v1StakingBalance?.toFixed(2) || '-'} HAKKA
               </div>
             </div>
             <button
-              onClick={() => { location.href = '/staking-v1'; }}
+              onClick={() => {
+                location.href = '/staking-v1';
+              }}
               sx={styles.pageBtn}
             >
               Staking V1
               <ArrowRightCircle sx={styles.pageBtn.icon} size="20" />
             </button>
           </div>
-          
+
           <div sx={styles.displayBetween}>
             <div>
               <div sx={styles.label}>Vesting balance</div>
               <div sx={styles.data}>
-                {vestingValueAmount?.toFixed(2) || '-'}
-                {' '}
-                HAKKA
+                {vestingValueAmount?.toFixed(2) || '-'} HAKKA
               </div>
             </div>
             <button
-              onClick={() => { location.href = '/vesting'; }}
+              onClick={() => {
+                location.href = '/vesting';
+              }}
               sx={styles.pageBtn}
             >
               Vesting
@@ -140,10 +132,7 @@ export default function WalletModal() {
   }
 
   return (
-    <Modal
-      isOpen={infoModalOpen}
-      onDismiss={toggleInfoModal}
-    >
+    <Modal isOpen={infoModalOpen} onDismiss={toggleInfoModal}>
       <div sx={styles.wrapper}>{getModalContent()}</div>
     </Modal>
   );

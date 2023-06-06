@@ -38,8 +38,17 @@ export const chainsInfo = [
     shortName: 'Fantom',
   },
 ];
-
-export const tokenMetrics = [
+export interface TokenMetric {
+  id: string;
+  chainId: number;
+  shortName: string;
+  name: string;
+  type: string;
+  address: `0x${string}`
+  addressLink: string;
+  addressIcon: string;
+}
+export const tokenMetrics: TokenMetric[] = [
   {
     id: 'eth',
     chainId: 1,

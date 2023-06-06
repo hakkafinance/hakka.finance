@@ -84,7 +84,7 @@ const RewardsPage = () => {
   }, [stakedActivePools, apr]);
 
   const sortedActivePools = useMemo(() => {
-    let sortedActivePools = [];
+    let sortedActivePools:string[] = [];
     switch (sortBy) {
       case SortOptions.LATEST : {
         sortedActivePools = activePools
@@ -99,7 +99,7 @@ const RewardsPage = () => {
   } ,[activePools, sortedByAprActivePools, sortBy]);
 
   const sortedStakedActivePools = useMemo(() => {
-    let sortedStakedActivePools = [];
+    let sortedStakedActivePools: string[] = [];
     switch (sortBy) {
       case SortOptions.LATEST : {
         sortedStakedActivePools = stakedActivePools;
@@ -194,7 +194,7 @@ const RewardsPage = () => {
   const RewardsPoolsContainer = ({ pools, active, renderPool}: RewardsPoolsContainerProps) => {
     return(
       <>
-        {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain) // add `|| REWARD_POOLS[poolAddress].chain === ChainId.KOVAN` when test on kovan
+        {pools.filter((poolAddress) => REWARD_POOLS[poolAddress].chain === currentChain)
         .map((poolAddress) => renderPool(REWARD_POOLS[poolAddress], currentChain, active))}
       </>
     )

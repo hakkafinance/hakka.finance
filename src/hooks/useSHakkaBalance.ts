@@ -64,12 +64,6 @@ export default function useSHakkaBalance(): {
         getSHakkaBalance(ChainId.BSC, account),
         getSHakkaBalance(ChainId.POLYGON, account),
       ];
-      if (process.env.GATSBY_ENV === 'development') {
-        shakkaList.push(
-          getSHakkaBalance(ChainId.KOVAN, account),
-          getSHakkaBalance(ChainId.RINKEBY, account)
-        );
-      }
 
       const shakkaBalanceResults = await Promise.all(shakkaList);
 

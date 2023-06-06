@@ -21,7 +21,7 @@ export function useContract(
   ABI: any,
   withSignerIfPossible = true,
 ): Contract | null {
-  const { library, account } = useActiveWeb3React();
+  const { provider: library, account } = useActiveWeb3React();
 
   return useMemo(() => {
     if (!address || isZero(address) || !ABI || !library) return null;

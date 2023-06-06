@@ -17,6 +17,7 @@ const CHAIN_ID_NETWORK_ARGUMENT: {
   [ChainId.KOVAN]: 'kovan',
 };
 
+/** @deprecated since @web3-react@^8 */
 export class FortmaticConnector extends FortmaticConnectorCore {
   async activate() {
     if (!this.fortmatic) {

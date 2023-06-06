@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import {
   JSBI,
   TokenAmount,
@@ -28,7 +28,7 @@ import AddToMetamaskBtn from '../AddToMetamaskBtn';
 import { TabGroup } from '../Common/TabGroup';
 import useVestingInfo from '../../hooks/vesting/useVestingInfo';
 
-const hakkaSupportChain = Object.keys(_omit(ChainNameWithIcon, process.env.GATSBY_ENV === 'development' ? [] : [ChainId.KOVAN, ChainId.RINKEBY])).map((key) => {
+const hakkaSupportChain = Object.keys(ChainNameWithIcon).map((key) => {
   return {
     value: +key as ChainId,
     title: ChainNameWithIcon[+key as ChainId].name,
@@ -44,11 +44,11 @@ const vestingSupportChainIdSet = new Set(
 );
 
 const VestingPage = () => {
-  const { chainId, account, error } = useWeb3React();
+  const { chainId, account } = useWeb3React();
   const hakkaPrice = useTokenPrice('hakka-finance');
   const [claimState, claim] = useVestingWithdraw(VESTING_ADDRESSES[chainId], account);
 
-  const isConnected = !!account || error instanceof UnsupportedChainIdError;
+  const isConnected = !!account;
   const isChainSupported = vestingSupportChainIdSet.has(chainId);
   const [activeChainTab, setActiveChainTab] = useState(
     isChainSupported ? chainId! : ChainId.MAINNET

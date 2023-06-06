@@ -64,12 +64,6 @@ export default function useStakedHakka(): {
         getStakedHakka(ChainId.BSC, account),
         getStakedHakka(ChainId.POLYGON, account),
       ];
-      if (process.env.GATSBY_ENV === 'development') {
-        stakedList.push(
-          getStakedHakka(ChainId.KOVAN, account),
-          getStakedHakka(ChainId.RINKEBY, account)
-        );
-      }
       const stakedHakkaResult = await Promise.all(stakedList);
 
       setStakedHakka(Object.fromEntries(stakedHakkaResult));

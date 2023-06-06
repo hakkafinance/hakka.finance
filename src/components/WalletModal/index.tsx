@@ -1,18 +1,15 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useEffect } from 'react';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { useState, useEffect, memo } from 'react';
+import { useWeb3React } from '@web3-react/core';
 import { UAuthConnector } from '@uauth/web3-react';
-import { AbstractConnector } from '@web3-react/abstract-connector';
+import { Connector } from '@web3-react/types';
 import usePrevious from '../../hooks/usePrevious';
 import {
   useWalletModalOpen,
   useWalletModalToggle,
 } from '../../state/application/hooks';
 
-import { fortmatic } from '../../connectors';
-import { OVERLAY_READY } from '../../connectors/Fortmatic';
 import images from '../../images';
 import Modal from '../Modal';
 import AccountDetails from '../AccountDetails';
@@ -27,35 +24,15 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 };
 
-export default function WalletModal({
-  ENSName,
-}: {
-  ENSName?: string;
-}) {
+function WalletModal({ ENSName }: { ENSName?: string }) {
   // important that these are destructed from the account-specific web3-react context
-  const {
-    active, account, connector, activate, error,
-  } = useWeb3React();
+  console.log('wallet modal');
+  const { isActive: active, account, connector } = useWeb3React();
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);
 
   const walletModalOpen = useWalletModalOpen();
   const toggleWalletModal = useWalletModalToggle();
-
-  const previousAccount = usePrevious(account);
-
-  useEffect(() => {
-    fortmatic.on(OVERLAY_READY, () => {
-      toggleWalletModal();
-    });
-  }, [toggleWalletModal]);
-
-  // close on connection, when logged out before
-  useEffect(() => {
-    if (error instanceof UnsupportedChainIdError || account && !previousAccount && walletModalOpen) {
-      toggleWalletModal();
-    }
-  }, [account, previousAccount, toggleWalletModal, walletModalOpen, error]);
 
   // always reset to account view
   useEffect(() => {
@@ -69,45 +46,42 @@ export default function WalletModal({
   const connectorPrevious = usePrevious(connector);
   useEffect(() => {
     if (
-      walletModalOpen
-      && ((active && !activePrevious)
-        || (connector && connector !== connectorPrevious && !error))
+      walletModalOpen &&
+      ((active && !activePrevious) ||
+        (connector && connector !== connectorPrevious))
     ) {
       setWalletView(WALLET_VIEWS.ACCOUNT);
     }
   }, [
     setWalletView,
     active,
-    error,
     connector,
     walletModalOpen,
     activePrevious,
     connectorPrevious,
   ]);
 
-  const tryActivation = async (connector: AbstractConnector | undefined) => {
+  const tryActivation = async (connector: Connector | undefined) => {
     setWalletView(WALLET_VIEWS.PENDING);
     console.log(connector);
 
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
-    if (
-      connector instanceof WalletConnectConnector
-      && connector.walletConnectProvider?.wc?.uri
-    ) {
-      connector.walletConnectProvider = undefined;
-    }
+    // if (
+    //   connector instanceof WalletConnectConnector &&
+    //   connector.walletConnectProvider?.wc?.uri
+    // ) {
+    //   connector.walletConnectProvider = undefined;
+    // }
 
     if (connector instanceof UAuthConnector) {
       toggleWalletModal();
     }
+    try {
+      await connector?.activate();
+    } catch (error) {
+      console.log(error)
+    }
 
-    connector
-      && activate(connector, undefined, true).catch((error) => {
-        console.log(error);
-        if (error instanceof UnsupportedChainIdError) {
-          activate(connector);
-        }
-      });
   };
 
   // get wallets user can switch too, depending on device/browser
@@ -171,11 +145,10 @@ export default function WalletModal({
   }
 
   return (
-    <Modal
-      isOpen={walletModalOpen}
-      onDismiss={toggleWalletModal}
-    >
+    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal}>
       <div sx={styles.wrapper}>{getModalContent()}</div>
     </Modal>
   );
 }
+
+export default memo(WalletModal)

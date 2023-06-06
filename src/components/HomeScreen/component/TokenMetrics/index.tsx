@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box, Flex, Link,
 } from 'rebass';
@@ -9,10 +9,10 @@ import { CoinComponent } from '../../../../components/Common';
 import styles from './styles';
 import AddToMetamaskBtn from '../../../AddToMetamaskBtn';
 import { useWeb3React } from '@web3-react/core';
-import { chainsInfo, tokenMetrics } from '../../../../constants/tokenMetrics';
+import { chainsInfo, tokenMetrics, TokenMetric } from '../../../../constants/tokenMetrics';
 
-const TokenMetricContent = (props) => {
-  const { tokenMetrics } = props;
+const TokenMetricContent = (props: {tokenMetric: TokenMetric}) => {
+  const { tokenMetric } = props;
   return (
     <Box sx={styles.tokenMetricsInfoChain} ml="2">
       <Box sx={styles.tokenMetricsSubHead}>Token Metrics</Box>
@@ -20,14 +20,14 @@ const TokenMetricContent = (props) => {
       <Box sx={styles.tokenMetricsInfoContainer} mt="20px">
         <Box sx={styles.tokenMetricsInfo}>
           <Flex sx={{ alignItems: 'center' }}>
-            <span sx={styles.info}>{`NAME: ${tokenMetrics.name}`}</span>
-            <AddToMetamaskBtn selectedChainId={tokenMetrics.chainId} />
+            <span sx={styles.info}>{`NAME: ${tokenMetric.name}`}</span>
+            <AddToMetamaskBtn selectedChainId={tokenMetric.chainId} />
           </Flex>
         </Box>
         <Box sx={styles.tokenMetricsInfo} mt="1">
           TYPE:
           {' '}
-          <span sx={styles.info}>{tokenMetrics.type}</span>
+          <span sx={styles.info}>{tokenMetric.type}</span>
         </Box>
         <Box sx={styles.tokenMetricsInfo} mt="2">
           CONTRACT ADDRESS:
@@ -36,12 +36,12 @@ const TokenMetricContent = (props) => {
           {' '}
 
           <Flex sx={styles.tokenMetricsInfoAddress} alignItems="center">
-            <Link variant="nav" href={tokenMetrics.addressLink} target="_blank" rel="noreferrer noopener" sx={styles.info_link}>
-              {tokenMetrics.address}
+            <Link variant="nav" href={tokenMetric.addressLink} target="_blank" rel="noreferrer noopener" sx={styles.info_link}>
+              {tokenMetric.address}
               <img
                 sx={styles.iconScan}
                 className="icon-scan"
-                src={tokenMetrics.addressIcon}
+                src={tokenMetric.addressIcon}
                 alt=""
               />
             </Link>
@@ -53,10 +53,10 @@ const TokenMetricContent = (props) => {
       <Box sx={styles.tokenMetricsChainList} mt="20px">
         Get HAKKA Token on
         {' '}
-        {tokenMetrics.shortName}
+        {tokenMetric.shortName}
         :
       </Box>
-      { tokenMetrics.id === 'bsc'
+      { tokenMetric.id === 'bsc'
         ? (
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Flex>
@@ -72,8 +72,9 @@ const TokenMetricContent = (props) => {
               </Box>
             </Flex>
           </Flex>
-        ) : tokenMetrics.id === 'polygon'
-        ? (
+          )
+        : tokenMetric.id === 'polygon'
+          ? (
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Box>
               <CoinComponent
@@ -81,7 +82,8 @@ const TokenMetricContent = (props) => {
               />
             </Box>
           </Flex>
-        ) : (
+            )
+          : (
           <Flex sx={styles.token_metric_responsive} mt="2">
             <Box>
               <CoinComponent
@@ -101,12 +103,12 @@ const TokenMetricContent = (props) => {
               </Box>
             </Flex>
           </Flex>
-        )}
+            )}
     </Box>
   );
 };
 
-function TokenMetrics(props) {
+function TokenMetrics (props) {
   const { chainId } = useWeb3React();
   const [selectedCoin, setSelectedCoin] = useState('eth');
   const [selectedTokenMetric, setSelectedTokenMetric] = useState(tokenMetrics[0]);
@@ -115,13 +117,13 @@ function TokenMetrics(props) {
   const handleSelectCoin = (value) => () => {
     setSelectedCoin(value);
     const obj = tokenMetrics.find((it) => it.id === value);
-    setSelectedTokenMetric(obj);
+    setSelectedTokenMetric(obj!);
   };
 
   useEffect(() => {
-    const currentChain = chainsInfo.find((chain) => 
+    const currentChain = chainsInfo.find((chain) =>
       chain.chainId === chainId
-    )
+    );
     if (!currentChain?.id) {
       return;
     }
@@ -158,14 +160,10 @@ function TokenMetrics(props) {
     </Flex>
   ));
   return (
-    <>
-
       <Box sx={styles.tokenMetrics_responsive}>
-
         <Box sx={styles.tokenMetricsChain}>{renderChain()}</Box>
-        <TokenMetricContent tokenMetrics={selectedTokenMetric} />
+        <TokenMetricContent tokenMetric={selectedTokenMetric} />
       </Box>
-    </>
   );
 }
 

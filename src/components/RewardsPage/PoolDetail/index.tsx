@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Token, TokenAmount } from '@uniswap/sdk';
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import React, { useState, useMemo, useEffect } from 'react';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { Zero } from '@ethersproject/constants';
@@ -24,15 +24,14 @@ import { useRewardsClaim, ClaimState } from '../../../hooks/farm/useRewardsClaim
 import { useRewardsExit, ExitState } from '../../../hooks/farm/useRewardsExit';
 import { useRewardsDeposit, DepositState } from '../../../hooks/farm/useRewardsDeposit';
 import { useRewardsWithdraw, WithdrawState } from '../../../hooks/farm/useRewardsWithdraw';
-import { useWalletModalToggle } from '../../../state/application/hooks';
 import ClaimModal from '../../ClaimModal';
-import { useClaimModalToggle } from '../../../state/application/hooks';
+import { useClaimModalToggle, useWalletModalToggle } from '../../../state/application/hooks';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
 import withApproveTokenCheckWrapper from '../../../hoc/withApproveTokenCheckWrapper';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
 
 const PoolDetail = ({ pool }) => {
-  const { account, chainId, error } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const rewardData = useRewardsData([pool], [POOL_ASSETES[pool]?.decimal || 18]);
   const toggleClaimModal = useClaimModalToggle();
   const vestingContract = useVestingContract(VESTING_ADDRESSES[chainId]);
@@ -139,8 +138,7 @@ const PoolDetail = ({ pool }) => {
     withConnectWalletCheckWrapper(MyButton)
   );
 
-  const isWrongNetwork = error instanceof UnsupportedChainIdError
-    || REWARD_POOLS[pool].chain !== chainId;
+  const isWrongNetwork = REWARD_POOLS[pool].chain !== chainId;
 
   const [isCorrectInput, setIsCorrectInput] = useState<boolean>(true);
 
