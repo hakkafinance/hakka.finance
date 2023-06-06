@@ -42,6 +42,7 @@ export default {
 
   infoSection: {
     paddingLeft: '28px',
+    marginRight: '5%',
 
     h4: {
       fontSize: '24px',

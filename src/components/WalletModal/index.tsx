@@ -26,7 +26,6 @@ const WALLET_VIEWS = {
 
 function WalletModal({ ENSName }: { ENSName?: string }) {
   // important that these are destructed from the account-specific web3-react context
-  console.log('wallet modal');
   const { isActive: active, account, connector } = useWeb3React();
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);

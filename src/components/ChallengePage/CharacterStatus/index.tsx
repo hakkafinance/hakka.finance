@@ -34,10 +34,10 @@ interface CharacterStatusProps {
   setIsLevelUpAnimationCompleted: (boolean) => void;
 }
 
-const CharacterStatus = ({ 
-    address, 
-    level, 
-    completedTaskAmount, 
+const CharacterStatus = ({
+    address,
+    level,
+    completedTaskAmount,
     isLoaded,
     isUserLevelUp,
     isAnimationCanBePlayed,
@@ -45,18 +45,18 @@ const CharacterStatus = ({
   }: CharacterStatusProps) => {
   return (
     <div sx={styles.container}>
-      <div 
-        sx={styles.mainLayout} 
-        style={{ 
-          backgroundColor: LevelInfo[level].levelColor, 
-          borderColor: LevelInfo[level].characterPanelBorderColor 
+      <div
+        sx={styles.mainLayout}
+        style={{
+          backgroundColor: LevelInfo[level].levelColor,
+          borderColor: LevelInfo[level].characterPanelBorderColor
         }}
       >
         <div sx={styles.profileImgWrapper}>
           {!isLoaded && <div className='skeleton skeleton-type-circle' />}
           {isUserLevelUp && (
-            <div 
-              className={isAnimationCanBePlayed ? 'flip-action' : ''} 
+            <div
+              className={isAnimationCanBePlayed ? 'flip-action' : ''}
               onTransitionEnd={() => setIsLevelUpAnimationCompleted(true)}
             >
               <div className="flip-card-inner">
@@ -69,13 +69,13 @@ const CharacterStatus = ({
               </div>
             </div>
           )}
-          <img 
-            src={images[LevelInfo[level].profile]} 
-            style={{ 
-              visibility: isUserLevelUp ? 'hidden' : 'visible', 
-              width: '200px', 
+          <img
+            src={images[LevelInfo[level].profile]}
+            style={{
+              visibility: isUserLevelUp ? 'hidden' : 'visible',
+              width: '200px',
               height: '200px',
-            }} 
+            }}
           />
           <div sx={styles.levelContainer}>
             {isUserLevelUp ? (
@@ -87,7 +87,7 @@ const CharacterStatus = ({
                   >
                     Level {level - 1}
                   </div>
-                  <div 
+                  <div
                     className="level-item flip-level-container-back"
                     style={{ backgroundColor: LevelInfo[level].levelContainerBgColor }}
                   >
@@ -96,12 +96,12 @@ const CharacterStatus = ({
                 </div>
               </div>
             ) : (
-              <div 
+              <div
                 className='level-item'
                 style={{ backgroundColor: LevelInfo[level].levelContainerBgColor }}
               >
-                <Skeleton 
-                  isLoaded={isLoaded} 
+                <Skeleton
+                  isLoaded={isLoaded}
                   className='skeleton skeleton-type-level-container skeleton-color-green'
                 />
                 Level {level}
@@ -109,7 +109,7 @@ const CharacterStatus = ({
             )}
           </div>
         </div>
-        <div sx={styles.infoSection}>
+        <div sx={styles.infoSection} id='test-ttte'>
           <SkeletonTextWrapper isLoaded={isLoaded} isMobile={isMobile}>
             <p sx={styles.address}>{address}</p>
           </SkeletonTextWrapper>
@@ -120,7 +120,7 @@ const CharacterStatus = ({
             <p sx={styles.descriptionSection}>{LevelInfo[level].introduction}</p>
           </SkeletonTextWrapper>
           <div sx={styles.progressBarContainer}>
-            <ProgressBar 
+            <ProgressBar
               totalTaskAmount={LevelInfo[level].expectedMissionAmount}
               completedTaskAmount={completedTaskAmount}
               isLoaded={isLoaded}
