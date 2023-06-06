@@ -31,7 +31,7 @@ const Web3Status = ({ unsupported }: { unsupported?: boolean }) => {
   return (
     <div>
       <div sx={styles.container}>
-        <CurrentNetwork unsupported={unsupported} />
+        <CurrentNetwork unsupported={unsupported || isUnsupportedChainError} />
         <div sx={styles.accountContainer}>
           <div sx={styles.loginButtonWrapper}>
             <MyButton
