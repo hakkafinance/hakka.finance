@@ -1,0 +1,57 @@
+.skeleton-container {
+  position: relative;
+  border: 1px solid red;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: skeleton-loading-gray 1s linear infinite alternate;
+}
+
+.skeleton-color-green {
+  animation: skeleton-loading-green 1s linear infinite alternate;
+  z-index: 2;
+}
+
+.skeleton-width-90 {
+  width: 90%;
+}
+
+.skeleton-type-progress-bar {
+  border-radius: 12px;
+}
+
+.skeleton-type-button {
+  border-radius: 8px;
+}
+
+.skeleton-type-level-container {
+  border-radius: 20px;
+}
+
+.skeleton-type-circle {
+  border-radius: 50%;
+}
+
+@keyframes skeleton-loading-gray {
+  0% {
+    background-color: #CFDDE0;
+  }
+  100% {
+    background-color: #F6F6F6;
+  }
+}
+
+@keyframes skeleton-loading-green {
+  0% {
+    background-color: #D8EAE6;
+  }
+  100% {
+    background-color: #ECFCF5;
+  }
+}

@@ -1,4 +1,17 @@
+if (process.env.TEST) {
+  require('dotenv').config({
+    path: '.env.development'
+  })
+} else {
+  require('dotenv').config({
+    path: `.env.${process.env.NODE_ENV}`
+  })
+}
+
 module.exports = {
+  flags: {
+    DEV_SSR: true
+  },
   siteMetadata: {
     title: 'Hakka Finance',
     siteUrl: 'https://www.gatsbyjs.com'
@@ -9,6 +22,8 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
+    'gatsby-plugin-polyfill-io',
+    'gatsby-plugin-apollo',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -26,11 +41,32 @@ module.exports = {
       __key: 'images'
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: `gatsby-omni-font-loader`,
       options: {
-        google: {
-          families: ['Open Sans', 'Open+Sans:wght@400;600;700', 'Droid Serif']
-        }
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`],
+        web: [
+          {
+            name: `Open Sans`,
+            file: `https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap`,
+          },
+        ],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-tawk.to',
+      options: {
+        tawkId: process.env.TAWK_ID,
+        tawkKey: process.env.TAWK_KEY
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-google-tagmanager',
+      options: {
+        id: 'GTM-5RNGTLZ',
+        includeInDevelopment: false,
+        enableWebVitalsTracking: true,
+        routeChangeEventName: 'routeChangeEvent'
       }
     }
   ]

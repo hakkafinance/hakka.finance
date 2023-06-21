@@ -6,6 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
+public/
 yarn.lock
 package-lock.json
 
@@ -53,3 +54,7 @@ Thumbs.db
 
 
 .vercel
+
+public/
+
+.vscode/settings.json
