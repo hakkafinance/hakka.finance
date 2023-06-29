@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui';
 import React from 'react'
 import _omit from 'lodash/omit';
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import styles from './styles';
 import withWrongNetworkCheckWrapper from '../../../hoc/withWrongNetworkCheckWrapper';
 import withConnectWalletCheckWrapper from '../../../hoc/withConnectWalletCheckWrapper';
@@ -22,10 +22,12 @@ interface YearlyReviewMainSectionProps {
 }
 
 const YearlyReviewMainSection = ({ reviewResult, p2eLv, userRank }: YearlyReviewMainSectionProps) => {
-  const { account, chainId, error } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const toggleWalletModal = useWalletModalToggle();
-  const isConnected = !!account || error instanceof UnsupportedChainIdError;
-  const supportedChain = Object.keys(_omit(ChainNameWithIcon, [ChainId.KOVAN, ChainId.RINKEBY])).map((ele) => parseInt(ele));
+  const isConnected = !!account;
+  const supportedChain = Object.keys(ChainNameWithIcon).map((ele) =>
+    parseInt(ele)
+  );
   const isCorrectNetwork = chainId ? supportedChain.includes(chainId) : false;
   const CountScoreButton = withWrongNetworkCheckWrapper(withConnectWalletCheckWrapper(MyButton));
   const toggleScoreModal = useYearlyReviewScoreModalToggle();
