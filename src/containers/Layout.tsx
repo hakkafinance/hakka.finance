@@ -32,6 +32,7 @@ const Layout = ({ children, title }) => {
         <meta charSet="utf-8" />
         <title>{title || 'Hakka Finance'}</title>
         <meta property="og:image" content={images.iconOgImage} />
+        <meta name="google-site-verification" content="G25AvNxxuCFDIzy7gGrcN1-WdOUS1t3I0eJtjGj_JYo" />
       </Helmet>
       <Flex>
         <SideBar isShowSideBar={isShowSideBar} onCloseSideBar={handleClose} />
