@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Spinner, jsx } from 'theme-ui';
 import React, { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
@@ -25,7 +25,6 @@ export default function Web3ReactManager({
   }, [triedEager, networkActive, activateNetwork, active]);
 
   useInactiveListener(!triedEager);
-
   // on page load, do nothing until we've tried to connect to the injected connector
   if (!triedEager) {
     return null;
@@ -33,8 +32,8 @@ export default function Web3ReactManager({
 
   if (!active) {
     return (
-      <div sx={styles.messageWrapper}>
-        <h2>Oops! An unknown error occurred.</h2>
+      <div sx={styles.messageWrapper} >
+        <Spinner />
       </div>
     );
   }
