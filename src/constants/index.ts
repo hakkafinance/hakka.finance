@@ -199,6 +199,11 @@ export const VAULT_TOKENS: { [chainId in ChainId]: any } = {
       [SYMBOL]: 'USDC',
       [DECIMALS]: 6,
     },
+    '0x00CaAFC7d2C82C4A05504e116327bD398E19985c': {
+      [NAME]: 'Dyson Sphere',
+      [SYMBOL]: 'DYSN',
+      [DECIMALS]: 18,
+    }
   },
   [ChainId.BSC]: {},
   [ChainId.POLYGON]: {},
