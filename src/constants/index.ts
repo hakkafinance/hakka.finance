@@ -234,6 +234,7 @@ export const DEFAULT_TOKENS_COIN_GECKO_ID_BOOK: {
   '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2': 'maker',
   '0x35101c731b1548B5e48bb23F99eDBc2f5c341935':
     'blackholeswap-compound-dai-usdc',
+  '0x00CaAFC7d2C82C4A05504e116327bD398E19985c': 'dyson-sphere'
 };
 
 export const BHS_USDC_DAI_HAKKA_BPT =
@@ -314,6 +315,7 @@ export const TOKEN_PRICE_SLUGS: string[] = [
   'dai',
   'usd-coin',
   'tether',
+  'dyson-sphere',
 ];
 
 export const JSON_RPC_PROVIDER: { [chainId in ChainId]: JsonRpcProvider } = {
